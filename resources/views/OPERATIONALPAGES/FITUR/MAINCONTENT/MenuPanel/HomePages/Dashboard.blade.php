@@ -1,0 +1,7 @@
+    @include('OPERATIONALPAGES.SECTION.Videoplay')
+    @include('OPERATIONALPAGES.SECTION.Marquee')
+    @include('OPERATIONALPAGES.SECTION.Aboutus')
+    @include('OPERATIONALPAGES.SECTION.WhyUs')
+    @include('OPERATIONALPAGES.SECTION.Review')
+    @include('OPERATIONALPAGES.SECTION.PictReview')
+    @include('OPERATIONALPAGES.SECTION.FAQ')

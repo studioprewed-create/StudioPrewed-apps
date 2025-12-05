@@ -1,0 +1,196 @@
+/* ============================
+   SECTION: HERO / VIDEOPLAY
+   ============================ */
+
+.hero {
+    height: 100vh;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* background video & image container */
+.hero-carousel {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.hero-carousel .carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* setiap slide */
+.hero-carousel .carousel-item {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.04);
+    transition: opacity 0.9s ease-out, transform 1.4s ease-out;
+}
+
+.hero-carousel .carousel-item.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+/* video RAW (tag video langsung) */
+.hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* video dari DB (dibungkus .video-wrapper) */
+.video-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100vh;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* image mode (non-video) */
+.ci {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* overlay supaya text terlihat */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+        radial-gradient(circle at 20% 0%, rgba(0,0,0,0.45), transparent 55%);
+    z-index: -1;
+}
+
+/* konten teks kalau kamu nanti ada */
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    color: var(--white);
+    z-index: 2;
+    text-align: center;
+}
+
+/* judul */
+.hero h1 {
+    font-size: 3.8rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+/* highlight */
+.hero h1 span {
+    color: var(--accent);
+    font-weight: 400;
+}
+
+/* subtext intro */
+.hero p {
+    opacity: 0;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--light-gray);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    animation: fadeInUp 1s ease-out 0.2s forwards;
+}
+
+/* pagination dots */
+.carousel-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+}
+
+.carousel-control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--white);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.carousel-control.active {
+    background: var(--accent);
+    transform: scale(1.2);
+}
+
+/* fadeUp animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================
+   Responsive
+   ============================ */
+
+@media (max-width: 1024px) {
+    .hero {
+        min-height: 700px;
+    }
+    .hero h1 {
+        font-size: 3.2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero {
+        padding: 0 1.5rem;
+    }
+    .hero h1 {
+        font-size: 2.6rem;
+    }
+    .hero p {
+        font-size: .95rem;
+        margin-bottom: 2rem;
+    }
+    .carousel-controls {
+        bottom: 22px;
+    }
+}

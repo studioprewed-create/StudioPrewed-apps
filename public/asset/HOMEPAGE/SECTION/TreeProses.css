@@ -1,0 +1,192 @@
+/* ============================
+   SECTION: PROCESS / TREE PROSES
+   (dipakai di dalam #portrait-services)
+   ============================ */
+
+/* Kalau di tempat lain kamu pakai .process-section sebagai section penuh,
+   ini tetap disiapkan biar kompatibel. */
+.process-section {
+    padding: 1rem 0%;
+    background-color: #000;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* header kecil di atas timeline */
+.section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* container logo di atas step */
+.aboutus-logo-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--line, #1b2a2f);
+    background: rgba(0, 0, 0, 0.45);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+}
+
+.aboutus-logo-container .logo-img {
+    width: 120px;
+    height: auto;
+    display: block;
+}
+
+/* judul & paragraf jika dipakai di dalam section-header */
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.section-header p {
+    color: #ccc;
+    font-size: 1rem;
+    max-width: 700px;
+    margin: 0.5rem auto;
+    line-height: 1.8;
+}
+
+/* ============================
+   TIMELINE VERTICAL
+   ============================ */
+
+.process-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 2rem auto 0;
+    padding: 1rem 0 2rem;
+}
+
+/* garis vertikal di tengah */
+.process-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: #333;
+    transform: translateX(-50%);
+}
+
+/* setiap step */
+.process-item {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 1.5rem 0;
+}
+
+/* selang-seling kiri kanan */
+.process-item:nth-child(odd) {
+    flex-direction: row-reverse;
+}
+
+/* icon bulat di tengah garis */
+.process-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #111;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.6rem;
+    z-index: 2;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,.6);
+}
+
+.process-item:hover .process-icon {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.08);
+}
+
+/* teks di kanan/kiri icon */
+.process-content {
+    background: transparent;
+    color: #ccc;
+    padding: 1rem 2rem;
+    width: 45%;
+}
+
+.process-item:nth-child(odd) .process-content {
+    text-align: right;
+}
+
+.process-item:nth-child(even) .process-content {
+    text-align: left;
+}
+
+.process-content h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.4rem;
+}
+
+.process-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #bbb;
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+@media (max-width: 900px) {
+    .process-timeline::before {
+        left: 32px;
+        transform: none;
+    }
+
+    .process-item,
+    .process-item:nth-child(odd) {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .process-icon {
+        margin-right: 1rem;
+    }
+
+    .process-content {
+        width: auto;
+        padding: 0.5rem 0 0.5rem 1rem;
+        text-align: left !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .process-timeline {
+        padding-inline: 1rem;
+    }
+
+    .process-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 1.3rem;
+    }
+
+    .process-content h3 {
+        font-size: 1.15rem;
+    }
+
+    .process-content p {
+        font-size: .95rem;
+    }
+}

@@ -1,0 +1,85 @@
+/* === HEADER & NAVBAR === */
+
+#siteHeader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 5%;
+    transition: var(--transition);
+    mix-blend-mode: difference;
+    color: var(--cream); 
+    background: transparent;
+}
+
+#siteHeader.scrolled {
+    background: rgba(30, 30, 30, 0.96); 
+    backdrop-filter: none;
+    padding: 1rem 5%;
+    mix-blend-mode: normal;
+    color: #fff;
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    width: 45px;
+    height: auto;
+    transition: var(--transition);
+    filter: invert(1);
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: inherit;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+nav a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--white);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a.active::after {
+    width: 100%;
+}
+
+nav a.active {
+    color: var(--white);
+}

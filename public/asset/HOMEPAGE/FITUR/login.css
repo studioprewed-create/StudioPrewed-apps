@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    background: url('../SPlogo/BGlogin.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    background: rgba(0, 0, 0, 0.6); 
+    padding: 40px 40px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    color: white;
+}
+
+.logo {
+    width: 250px;
+    margin-bottom: 5px;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.login-box input {
+    width: 80%;
+    padding: 12px 15px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+}
+
+
+/* Tombol login */
+.btn-login {
+    width: 50%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #555;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.btn-login:hover {
+    background: #777;
+}
+
+
+/* Teks bawah */
+.login-box p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+
+.login-box a {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+
+/* Tombol register */
+.btn-register {
+    display: block;
+    margin-top: 10px;
+    padding: 12px;
+    background: #555;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+
+.btn-register:hover {
+    background: #777;
+}
+
+
+.reg-link{
+  --bg1: #3a3a3a;      
+  --bg2: #2a2a2a;
+  --bd: rgba(255,255,255,.08);
+  --tx: #fff;
+  --glow: #00ffe5;
+
+
+  display:inline-block;
+  padding:.85rem 1.25rem;
+  border-radius:999px;
+  background: linear-gradient(145deg, var(--bg1), var(--bg2));
+  color: var(--tx);
+  text-decoration:none;
+  border:1px solid var(--bd);
+  box-shadow: 6px 6px 12px #2a2a2a, -6px -6px 12px #4a4a4a;
+  position:relative;
+  overflow:hidden;
+  transition: transform .18s ease, box-shadow .25s ease, filter .25s ease;
+}
+
+.reg-link:hover{
+  transform: translateY(-2px);
+  box-shadow: 10px 10px 20px #252525, -10px -10px 20px #454545,
+              0 0 0 3px rgba(0,255,229,.15) inset;
+  color: var(--tx);
+}
+
+.reg-link::after{
+  content:'';
+  position:absolute;
+  top:0; left:-120%;
+  width:120%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+}
+.reg-link:hover::after{ left:120%; }
+
+.reg-link:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,255,229,.35);
+}
+.reg-link.center { display:block; text-align:center; width:100%; }
+

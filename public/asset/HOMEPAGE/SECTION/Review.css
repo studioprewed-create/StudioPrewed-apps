@@ -1,0 +1,619 @@
+/* ============================
+   SECTION: REVIEW INTRO (judul kecil before slider)
+   ============================ */
+
+section#about.services-section {
+    /* ini share dengan Aboutus, boleh dibiarkan apa adanya di Aboutus.css
+       di sini kita hanya pastikan heading-nya punya sedikit jarak */
+}
+
+#about .about-wrap {
+    margin-bottom: 1.5rem;
+}
+
+
+/* ============================
+   BUTTON: TAMBAH REVIEW (btn-modal)
+   ============================ */
+
+.btn-modal {
+    --ac: var(--accent-primary, #6366f1);
+    --tx: var(--text-primary, #f0f0f0);
+    --bg: var(--dark-card, #2d2d2d);
+    --bd: var(--dark-border, #404040);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .7rem 1.05rem;
+    border-radius: 12px;
+    border: 1px solid color-mix(in oklab, var(--ac) 55%, var(--bd));
+    color: var(--tx);
+    background:
+        linear-gradient(180deg, color-mix(in oklab, var(--bg) 70%, #000), #171717) padding-box,
+        linear-gradient(90deg, color-mix(in oklab, var(--ac) 85%, #fff), color-mix(in oklab, var(--ac) 45%, #000)) border-box;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 6px 18px rgba(0,0,0,.35);
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: .2px;
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+}
+
+.btn-modal__icon {
+    flex: 0 0 auto;
+    opacity: .95;
+}
+
+.btn-modal:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 10px 28px color-mix(in oklab, var(--ac) 20%, rgba(0,0,0,.2));
+    filter: saturate(1.05);
+}
+
+.btn-modal:active { transform: translateY(0); }
+
+.btn-modal:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px color-mix(in oklab, var(--ac) 25%, transparent),
+        0 0 0 6px color-mix(in oklab, var(--ac) 12%, transparent);
+}
+
+.btn-modal::after {
+    content:"";
+    position:absolute;
+    inset:-30% -10%;
+    transform: translateX(-120%) rotate(12deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+    filter: blur(2px);
+    transition: transform .6s ease;
+    pointer-events: none;
+}
+
+.btn-modal:hover::after {
+    transform: translateX(120%) rotate(12deg);
+}
+
+.btn-modal.is-loading {
+    pointer-events: none;
+    opacity: .85;
+}
+.btn-modal.is-loading span {
+    opacity: 0;
+}
+.btn-modal.is-loading::before {
+    content:"";
+    width:16px; height:16px;
+    border:2px solid rgba(255,255,255,.35);
+    border-top-color:#fff;
+    border-radius:50%;
+    position:absolute; left:50%; top:50%;
+    transform: translate(-50%,-50%);
+    animation: spin .9s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+@media (max-width:560px) {
+    .btn-modal {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* ============================
+   TESTIMONIAL SLIDER (section#testi)
+   ============================ */
+
+#testi {
+    padding: 3rem 5% 1rem;
+}
+
+.testi-container {
+    display: flex;
+    align-items: stretch;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+}
+
+/* kita sedikit perkecil kolom review (left) sehingga terasa lebih “rapi” */
+.testi-left {
+    flex: 0 1 55%;
+    display: flex;
+    min-width: 0;
+}
+
+.testi-right {
+    flex: 0 1 45%;
+    display: flex;
+    min-width: 0;
+}
+
+.testi-wrap {
+    flex: 1;
+    display: flex;
+}
+
+.slider {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #0f0f12;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+}
+
+.slides {
+    flex: 1;
+    display: flex;
+    transition: transform .35s ease;
+}
+
+/* CARD TESTI INDIVIDU */
+.t-item {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 80px;
+}
+
+/* top: avatar + nama */
+.t-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+/* avatar */
+.avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand, #7bd4ff), var(--brand-2, #fbbf24));
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    flex: 0 0 52px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+}
+
+/* nama */
+.t-name {
+    font-weight: 800;
+    color: #f7f4ea;
+    font-size: 1.05rem;
+}
+
+/* rating */
+.t-stars {
+    margin: 4px 0 10px;
+    color: #e8c86a;
+    font-size: .95rem;
+}
+
+/* isi review – DIBESARKAN sesuai request */
+.t-quote {
+    color: #e8e3d7;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-top: 4px;
+    overflow-wrap: anywhere;
+}
+
+/* tombol next/prev */
+.t-nav {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.t-btn {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #141418;
+    color: #efeadd;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.t-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.45);
+    background: #1a1a20;
+}
+
+/* ============================
+   MEDIA DI SAMPING (testi-right)
+   ============================ */
+
+.testi-media {
+    flex: 1;
+    display: flex;
+    width: 100%;
+}
+
+.testi-media-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(140px, 1fr);
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.testi-media-grid img:nth-child(n+3) {
+    display: none;
+}
+
+.testi-media-grid img,
+.testi-media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    background: #0f0f12;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    display: block;
+}
+
+/* ============================
+   CTA “SELENGKAPNYA” / “SEMBUNYIKAN”
+   ============================ */
+
+.reviews-cta,
+.reviews-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0 0;
+}
+
+.btn-reviews {
+    appearance: none;
+    border: 1px solid var(--line, #2a2a2f);
+    background: #141418;
+    color: #efeadd;
+    padding: .75rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      transform .15s ease,
+      border-color .2s ease,
+      background .2s ease,
+      box-shadow .2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+
+.btn-reviews:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent, #e8c86a);
+    box-shadow: 0 8px 24px rgba(0,0,0,.45);
+}
+
+.btn-reviews:active {
+    transform: translateY(0);
+}
+
+.btn-reviews[hidden] {
+    display: none !important;
+}
+
+.btn-reviews.is-ghost {
+    background: transparent;
+    border-color: var(--line, #2a2a2f);
+    color: #cfcac0;
+}
+.btn-reviews.is-ghost:hover {
+    background: rgba(255,255,255,.06);
+    border-color: var(--accent, #e8c86a);
+}
+
+@media (max-width:640px){
+  .reviews-cta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-reviews {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+
+/* ============================
+   FULL REVIEWS LIST (section#reviewsSection)
+   ============================ */
+
+.reviews-section {
+    padding: 2rem 5% 3rem;
+    background: var(--dark, #0b0b0f);
+}
+
+.reviews-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px solid var(--medium-gray);
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.reviewer-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.85rem;
+    border: 2px solid var(--accent);
+}
+
+.reviewer-info h4 {
+    margin-bottom: 0.15rem;
+    font-size: 1rem;
+}
+
+.reviewer-info p {
+    color: var(--accent);
+    font-size: 0.88rem;
+}
+
+.review-stars {
+    color: var(--accent);
+    margin-bottom: .5rem;
+    font-size: .9rem;
+}
+
+.review-content {
+    color: var(--light-gray);
+    line-height: 1.6;
+    font-style: italic;
+    font-size: .98rem;
+}
+
+.review-date {
+    display: block;
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+}
+
+
+/* ============================
+   MODAL REVIEW (.rf-modal)
+   ============================ */
+
+/* overlay */
+.rf-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.rf-modal[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.rf-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(2px);
+}
+
+/* panel */
+.rf-modal__panel {
+  position: fixed;
+  left: 50%;
+  top: 8vh;
+  transform: translateX(-50%);
+  width: min(720px, 92vw);
+  background: #1f1f23;
+  border: 1px solid #404040;
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+  z-index: 1001;
+  color: #f0f0f0;
+  box-shadow: 0 10px 40px rgba(0,0,0,.4);
+  animation: rf-pop .22s ease-out;
+}
+
+/* title & close */
+.rf-modal__title {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.rf-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+@keyframes rf-pop {
+  from { transform: translate(-50%, 8px); opacity: .6; }
+  to   { transform: translate(-50%, 0);  opacity: 1; }
+}
+
+/* form */
+.review-form {
+  background: #26262a;
+  border: 1px solid #404040;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.review-form .rf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.review-form .rf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.review-form label {
+  color: #f0f0f0;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.review-form label span {
+  color: #b0b0b0;
+  font-weight: 400;
+}
+
+.review-form .rf-input {
+  background: #1f1f1f;
+  color: #f0f0f0;
+  border: 1px solid #404040;
+  border-radius: 10px;
+  padding: .6rem .75rem;
+  outline: none;
+  transition: .18s ease;
+  width: 100%;
+  font-size: .95rem;
+}
+
+.review-form .rf-input::placeholder {
+  color: #9f9f9f;
+}
+
+.review-form .rf-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,.22);
+}
+
+.review-form input[type="number"] {
+  -moz-appearance: textfield;
+  text-align: center;
+}
+.review-form input[type="number"]::-webkit-outer-spin-button,
+.review-form input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.review-form .rf-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.review-form .rf-btn {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  padding: .6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: .95rem;
+  transition: .18s ease;
+}
+
+.review-form .rf-btn:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+.review-form .rf-btn:active {
+  transform: translateY(0);
+}
+
+.rf-btn--ghost {
+  background: transparent;
+  border: 1px solid #404040;
+  color: #b0b0b0;
+}
+.rf-btn--ghost:hover {
+  background: rgba(255,255,255,.06);
+}
+
+@media (max-width: 720px) {
+  .review-form .rf-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1100px) {
+  .testi-container {
+    flex-wrap: wrap;
+  }
+  .testi-left,
+  .testi-right {
+    flex: 1 1 100%;
+  }
+  .testi-media-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
+    height: auto;
+  }
+}

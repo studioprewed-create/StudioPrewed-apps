@@ -1,0 +1,153 @@
+/* ============================
+   SECTION TITLE "APA KATA MEREKA"
+   (#services)
+   ============================ */
+
+section#services.services-section {
+    padding: 80px 0 32px;
+    background: var(--black);
+}
+
+#services .why-wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#services .head {
+    text-align: center;
+}
+
+#services .head h2 {
+    font-size: clamp(2.1rem, 4vw, 2.6rem);
+}
+
+#services .head p {
+    font-size: 1rem;
+    color: var(--text-secondary, #9fb0cc);
+}
+
+
+/* ============================
+   FAQ SECTION
+   ============================ */
+
+.faq-section {
+    padding: 64px 5% 96px;
+    background: radial-gradient(circle at top, rgba(124,155,255,.06), transparent 50%),
+                var(--black);
+}
+
+.faq-container {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+/* list wrapper */
+.faq-list {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* item */
+.faq-item {
+    border-radius: 14px;
+    background: rgba(22,22,26, .92);
+    border: 1px solid var(--border, #2a2a2f);
+    padding: 1rem 1.25rem;
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .18s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-primary, #7c9bff);
+    box-shadow: 0 10px 28px rgba(0,0,0,.5);
+}
+
+/* header Q */
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: .25rem 0;
+    gap: 1rem;
+}
+
+.faq-question h3 {
+    font-size: 1.05rem;       /* DIBESARKAN */
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+}
+
+.faq-question i {
+    font-size: .9rem;
+    transition: transform .25s ease;
+}
+
+/* jawaban */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    color: var(--text-light, #b0b0b0);
+    line-height: 1.7;
+    font-size: .96rem;
+    padding-top: 0;
+    transition:
+        max-height .3s ease,
+        padding-top .2s ease;
+}
+
+/* aktif (dibuka) – JS kamu sudah menambah .active */
+.faq-item.active .faq-answer {
+    max-height: 260px;        /* cukup untuk jawaban panjang sedang */
+    padding-top: .6rem;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+/* garis kecil visual */
+.faq-item + .faq-item {
+    margin-top: .25rem;
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+@media (max-width: 768px) {
+    .faq-section {
+        padding-inline: 6%;
+    }
+
+    .faq-item {
+        padding: .85rem 1rem;
+    }
+
+    .faq-question h3 {
+        font-size: 1rem;
+    }
+
+    .faq-answer {
+        font-size: .94rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #services .head h2 {
+        font-size: 1.9rem;
+    }
+
+    .faq-container {
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,3 @@
+@include('OPERATIONALPAGES.SECTION.Videoplay')
+@include('OPERATIONALPAGES.SECTION.Promo')
+@include('OPERATIONALPAGES.SECTION.Addon')
