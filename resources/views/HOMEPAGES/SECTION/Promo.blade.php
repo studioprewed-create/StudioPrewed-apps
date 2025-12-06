@@ -4,7 +4,7 @@
     @foreach($promos as $i => $p)
         <div class="promo-slide {{ $i === 0 ? 'is-active' : '' }}">
         <img
-            src="{{ asset('storage/'.$p->image) }}"
+            src="{{ asset('public/storage/'.$p->image) }}"
             alt="Promo {{ $i+1 }}"
             class="promo-img"
             loading="lazy">

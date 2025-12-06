@@ -17,7 +17,7 @@
             @foreach($model1 as $item)
                 @if(!empty($item->all_image_urls))
                     <div class="mosaic-item mosaic-main">
-                        <img src="{{ $item->all_image_urls[0] ?? asset('asset/IMGhome/default.jpg') }}" alt="Portrait">
+                        <img src="{{ $item->all_image_urls[0] ?? asset('public/asset/IMGhome/default.jpg') }}" alt="Portrait">
                     </div>
                 @endif
 

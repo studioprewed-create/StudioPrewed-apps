@@ -39,7 +39,7 @@
     <div class="row g-3">
       @foreach($services ?? [] as $svc)
         @php
-          $img = $svc->image ? asset('storage/'.$svc->image) : asset('asset/IMGhome/default.jpg');
+          $img = $svc->image ? asset('public/storage/'.$svc->image) : asset('asset/IMGhome/default.jpg');
         @endphp
         <div class="col-md-4">
           <div class="block-rel p-2 border rounded">

@@ -17,7 +17,7 @@
 
         <div class="row">
           @forelse($heroes as $h)
-            @php $thumb = $h->image ? asset('storage/'.$h->image) : asset('asset/IMGhome/bg1.jpg'); @endphp
+            @php $thumb = $h->image ? asset('public/storage/'.$h->image) : asset('asset/IMGhome/bg1.jpg'); @endphp
             <div class="col-md-3">
               <div class="block-rel" data-hero-id="{{ $h->id }}">
                 <div class="admin-badge">Hero #{{ $h->id }}</div>

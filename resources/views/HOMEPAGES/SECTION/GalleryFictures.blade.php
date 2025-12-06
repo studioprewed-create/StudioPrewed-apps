@@ -36,7 +36,7 @@
     <div class="gallery-grid">
         @forelse($galleries as $g)
             @php
-            $img = $g->image ? asset('storage/'.$g->image) : asset('asset/IMGhome/bg1.jpg');
+            $img = $g->image ? asset('public/storage/'.$g->image) : asset('asset/IMGhome/bg1.jpg');
             $cat = $g->category ?: 'prewed';
             @endphp
             <div class="gallery-item" data-category="{{ $cat }}" data-img="{{ $img }}">

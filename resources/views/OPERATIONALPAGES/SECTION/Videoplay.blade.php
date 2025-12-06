@@ -35,7 +35,7 @@
 
         <div class="row">
           @foreach($slides as $slide)
-            @php $path = $slide->image ? asset('storage/'.$slide->image) : null; @endphp
+            @php $path = $slide->image ? asset('public/storage/'.$slide->image) : null; @endphp
             <div class="col-md-3">
               <div class="block-rel" data-slide-id="{{ $slide->id }}">
                 <div class="admin-badge">Slide #{{ $slide->id }}</div>

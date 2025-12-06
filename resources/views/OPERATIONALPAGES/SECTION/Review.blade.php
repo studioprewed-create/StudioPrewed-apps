@@ -31,7 +31,7 @@
                 <div class="admin-badge">Review #{{ $r->id }}</div>
                 <div class="img-picker" data-type="review" data-id="{{ $r->id }}"><i class="fas fa-image"></i> Ganti</div>
                 <div style="display:flex;gap:10px;align-items:center">
-                  <img src="{{ $r->avatar ? asset('storage/'.$r->avatar) : 'https://via.placeholder.com/80' }}" style="width:72px;height:72px;border-radius:8px;object-fit:cover">
+                  <img src="{{ $r->avatar ? asset('public/storage/'.$r->avatar) : 'https://via.placeholder.com/80' }}" style="width:72px;height:72px;border-radius:8px;object-fit:cover">
                   <div>
                     <div contenteditable="true" class="contenteditable" data-field="name" data-id="{{ $r->id }}">{{ $r->name }}</div>
                     <div contenteditable="true" class="contenteditable" data-field="role" data-id="{{ $r->id }}">{{ $r->role }}</div>

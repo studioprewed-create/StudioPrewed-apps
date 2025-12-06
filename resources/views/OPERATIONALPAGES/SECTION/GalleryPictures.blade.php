@@ -47,7 +47,7 @@
         <div class="row">
             @forelse($galleries as $g)
             @php
-                $thumb = $g->image ? asset('storage/'.$g->image) : asset('asset/IMGhome/bg1.jpg');
+                $thumb = $g->image ? asset('public/storage/'.$g->image) : asset('asset/IMGhome/bg1.jpg');
                 $opts = [
                 'prewed' => 'Prewed Session',
                 'family' => 'Family Session',

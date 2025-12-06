@@ -32,7 +32,7 @@
 
         <div class="row">
           @forelse($promos as $p)
-            @php $thumb = $p->image ? asset('storage/'.$p->image) : asset('asset/IMGhome/bg1.jpg'); @endphp
+            @php $thumb = $p->image ? asset('public/storage/'.$p->image) : asset('asset/IMGhome/bg1.jpg'); @endphp
             <div class="col-md-3">
               <div class="block-rel" data-promo-id="{{ $p->id }}">
                 <div class="admin-badge">Promo #{{ $p->id }}</div>

@@ -8,7 +8,7 @@
 
             <div class="section-header">
                 <div class="aboutus-logo-container">
-                    <img src="{{asset('asset/PICTURESET/LOGOSPREGISTRASIDARK.png') }}" alt="Logo" class="logo-img">
+                    <img src="{{asset('public/asset/PICTURESET/LOGOSPREGISTRASIDARK.png') }}" alt="Logo" class="logo-img">
                 </div>
             </div>
 

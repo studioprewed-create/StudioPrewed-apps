@@ -38,7 +38,7 @@
                 <div class="admin-badge mb-1">{{ ucfirst($data->model_type) }} #{{ $data->id }}</div>
                 <div class="d-flex flex-wrap gap-2 mb-2">
                   @foreach($imagePaths as $img)
-                    @php $path = Str::startsWith($img, 'http') ? $img : asset('storage/'.$img); @endphp
+                    @php $path = Str::startsWith($img, 'http') ? $img : asset('public/storage/'.$img); @endphp
                     <div class="ci" style="width:80px;height:80px;background-image:url('{{ $path }}'); background-size:cover; background-position:center;"></div>
                   @endforeach
                 </div>

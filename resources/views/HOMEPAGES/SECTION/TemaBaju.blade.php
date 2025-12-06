@@ -18,7 +18,7 @@
                     @foreach($temas as $t)
                         @php
                             $images = $t->images ? json_decode($t->images, true) : [];
-                            $first  = count($images) ? asset('storage/'.$images[0]) : asset('asset/IMGhome/bg1.jpg');
+                            $first  = count($images) ? asset('public/storage/'.$images[0]) : asset('asset/IMGhome/bg1.jpg');
                         @endphp
                         <div class="gallery-item" data-index="{{ $loop->index }}">
                             <img src="{{ $first }}" alt="{{ $t->nama }}">

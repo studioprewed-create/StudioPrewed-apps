@@ -29,7 +29,7 @@
                         <div class="avatar">
                             <img
                             src="{{ !empty($r->image) 
-                                    ? asset('storage/'.$r->image) 
+                                    ? asset('public/storage/'.$r->image) 
                                     : (!empty($r->avatar) 
                                         ? asset('storage/'.$r->avatar) 
                                         : 'https://via.placeholder.com/100') }}"
@@ -71,7 +71,7 @@
                     <div class="testi-media-grid">
                         @foreach($heroes as $hero)
                         <img
-                            src="{{ asset('storage/'.$hero->image) }}"
+                            src="{{ asset('public/storage/'.$hero->image) }}"
                             alt="Studio Prewed Team"
                             loading="lazy"
                             onerror="this.onerror=null;this.src='{{ asset('asset/IMGhome/bg1.jpg') }}'">

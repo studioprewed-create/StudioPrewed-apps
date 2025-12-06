@@ -12,7 +12,7 @@
         <div class="features" role="list">
             @foreach($portraitServices ?? [] as $svc)
                 @php
-                    $img = $svc->image ? asset('storage/'.$svc->image) : asset('asset/IMGhome/default.jpg');
+                    $img = $svc->image ? asset('public/storage/'.$svc->image) : asset('asset/IMGhome/default.jpg');
                     $cat = $svc->category ?? 'prewed'; // prewed / family / maternity / ...
                 @endphp
 
