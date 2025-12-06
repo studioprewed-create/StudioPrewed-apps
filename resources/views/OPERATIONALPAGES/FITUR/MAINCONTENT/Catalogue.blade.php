@@ -170,7 +170,7 @@
                                     data-tipe="{{ $t->tipe }}"
                                     data-designer="{{ $t->designer }}"
                                     data-detail="{{ $t->detail }}"
-                                    data-images='@json($t->images_array)'>
+                                    data-images='@json($t->all_image_urls)'>
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
 

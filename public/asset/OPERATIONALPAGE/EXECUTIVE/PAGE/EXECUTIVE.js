@@ -10,13 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ============ HELPER ============ */
     const isHttpUrl = (str) => /^https?:\/\//i.test(str);
 
-    const buildImageUrl = (path) => {
+   const buildImageUrl = (path) => {
         if (!path) return '';
         if (isHttpUrl(path)) return path;
 
-        if (!path.startsWith('storage/')) {
-            return '/storage/' + path.replace(/^\/+/, '');
+        if (!path.startsWith('storage/') && !path.startsWith('public/storage/')) {
+            return '/public/storage/' + path.replace(/^\/+/, '');
         }
+
         return '/' + path.replace(/^\/+/, '');
     };
 

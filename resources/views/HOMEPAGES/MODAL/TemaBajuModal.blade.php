@@ -13,7 +13,7 @@
     $nextId  = $temasArr[$nextIdx]->id;
 
     $imgs    = $t->images ? json_decode($t->images, true) : [];
-    $imgUrls = collect($imgs)->map(fn($p)=>asset('storage/'.$p))->all();
+    $imgUrls = collect($imgs)->map(fn($p)=>asset('public/storage/'.$p))->all();
     if (empty($imgUrls)) { $imgUrls = [asset('asset/IMGhome/bg1.jpg')]; }
   @endphp
 
