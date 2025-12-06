@@ -1,3 +1,7 @@
+ @php
+    use Illuminate\Support\Str;
+@endphp
+
  <section class="hero" id="home">
         <div class="hero-carousel">
             <div class="carousel-inner">
