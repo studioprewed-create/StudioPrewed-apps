@@ -50,7 +50,7 @@ class TemaBaju extends Model
         if (file_exists(public_path($first))) {
             return asset($first);
         }
-        if (file_exists(storage_path('storage/' . $first))) {
+        if (file_exists(storage_path('public/storage/' . $first))) {
             return asset('public/storage/' . $first);
         }
 
