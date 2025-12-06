@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Studio Prewed | Fotografi Klasik Modern</title>
-    <link rel="stylesheet" href="{{ asset('asset/HOMEPAGE/PAGE/Portofolio.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Portofolio.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />

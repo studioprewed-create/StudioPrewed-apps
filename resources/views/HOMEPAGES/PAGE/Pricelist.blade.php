@@ -8,7 +8,7 @@
     <title>Studio Prewed | Fotografi Klasik Modern</title>
 
     {{-- Main stylesheet --}}
-    <link rel="stylesheet" href="{{ asset('asset/HOMEPAGE/PAGE/Pricelist.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.css') }}">
 
     {{-- Fonts & Icons --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

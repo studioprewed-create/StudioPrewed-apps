@@ -946,7 +946,7 @@ class EXECUTIVEController extends Controller
                     'is_active' => $request->boolean('is_active', true),
                 ]);
             }
-             elseif ($section === 'bookingclient') {
+            elseif ($section === 'bookingclient') {
                 // Booking dari ADMIN untuk JadwalPesanan
 
                 $v = $request->validate([
@@ -1753,7 +1753,7 @@ class EXECUTIVEController extends Controller
                     ->with('success', 'Tema baju berhasil dihapus.');
             }
 
-            public function storePackage(Request $request)
+        public function storePackage(Request $request)
             {
                 $request->validate([
                     'nama_paket' => 'required|string|max:255',
@@ -1837,18 +1837,18 @@ class EXECUTIVEController extends Controller
             }
 
         public function destroyPackage(Package $package)
-        {
-            // hapus file gambar di storage, kalau ada
-            if ($package->images) {
-                Storage::disk('public')->delete($package->images);
+            {
+                // hapus file gambar di storage, kalau ada
+                if ($package->images) {
+                    Storage::disk('public')->delete($package->images);
+                }
+
+                $package->delete();
+
+                return redirect()
+                    ->route('executive.catalogue')
+                    ->with('success', 'Package berhasil dihapus.');
             }
-
-            $package->delete();
-
-            return redirect()
-                ->route('executive.catalogue')
-                ->with('success', 'Package berhasil dihapus.');
-        }
     
     private function loadPage(Request $request, $page)
         {
