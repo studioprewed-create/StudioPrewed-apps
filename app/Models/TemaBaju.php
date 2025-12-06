@@ -45,15 +45,30 @@ class TemaBaju extends Model
             return 'https://via.placeholder.com/400x220?text=No+Image';
         }
 
-        $first = $images[0];
-
-        if (file_exists(public_path($first))) {
-            return asset($first);
-        }
-        if (file_exists(storage_path('public/storage/' . $first))) {
+        $first = ltrim($images[0], '/');
+        $diskPath = public_path('storage/' . $first);
+        if (file_exists($diskPath)) {
             return asset('public/storage/' . $first);
         }
 
         return 'https://via.placeholder.com/400x220?text=No+Image';
+    }
+    public function getAllImageUrlsAttribute()
+    {
+        $images = $this->images_array;
+        if (count($images) === 0) {
+            return ['https://via.placeholder.com/400x220?text=No+Image'];
+        }
+
+        return collect($images)->map(function ($path) {
+            $clean = ltrim($path, '/');
+            $diskPath = public_path('storage/' . $clean);
+
+            if (file_exists($diskPath)) {
+                return asset('public/storage/' . $clean);
+            }
+
+            return 'https://via.placeholder.com/400x220?text=No+Image';
+        })->all();
     }
 }
