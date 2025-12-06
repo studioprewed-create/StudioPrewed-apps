@@ -18,7 +18,7 @@
                 @else
                     @foreach($slides as $slide)
                         @php
-                            $path = $slide->image ? asset('storage/'.$slide->image) : null;
+                            $path = $slide->image ? asset('public/storage/'.$slide->image) : null;
                         @endphp
 
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
