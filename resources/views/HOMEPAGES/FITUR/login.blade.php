@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Prewed | Login</title>
-    <link rel="stylesheet" href="{{ asset('asset/HOMEPAGE/FITUR/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/FITUR/login.css') }}">
 </head>
 <style>
     
