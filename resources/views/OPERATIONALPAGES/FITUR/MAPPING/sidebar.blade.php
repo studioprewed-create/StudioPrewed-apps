@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="logo">
         <a href="{{ route('executive.dashboard') }}">
-            <img src="{{ asset('asset/PICTURESET/LOGOSPREGISTRASI.png') }}" alt="Logo Studio Prewed">
+            <img src="{{ asset('public/asset/PICTURESET/LOGOSPREGISTRASI.png') }}" alt="Logo Studio Prewed">
         </a>
     </div>
 

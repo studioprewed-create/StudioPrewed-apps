@@ -1,6 +1,6 @@
 <header id="siteHeader">
     <div class="brand-wrapper">
-        <img src="{{asset('asset/PICTURESET/LOGOSPDASHBOARD.png') }}" alt="Logo" class="logo-img">
+        <img src="{{asset('public/asset/PICTURESET/LOGOSPDASHBOARD.png') }}" alt="Logo" class="logo-img">
         <span class="brand">Studio Prewed</span>
     </div>
     <nav aria-label="Main navigation">

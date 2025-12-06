@@ -53,6 +53,6 @@
     </script>
 
     {{-- Main JS --}}
-    <script src="{{ asset('asset/HOMEPAGE/PAGE/Pricelist.js') }}"></script>
+    <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.js') }}"></script>
 </body>
 </html>

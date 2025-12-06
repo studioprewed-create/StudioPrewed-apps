@@ -28,6 +28,6 @@
             @endif
         </div>
     </div>
-    <script src="{{ asset('asset/OPERATIONALPAGE/EXECUTIVE/PAGE/EXECUTIVE.js') }}"></script>
+    <script src="{{ asset('public/asset/OPERATIONALPAGE/EXECUTIVE/PAGE/EXECUTIVE.js') }}"></script>
 </body>
 </html>
