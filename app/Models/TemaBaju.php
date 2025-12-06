@@ -29,11 +29,6 @@ class TemaBaju extends Model
         'order'  => 'integer',
         'active' => 'boolean',
     ];
-
-    /**
-     * Accessor: $temaBaju->images_array
-     * mengembalikan array path gambar dari kolom JSON `images`
-     */
     public function getImagesArrayAttribute()
     {
         if (!$this->images) {
@@ -43,10 +38,6 @@ class TemaBaju extends Model
         $decoded = json_decode($this->images, true);
         return is_array($decoded) ? $decoded : [];
     }
-
-    /**
-     * Helper: ambil satu gambar utama (untuk thumbnail)
-     */
     public function getMainImageAttribute()
     {
         $images = $this->images_array;
@@ -56,14 +47,11 @@ class TemaBaju extends Model
 
         $first = $images[0];
 
-        // kalau path ada di public/
         if (file_exists(public_path($first))) {
             return asset($first);
         }
-
-        // kalau ada di storage/app/public
-        if (file_exists(storage_path('app/public/' . $first))) {
-            return asset('storage/' . $first);
+        if (file_exists(storage_path('storage/' . $first))) {
+            return asset('public/storage/' . $first);
         }
 
         return 'https://via.placeholder.com/400x220?text=No+Image';

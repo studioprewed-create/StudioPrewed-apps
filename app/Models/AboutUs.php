@@ -41,7 +41,7 @@ class AboutUs extends Model
     public function getImageUrlAttribute()
     {
         if (is_array($this->image) && count($this->image) > 0) {
-            return asset('storage/' . $this->image[0]);
+            return asset('public/storage/' . $this->image[0]);
         }
 
         return asset('asset/IMGhome/default.jpg');
@@ -53,7 +53,7 @@ class AboutUs extends Model
     public function getAllImageUrlsAttribute()
     {
         if (is_array($this->image) && count($this->image) > 0) {
-            return collect($this->image)->map(fn($img) => asset('storage/' . $img))->toArray();
+            return collect($this->image)->map(fn($img) => asset('/public/storage/' . $img))->toArray();
         }
 
         return [asset('asset/IMGhome/default.jpg')];
