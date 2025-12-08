@@ -1367,3 +1367,267 @@ footer {
     background: var(--medium-gray);
 }
 
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 4%;
+  }
+
+  #siteHeader {
+    padding: 1.2rem 4%;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .testi-container {
+    padding: 32px 16px;
+  }
+}
+
+/* ===========================
+   RESPONSIVE LEBAR < 768px
+   =========================== */
+@media (max-width: 768px) {
+
+  /* Header & Nav */
+  #siteHeader {
+    padding: 0.9rem 5%;
+    mix-blend-mode: normal;
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .brand-wrapper {
+    gap: 8px;
+  }
+
+  .logo-img {
+    width: 36px;
+  }
+
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  nav {
+    gap: 1.2rem;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 0.8rem;
+  }
+
+  /* Hero section */
+  .hero {
+    min-height: 100vh;
+    height: auto;
+    padding: 0 1.5rem;
+    justify-content: center;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 2.3rem;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+  }
+
+  .cta-group {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .cta-group .cta {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .carousel-controls {
+    bottom: 20px;
+    gap: 8px;
+  }
+
+  .carousel-control {
+    width: 10px;
+    height: 10px;
+  }
+
+  .carousel-nav .nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Process (timeline) */
+  .process-section {
+    padding: 3rem 5%;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .process-timeline {
+    padding: 1.5rem 0 0;
+  }
+
+  .process-timeline::before {
+    left: 24px;       /* pindah garis ke kiri, bukan di tengah */
+  }
+
+  .process-item {
+    flex-direction: row;   /* semua jadi satu arah */
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .process-item:nth-child(odd) {
+    flex-direction: row;   /* override yang zigzag */
+  }
+
+  .process-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.2rem;
+  }
+
+  .process-content {
+    width: auto;
+    padding: 0 0 0 1.5rem;
+    text-align: left !important;
+  }
+
+  .process-content h3 {
+    font-size: 1.05rem;
+  }
+
+  .process-content p {
+    font-size: 0.9rem;
+  }
+
+  /* Testimonial */
+  .testi-container {
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px 16px;
+  }
+
+  .testi-left,
+  .testi-right {
+    flex: 1 1 100%;
+  }
+
+  .t-item {
+    padding: 20px 18px 70px;
+  }
+
+  .testi-media-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 140px;
+  }
+
+  /* Reviews / Selengkapnya */
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .review-card {
+    padding: 1.5rem;
+  }
+
+  /* FAQ */
+  .faq-section {
+    padding: 4rem 5%;
+  }
+
+  .faq-question h3 {
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    padding: 3.5rem 5% 1.5rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-col {
+    text-align: left;
+  }
+
+  .social-links {
+    justify-content: flex-start;
+  }
+
+  .copyright {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+}
+
+/* ===========================
+   RESPONSIVE LEBAR < 480px
+   (HP kecil)
+   =========================== */
+@media (max-width: 480px) {
+
+  .container {
+    padding: 0 4%;
+  }
+
+  #siteHeader {
+    padding: 0.8rem 4%;
+  }
+
+  nav {
+    justify-content: flex-start;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .process-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .process-content {
+    padding-left: 1.2rem;
+  }
+
+  .t-item {
+    padding: 18px 16px 64px;
+  }
+
+  .review-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .reviewer-avatar {
+    width: 50px;
+    height: 50px;
+  }
+}

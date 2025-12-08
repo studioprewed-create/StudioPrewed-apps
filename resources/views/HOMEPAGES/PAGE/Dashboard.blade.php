@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Prewed | Fotografi Klasik Modern</title>
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Dashboard.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
