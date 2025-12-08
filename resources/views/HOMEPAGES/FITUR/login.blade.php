@@ -6,9 +6,6 @@
     <title>Studio Prewed | Login</title>
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/FITUR/login.css') }}">
 </head>
-<style>
-    
-</style>
 <body>
     <div class="login-container">
         <div class="login-box">

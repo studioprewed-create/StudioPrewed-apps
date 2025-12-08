@@ -2,7 +2,7 @@
     <div class="container why-wrap">
         <header class="head" data-reveal>
             <span class="eyebrow">Disusun Untuk Memenuhi Standar Visual Masa Kini</span>
-            <h2 id="portrait-why-title">LAYANAN<span class="hl">KAMI</span>?</h2>
+            <h2 id="portrait-why-title">LAYANAN <span class="hl">KAMI</span>?</h2>
             <p>Mulai dari konsep hingga editing, setiap proses kami lakukan dengan presisi untuk memberikan pengalaman foto terbaik.</p>
         </header>
 
