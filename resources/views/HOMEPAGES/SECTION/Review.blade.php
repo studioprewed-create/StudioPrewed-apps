@@ -1,9 +1,9 @@
 <section class="services-section" id="about" aria-labelledby="portrait-title">
     <div class="container about-wrap">
         <header class="head" data-reveal>
-            <span class="eyebrow">REVIEW</span>
-            <h2 id="portrait-title">WE ARE <span class="hl">PORTRAIT</span> ARTISTS</h2>
-            <p>Kami menghadirkan keindahan setiap individu melalui pencahayaan dramatis, komposisi artistic, dan sentuhan editing yang timeless.</p>
+            <span class="eyebrow">Pengalaman Nyata yang Membangun Kepercayaan</span>
+            <h2 id="portrait-title">ULASAN <span class="hl">KLIEN</span></h2>
+            <p>Komentar dan apresiasi dari klien menjadi cermin dedikasi kami dalam menjaga kualitas.</p>
         </header>
     </div>
 </section>

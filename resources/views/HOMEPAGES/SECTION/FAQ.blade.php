@@ -1,9 +1,9 @@
 <section class="services-section" id="services" aria-labelledby="why-title">
     <div class="container why-wrap">
         <header class="head" data-reveal>
-            <span class="eyebrow">FAQ</span>
-            <h2 id="why-title">APA KATA <span class="hl">MEREKA</span>?</h2>
-            <p>Testimoni dan tanggapan orang orang mengenai Studio Prewed</p>
+            <span class="eyebrow">Semua yang biasanya ditanyakan klien sebelum memotret</span>
+            <h2 id="why-title">FAQ <span class="hl">TANYA & JAWAB</span>?</h2>
+            <p>Dari cara booking hingga waktu pengerjaan foto, semua jawaban yang Anda butuhkan tersedia di sini. Kami menyusunnya sesederhana mungkin agar mudah dipahami.</p>
         </header>
     </div>
 </section>

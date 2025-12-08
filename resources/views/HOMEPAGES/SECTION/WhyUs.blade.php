@@ -1,11 +1,10 @@
 <section class="services-section" id="portrait-services" aria-labelledby="portrait-why-title">
     <div class="container why-wrap">
         <header class="head" data-reveal>
-            <span class="eyebrow">Portrait Services</span>
-            <h2 id="portrait-why-title">WHY OUR <span class="hl">PORTRAIT</span>?</h2>
+            <span class="eyebrow">Karena Setiap Momen Layak Dirayakan</span>
+            <h2 id="portrait-why-title">KENAPA KAMI <span class="hl">?</span>?</h2>
             <p>
-                Kami mengkhususkan diri dalam menciptakan portrait yang bukan hanya cantik,
-                tetapi juga mencerminkan kepribadian dan cerita di balik setiap individu.
+                Kami bekerja dengan rapi dan terukur untuk menghadirkan potret yang autentik, tajam, dan natural.
             </p>
         </header>
 

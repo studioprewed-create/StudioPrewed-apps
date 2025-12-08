@@ -1,9 +1,9 @@
 <section class="services-section" id="about" aria-labelledby="portrait-title">
     <div class="container about-wrap">
         <header class="head" data-reveal>
-            <span class="eyebrow">Portrait Specialist</span>
-            <h2 id="portrait-title">WE ARE <span class="hl">PORTRAIT</span> ARTISTS</h2>
-            <p>Kami menghadirkan keindahan setiap individu melalui pencahayaan dramatis, komposisi artistic, dan sentuhan editing yang timeless.</p>
+            <span class="eyebrow">kami menciptakan momen yang tidak terulang</span>
+            <h2 id="portrait-title">TENTANG <span class="hl">KAMI</span>?</h2>
+            <p>Dalam kontras yang tajam, dalam cahaya yang jatuh perlahan, kami menemukan keindahan yang jarang terlihat. Potret yang berbicara tanpa suara, namun menggema dalam ingatan</p>
         </header>
 
     @php
