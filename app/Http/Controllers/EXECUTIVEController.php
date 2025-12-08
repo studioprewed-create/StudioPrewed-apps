@@ -1652,8 +1652,8 @@ class EXECUTIVEController extends Controller
 
             return response()->json([
                 'success'   => true,
-                'image_url' => isset($model->image) && $model->image ? asset('storage/'.$model->image)
-                            : (isset($model->avatar) && $model->avatar ? asset('storage/'.$model->avatar) : null),
+                'image_url' => isset($model->image) && $model->image ? asset('public/storage/'.$model->image)
+                            : (isset($model->avatar) && $model->avatar ? asset('public/storage/'.$model->avatar) : null),
             ]);
         }
     public function storeTemaBaju(Request $request)
