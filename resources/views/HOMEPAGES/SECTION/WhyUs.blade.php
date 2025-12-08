@@ -2,7 +2,7 @@
     <div class="container why-wrap">
         <header class="head" data-reveal>
             <span class="eyebrow">Karena Setiap Momen Layak Dirayakan</span>
-            <h2 id="portrait-why-title">KENAPA KAMI <span class="hl">?</span>?</h2>
+            <h2 id="portrait-why-title">KENAPA <span class="hl">KAMI</span>?</h2>
             <p>
                 Kami bekerja dengan rapi dan terukur untuk menghadirkan potret yang autentik, tajam, dan natural.
             </p>

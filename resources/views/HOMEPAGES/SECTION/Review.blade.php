@@ -2,7 +2,7 @@
     <div class="container about-wrap">
         <header class="head" data-reveal>
             <span class="eyebrow">Pengalaman Nyata yang Membangun Kepercayaan</span>
-            <h2 id="portrait-title">ULASAN <span class="hl">KLIEN</span></h2>
+            <h2 id="portrait-title">--ULASAN <span class="hl">KLIEN--</span></h2>
             <p>Komentar dan apresiasi dari klien menjadi cermin dedikasi kami dalam menjaga kualitas.</p>
         </header>
     </div>

@@ -2,7 +2,7 @@
     <div class="container why-wrap">
         <header class="head" data-reveal>
             <span class="eyebrow">Semua yang biasanya ditanyakan klien sebelum memotret</span>
-            <h2 id="why-title">FAQ <span class="hl">TANYA & JAWAB</span>?</h2>
+            <h2 id="why-title">FAQ--<span class="hl">--TANYA & JAWAB</span></h2>
             <p>Dari cara booking hingga waktu pengerjaan foto, semua jawaban yang Anda butuhkan tersedia di sini. Kami menyusunnya sesederhana mungkin agar mudah dipahami.</p>
         </header>
     </div>
