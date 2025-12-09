@@ -32,12 +32,14 @@ Route::middleware(['auth'])->group(function () {
         }
     })->name('dashboard');
 
-    Route::get('/Account', [EXECUTIVEController::class, 'Account'])->name('Account');
-    Route::post('/Account', [EXECUTIVEController::class, 'storeAccount'])->name('Account.store');
-    Route::put('/Account/{id}', [EXECUTIVEController::class, 'updateAccount'])->name('Account.update');
-    Route::delete('/Account/{id}', [EXECUTIVEController::class, 'destroyAccount'])->name('Account.destroy');
+    Route::middleware(['auth', 'role:CLIENT'])->group(function () {
+        Route::get('/account', [EXECUTIVEController::class, 'Account'])->name('Account');
+        Route::post('/account', [EXECUTIVEController::class, 'storeAccount'])->name('Account.store');
+        Route::put('/account/{id}', [EXECUTIVEController::class, 'updateAccount'])->name('Account.update');
+        Route::delete('/account/{id}', [EXECUTIVEController::class, 'destroyAccount'])->name('Account.destroy');
+    });
 
-    
+
     Route::prefix('executive')->name('executive.')->group(function () {
         Route::get('/dashboard', [EXECUTIVEController::class, 'dashboard'])->name('dashboard');
         Route::get('/jadwalkerja', [EXECUTIVEController::class, 'jadwalkerja'])->name('jadwalkerja');

@@ -655,93 +655,88 @@ class EXECUTIVEController extends Controller
         }
     public function Account(Request $request)
         {
-            $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
-            $dataDiri = DataDiri::where('user_id', Auth::id())->first();
+            $user = $request->user(); // sama dengan Auth::user()
+
+            $slides   = HeroSlide::where('active',1)->orderBy('order')->get();
+            $dataDiri = $user->dataDiri; // lewat relasi
+
             return view('HOMEPAGES.PAGE.Account', [
-                'slides'  => $slides,
-                'user'    => Auth::user(),
+                'slides'   => $slides,
+                'user'     => $user,
                 'dataDiri' => $dataDiri,
             ]);
         }
+
         public function storeAccount(Request $request)
-            {
-                // Kalau sudah punya data, jangan dibuat lagi
-                if (DataDiri::where('user_id', Auth::id())->exists()) {
-                    return redirect()
-                        ->route('Account')
-                        ->with('warning', 'Data diri sudah ada, silakan update.');
-                }
+        {
+            $user = $request->user();
 
-                $validated = $request->validate([
-                    // data diri utama
-                    'nama'                   => 'required|string|max:255',
-                    'phone'                  => 'nullable|string|max:20',
-                    'jenis_kelamin'          => 'nullable|in:laki-laki,perempuan',
-                    'tanggal_lahir'          => 'nullable|date',
-                    'tanggal_pernikahan'     => 'nullable|date',
-
-                    // data pasangan
-                    'nama_pasangan'          => 'nullable|string|max:255',
-                    'phone_pasangan'         => 'nullable|string|max:20',
-                    'jenis_kelamin_pasangan' => 'nullable|in:laki-laki,perempuan',
-                    'tanggal_lahir_pasangan' => 'nullable|date',
-                ]);
-
-                $validated['user_id'] = Auth::id();
-
-                DataDiri::create($validated);
-
+            // Cegah double data diri
+            if ($user->dataDiri) {
                 return redirect()
                     ->route('Account')
-                    ->with('success', 'Data diri berhasil disimpan.');
+                    ->with('warning', 'Data diri sudah ada, silakan update.');
             }
 
-            /**
-             * Update data yang sudah ada
-             */
-            public function updateAccount(Request $request, $id)
-            {
-                $dataDiri = DataDiri::where('id', $id)
-                    ->where('user_id', Auth::id())
-                    ->firstOrFail();
+            $validated = $request->validate([
+                'nama'                   => 'required|string|max:255',
+                'phone'                  => 'nullable|string|max:20',
+                'jenis_kelamin'          => 'nullable|in:laki-laki,perempuan',
+                'tanggal_lahir'          => 'nullable|date',
+                'tanggal_pernikahan'     => 'nullable|date',
+                'nama_pasangan'          => 'nullable|string|max:255',
+                'phone_pasangan'         => 'nullable|string|max:20',
+                'jenis_kelamin_pasangan' => 'nullable|in:laki-laki,perempuan',
+                'tanggal_lahir_pasangan' => 'nullable|date',
+            ]);
 
-                $validated = $request->validate([
-                    // data diri utama
-                    'nama'                   => 'required|string|max:255',
-                    'phone'                  => 'nullable|string|max:20',
-                    'jenis_kelamin'          => 'nullable|in:laki-laki,perempuan',
-                    'tanggal_lahir'          => 'nullable|date',
-                    'tanggal_pernikahan'     => 'nullable|date',
+            $validated['user_id'] = $user->id;
 
-                    // data pasangan
-                    'nama_pasangan'          => 'nullable|string|max:255',
-                    'phone_pasangan'         => 'nullable|string|max:20',
-                    'jenis_kelamin_pasangan' => 'nullable|in:laki-laki,perempuan',
-                    'tanggal_lahir_pasangan' => 'nullable|date',
-                ]);
+            DataDiri::create($validated);
 
-                $dataDiri->update($validated);
+            return redirect()
+                ->route('Account')
+                ->with('success', 'Data diri berhasil disimpan.');
+        }
 
-                return redirect()
-                    ->route('Account')
-                    ->with('success', 'Data diri berhasil diperbarui.');
-            }
+        public function updateAccount(Request $request, $id)
+        {
+            $user     = $request->user();
+            $dataDiri = DataDiri::where('id', $id)
+                ->where('user_id', $user->id)
+                ->firstOrFail();
 
-            /**
-             * (Opsional) Hapus data diri
-             */
-            public function destroyAccount($id)
-            {
-                $dataDiri = DataDiri::where('id', $id)
-                    ->where('user_id', Auth::id())
-                    ->firstOrFail();
+            $validated = $request->validate([
+                'nama'                   => 'required|string|max:255',
+                'phone'                  => 'nullable|string|max:20',
+                'jenis_kelamin'          => 'nullable|in:laki-laki,perempuan',
+                'tanggal_lahir'          => 'nullable|date',
+                'tanggal_pernikahan'     => 'nullable|date',
+                'nama_pasangan'          => 'nullable|string|max:255',
+                'phone_pasangan'         => 'nullable|string|max:20',
+                'jenis_kelamin_pasangan' => 'nullable|in:laki-laki,perempuan',
+                'tanggal_lahir_pasangan' => 'nullable|date',
+            ]);
 
-                $dataDiri->delete();
+            $dataDiri->update($validated);
 
-                return redirect()
-                    ->route('Account')
-                    ->with('success', 'Data diri berhasil dihapus.');
-            }
+            return redirect()
+                ->route('Account')
+                ->with('success', 'Data diri berhasil diperbarui.');
+        }
+
+        public function destroyAccount($id)
+        {
+            $dataDiri = DataDiri::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
+            $dataDiri->delete();
+
+            return redirect()
+                ->route('Account')
+                ->with('success', 'Data diri berhasil dihapus.');
+        }
     public function Pricelist()
         {
             $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
