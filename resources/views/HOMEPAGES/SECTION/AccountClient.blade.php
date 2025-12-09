@@ -1,4 +1,4 @@
-<!-- Section Utama untuk Profile dan Booking -->
+@if(isset($user) && $user->role === 'client')
 <section class="account-main-section" id="akun">
     <div class="account-container">
         <!-- Profile Section -->
@@ -250,13 +250,22 @@
                         <button class="ticket-action">Lihat Detail</button>
                     </div>
                 </div>
-
-                @if(session('warning'))
-    <div class="alert alert-warning">{{ session('warning') }}</div>
-@endif
-
-                {{-- tiket lain nanti tinggal looping --}}
             </div>
         </div>
     </div>
 </section>
+@else
+
+    {{-- Tampilan untuk BUKAN client --}}
+    <section class="account-main-section" id="akun">
+        <div class="account-container">
+            <div class="akun-container">
+                <div class="section-header">
+                    <h2>Anda bukan client</h2>
+                    <p>Halaman akun ini hanya bisa diakses oleh pengguna dengan role <strong>client</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+@endif
