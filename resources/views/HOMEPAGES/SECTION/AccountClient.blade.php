@@ -1,4 +1,4 @@
-@if(isset($user) && $user->role === 'client')
+@if(auth()->check() && auth()->user()->role === 'CLIENT')
 <section class="account-main-section" id="akun">
     <div class="account-container">
         <!-- Profile Section -->
