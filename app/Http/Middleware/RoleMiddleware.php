@@ -14,9 +14,7 @@ class RoleMiddleware
         }
 
         if (!in_array(Auth::user()->role, $roles)) {
-            return redirect()
-                ->route('dashboard')
-                ->with('warning', 'Anda tidak memiliki akses ke halaman ini.');
+            return redirect()->route('teamtive.dashboard');
         }
 
         return $next($request);
