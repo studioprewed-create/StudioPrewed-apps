@@ -1,169 +1,233 @@
-    <!-- Section Utama untuk Profile dan Booking -->
-    <section class="account-main-section" id="akun">
-        <div class="account-container">
-            <!-- Profile Section -->
-            <div class="akun-container">
-                <div class="section-header">
-                    <h2>Profil</h2>
-                    <p>Kelola informasi akun Anda di sini</p>
+<!-- Section Utama untuk Profile dan Booking -->
+<section class="account-main-section" id="akun">
+    <div class="account-container">
+        <!-- Profile Section -->
+        <div class="akun-container">
+            <div class="section-header">
+                <h2>Profil</h2>
+                <p>Kelola informasi akun Anda di sini</p>
+            </div>
+
+            {{-- Pesan flash & error --}}
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if(session('warning'))
+                <div class="alert alert-warning">{{ session('warning') }}</div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $e)
+                            <li>{{ $e }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <div class="profile-picture-section">
+                <div class="profile-picture-container">
+                    <img id="profileImage"
+                         src="{{ asset('asset/default-avatar.jpg') }}"
+                         alt="Foto Profil"
+                         class="profile-image">
+                </div>
+                <p class="profile-picture-hint">Foto profil Anda</p>
+            </div>
+
+            <!-- Informasi Profil (Read-only) -->
+            <div class="profile-info with-line">
+                <div class="info-group">
+                    <label>Nama Lengkap</label>
+                    <div class="info-value" id="displayFullname">
+                        {{ $dataDiri->nama ?? $user->name ?? '-' }}
+                    </div>
                 </div>
 
-                <div class="profile-picture-section">
-                    <div class="profile-picture-container">
-                        <img id="profileImage" src="{{ asset('asset/default-avatar.jpg') }}" alt="Foto Profil" class="profile-image">
-                    </div>
-                    <p class="profile-picture-hint">Foto profil Anda</p>
-                </div>
-
-                <!-- Informasi Profil (Read-only) dengan garis dan dot -->
-                <div class="profile-info with-line">
-                    <div class="info-group">
-                        <label>Nama Lengkap</label>
-                        <div class="info-value" id="displayFullname">John Doe</div>
-                    </div>
-
-                    <div class="info-group">
-                        <label>Username</label>
-                        <div class="info-value" id="displayUsername">johndoe</div>
-                    </div>
-
-                    <div class="info-group">
-                        <label>Nomor Telepon</label>
-                        <div class="info-value" id="displayPhone">+62 812-3456-7890</div>
-                    </div>
-
-                    <div class="info-group">
-                        <label>Email</label>
-                        <div class="info-value" id="displayEmail">johndoe@example.com</div>
-                    </div>
-
-                    <div class="info-group">
-                        <label>Status Akun</label>
-                        <div class="info-value status-verified">Terverifikasi</div>
+                <div class="info-group">
+                    <label>Username</label>
+                    <div class="info-value" id="displayUsername">
+                        {{ $user->username ?? $user->name ?? '-' }}
                     </div>
                 </div>
 
-                <!-- Tombol Aksi -->
-                <div class="profile-actions">
-                    <button type="button" class="akun-edit-btn" id="editProfileBtn">
-                        <i class="fas fa-edit"></i> Edit Profil
-                    </button>
-                    <button type="button" class="akun-secondary-btn" id="changePasswordBtn">
-                        <i class="fas fa-key"></i> Ubah Password
-                    </button>
+                <div class="info-group">
+                    <label>Nomor Telepon</label>
+                    <div class="info-value" id="displayPhone">
+                        {{ $dataDiri->phone ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Email</label>
+                    <div class="info-value" id="displayEmail">
+                        {{ $user->email ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Status Akun</label>
+                    <div class="info-value status-verified">Terverifikasi</div>
                 </div>
             </div>
 
-            <!-- Riwayat Booking Section dengan Desain Tiket -->
-            <div class="booking-container">
-                <div class="booking-header">
-                    <h2>Riwayat Booking</h2>
-                    <p>Lihat riwayat pemesanan Anda</p>
+            <!-- Tombol Aksi -->
+            <div class="profile-actions">
+                <button type="button" class="akun-edit-btn" onclick="document.getElementById('accountDetails').toggleAttribute('open')">
+                    <i class="fas fa-edit"></i> Tambah / Edit Data Diri
+                </button>
+                <button type="button" class="akun-secondary-btn" id="changePasswordBtn">
+                    <i class="fas fa-key"></i> Ubah Password
+                </button>
+            </div>
+
+            {{-- INLINE FORM ala gallery (pakai <details>) --}}
+            <details class="acc" id="accountDetails" @if($errors->any()) open @endif style="margin-top:16px;">
+                <summary>
+                    <i class="fa-solid fa-user"></i> Data Diri & Pasangan
+                    <i class="fa-solid fa-chevron-right chev"></i>
+                </summary>
+
+                <div class="acc-body">
+                    <form class="form-inline"
+                          method="POST"
+                          action="{{ $dataDiri
+                                    ? route('Account.update', $dataDiri->id)
+                                    : route('Account.store') }}">
+                        @csrf
+                        @if($dataDiri)
+                            @method('PUT')
+                        @endif
+
+                        {{-- Data Diri --}}
+                        <div class="account-form-group">
+                            <h4 style="margin-bottom:8px;">Data Diri</h4>
+
+                            <input class="input" type="text" name="nama"
+                                   placeholder="Nama lengkap"
+                                   value="{{ old('nama', $dataDiri->nama ?? $user->name ?? '') }}" required>
+
+                            <input class="input" type="text" name="phone"
+                                   placeholder="No HP / WA"
+                                   value="{{ old('phone', $dataDiri->phone ?? '') }}">
+
+                            <select class="input" name="jenis_kelamin">
+                                <option value="">Jenis kelamin (opsional)</option>
+                                <option value="laki-laki"
+                                    {{ old('jenis_kelamin', $dataDiri->jenis_kelamin ?? '') === 'laki-laki' ? 'selected' : '' }}>
+                                    Laki-laki
+                                </option>
+                                <option value="perempuan"
+                                    {{ old('jenis_kelamin', $dataDiri->jenis_kelamin ?? '') === 'perempuan' ? 'selected' : '' }}>
+                                    Perempuan
+                                </option>
+                            </select>
+
+                            <label class="small-muted">Tanggal lahir</label>
+                            <input class="input" type="date" name="tanggal_lahir"
+                                   value="{{ old('tanggal_lahir', $dataDiri->tanggal_lahir ?? '') }}">
+
+                            <label class="small-muted">Tanggal pernikahan</label>
+                            <input class="input" type="date" name="tanggal_pernikahan"
+                                   value="{{ old('tanggal_pernikahan', $dataDiri->tanggal_pernikahan ?? '') }}">
+                        </div>
+
+                        {{-- Data Pasangan --}}
+                        <div class="account-form-group" style="margin-top:16px;">
+                            <h4 style="margin-bottom:8px;">Data Pasangan</h4>
+
+                            <input class="input" type="text" name="nama_pasangan"
+                                   placeholder="Nama pasangan"
+                                   value="{{ old('nama_pasangan', $dataDiri->nama_pasangan ?? '') }}">
+
+                            <input class="input" type="text" name="phone_pasangan"
+                                   placeholder="No HP / WA pasangan"
+                                   value="{{ old('phone_pasangan', $dataDiri->phone_pasangan ?? '') }}">
+
+                            <select class="input" name="jenis_kelamin_pasangan">
+                                <option value="">Jenis kelamin pasangan (opsional)</option>
+                                <option value="laki-laki"
+                                    {{ old('jenis_kelamin_pasangan', $dataDiri->jenis_kelamin_pasangan ?? '') === 'laki-laki' ? 'selected' : '' }}>
+                                    Laki-laki
+                                </option>
+                                <option value="perempuan"
+                                    {{ old('jenis_kelamin_pasangan', $dataDiri->jenis_kelamin_pasangan ?? '') === 'perempuan' ? 'selected' : '' }}>
+                                    Perempuan
+                                </option>
+                            </select>
+
+                            <label class="small-muted">Tanggal lahir pasangan</label>
+                            <input class="input" type="date" name="tanggal_lahir_pasangan"
+                                   value="{{ old('tanggal_lahir_pasangan', $dataDiri->tanggal_lahir_pasangan ?? '') }}">
+                        </div>
+
+                        <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+                            <button class="btn btn-sm" type="submit">
+                                {{ $dataDiri ? 'Simpan Perubahan' : 'Tambah Data' }}
+                            </button>
+
+                            @if($dataDiri)
+                                <form method="POST"
+                                      action="{{ route('Account.destroy', $dataDiri->id) }}"
+                                      onsubmit="return confirm('Hapus data akun ini?')"
+                                      style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger" type="submit">Hapus Data</button>
+                                </form>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+            </details>
+        </div>
+
+        <!-- Riwayat Booking Section dengan Desain Tiket -->
+        <div class="booking-container">
+            <div class="booking-header">
+                <h2>Riwayat Booking</h2>
+                <p>Lihat riwayat pemesanan Anda</p>
+            </div>
+
+            <div class="booking-list">
+                {{-- Di sini nanti bisa diganti data dinamis booking, sekarang biarkan dummy dulu --}}
+                <!-- Tiket 1 -->
+                <div class="ticket-card">
+                    <div class="ticket-header">
+                        <h3 class="ticket-title">Paket Premium Wedding</h3>
+                        <span class="ticket-status status-completed">Selesai</span>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-detail">
+                            <span class="detail-label">Tanggal</span>
+                            <span class="detail-value">15 Desember 2023</span>
+                        </div>
+                        <div class="ticket-detail">
+                            <span class="detail-label">Waktu</span>
+                            <span class="detail-value">09:00 - 17:00</span>
+                        </div>
+                        <div class="ticket-detail">
+                            <span class="detail-label">Lokasi</span>
+                            <span class="detail-value">Studio Utama</span>
+                        </div>
+                        <div class="ticket-detail">
+                            <span class="detail-label">Total</span>
+                            <span class="detail-value">Rp 5.000.000</span>
+                        </div>
+                    </div>
+                    <div class="ticket-side">
+                        <div class="ticket-code">#SPW001</div>
+                        <div class="ticket-qr">QR CODE</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <span class="ticket-note">Sesi foto telah selesai dengan hasil yang memuaskan</span>
+                        <button class="ticket-action">Lihat Detail</button>
+                    </div>
                 </div>
 
-                <div class="booking-list">
-                    <!-- Tiket 1 -->
-                    <div class="ticket-card">
-                        <div class="ticket-header">
-                            <h3 class="ticket-title">Paket Premium Wedding</h3>
-                            <span class="ticket-status status-completed">Selesai</span>
-                        </div>
-                        <div class="ticket-body">
-                            <div class="ticket-detail">
-                                <span class="detail-label">Tanggal</span>
-                                <span class="detail-value">15 Desember 2023</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Waktu</span>
-                                <span class="detail-value">09:00 - 17:00</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Lokasi</span>
-                                <span class="detail-value">Studio Utama</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Total</span>
-                                <span class="detail-value">Rp 5.000.000</span>
-                            </div>
-                        </div>
-                        <div class="ticket-side">
-                            <div class="ticket-code">#SPW001</div>
-                            <div class="ticket-qr">QR CODE</div>
-                        </div>
-                        <div class="ticket-footer">
-                            <span class="ticket-note">Sesi foto telah selesai dengan hasil yang memuaskan</span>
-                            <button class="ticket-action">Lihat Detail</button>
-                        </div>
-                    </div>
-
-                    <!-- Tiket 2 -->
-                    <div class="ticket-card">
-                        <div class="ticket-header">
-                            <h3 class="ticket-title">Paket Engagement</h3>
-                            <span class="ticket-status status-upcoming">Akan Datang</span>
-                        </div>
-                        <div class="ticket-body">
-                            <div class="ticket-detail">
-                                <span class="detail-label">Tanggal</span>
-                                <span class="detail-value">20 Januari 2024</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Waktu</span>
-                                <span class="detail-value">10:00 - 15:00</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Lokasi</span>
-                                <span class="detail-value">Outdoor Session</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Total</span>
-                                <span class="detail-value">Rp 3.500.000</span>
-                            </div>
-                        </div>
-                        <div class="ticket-side">
-                            <div class="ticket-code">#SPE002</div>
-                            <div class="ticket-qr">QR CODE</div>
-                        </div>
-                        <div class="ticket-footer">
-                            <span class="ticket-note">Konfirmasi kehadiran 3 hari sebelum sesi</span>
-                            <button class="ticket-action">Lihat Detail</button>
-                        </div>
-                    </div>
-
-                    <!-- Tiket 3 -->
-                    <div class="ticket-card">
-                        <div class="ticket-header">
-                            <h3 class="ticket-title">Paket Prewedding</h3>
-                            <span class="ticket-status status-completed">Selesai</span>
-                        </div>
-                        <div class="ticket-body">
-                            <div class="ticket-detail">
-                                <span class="detail-label">Tanggal</span>
-                                <span class="detail-value">10 November 2023</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Waktu</span>
-                                <span class="detail-value">08:00 - 16:00</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Lokasi</span>
-                                <span class="detail-value">Studio + Outdoor</span>
-                            </div>
-                            <div class="ticket-detail">
-                                <span class="detail-label">Total</span>
-                                <span class="detail-value">Rp 4.200.000</span>
-                            </div>
-                        </div>
-                        <div class="ticket-side">
-                            <div class="ticket-code">#SPP003</div>
-                            <div class="ticket-qr">QR CODE</div>
-                        </div>
-                        <div class="ticket-footer">
-                            <span class="ticket-note">Foto sudah tersedia untuk diunduh</span>
-                            <button class="ticket-action">Lihat Detail</button>
-                        </div>
-                    </div>
-                </div>
+                <!-- dst: tiket 2, 3... (biarkan dulu) -->
+                {{-- ... --}}
             </div>
         </div>
-    </section>
+    </div>
+</section>
