@@ -25,6 +25,7 @@ use App\Models\PromoBanner;
 use App\Models\BookingClient;
 use App\Models\Addon;
 use App\Models\BookingAddon;
+use App\Models\DataDiri;
 
 class EXECUTIVEController extends Controller
 {
@@ -655,10 +656,92 @@ class EXECUTIVEController extends Controller
     public function Account(Request $request)
         {
             $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
+            $dataDiri = DataDiri::where('user_id', Auth::id())->first();
             return view('HOMEPAGES.PAGE.Account', [
-                'slides'           => $slides,
+                'slides'  => $slides,
+                'user'    => Auth::user(),
+                'dataDiri' => $dataDiri,
             ]);
         }
+        public function storeAccount(Request $request)
+            {
+                // Kalau sudah punya data, jangan dibuat lagi
+                if (DataDiri::where('user_id', Auth::id())->exists()) {
+                    return redirect()
+                        ->route('Account')
+                        ->with('warning', 'Data diri sudah ada, silakan update.');
+                }
+
+                $validated = $request->validate([
+                    // data diri utama
+                    'nama'                   => 'required|string|max:255',
+                    'phone'                  => 'nullable|string|max:20',
+                    'jenis_kelamin'          => 'nullable|in:laki-laki,perempuan',
+                    'tanggal_lahir'          => 'nullable|date',
+                    'tanggal_pernikahan'     => 'nullable|date',
+
+                    // data pasangan
+                    'nama_pasangan'          => 'nullable|string|max:255',
+                    'phone_pasangan'         => 'nullable|string|max:20',
+                    'jenis_kelamin_pasangan' => 'nullable|in:laki-laki,perempuan',
+                    'tanggal_lahir_pasangan' => 'nullable|date',
+                ]);
+
+                $validated['user_id'] = Auth::id();
+
+                DataDiri::create($validated);
+
+                return redirect()
+                    ->route('Account')
+                    ->with('success', 'Data diri berhasil disimpan.');
+            }
+
+            /**
+             * Update data yang sudah ada
+             */
+            public function updateAccount(Request $request, $id)
+            {
+                $dataDiri = DataDiri::where('id', $id)
+                    ->where('user_id', Auth::id())
+                    ->firstOrFail();
+
+                $validated = $request->validate([
+                    // data diri utama
+                    'nama'                   => 'required|string|max:255',
+                    'phone'                  => 'nullable|string|max:20',
+                    'jenis_kelamin'          => 'nullable|in:laki-laki,perempuan',
+                    'tanggal_lahir'          => 'nullable|date',
+                    'tanggal_pernikahan'     => 'nullable|date',
+
+                    // data pasangan
+                    'nama_pasangan'          => 'nullable|string|max:255',
+                    'phone_pasangan'         => 'nullable|string|max:20',
+                    'jenis_kelamin_pasangan' => 'nullable|in:laki-laki,perempuan',
+                    'tanggal_lahir_pasangan' => 'nullable|date',
+                ]);
+
+                $dataDiri->update($validated);
+
+                return redirect()
+                    ->route('Account')
+                    ->with('success', 'Data diri berhasil diperbarui.');
+            }
+
+            /**
+             * (Opsional) Hapus data diri
+             */
+            public function destroyAccount($id)
+            {
+                $dataDiri = DataDiri::where('id', $id)
+                    ->where('user_id', Auth::id())
+                    ->firstOrFail();
+
+                $dataDiri->delete();
+
+                return redirect()
+                    ->route('Account')
+                    ->with('success', 'Data diri berhasil dihapus.');
+            }
     public function Pricelist()
         {
             $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
@@ -687,8 +770,7 @@ class EXECUTIVEController extends Controller
                 'user'      => 'DataAkun',
                 'package'   => 'Catalogue',
                 'temabaju'  => 'Catalogue',
-                'bookingclient' => 'JadwalPesanan',
-                
+                'bookingclient' => 'JadwalPesanan',    
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';

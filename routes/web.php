@@ -9,7 +9,7 @@ use App\Helpers\SlotHelper;
 Route::get('/', [EXECUTIVEController::class, 'index'])->name('homepage');
 Route::get('/Portofolio', [EXECUTIVEController::class, 'Portofolio'])->name('Portofolio');
 Route::get('/Pricelist', [EXECUTIVEController::class, 'Pricelist'])->name('Pricelist');
-Route::get('/Account', [EXECUTIVEController::class, 'Account'])->name('Account');
+
 
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -32,6 +32,12 @@ Route::middleware(['auth'])->group(function () {
         }
     })->name('dashboard');
 
+    Route::get('/Account', [EXECUTIVEController::class, 'Account'])->name('Account');
+    Route::post('/Account', [EXECUTIVEController::class, 'storeAccount'])->name('Account.store');
+    Route::put('/Account/{id}', [EXECUTIVEController::class, 'updateAccount'])->name('Account.update');
+    Route::delete('/Account/{id}', [EXECUTIVEController::class, 'destroyAccount'])->name('Account.destroy');
+
+    
     Route::prefix('executive')->name('executive.')->group(function () {
         Route::get('/dashboard', [EXECUTIVEController::class, 'dashboard'])->name('dashboard');
         Route::get('/jadwalkerja', [EXECUTIVEController::class, 'jadwalkerja'])->name('jadwalkerja');
