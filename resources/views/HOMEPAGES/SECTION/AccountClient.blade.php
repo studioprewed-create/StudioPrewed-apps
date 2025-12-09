@@ -24,17 +24,6 @@
                     </ul>
                 </div>
             @endif
-
-            <div class="profile-picture-section">
-                <div class="profile-picture-container">
-                    <img id="profileImage"
-                         src="{{ asset('asset/default-avatar.jpg') }}"
-                         alt="Foto Profil"
-                         class="profile-image">
-                </div>
-                <p class="profile-picture-hint">Foto profil Anda</p>
-            </div>
-
             <!-- Informasi Profil (Read-only) -->
             <div class="profile-info with-line">
                 <div class="info-group">
@@ -62,6 +51,34 @@
                     <label>Email</label>
                     <div class="info-value" id="displayEmail">
                         {{ $user->email ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Nama pasangan</label>
+                    <div class="info-value" id="displayEmail">
+                        {{ $dataDiri->nama_pasangan ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Nomor Telepon Pasangan</label>
+                    <div class="info-value" id="displayPhone">
+                        {{ $dataDiri->phone_pasangan ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Jenis Kelamain Pasangan</label>
+                    <div class="info-value" id="displayPhone">
+                        {{ $dataDiri->jenis_kelamin_pasangan ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Tanggal Lahir Pasangan</label>
+                    <div class="info-value" id="displayPhone">
+                        {{ $dataDiri->tanggal_lahir_pasangan ?? '-' }}
                     </div>
                 </div>
 
@@ -101,70 +118,76 @@
 
                         {{-- Data Diri --}}
                         <div class="account-form-group">
-                            <h4 style="margin-bottom:8px;">Data Diri</h4>
+                        <h4 class="account-form-title">Data Diri</h4>
 
-                            <input class="input" type="text" name="nama"
-                                   placeholder="Nama lengkap"
-                                   value="{{ old('nama', $dataDiri->nama ?? $user->name ?? '') }}" required>
+                        <label for="nama" class="input-label">Nama lengkap</label>
+                        <input class="input" id="nama" type="text" name="nama"
+                            placeholder="Nama lengkap"
+                            value="{{ old('nama', $dataDiri->nama ?? $user->name ?? '') }}" required>
 
-                            <input class="input" type="text" name="phone"
-                                   placeholder="No HP / WA"
-                                   value="{{ old('phone', $dataDiri->phone ?? '') }}">
+                        <label for="phone" class="input-label">No HP / WA</label>
+                        <input class="input" id="phone" type="text" name="phone"
+                            placeholder="No HP / WA"
+                            value="{{ old('phone', $dataDiri->phone ?? '') }}">
 
-                            <select class="input" name="jenis_kelamin">
-                                <option value="">Jenis kelamin (opsional)</option>
-                                <option value="laki-laki"
-                                    {{ old('jenis_kelamin', $dataDiri->jenis_kelamin ?? '') === 'laki-laki' ? 'selected' : '' }}>
-                                    Laki-laki
-                                </option>
-                                <option value="perempuan"
-                                    {{ old('jenis_kelamin', $dataDiri->jenis_kelamin ?? '') === 'perempuan' ? 'selected' : '' }}>
-                                    Perempuan
-                                </option>
-                            </select>
+                        <label for="jenis_kelamin" class="input-label">Jenis kelamin</label>
+                        <select class="input" id="jenis_kelamin" name="jenis_kelamin">
+                            <option value="">Pilih jenis kelamin</option>
+                            <option value="laki-laki"
+                                {{ old('jenis_kelamin', $dataDiri->jenis_kelamin ?? '') === 'laki-laki' ? 'selected' : '' }}>
+                                Laki-laki
+                            </option>
+                            <option value="perempuan"
+                                {{ old('jenis_kelamin', $dataDiri->jenis_kelamin ?? '') === 'perempuan' ? 'selected' : '' }}>
+                                Perempuan
+                            </option>
+                        </select>
 
-                            <label class="small-muted">Tanggal lahir</label>
-                            <input class="input" type="date" name="tanggal_lahir"
-                                   value="{{ old('tanggal_lahir', $dataDiri->tanggal_lahir ?? '') }}">
+                        <label class="input-label" for="tanggal_lahir">Tanggal lahir</label>
+                        <input class="input" id="tanggal_lahir" type="date" name="tanggal_lahir"
+                            value="{{ old('tanggal_lahir', $dataDiri->tanggal_lahir ?? '') }}">
 
-                            <label class="small-muted">Tanggal pernikahan</label>
-                            <input class="input" type="date" name="tanggal_pernikahan"
-                                   value="{{ old('tanggal_pernikahan', $dataDiri->tanggal_pernikahan ?? '') }}">
-                        </div>
+                        <label class="input-label" for="tanggal_pernikahan">Tanggal pernikahan</label>
+                        <input class="input" id="tanggal_pernikahan" type="date" name="tanggal_pernikahan"
+                            value="{{ old('tanggal_pernikahan', $dataDiri->tanggal_pernikahan ?? '') }}">
+                    </div>
 
-                        {{-- Data Pasangan --}}
-                        <div class="account-form-group" style="margin-top:16px;">
-                            <h4 style="margin-bottom:8px;">Data Pasangan</h4>
+                    {{-- Data Pasangan --}}
+                    <div class="account-form-group" style="margin-top:16px;">
+                        <h4 class="account-form-title">Data Pasangan</h4>
 
-                            <input class="input" type="text" name="nama_pasangan"
-                                   placeholder="Nama pasangan"
-                                   value="{{ old('nama_pasangan', $dataDiri->nama_pasangan ?? '') }}">
+                        <label for="nama_pasangan" class="input-label">Nama pasangan</label>
+                        <input class="input" id="nama_pasangan" type="text" name="nama_pasangan"
+                            placeholder="Nama pasangan"
+                            value="{{ old('nama_pasangan', $dataDiri->nama_pasangan ?? '') }}">
 
-                            <input class="input" type="text" name="phone_pasangan"
-                                   placeholder="No HP / WA pasangan"
-                                   value="{{ old('phone_pasangan', $dataDiri->phone_pasangan ?? '') }}">
+                        <label for="phone_pasangan" class="input-label">No HP / WA pasangan</label>
+                        <input class="input" id="phone_pasangan" type="text" name="phone_pasangan"
+                            placeholder="No HP / WA pasangan"
+                            value="{{ old('phone_pasangan', $dataDiri->phone_pasangan ?? '') }}">
 
-                            <select class="input" name="jenis_kelamin_pasangan">
-                                <option value="">Jenis kelamin pasangan (opsional)</option>
-                                <option value="laki-laki"
-                                    {{ old('jenis_kelamin_pasangan', $dataDiri->jenis_kelamin_pasangan ?? '') === 'laki-laki' ? 'selected' : '' }}>
-                                    Laki-laki
-                                </option>
-                                <option value="perempuan"
-                                    {{ old('jenis_kelamin_pasangan', $dataDiri->jenis_kelamin_pasangan ?? '') === 'perempuan' ? 'selected' : '' }}>
-                                    Perempuan
-                                </option>
-                            </select>
+                        <label for="jenis_kelamin_pasangan" class="input-label">Jenis kelamin pasangan</label>
+                        <select class="input" id="jenis_kelamin_pasangan" name="jenis_kelamin_pasangan">
+                            <option value="">Pilih jenis kelamin pasangan</option>
+                            <option value="laki-laki"
+                                {{ old('jenis_kelamin_pasangan', $dataDiri->jenis_kelamin_pasangan ?? '') === 'laki-laki' ? 'selected' : '' }}>
+                                Laki-laki
+                            </option>
+                            <option value="perempuan"
+                                {{ old('jenis_kelamin_pasangan', $dataDiri->jenis_kelamin_pasangan ?? '') === 'perempuan' ? 'selected' : '' }}>
+                                Perempuan
+                            </option>
+                        </select>
 
-                            <label class="small-muted">Tanggal lahir pasangan</label>
-                            <input class="input" type="date" name="tanggal_lahir_pasangan"
-                                   value="{{ old('tanggal_lahir_pasangan', $dataDiri->tanggal_lahir_pasangan ?? '') }}">
-                        </div>
+                        <label class="input-label" for="tanggal_lahir_pasangan">Tanggal lahir pasangan</label>
+                        <input class="input" id="tanggal_lahir_pasangan" type="date" name="tanggal_lahir_pasangan"
+                            value="{{ old('tanggal_lahir_pasangan', $dataDiri->tanggal_lahir_pasangan ?? '') }}">
+                    </div>
 
-                        <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
-                            <button class="btn btn-sm" type="submit">
-                                {{ $dataDiri ? 'Simpan Perubahan' : 'Tambah Data' }}
-                            </button>
+                    <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-sm" type="submit">
+                            {{ $dataDiri ? 'Simpan Perubahan' : 'Tambah Data' }}
+                        </button>
 
                             @if($dataDiri)
                                 <form method="POST"
