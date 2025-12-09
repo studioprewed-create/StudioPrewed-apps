@@ -980,7 +980,7 @@ select.input {
 }
 
 .akun-container .section-header p {
-    color: #6b7280;
+    color: var(--black);;
     font-size: 0.9rem;
     margin-top: 0.4rem;
 }
