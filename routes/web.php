@@ -32,8 +32,12 @@ Route::middleware(['auth'])->group(function () {
         }
     })->name('dashboard');
 
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/account', [EXECUTIVEController::class, 'Account'])
+            ->name('Account');
+    });
+
     Route::middleware(['auth', 'role:CLIENT'])->group(function () {
-        Route::get('/account', [EXECUTIVEController::class, 'Account'])->name('Account');
         Route::post('/account', [EXECUTIVEController::class, 'storeAccount'])->name('Account.store');
         Route::put('/account/{id}', [EXECUTIVEController::class, 'updateAccount'])->name('Account.update');
         Route::delete('/account/{id}', [EXECUTIVEController::class, 'destroyAccount'])->name('Account.destroy');
