@@ -1259,3 +1259,172 @@ footer {
     background: var(--medium-gray);
 }
 
+@media (max-width: 768px) {
+
+  /* Header & Nav */
+  #siteHeader {
+    padding: 0.9rem 5%;
+  }
+
+  .brand-wrapper {
+    gap: 8px;
+  }
+
+  .brand {
+    font-size: 1.1rem;
+  }
+
+  nav {
+    gap: 1.1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  nav a {
+    font-size: 0.8rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 0 5%;
+    padding-top: 120px; /* ruang untuk header fixed */
+    min-height: 100vh;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cta {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Container global sedikit dirapikan di mobile */
+  .container {
+    padding: 0 5%;
+  }
+
+  /* Process / Timeline */
+  .process-timeline::before {
+    left: 24px; /* pindah garis ke kiri, bukan di tengah layar */
+  }
+
+  .process-item,
+  .process-item:nth-child(odd) {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 1.8rem;
+  }
+
+  .process-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.1rem;
+    margin-right: 0.75rem;
+  }
+
+  .process-content {
+    width: auto;
+    padding: 0;
+    margin-left: 0.75rem;
+    text-align: left !important;
+  }
+
+  /* Testimonials */
+  .testi-container {
+    flex-direction: column;
+    padding: 32px 16px;
+    gap: 20px;
+  }
+
+  .t-item {
+    padding: 20px 20px 72px;
+  }
+
+  .testi-media-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 160px;
+    height: auto;
+  }
+
+  /* Stats mosaic */
+  .about-stats-mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .stat-item-mosaic {
+    padding: 12px;
+  }
+
+  .stat-number-mosaic {
+    font-size: 2rem;
+  }
+
+  /* FAQ & Reviews spacing */
+  .faq-section {
+    padding: 4rem 5%;
+  }
+
+  .reviews-section {
+    padding: 2.5rem 5%;
+  }
+
+  .review-card {
+    padding: 1.5rem;
+  }
+
+  /* Footer */
+  footer {
+    padding: 3rem 5% 1.5rem;
+  }
+}
+
+
+/* HP kecil (≤ 480px) */
+@media (max-width: 480px) {
+
+  #siteHeader {
+    padding: 0.7rem 5%;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .about-stats-mosaic {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-number-mosaic {
+    font-size: 1.7rem;
+  }
+
+  .process-section {
+    padding: 2rem 5%;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-header p {
+    font-size: 0.9rem;
+  }
+}
