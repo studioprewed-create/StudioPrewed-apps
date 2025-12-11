@@ -15,8 +15,8 @@
   </style>
 </head>
 <body>
+    @include('HOMEPAGES.SECTION.Header.HeaderPorto')
     <main>
-        @include('HOMEPAGES.SECTION.Header.HeaderPorto')
         @include('HOMEPAGES.SECTION.Videoplay')
         @include('HOMEPAGES.SECTION.GalleryFictures')
         @include('HOMEPAGES.SECTION.Footer')
