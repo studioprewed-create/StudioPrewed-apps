@@ -1310,14 +1310,14 @@ footer {
     text-align: center;
   }
 
-  /* Container global sedikit dirapikan di mobile */
+  /* Container global di mobile */
   .container {
     padding: 0 5%;
   }
 
   /* Process / Timeline */
   .process-timeline::before {
-    left: 24px; /* pindah garis ke kiri, bukan di tengah layar */
+    left: 24px; /* pindah garis ke kiri */
   }
 
   .process-item,
@@ -1390,10 +1390,36 @@ footer {
   footer {
     padding: 3rem 5% 1.5rem;
   }
+
+  /* === ABOUT MOSAIC (DARI CSS PERTAMA, JANGAN HILANG) === */
+  .about-mosaic {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .mosaic-main,
+  .mosaic-item-1,
+  .mosaic-item-2,
+  .mosaic-item-3,
+  .mosaic-item-4,
+  .mosaic-text-1,
+  .mosaic-text-2,
+  .mosaic-side-text {
+    grid-column: 1;
+    grid-row: auto;
+    height: auto;
+  }
+
+  .mosaic-text-inner {
+    flex-direction: column;
+  }
 }
 
 
-/* HP kecil (≤ 480px) */
+/* ================================
+   HP KECIL (≤ 480px)
+   ================================ */
+
 @media (max-width: 480px) {
 
   #siteHeader {
