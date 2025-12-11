@@ -1261,33 +1261,23 @@ footer {
 
 @media (max-width: 768px) {
 
-  /* Header & Nav */
+  /* ========== HEADER & NAV (SAMA SEPERTI PRICELIST) ========== */
   #siteHeader {
-    padding: 0.9rem 5%;
-  }
-
-  .brand-wrapper {
-    gap: 8px;
-  }
-
-  .brand {
-    font-size: 1.1rem;
+    padding: 1rem 5%;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   nav {
-    gap: 1.1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: center;
   }
 
-  nav a {
-    font-size: 0.8rem;
-  }
-
-  /* Hero */
+  /* ========== HERO DASHBOARD ========== */
   .hero {
     padding: 0 5%;
-    padding-top: 120px; /* ruang untuk header fixed */
+    padding-top: 120px; /* ruang buat header fixed */
     min-height: 100vh;
   }
 
@@ -1315,9 +1305,9 @@ footer {
     padding: 0 5%;
   }
 
-  /* Process / Timeline */
+  /* ========== PROCESS / TIMELINE ========== */
   .process-timeline::before {
-    left: 24px; /* pindah garis ke kiri */
+    left: 24px; /* garis pindah ke kiri */
   }
 
   .process-item,
@@ -1341,7 +1331,7 @@ footer {
     text-align: left !important;
   }
 
-  /* Testimonials */
+  /* ========== TESTIMONIALS ========== */
   .testi-container {
     flex-direction: column;
     padding: 32px 16px;
@@ -1358,7 +1348,7 @@ footer {
     height: auto;
   }
 
-  /* Stats mosaic */
+  /* ========== STATS MOSAIC ========== */
   .about-stats-mosaic {
     grid-template-columns: repeat(2, 1fr);
     padding: 20px;
@@ -1373,7 +1363,7 @@ footer {
     font-size: 2rem;
   }
 
-  /* FAQ & Reviews spacing */
+  /* ========== FAQ & REVIEWS SPACING ========== */
   .faq-section {
     padding: 4rem 5%;
   }
@@ -1386,12 +1376,12 @@ footer {
     padding: 1.5rem;
   }
 
-  /* Footer */
+  /* ========== FOOTER ========== */
   footer {
     padding: 3rem 5% 1.5rem;
   }
 
-  /* === ABOUT MOSAIC (DARI CSS PERTAMA, JANGAN HILANG) === */
+  /* ========== ABOUT MOSAIC (BIAR TETAP RAPI) ========== */
   .about-mosaic {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -1414,8 +1404,6 @@ footer {
     flex-direction: column;
   }
 }
-
-
 /* ================================
    HP KECIL (≤ 480px)
    ================================ */
