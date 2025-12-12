@@ -1,4 +1,4 @@
-@if(auth()->check() && auth()->user()->role === 'CLIENT')
+<!-- Section Utama untuk Profile dan Booking -->
 <section class="account-main-section" id="akun">
     <div class="account-container">
         <!-- Profile Section -->
@@ -51,13 +51,6 @@
                 </div>
 
                 <div class="info-group">
-                    <label>Jenis Kelamin</label>
-                    <div class="info-value">
-                        {{ optional($dataDiri)->jenis_kelamin_pasangan ?? '-' }}
-                    </div>
-                </div>
-
-                <div class="info-group">
                     <label>Email</label>
                     <div class="info-value" id="displayEmail">
                         {{ $user->email ?? '-' }}
@@ -91,6 +84,14 @@
                         {{ optional($dataDiri)->tanggal_lahir_pasangan ?? '-' }}
                     </div>
                 </div>
+
+                <div class="info-group">
+                    <label>Status Akun</label>
+                    <div class="info-value status-verified">Terverifikasi</div>
+                </div>
+            </div>
+
+            <!-- Tombol Aksi -->
             <div class="profile-actions">
                 <button type="button" class="akun-edit-btn"
                         onclick="document.getElementById('accountDetails').toggleAttribute('open')">
@@ -249,22 +250,9 @@
                         <button class="ticket-action">Lihat Detail</button>
                     </div>
                 </div>
+
+                {{-- tiket lain nanti tinggal looping --}}
             </div>
         </div>
     </div>
 </section>
-@else
-
-    {{-- Tampilan untuk BUKAN client --}}
-    <section class="account-main-section" id="akun">
-        <div class="account-container">
-            <div class="akun-container">
-                <div class="section-header">
-                    <h2>Anda bukan client</h2>
-                    <p>Halaman akun ini hanya bisa diakses oleh pengguna dengan role <strong>client</strong>.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-@endif
