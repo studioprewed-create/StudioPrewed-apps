@@ -62,11 +62,13 @@
                         {{ $user->email ?? '-' }}
                     </div>
                 </div>
+            </div>
 
-                <div class="section-header">
-                    <h2>Data Pasangan</h2>
-                </div>
+            <div class="section-header">
+                <h2>Data Pasangan</h2>
+            </div>
 
+            <div class="profile-info with-line">
                 <div class="info-group">
                     <label>Nama Pasangan</label>
                     <div class="info-value">
