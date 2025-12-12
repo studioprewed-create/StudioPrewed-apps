@@ -51,6 +51,13 @@
                 </div>
 
                 <div class="info-group">
+                    <label>Jenis Kelamin</label>
+                    <div class="info-value">
+                        {{ optional($dataDiri)->jenis_kelamin ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
                     <label>Email</label>
                     <div class="info-value" id="displayEmail">
                         {{ $user->email ?? '-' }}
@@ -84,14 +91,6 @@
                         {{ optional($dataDiri)->tanggal_lahir_pasangan ?? '-' }}
                     </div>
                 </div>
-
-                <div class="info-group">
-                    <label>Status Akun</label>
-                    <div class="info-value status-verified">Terverifikasi</div>
-                </div>
-            </div>
-
-            <!-- Tombol Aksi -->
             <div class="profile-actions">
                 <button type="button" class="akun-edit-btn"
                         onclick="document.getElementById('accountDetails').toggleAttribute('open')">
