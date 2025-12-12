@@ -1,4 +1,15 @@
-<!-- Section Utama untuk Profile dan Booking -->
+@if(Auth::user()->role !== 'CLIENT')
+  <section class="account-main-section" id="akun">
+    <div class="account-container">
+        <!-- Profile Section -->
+        <div class="akun-container">
+            <div class="section-header">
+                <h2>Data Akun</h2>
+            </div>
+        </div>
+    </div>
+  </section>
+@else
 <section class="account-main-section" id="akun">
     <div class="account-container">
         <!-- Profile Section -->
@@ -95,8 +106,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Tombol Aksi -->
             <div class="profile-actions">
                 <button type="button" class="akun-edit-btn"
                         onclick="document.getElementById('accountDetails').toggleAttribute('open')">
@@ -106,8 +115,6 @@
                     <i class="fas fa-key"></i> Ubah Password
                 </button>
             </div>
-
-            {{-- INLINE FORM ala accordion (pakai <details>) --}}
             <details class="acc" id="accountDetails" @if($errors->any()) open @endif style="margin-top:16px;">
                 <summary>
                     <i class="fa-solid fa-user"></i> Data Diri & Pasangan
@@ -214,7 +221,6 @@
             </details>
         </div>
 
-        <!-- Riwayat Booking Section dengan Desain Tiket -->
         <div class="booking-container">
             <div class="booking-header">
                 <h2>Riwayat Booking</h2>
@@ -259,3 +265,4 @@
         </div>
     </div>
 </section>
+@endif
