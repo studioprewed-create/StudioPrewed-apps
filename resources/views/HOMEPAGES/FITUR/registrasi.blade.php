@@ -11,7 +11,7 @@
         <div class="register-box">
             <!-- Bagian kiri -->
             <div class="left">
-                <img src="{{ asset('public/asset/PICTURESET/LOGOSPREGISTRASI.png') }}" alt="Studio Prewed Logo" class="logo">
+                <img src="{{ asset('public/asset/PICTURESET/LOGOSPREGISTRASIDARK.png') }}" alt="Studio Prewed Logo" class="logo">
             </div>
 
             <!-- Bagian kanan -->
