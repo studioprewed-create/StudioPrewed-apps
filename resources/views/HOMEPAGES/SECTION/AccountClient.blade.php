@@ -250,8 +250,6 @@
                         <button class="ticket-action">Lihat Detail</button>
                     </div>
                 </div>
-
-                {{-- tiket lain nanti tinggal looping --}}
             </div>
         </div>
     </div>
