@@ -1075,7 +1075,7 @@ border-color:var(--brand, #7bd4ff);
 }
 
 .faq-item {
-    border-bottom: 1px solid var(--medium-gray);
+    border-bottom: 1px solid var(--black);
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
 }
@@ -1085,12 +1085,12 @@ border-color:var(--brand, #7bd4ff);
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    padding: 1rem 0;
+    padding: 3rem 0;
     transition: var(--transition);
 }
 
 .faq-question h3 {
-    font-size: 1.2rem;
+    font-size: 3rem;
     font-weight: 500;
     color: var(--white);
 }
