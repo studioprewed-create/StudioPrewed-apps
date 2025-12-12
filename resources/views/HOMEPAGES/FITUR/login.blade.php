@@ -12,8 +12,7 @@
 <body>
     <div class="login-container">
         <div class="login-box">
-            <!-- Logo -->
-            <img src="{{ asset('asset/PICTURESET/LOGOSPLOGIN.png') }}" alt="Studio Prewed Logo" class="logo">
+            <img src="{{ asset('public/asset/PICTURESET/LOGOSPLOGIN.png') }}" alt="Studio Prewed Logo" class="logo">
 
             <h2>Login</h2>
 
