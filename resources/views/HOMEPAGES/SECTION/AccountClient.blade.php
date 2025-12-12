@@ -4,8 +4,7 @@
         <!-- Profile Section -->
         <div class="akun-container">
             <div class="section-header">
-                <h2>Profil</h2>
-                <p>Kelola informasi akun Anda di sini</p>
+                <h2>Data Akun</h2>
             </div>
 
             {{-- Pesan flash & error --}}
@@ -62,6 +61,10 @@
                     <div class="info-value" id="displayEmail">
                         {{ $user->email ?? '-' }}
                     </div>
+                </div>
+
+                <div class="section-header">
+                    <h2>Data Pasangan</h2>
                 </div>
 
                 <div class="info-group">
