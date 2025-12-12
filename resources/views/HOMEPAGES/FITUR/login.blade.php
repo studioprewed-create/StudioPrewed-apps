@@ -25,7 +25,6 @@
 
             <p>Don’t have account?</p>
             <a href="{{ route('Registrasi') }}" class="btn-login">Register Here</a>
-            <p>Login by As Guest</p>
             <a href="{{ url('/') }}" class="btn-login">Login As Guest</a>
         </div>
     </div>
