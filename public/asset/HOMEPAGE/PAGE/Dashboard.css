@@ -1103,7 +1103,7 @@ border-color:var(--brand, #7bd4ff);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    color: var(--light-gray);
+    color: var(--black);
     line-height: 1.7;
 }
 
