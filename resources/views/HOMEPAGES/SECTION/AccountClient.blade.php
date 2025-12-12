@@ -4,7 +4,8 @@
         <!-- Profile Section -->
         <div class="akun-container">
             <div class="section-header">
-                <h2>Data Akun</h2>
+                <h2>Profil</h2>
+                <p>Kelola informasi akun Anda di sini</p>
             </div>
 
             {{-- Pesan flash & error --}}
@@ -52,7 +53,7 @@
                 <div class="info-group">
                     <label>Jenis Kelamin</label>
                     <div class="info-value">
-                        {{ optional($dataDiri)->jenis_kelamin ?? '-' }}
+                        {{ optional($dataDiri)->jenis_kelamin_pasangan ?? '-' }}
                     </div>
                 </div>
 
@@ -62,13 +63,7 @@
                         {{ $user->email ?? '-' }}
                     </div>
                 </div>
-            </div>
 
-            <div class="section-header">
-                <h2>Data Pasangan</h2>
-            </div>
-
-            <div class="profile-info with-line">
                 <div class="info-group">
                     <label>Nama Pasangan</label>
                     <div class="info-value">
