@@ -4,7 +4,7 @@
         <!-- Profile Section -->
         <div class="akun-container">
             <div class="section-header">
-                <h2>Data Akun</h2>
+                <h2>Anda Bukan Client -_- mohon akses data dashboard anda << Terima Kasih >></h2>
             </div>
         </div>
     </div>
