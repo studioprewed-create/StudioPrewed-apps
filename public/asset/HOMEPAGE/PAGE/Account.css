@@ -642,7 +642,7 @@ transform: scale(1.2);
 
     .detail-label {
     font-weight: 600;
-    color: var(--gray);
+    color: var(--dark);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1045,54 +1045,168 @@ select.input {
   position: fixed;
   inset: 0;
   display: none;
-  z-index: 999999;              /* naikin biar pasti paling atas */
-  align-items: center;          /* center */
-  justify-content: center;      /* center */
-  padding: 24px;                /* biar ga nempel pinggir */
+  z-index: 999999;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3vw, 28px);
 }
 
+/* state aktif (JS kamu sudah pakai .active) */
 .booking-modal.active{
-  display: flex;                /* penting: flex biar content pasti muncul */
+  display: flex;
 }
 
+/* backdrop */
 .booking-modal-backdrop{
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.75);
-  z-index: 0;                   /* backdrop di bawah */
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
+/* card modal */
 .booking-modal-content{
   position: relative;
-  z-index: 1;                   /* content di atas backdrop */
-  width: min(760px, 92vw);
+  width: min(820px, 92vw);
   max-height: 90vh;
   overflow: auto;
-  margin: 0;                    /* hilangkan margin 5vh (kadang bikin “hilang” di layout tertentu) */
-  background: var(--card);
+
+  background: linear-gradient(180deg, rgba(17,24,29,.98), rgba(10,13,14,.98));
+  border: 1px solid color-mix(in oklab, var(--line) 80%, #ffffff 10%);
+  border-radius: 20px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+
+  padding: clamp(18px, 2.4vw, 26px);
   color: var(--text);
-  padding: 24px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
+  z-index: 1;
+
+  /* anim */
+  transform: translateY(10px) scale(.98);
+  opacity: 0;
+  animation: modalIn .22s ease forwards;
 }
 
-.booking-modal-close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: var(--text-secondary);
-    cursor: pointer;
+/* scroll yang enak */
+.booking-modal-content::-webkit-scrollbar{ width: 10px; }
+.booking-modal-content::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.12);
+  border-radius: 999px;
+  border: 2px solid rgba(0,0,0,0);
+  background-clip: padding-box;
+}
+.booking-modal-content::-webkit-scrollbar-track{
+  background: rgba(255,255,255,.04);
+  border-radius: 999px;
 }
 
-.modal-grid {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 16px;
-    margin-top: 16px;
+/* header title */
+.booking-modal-content h3{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  letter-spacing: .2px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.booking-modal-content h3::before{
+  content:"";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--teal-2);
+  box-shadow: 0 0 0 5px rgba(212,172,90,.12);
+}
+
+/* close button */
+.booking-modal-close{
+  position: sticky; /* tetap terlihat saat scroll */
+  top: 0;
+  margin-left: auto;
+  float: right;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.85);
+  cursor: pointer;
+
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  line-height: 1;
+
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+
+.booking-modal-close:hover{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
+
+.booking-modal-close:active{
+  transform: translateY(0);
+}
+
+/* grid konten */
+.modal-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+/* setiap item jadi "card" kecil */
+.modal-grid > div{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 14px 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+
+  color: rgba(234,246,246,.92);
+}
+
+/* label */
+.modal-grid > div strong{
+  display: block;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(159,179,181,.9);
+  margin-bottom: 6px;
+}
+
+/* value text */
+.modal-grid > div{
+  font-size: .95rem;
+  line-height: 1.5;
+}
+
+/* blok catatan full-width biar terlihat penting */
+.modal-grid > div[style*="grid-column"]{
+  background: linear-gradient(180deg, rgba(241,153,22,.10), rgba(255,255,255,.03));
+  border-color: rgba(241,153,22,.22);
+}
+
+/* anim keyframes */
+@keyframes modalIn{
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* responsive: jadi 1 kolom */
+@media (max-width: 640px){
+  .modal-grid{
+    grid-template-columns: 1fr;
+  }
+  .booking-modal-content{
+    width: min(720px, 94vw);
+  }
 }
 
 /* Responsif dikit untuk form */
