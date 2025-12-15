@@ -99,11 +99,14 @@
                     </div>
                 </div>
 
-                <div class="info-value">
-                    {{ optional($dataDiri)->tanggal_lahir_pasangan
+                <div class="info-group">
+                    <label>Tanggal Lahir Pasangan</label>
+                    <div class="info-value">
+                        {{ optional($dataDiri)->tanggal_lahir_pasangan
                         ? \Carbon\Carbon::parse($dataDiri->tanggal_lahir_pasangan)->format('d F Y')
                         : '-' }}
                     </div>
+                </div>
             </div>
             <div class="profile-actions">
                 <button type="button" class="akun-edit-btn"
