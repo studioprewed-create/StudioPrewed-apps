@@ -224,7 +224,6 @@
         <div class="booking-container">
             <div class="booking-header">
                 <h2>Riwayat Booking</h2>
-                <p>Lihat riwayat pemesanan Anda</p>
             </div>
 
            <div class="booking-list">
