@@ -111,9 +111,6 @@
                         onclick="document.getElementById('accountDetails').toggleAttribute('open')">
                     <i class="fas fa-edit"></i> Tambah / Edit Data Diri
                 </button>
-                <button type="button" class="akun-secondary-btn" id="changePasswordBtn">
-                    <i class="fas fa-key"></i> Ubah Password
-                </button>
             </div>
             <details class="acc" id="accountDetails" @if($errors->any()) open @endif style="margin-top:16px;">
                 <summary>

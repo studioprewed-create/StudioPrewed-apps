@@ -974,8 +974,11 @@ select.input {
 }
 
 .akun-container .section-header h2 {
-    font-size: 1.6rem;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
     color: var(--black);
+    position: relative;
+    display: inline-block;
 }
 
 .akun-container .section-header p {
