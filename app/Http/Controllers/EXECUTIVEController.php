@@ -660,10 +660,16 @@ class EXECUTIVEController extends Controller
             $slides   = HeroSlide::where('active',1)->orderBy('order')->get();
             $dataDiri = $user->dataDiri; // lewat relasi
 
+            $bookings = BookingClient::with(['package']) // opsional kalau ada relasi package()
+            ->where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->get();
+
             return view('HOMEPAGES.PAGE.Account', [
                 'slides'   => $slides,
                 'user'     => $user,
                 'dataDiri' => $dataDiri,
+                'bookings' => $bookings,
             ]);
         }
 

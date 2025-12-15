@@ -227,40 +227,82 @@
                 <p>Lihat riwayat pemesanan Anda</p>
             </div>
 
-            <div class="booking-list">
-                {{-- Nanti diganti data dinamis booking, sekarang dummy --}}
-                <div class="ticket-card">
-                    <div class="ticket-header">
-                        <h3 class="ticket-title">Paket Premium Wedding</h3>
-                        <span class="ticket-status status-completed">Selesai</span>
-                    </div>
-                    <div class="ticket-body">
-                        <div class="ticket-detail">
-                            <span class="detail-label">Tanggal</span>
-                            <span class="detail-value">15 Desember 2023</span>
+           <div class="booking-list">
+                @forelse($bookings as $booking)
+                    <div class="ticket-card">
+
+                        <div class="ticket-header">
+                            <h3 class="ticket-title">
+                                {{ $booking->package->nama_paket ?? 'Paket Tidak Diketahui' }}
+                            </h3>
+
+                            <span class="ticket-status status-{{ $booking->status }}">
+                                {{ ucfirst($booking->status) }}
+                            </span>
                         </div>
-                        <div class="ticket-detail">
-                            <span class="detail-label">Waktu</span>
-                            <span class="detail-value">09:00 - 17:00</span>
+
+                        <div class="ticket-body">
+                            <div class="ticket-detail">
+                                <span class="detail-label">Tanggal</span>
+                                <span class="detail-value">
+                                    {{ $booking->photoshoot_date->format('d F Y') }}
+                                </span>
+                            </div>
+
+                            <div class="ticket-detail">
+                                <span class="detail-label">Waktu</span>
+                                <span class="detail-value">
+                                    {{ $booking->photoshoot_slot }}
+                                </span>
+                            </div>
+
+                            <div class="ticket-detail">
+                                <span class="detail-label">Tema</span>
+                                <span class="detail-value">
+                                    {{ $booking->tema_nama ?? '-' }}
+                                    @if($booking->tema_kode)
+                                        ({{ $booking->tema_kode }})
+                                    @endif
+                                </span>
+                            </div>
+
+                            <div class="ticket-detail">
+                                <span class="detail-label">Total</span>
+                                <span class="detail-value">
+                                    {{ $booking->grand_total_formatted }}
+                                </span>
+                            </div>
                         </div>
-                        <div class="ticket-detail">
-                            <span class="detail-label">Lokasi</span>
-                            <span class="detail-value">Studio Utama</span>
+
+                        <div class="ticket-side">
+                            <div class="ticket-code">
+                                #{{ $booking->kode_pesanan }}
+                            </div>
                         </div>
-                        <div class="ticket-detail">
-                            <span class="detail-label">Total</span>
-                            <span class="detail-value">Rp 5.000.000</span>
+
+                        <div class="ticket-footer">
+                            <span class="ticket-note">
+                                {{ $booking->display_nama_gabungan }}
+                            </span>
+
+                            <button
+                                class="ticket-action"
+                                data-modal-target="#bookingModal-{{ $booking->id }}"
+                            >
+                                Lihat Detail
+                            </button>
                         </div>
+
                     </div>
-                    <div class="ticket-side">
-                        <div class="ticket-code">#SPW001</div>
-                        <div class="ticket-qr">QR CODE</div>
-                    </div>
-                    <div class="ticket-footer">
-                        <span class="ticket-note">Sesi foto telah selesai dengan hasil yang memuaskan</span>
-                        <button class="ticket-action">Lihat Detail</button>
-                    </div>
-                </div>
+
+                    {{-- MODAL DETAIL --}}
+                    @include('HOMEPAGES.MODAL.RiwayatClient', ['booking' => $booking])
+
+                @empty
+                    <p style="opacity:.6;padding:16px">
+                        Belum ada riwayat booking.
+                    </p>
+                @endforelse
             </div>
         </div>
     </div>

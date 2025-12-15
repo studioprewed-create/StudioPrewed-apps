@@ -826,4 +826,57 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   })();
+    /* ================================
+     BOOKING HISTORY MODAL
+     ================================ */
+  (function initBookingHistoryModal() {
+    // tombol "Lihat Detail"
+    const openers = document.querySelectorAll('[data-modal-target]');
+    if (!openers.length) return;
+
+    function openModal(modal) {
+      if (!modal) return;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modal) {
+      if (!modal) return;
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // OPEN
+    openers.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const sel = btn.getAttribute('data-modal-target');
+        const modal = sel ? document.querySelector(sel) : null;
+        openModal(modal);
+      });
+    });
+
+    // CLOSE (klik backdrop / tombol close)
+    document.addEventListener('click', (e) => {
+      // backdrop
+      if (e.target.classList.contains('booking-modal-backdrop')) {
+        closeModal(e.target.closest('.booking-modal'));
+      }
+
+      // tombol close
+      if (e.target.classList.contains('booking-modal-close')) {
+        closeModal(e.target.closest('.booking-modal'));
+      }
+    });
+
+    // ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.booking-modal.active')
+          .forEach(m => closeModal(m));
+      }
+    });
+  })();
 });

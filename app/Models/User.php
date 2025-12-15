@@ -26,4 +26,9 @@ class User extends Authenticatable
      return $this->hasOne(DataDiri::class);
     }
 
+    public function bookings()
+    {
+        return $this->hasMany(\App\Models\BookingClient::class, 'user_id');
+    }
+
 }
