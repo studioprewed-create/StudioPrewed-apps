@@ -575,7 +575,49 @@ document.addEventListener('DOMContentLoaded', function () {
         bindModalNav('data-pkg-nav');
     })();
 
-    // =====================================================================
+    // ==============================
+    // PREFILL DATA DIRI (TANPA JSON)
+    // ==============================
+    (function prefillDataDiri() {
+        const box = document.getElementById('prefillData');
+        if (!box) return;
+
+        const namaUser     = box.dataset.nama || '';
+        const phoneUser    = box.dataset.phone || '';
+        const genderUser   = box.dataset.gender || '';
+
+        const namaPas      = box.dataset.namaPasangan || '';
+        const phonePas     = box.dataset.phonePasangan || '';
+        const genderPas    = box.dataset.genderPasangan || '';
+
+        const namaCpp  = document.getElementById('nama_cpp');
+        const phoneCpp = document.getElementById('phone_cpp');
+        const namaCpw  = document.getElementById('nama_cpw');
+        const phoneCpw = document.getElementById('phone_cpw');
+
+        // ===== RULE UTAMA =====
+        // Perempuan → CPW
+        // Laki-laki → CPP
+        if (genderUser === 'perempuan') {
+            // USER = CPW
+            if (namaCpw)  namaCpw.value  = namaUser;
+            if (phoneCpw) phoneCpw.value = phoneUser;
+
+            // PASANGAN = CPP
+            if (namaCpp)  namaCpp.value  = namaPas;
+            if (phoneCpp) phoneCpp.value = phonePas;
+        } else {
+            // USER = CPP
+            if (namaCpp)  namaCpp.value  = namaUser;
+            if (phoneCpp) phoneCpp.value = phoneUser;
+
+            // PASANGAN = CPW
+            if (namaCpw)  namaCpw.value  = namaPas;
+            if (phoneCpw) phoneCpw.value = phonePas;
+        }
+    })();
+
+        // =====================================================================
     //  BOOKING WIZARD – VERSI LENGKAP (slot_main / slot_extra / tema addon)
     // =====================================================================
     (function initBookingWizard() {

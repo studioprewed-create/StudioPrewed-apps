@@ -4,22 +4,33 @@
 
 <div class="booking-container" id="bookingWizard">
 
-    @if (session('success'))
-        <div class="alert alert-success" style="margin:16px auto;max-width:980px">
-            {{ session('success') }}
-        </div>
-    @endif
+@if (session('success'))
+    <div class="alert alert-success" style="margin:16px auto;max-width:980px">
+        {{ session('success') }}
+    </div>
+@endif
 
-    @if ($errors->any())
-        <div class="alert alert-danger" style="margin:16px auto;max-width:980px">
-            <strong>Gagal menyimpan:</strong>
-            <ul style="margin:8px 0 0 18px">
-                @foreach ($errors->all() as $e)
-                    <li>{{ $e }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+@if ($errors->any())
+    <div class="alert alert-danger" style="margin:16px auto;max-width:980px">
+        <strong>Gagal menyimpan:</strong>
+        <ul style="margin:8px 0 0 18px">
+            @foreach ($errors->all() as $e)
+                <li>{{ $e }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if($dataDiri)
+<div id="prefillData"
+    data-nama="{{ e($dataDiri->nama) }}"
+    data-phone="{{ e($dataDiri->phone) }}"
+    data-gender="{{ e($dataDiri->jenis_kelamin) }}"
+    data-nama-pasangan="{{ e($dataDiri->nama_pasangan) }}"
+    data-phone-pasangan="{{ e($dataDiri->phone_pasangan) }}"
+    data-gender-pasangan="{{ e($dataDiri->jenis_kelamin_pasangan) }}">
+</div>
+@endif
 
     <h2>Form Booking Prewed</h2>
 

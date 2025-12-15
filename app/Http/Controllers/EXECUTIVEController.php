@@ -744,7 +744,13 @@ class EXECUTIVEController extends Controller
             $packages= Package::all();
             $temas   = TemaBaju::where('active',1)->orderBy('order')->get();
             $addons   = Addon::active()->orderBy('kategori')->get();
-            return view('HOMEPAGES.PAGE.Pricelist', compact('slides','promos','packages','temas','addons'));
+
+            $dataDiri = null;
+
+            if (Auth::check()) {
+                $dataDiri = DataDiri::where('user_id', Auth::id())->first();
+            }
+            return view('HOMEPAGES.PAGE.Pricelist', compact('slides','promos','packages','temas','addons','dataDiri'));
         }
     public function create(Request $request, $section)
         {
