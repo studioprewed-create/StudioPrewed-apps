@@ -51,21 +51,28 @@ class SlotHelper
             // Hitung berapa booking yang overlap dengan slot ini
             $overlapCount = 0;
 
-            foreach ($booked as $b) {
-                if (empty($b['start']) || empty($b['end'])) {
-                    continue;
+            $checkPoints = [$begin, $end];
+
+            foreach ($checkPoints as $point) {
+                $active = 0;
+
+                foreach ($booked as $b) {
+                    if (empty($b['start']) || empty($b['end'])) {
+                        continue;
+                    }
+
+                    $bStart = Carbon::createFromFormat('H:i', substr($b['start'], 0, 5));
+                    $bEnd   = Carbon::createFromFormat('H:i', substr($b['end'],   0, 5));
+
+                    // booking aktif di titik waktu ini?
+                    if ($point->gte($bStart) && $point->lt($bEnd)) {
+                        $active++;
+                    }
                 }
 
-                $bStart = Carbon::createFromFormat('H:i', substr($b['start'], 0, 5));
-                $bEnd   = Carbon::createFromFormat('H:i', substr($b['end'],   0, 5));
-
-                // overlap: existing.start < candidate.end && existing.end > candidate.start
-                if ($begin->lt($bEnd) && $end->gt($bStart)) {
-                    $overlapCount++;
-                }
+                $overlapCount = max($overlapCount, $active);
             }
 
-            // Kalau yang overlap sudah >= kapasitas → slot full
             if ($overlapCount >= $kapasitas) {
                 $slot['available'] = false;
             }
