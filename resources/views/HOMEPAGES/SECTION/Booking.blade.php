@@ -124,20 +124,6 @@
                     @endforeach
                 </select>
             </div>
-            <div>
-                <label>Atau pilih langsung</label>
-                <select id="tema_id">
-                    <option value="">-- pilih tema --</option>
-                    @foreach($temas as $t)
-                        <option
-                            value="{{ $t->id }}"
-                            data-nama="{{ $t->nama }}"
-                            data-kode="{{ $t->kode }}">
-                            {{ $t->nama }} {{ $t->kode ? '(' . $t->kode . ')' : '' }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
         </div>
 
         {{-- ADDON SECTION --}}
@@ -215,20 +201,6 @@
                                 data-nama="{{ $t->nama }}"
                                 data-id="{{ $t->id }}">
                                 {{ $t->kode }} - {{ $t->nama }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <label>Atau pilih langsung</label>
-                    <select id="tema2_id">
-                        <option value="">-- pilih tema --</option>
-                        @foreach($temas as $t)
-                            <option
-                                value="{{ $t->id }}"
-                                data-nama="{{ $t->nama }}"
-                                data-kode="{{ $t->kode }}">
-                                {{ $t->nama }} {{ $t->kode ? '(' . $t->kode . ')' : '' }}
                             </option>
                         @endforeach
                     </select>
