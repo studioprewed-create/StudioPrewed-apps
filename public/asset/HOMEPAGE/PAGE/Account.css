@@ -1041,33 +1041,40 @@ select.input {
     background: rgba(15, 23, 42, 0.02);
 }
 
-.booking-modal {
-    position: fixed;
-    inset: 0;
-    display: none;
-    z-index: 9999;
+.booking-modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 999999;              /* naikin biar pasti paling atas */
+  align-items: center;          /* center */
+  justify-content: center;      /* center */
+  padding: 24px;                /* biar ga nempel pinggir */
 }
 
-.booking-modal.active {
-    display: block;
+.booking-modal.active{
+  display: flex;                /* penting: flex biar content pasti muncul */
 }
 
-.booking-modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,.75);
+.booking-modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  z-index: 0;                   /* backdrop di bawah */
 }
 
-.booking-modal-content {
-    position: relative;
-    max-width: 760px;
-    margin: 5vh auto;
-    background: var(--card);
-    color: var(--text);
-    padding: 24px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--line);
+.booking-modal-content{
+  position: relative;
+  z-index: 1;                   /* content di atas backdrop */
+  width: min(760px, 92vw);
+  max-height: 90vh;
+  overflow: auto;
+  margin: 0;                    /* hilangkan margin 5vh (kadang bikin “hilang” di layout tertentu) */
+  background: var(--card);
+  color: var(--text);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
 }
 
 .booking-modal-close {
