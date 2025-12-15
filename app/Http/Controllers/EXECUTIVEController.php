@@ -265,7 +265,7 @@ class EXECUTIVEController extends Controller
                 'photoshoot_slot' => 'required|string|max:20', // "HH:MM-HH:MM"
                 'start_time'      => 'required|date_format:H:i',
                 'end_time'        => 'required|date_format:H:i',
-                'style'           => 'required|string|in:Hair,HairDo',
+                'style'           => 'required|string|in:Hijab,HairDo',
 
                 // Tema utama
                 'tema_id'   => 'nullable|exists:tema_baju,id',
@@ -1047,7 +1047,7 @@ class EXECUTIVEController extends Controller
                     'start_time'      => 'required|date_format:H:i',
                     'end_time'        => 'required|date_format:H:i|after:start_time',
                     'package_id'      => 'nullable|exists:packages,id',
-                    'style'           => 'required|string|in:Hair,HairDo',
+                    'style'           => 'required|string|in:Hijab,HairDo',
                     'status'          => 'required|string|in:submitted,confirmed,cancelled,completed',
                     'notes'           => 'nullable|string',
                 ]);
@@ -1478,7 +1478,7 @@ class EXECUTIVEController extends Controller
                     'start_time'      => 'sometimes|required|date_format:H:i',
                     'end_time'        => 'sometimes|required|date_format:H:i|after:start_time',
                     'package_id'      => 'sometimes|nullable|exists:packages,id',
-                    'style'           => 'sometimes|required|string|in:Hair,HairDo',
+                    'style'           => 'sometimes|required|string|in:Hijab,HairDo',
                     'status'          => 'sometimes|required|string|in:submitted,confirmed,cancelled,completed',
                     'notes'           => 'sometimes|nullable|string',
                 ]);

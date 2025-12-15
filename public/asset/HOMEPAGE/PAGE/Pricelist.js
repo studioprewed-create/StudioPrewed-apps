@@ -1283,7 +1283,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!date)
                 throw new Error('Pilih tanggal photoshoot.');
             if (!style)
-                throw new Error('Pilih style (Hair/HairDo).');
+                throw new Error('Pilih style (Hijab/HairDo).');
             if (!main)
                 throw new Error('Pilih salah satu slot utama.');
 
