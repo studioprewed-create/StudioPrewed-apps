@@ -88,7 +88,7 @@
                 <label>Style</label>
                 <select id="style">
                     <option value="">-- pilih style --</option>
-                    <option value="Hair">Hijab</option>
+                    <option value="Hijab">Hijab</option>
                     <option value="HairDo">HairDo</option>
                 </select>
             </div>
