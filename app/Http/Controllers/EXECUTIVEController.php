@@ -489,7 +489,7 @@ class EXECUTIVEController extends Controller
             // 4. Hitung harga paket & addon
             // ==============================
             $package      = Package::findOrFail($v['package_id']);
-            $packagePrice = (int) $package->harga;
+            $packagePrice = (int) $package->final_price;
             $addonsTotal  = (int) $addons->sum('harga');
             $grandTotal   = $packagePrice + $addonsTotal;
 
