@@ -74,6 +74,24 @@
                     </div>
                 </div>
 
+                <div class="info-group">
+                    <label>Tanggal Lahir</label>
+                    <div class="info-value">
+                        {{ optional($dataDiri)->tanggal_lahir
+                        ? \Carbon\Carbon::parse($dataDiri->tanggal_lahir)->format('d F Y')
+                        : '-' }}
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Tanggal Pernikahan</label>
+                    <div class="info-value">
+                        {{ optional($dataDiri)->tanggal_pernikahan
+                        ? \Carbon\Carbon::parse($dataDiri->tanggal_pernikahan)->format('d F Y')
+                        : '-' }}
+                    </div>
+                </div>
+
                 <div class="section-header">
                     <h2>Data Pasangan</h2>
                 </div>
