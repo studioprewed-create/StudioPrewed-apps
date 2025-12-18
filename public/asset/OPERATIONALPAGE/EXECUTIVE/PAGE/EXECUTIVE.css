@@ -2225,6 +2225,99 @@ body.sp-body {
     font-size: 1.1rem;
 }
 
+.wizard-stepper{
+    display:flex; gap:10px; margin-bottom:14px;
+}
+.wiz-step{
+    flex:1;
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:12px;
+    opacity:.7;
+}
+.wiz-step span{
+    width:28px; height:28px;
+    border-radius:999px;
+    display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid rgba(0,0,0,.18);
+    font-weight:700;
+}
+.wiz-step p{ margin:0; font-weight:600; }
+.wiz-step.is-active{ opacity:1; box-shadow:0 6px 18px rgba(0,0,0,.08); }
+.wiz-step.is-done{ opacity:1; }
+
+/* ===== Panels ===== */
+.wiz-panel{ display:none; }
+.wiz-panel.is-active{ display:block; }
+
+/* ===== Slot Grid ===== */
+.slots-grid{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap:10px;
+}
+.slot-item{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    border:1px solid rgba(0,0,0,.12);
+    border-radius:12px;
+    cursor:pointer;
+}
+.slot-item input{ margin:0; }
+.slot-item.unavail{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+/* ===== Addons ===== */
+.addons-grid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
+.addon-group{
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:12px;
+    padding:12px;
+}
+.addon-group h4{ margin:0 0 10px; font-size:0.95rem; }
+.addon-item{
+    display:flex; align-items:center; gap:10px;
+    padding:8px 10px;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:10px;
+    margin-bottom:8px;
+}
+.addon-item:last-child{ margin-bottom:0; }
+.addon-name{ font-weight:600; }
+.addon-item small{ opacity:.7; margin-left:auto; }
+
+/* ===== Footer ===== */
+.wizard-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid rgba(0,0,0,.08);
+}
+
+/* ===== Summary ===== */
+.summary-box{
+    margin-top:14px;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:12px;
+    padding:12px;
+}
+.summary-card{
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:12px;
+    padding:12px;
+}
+.summary-card h4{ margin:0 0 8px; }
+.grid-2{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
+@media (max-width: 820px){
+  .slots-grid, .addons-grid, .grid-2{ grid-template-columns: 1fr; }
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .booking-modal,
