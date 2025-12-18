@@ -1739,3 +1739,462 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+(function () {
+  const $  = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+  const pad = (n) => String(n).padStart(2, '0');
+  const fmtYMD = (d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const parseYMD = (s) => {
+    const [y,m,d] = (s || '').split('-').map(Number);
+    if (!y || !m || !d) return new Date();
+    return new Date(y, m-1, d);
+  };
+
+  function getApiSlotsUrl() {
+    // prioritas: window.APP_ROUTES.apiSlots (punyamu), fallback: data-api-slots di form
+    if (window.APP_ROUTES && window.APP_ROUTES.apiSlots) return window.APP_ROUTES.apiSlots;
+    const form = $('#jpBookingForm');
+    return form ? (form.dataset.apiSlots || '') : '';
+  }
+
+  async function fetchSlots({ date, packageId }) {
+    const base = getApiSlotsUrl();
+    if (!base || !date || !packageId) return [];
+
+    const url = new URL(base, window.location.origin);
+    url.searchParams.set('date', date);
+    url.searchParams.set('package_id', packageId);
+
+    const res = await fetch(url.toString(), { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  }
+
+  /* =========================
+   *  CALENDAR (LEFT PANEL)
+   * ========================= */
+  function initCalendar() {
+    const grid = $('#jpCalGrid');
+    if (!grid) return;
+
+    const dateInput = $('#filterDate');
+    const label = $('#jpCalLabel');
+    const selectedLabel = $('#jpSelectedDateLabel');
+    const slotsDateLabel = $('#jpSlotsDateLabel');
+
+    let selected = parseYMD(dateInput.value);
+    let view = new Date(selected.getFullYear(), selected.getMonth(), 1);
+
+    const monthNames = [
+      'Januari','Februari','Maret','April','Mei','Juni',
+      'Juli','Agustus','September','Oktober','November','Desember'
+    ];
+
+    function render() {
+      label.textContent = `${monthNames[view.getMonth()]} ${view.getFullYear()}`;
+      grid.innerHTML = '';
+
+      const firstDay = new Date(view.getFullYear(), view.getMonth(), 1);
+      const startDow = firstDay.getDay(); // 0=Sun
+      const daysInMonth = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
+
+      // fill leading blanks (previous month)
+      for (let i=0; i<startDow; i++) {
+        const div = document.createElement('div');
+        div.className = 'jp-day is-muted';
+        div.textContent = '';
+        grid.appendChild(div);
+      }
+
+      for (let d=1; d<=daysInMonth; d++) {
+        const cellDate = new Date(view.getFullYear(), view.getMonth(), d);
+        const div = document.createElement('div');
+        div.className = 'jp-day';
+        div.textContent = String(d);
+
+        const isSelected =
+          cellDate.getFullYear() === selected.getFullYear() &&
+          cellDate.getMonth() === selected.getMonth() &&
+          cellDate.getDate() === selected.getDate();
+
+        if (isSelected) div.classList.add('is-selected');
+
+        div.addEventListener('click', () => {
+          selected = cellDate;
+          const ymd = fmtYMD(selected);
+
+          dateInput.value = ymd;
+          selectedLabel.textContent = `${pad(selected.getDate())}/${pad(selected.getMonth()+1)}/${selected.getFullYear()}`;
+          if (slotsDateLabel) slotsDateLabel.textContent = selectedLabel.textContent;
+
+          // submit filter (reload list) + slots preview juga ikut update
+          $('#jpFilterForm')?.submit();
+        });
+
+        grid.appendChild(div);
+      }
+    }
+
+    $('#jpCalPrev')?.addEventListener('click', () => {
+      view = new Date(view.getFullYear(), view.getMonth()-1, 1);
+      render();
+    });
+
+    $('#jpCalNext')?.addEventListener('click', () => {
+      view = new Date(view.getFullYear(), view.getMonth()+1, 1);
+      render();
+    });
+
+    $('#jpTodayBtn')?.addEventListener('click', () => {
+      selected = new Date();
+      view = new Date(selected.getFullYear(), selected.getMonth(), 1);
+
+      const ymd = fmtYMD(selected);
+      dateInput.value = ymd;
+
+      selectedLabel.textContent = `${pad(selected.getDate())}/${pad(selected.getMonth()+1)}/${selected.getFullYear()}`;
+      if (slotsDateLabel) slotsDateLabel.textContent = selectedLabel.textContent;
+
+      $('#jpFilterForm')?.submit();
+    });
+
+    render();
+  }
+
+  /* =========================
+   *  SLOT PREVIEW (RIGHT PANEL)
+   * ========================= */
+  async function refreshSlotPreview() {
+    const grid = $('#jpSlotsGrid');
+    if (!grid) return;
+
+    const date = $('#filterDate')?.value;
+    const packageId = $('#jpPackageFilter')?.value;
+
+    if (!packageId) {
+      grid.innerHTML = `<div class="jp-slots-empty">Pilih paket untuk melihat slot.</div>`;
+      return;
+    }
+
+    grid.innerHTML = `<div class="jp-slots-empty">Memuat slot...</div>`;
+    const slots = await fetchSlots({ date, packageId });
+
+    if (!slots.length) {
+      grid.innerHTML = `<div class="jp-slots-empty">Slot tidak tersedia / API tidak mengembalikan data.</div>`;
+      return;
+    }
+
+    grid.innerHTML = '';
+    slots.forEach((s) => {
+      const available = !!s.available;
+      const time = s.time || '-';
+      const code = s.code || '';
+
+      const wrap = document.createElement('div');
+      wrap.className = 'jp-slot';
+
+      const tagClass = available ? 'ok' : 'full';
+      const tagText  = available ? 'Tersedia' : 'Penuh';
+
+      wrap.innerHTML = `
+        <div class="jp-slot-time">${time}</div>
+        <div class="jp-slot-sub">
+          <span class="jp-tag ${tagClass}">${tagText}</span>
+          <span class="jp-tag">${code}</span>
+          <span class="jp-tag ${tagClass}">Studio 1</span>
+          <span class="jp-tag ${tagClass}">Studio 2</span>
+        </div>
+      `;
+
+      grid.appendChild(wrap);
+    });
+  }
+
+  function initSlotPreview() {
+    const pkg = $('#jpPackageFilter');
+    if (!pkg) return;
+
+    pkg.addEventListener('change', () => {
+      // slot preview refresh tanpa harus reload list (tapi form tetap bisa dipakai)
+      refreshSlotPreview();
+    });
+
+    // initial render
+    refreshSlotPreview();
+  }
+
+  /* =========================
+   *  MODAL WIZARD (4 STEP)
+   * ========================= */
+  function initModal() {
+    const modal = $('#jpBookingModal');
+    if (!modal) return;
+
+    const form = $('#jpBookingForm');
+    const storeUrl = form.dataset.storeUrl;
+    const updateTpl = form.dataset.updateUrlTemplate; // .../0
+
+    const openBtn = $('#jpNewBookingBtn');
+    const closeBtn = $('#jpModalClose');
+    const backdrop = $('#jpModalBackdrop');
+
+    const steps = $$('.jp-step', modal);
+    const panels = $$('.jp-step-panel', modal);
+
+    const prevBtn = $('#jpPrevBtn');
+    const nextBtn = $('#jpNextBtn');
+    const submitBtn = $('#jpSubmitBtn');
+
+    let currentStep = 1;
+
+    const setStep = (n) => {
+      currentStep = n;
+      steps.forEach(btn => btn.classList.toggle('is-active', Number(btn.dataset.step) === n));
+      panels.forEach(p => p.classList.toggle('is-active', Number(p.dataset.step) === n));
+
+      prevBtn.style.visibility = (n === 1) ? 'hidden' : 'visible';
+      nextBtn.style.display = (n === 4) ? 'none' : 'inline-flex';
+      submitBtn.style.display = (n === 4) ? 'inline-flex' : 'none';
+
+      if (n === 4) buildReview();
+    };
+
+    const openModal = () => {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setStep(1);
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    function resetFormToCreate() {
+      $('#jpModalTitle').textContent = 'Booking Baru';
+      $('#jpMethod').value = 'POST';
+      $('#jpBookingId').value = '';
+      form.action = storeUrl;
+
+      form.reset();
+
+      // default date = selectedDate (calendar)
+      const selected = $('#filterDate')?.value;
+      if (selected) $('#f_photoshoot_date').value = selected;
+
+      // reset slot derived
+      $('#f_photoshoot_slot').value = '';
+      $('#f_start_time').value = '';
+      $('#f_end_time').value = '';
+
+      // slot select state
+      const slotSel = $('#f_slot_code');
+      slotSel.innerHTML = `<option value="">Pilih paket & tanggal terlebih dahulu.</option>`;
+    }
+
+    function setFormToEdit(data) {
+      $('#jpModalTitle').textContent = 'Edit Booking';
+      $('#jpMethod').value = 'PUT';
+      $('#jpBookingId').value = data.id || '';
+
+      // update action: replace trailing /0 with /{id}
+      const upd = updateTpl.replace(/0$/, String(data.id));
+      form.action = upd;
+
+      // fill fields
+      $('#f_nama_cpp').value = data.nama_cpp || '';
+      $('#f_phone_cpp').value = data.phone_cpp || '';
+      $('#f_email_cpp').value = data.email_cpp || '';
+      $('#f_alamat_cpp').value = data.alamat_cpp || '';
+
+      $('#f_nama_cpw').value = data.nama_cpw || '';
+      $('#f_phone_cpw').value = data.phone_cpw || '';
+      $('#f_email_cpw').value = data.email_cpw || '';
+      $('#f_alamat_cpw').value = data.alamat_cpw || '';
+
+      $('#f_package_id').value = data.package_id || '';
+      $('#f_photoshoot_date').value = data.photoshoot_date || $('#filterDate')?.value || '';
+      $('#f_style').value = data.style || '';
+      $('#f_wedding_date').value = data.wedding_date || '';
+
+      $('#f_tema_nama').value = data.tema_nama || '';
+      $('#f_tema_kode').value = data.tema_kode || '';
+      $('#f_tema2_nama').value = data.tema2_nama || '';
+      $('#f_tema2_kode').value = data.tema2_kode || '';
+
+      $('#f_notes').value = data.notes || '';
+
+      $('#f_ig_cpp').value = data.ig_cpp || '';
+      $('#f_tiktok_cpp').value = data.tiktok_cpp || '';
+      $('#f_ig_cpw').value = data.ig_cpw || '';
+      $('#f_tiktok_cpw').value = data.tiktok_cpw || '';
+
+      $('#f_status').value = data.status || 'submitted';
+
+      // addons (kalau ada id list)
+      const ids = Array.isArray(data.addons) ? data.addons.map(String) : [];
+      $$('.jp-addon-checkbox', form).forEach(cb => {
+        cb.checked = ids.includes(String(cb.value));
+      });
+    }
+
+    async function loadMainSlotsIntoSelect() {
+      const packageId = $('#f_package_id').value;
+      const date = $('#f_photoshoot_date').value;
+
+      const slotSel = $('#f_slot_code');
+      if (!packageId || !date) {
+        slotSel.innerHTML = `<option value="">Pilih paket & tanggal terlebih dahulu.</option>`;
+        return;
+      }
+
+      slotSel.innerHTML = `<option value="">Memuat slot...</option>`;
+      const slots = await fetchSlots({ date, packageId });
+
+      slotSel.innerHTML = `<option value="">— Pilih Slot —</option>`;
+      slots.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.code || '';
+        opt.textContent = `${s.time || ''} (${s.code || ''})${s.available ? '' : ' - Penuh'}`;
+        opt.disabled = !s.available;
+
+        // simpan time untuk isi start/end
+        opt.dataset.time = s.time || '';
+        slotSel.appendChild(opt);
+      });
+    }
+
+    function applySlotToHiddenFromOption(opt) {
+      const time = opt?.dataset?.time || '';
+      // time format: "HH:mm-HH:mm"
+      if (!time.includes('-')) return;
+
+      const parts = time.split('-').map(t => t.trim());
+      const start = parts[0]?.slice(0,5) || '';
+      const end   = parts[1]?.slice(0,5) || '';
+
+      $('#f_photoshoot_slot').value = time;
+      $('#f_start_time').value = start;
+      $('#f_end_time').value = end;
+    }
+
+    function buildReview() {
+      const get = (id) => $(id)?.value || '';
+
+      const lines = [];
+      lines.push(`CPP: ${get('#f_nama_cpp')} • ${get('#f_phone_cpp')} • ${get('#f_email_cpp')}`);
+      lines.push(`CPW: ${get('#f_nama_cpw')} • ${get('#f_phone_cpw')} • ${get('#f_email_cpw')}`);
+      lines.push('');
+      lines.push(`Tanggal: ${get('#f_photoshoot_date')}`);
+      lines.push(`Paket: ${get('#f_package_id')}`);
+      lines.push(`Style: ${get('#f_style')}`);
+      lines.push(`Slot: ${get('#f_slot_code')} • ${$('#f_photoshoot_slot')?.value || ''}`);
+      lines.push(`Tema Utama: ${get('#f_tema_nama')} (${get('#f_tema_kode')})`);
+      lines.push(`Tema Tambahan: ${get('#f_tema2_nama')} (${get('#f_tema2_kode')})`);
+      lines.push('');
+      lines.push(`IG CPP: ${get('#f_ig_cpp')} • TikTok CPP: ${get('#f_tiktok_cpp')}`);
+      lines.push(`IG CPW: ${get('#f_ig_cpw')} • TikTok CPW: ${get('#f_tiktok_cpw')}`);
+      lines.push('');
+      lines.push(`Status: ${get('#f_status')}`);
+      lines.push(`Catatan: ${get('#f_notes')}`);
+
+      // addons
+      const checked = $$('.jp-addon-checkbox', form).filter(cb => cb.checked);
+      if (checked.length) {
+        lines.push('');
+        lines.push('Addon:');
+        checked.forEach(cb => lines.push(`- ${cb.dataset.name || cb.value}`));
+      }
+
+      $('#jpReviewBox').textContent = lines.join('\n');
+    }
+
+    // events
+    openBtn?.addEventListener('click', () => {
+      resetFormToCreate();
+      openModal();
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    prevBtn?.addEventListener('click', () => setStep(Math.max(1, currentStep - 1)));
+    nextBtn?.addEventListener('click', () => setStep(Math.min(4, currentStep + 1)));
+
+    steps.forEach(btn => {
+      btn.addEventListener('click', () => setStep(Number(btn.dataset.step)));
+    });
+
+    // edit buttons from cards
+    $$('.jpEditBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.jp-booking-card');
+        if (!card) return;
+        const data = JSON.parse(card.dataset.booking || '{}');
+
+        setFormToEdit(data);
+        openModal();
+
+        // load slots, then select existing slot
+        setTimeout(async () => {
+          await loadMainSlotsIntoSelect();
+          if (data.slot_code) {
+            $('#f_slot_code').value = data.slot_code;
+            const opt = $('#f_slot_code').selectedOptions[0];
+            applySlotToHiddenFromOption(opt);
+          }
+        }, 0);
+      });
+    });
+
+    // slot dependent
+    $('#f_package_id')?.addEventListener('change', loadMainSlotsIntoSelect);
+    $('#f_photoshoot_date')?.addEventListener('change', loadMainSlotsIntoSelect);
+
+    $('#f_slot_code')?.addEventListener('change', (e) => {
+      const opt = e.target.selectedOptions[0];
+      applySlotToHiddenFromOption(opt);
+    });
+
+    // tema sync (nama -> kode and kode -> nama)
+    function syncTema(namaSel, kodeSel) {
+      const nama = $(namaSel);
+      const kode = $(kodeSel);
+
+      nama?.addEventListener('change', () => {
+        const opt = nama.selectedOptions[0];
+        const k = opt?.dataset?.kode || '';
+        if (k) kode.value = k;
+      });
+
+      kode?.addEventListener('change', () => {
+        const opt = kode.selectedOptions[0];
+        const n = opt?.dataset?.nama || '';
+        if (n) nama.value = n;
+      });
+    }
+    syncTema('#f_tema_nama', '#f_tema_kode');
+    syncTema('#f_tema2_nama', '#f_tema2_kode');
+  }
+
+  function boot() {
+    initCalendar();
+    initSlotPreview();
+    initModal();
+
+    // refresh slot preview when filter package changes
+    $('#jpPackageFilter')?.addEventListener('change', () => refreshSlotPreview());
+  }
+
+  document.addEventListener('DOMContentLoaded', boot);
+
+  // kalau halaman kamu pakai loadContent AJAX, panggil ini setelah HTML JadwalPesanan di-inject:
+  window.jpBootJadwalPesanan = boot;
+})();
