@@ -2209,19 +2209,20 @@ class EXECUTIVEController extends Controller
                 ]);
             }
             if ($page === 'JadwalPesanan') {
-                // default: hari ini
                 $selectedDate = $request->input('date', now()->toDateString());
                 $status       = $request->input('status', 'all');
                 $search       = $request->input('search');
 
                 $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
-                // mapping status UI -> DB
+                // OPTIONAL: kalau ini khusus booking executive, aktifkan filter prefix ini
+                $query->where('kode_pesanan', 'like', 'SPEXEC%');
+
                 $statusMap = [
                     'pending'   => 'submitted',
                     'confirmed' => 'confirmed',
                     'canceled'  => 'cancelled',
-                    'completed' => 'completed', // kalau nanti kamu tambah enum ini
+                    'completed' => 'completed',
                 ];
 
                 if ($status !== 'all' && isset($statusMap[$status])) {
@@ -2240,18 +2241,20 @@ class EXECUTIVEController extends Controller
                     });
                 }
 
-                $bookings = $query
-                    ->orderBy('start_time')
-                    ->get();
+                $bookings = $query->orderBy('start_time')->get();
 
-                // supaya modal "Booking Baru" bisa milih paket
+                // dropdown & wizard needs these:
                 $packages = Package::orderBy('order')->get();
+                $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page'         => $page,
                     'bookings'     => $bookings,
                     'selectedDate' => $selectedDate,
                     'packages'     => $packages,
+                    'addons'       => $addons,
+                    'temas'        => $temas,
                 ]);
             }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
@@ -2393,6 +2396,9 @@ class EXECUTIVEController extends Controller
 
                 $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
+                // OPTIONAL: khusus executive
+                $query->where('kode_pesanan', 'like', 'SPEXEC%');
+
                 $statusMap = [
                     'pending'   => 'submitted',
                     'confirmed' => 'confirmed',
@@ -2417,9 +2423,14 @@ class EXECUTIVEController extends Controller
                 }
 
                 $bookings = $query->orderBy('start_time')->get();
-                $packages = Package::orderBy('order')->get();
 
-                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('bookings', 'selectedDate', 'packages'));
+                $packages = Package::orderBy('order')->get();
+                $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact(
+                    'bookings', 'selectedDate', 'packages', 'addons', 'temas'
+                ));
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page");
@@ -2589,6 +2600,9 @@ class EXECUTIVEController extends Controller
 
                     $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
+                    // OPTIONAL: khusus executive
+                    $query->where('kode_pesanan', 'like', 'SPEXEC%');
+
                     $statusMap = [
                         'pending'   => 'submitted',
                         'confirmed' => 'confirmed',
@@ -2613,13 +2627,18 @@ class EXECUTIVEController extends Controller
                     }
 
                     $bookings = $query->orderBy('start_time')->get();
+
                     $packages = Package::orderBy('order')->get();
+                    $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
+                    $temas    = TemaBaju::orderBy('order')->get();
 
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page'         => $page,
                         'bookings'     => $bookings,
                         'selectedDate' => $selectedDate,
                         'packages'     => $packages,
+                        'addons'       => $addons,
+                        'temas'        => $temas,
                     ]);
                 }
                 if ($page === 'GalleryAttire') {
