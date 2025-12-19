@@ -1036,68 +1036,74 @@ class EXECUTIVEController extends Controller
                 ]);
             }
             elseif ($section === 'bookingexecutive') {
+
+                $booking = BookingClient::findOrFail($id);
+
                 $v = $request->validate([
-                'nama_cpp'        => 'required|string|max:100',
-                'phone_cpp'       => 'required|string|max:30',
-                'email_cpp'       => 'nullable|email|max:120',
-                'alamat_cpp'      => 'nullable|string|max:255',
+                    'nama_cpp'        => 'sometimes|required|string|max:100',
+                    'phone_cpp'       => 'sometimes|required|string|max:30',
+                    'email_cpp'       => 'sometimes|nullable|email|max:120',
+                    'alamat_cpp'      => 'sometimes|nullable|string|max:255',
 
-                'nama_cpw'        => 'required|string|max:100',
-                'phone_cpw'       => 'required|string|max:30',
-                'email_cpw'       => 'nullable|email|max:120',
-                'alamat_cpw'      => 'nullable|string|max:255',
+                    'nama_cpw'        => 'sometimes|required|string|max:100',
+                    'phone_cpw'       => 'sometimes|required|string|max:30',
+                    'email_cpw'       => 'sometimes|nullable|email|max:120',
+                    'alamat_cpw'      => 'sometimes|nullable|string|max:255',
 
-                // Step 2 - utama
-                'package_id'      => 'required|exists:packages,id',
-                'photoshoot_date' => 'required|date|after_or_equal:today',
-                'slot_code'       => 'required|string|max:10',
-                'photoshoot_slot' => 'required|string|max:20',
-                'start_time'      => 'required|date_format:H:i',
-                'end_time'        => 'required|date_format:H:i',
-                'style'           => 'required|string|in:Hijab,HairDo',
+                    'package_id'      => 'sometimes|required|exists:packages,id',
+                    'photoshoot_date' => 'sometimes|required|date',
+                    'slot_code'       => 'sometimes|required|string|max:10',
+                    'photoshoot_slot' => 'sometimes|required|string|max:20',
+                    'start_time'      => 'sometimes|required|date_format:H:i',
+                    'end_time'        => 'sometimes|required|date_format:H:i',
+                    'style'           => 'sometimes|required|in:Hijab,HairDo',
 
-                // Tema utama
-                'tema_id'         => 'nullable|exists:tema_baju,id',
-                'tema_nama'       => 'nullable|string|max:100',
-                'tema_kode'       => 'nullable|string|max:100',
+                    'tema_id'         => 'sometimes|nullable|exists:tema_baju,id',
+                    'tema_nama'       => 'sometimes|nullable|string|max:100',
+                    'tema_kode'       => 'sometimes|nullable|string|max:100',
 
-                // Tema tambahan dari addon kategori 2
-                'tema2_id'        => 'nullable|exists:tema_baju,id',
-                'tema2_nama'      => 'nullable|string|max:100',
-                'tema2_kode'      => 'nullable|string|max:100',
+                    'tema2_id'        => 'sometimes|nullable|exists:tema_baju,id',
+                    'tema2_nama'      => 'sometimes|nullable|string|max:100',
+                    'tema2_kode'      => 'sometimes|nullable|string|max:100',
 
-                // Step 3
-                'ig_cpp'          => 'nullable|string|max:100',
-                'ig_cpw'          => 'nullable|string|max:100',
-                'tiktok_cpp'      => 'nullable|string|max:100',
-                'tiktok_cpw'      => 'nullable|string|max:100',
-                'sosmed_lain'     => 'nullable|string', // JSON string (optional)
+                    'addons'          => 'sometimes|nullable|array',
+                    'addons.*'        => 'integer|exists:addons,id',
 
-                // ADDON (id)
-                'addons'          => 'nullable|array',
-                'addons.*'        => 'integer|exists:addons,id',
+                    'extra_slot_code'       => 'sometimes|nullable|string|max:10',
+                    'extra_photoshoot_slot' => 'sometimes|nullable|string|max:20',
+                    'extra_start_time'      => 'sometimes|nullable|date_format:H:i',
+                    'extra_end_time'        => 'sometimes|nullable|date_format:H:i',
+                    'extra_minutes'         => 'sometimes|nullable|integer|min:0',
 
-                // Extra slot dari addon kategori 1
-                'extra_slot_code' => 'nullable|string|max:10',
-                'extra_photoshoot_slot' => 'nullable|string|max:20',
-                'extra_start_time'      => 'nullable|date_format:H:i',
-                'extra_end_time'        => 'nullable|date_format:H:i',
-                'extra_minutes'         => 'nullable|integer|min:0',
+                    'notes'           => 'sometimes|nullable|string',
+                    'status'          => 'sometimes|required|in:submitted,confirmed,cancelled,completed',
                 ]);
 
-                // Normalisasi jam utama (H:i)
-                $start = substr($v['start_time'], 0, 5);
-                $end   = substr($v['end_time'],   0, 5);
+                /* =========================
+                EFFECTIVE VALUE
+                ========================= */
+                $effDate  = $this->getEffective($v, $booking, 'photoshoot_date');
+                $effStart = $this->getEffective($v, $booking, 'start_time');
+                $effEnd   = $this->getEffective($v, $booking, 'end_time');
+
+                $start = substr((string)$effStart, 0, 5);
+                $end   = substr((string)$effEnd,   0, 5);
+
+                if ($end <= $start) {
+                    return back()->withErrors(['end_time' => 'End time harus setelah start time']);
+                }
 
                 $kapasitasPerSlot = 2;
 
-                // Cek kapasitas slot utama (2 studio)
-                $jumlahOverlap = BookingClient::whereDate('photoshoot_date', $v['photoshoot_date'])
+                /* =========================
+                SLOT UTAMA (exclude diri sendiri)
+                ========================= */
+                $jumlahOverlap = BookingClient::where('id', '!=', $booking->id)
+                    ->whereDate('photoshoot_date', $effDate)
                     ->where(function ($q) use ($start, $end) {
-                        $q->where(function ($q1) use ($start, $end) {
-                            $q1->whereTime('start_time', '<', $end)
-                                ->whereTime('end_time',   '>', $start);
-                        })->orWhere(function ($q2) use ($start, $end) {
+                        $q->whereTime('start_time', '<', $end)
+                        ->whereTime('end_time',   '>', $start)
+                        ->orWhere(function ($q2) use ($start, $end) {
                             $q2->whereNotNull('extra_start_time')
                                 ->whereNotNull('extra_end_time')
                                 ->whereTime('extra_start_time', '<', $end)
@@ -1107,95 +1113,100 @@ class EXECUTIVEController extends Controller
                     ->count();
 
                 if ($jumlahOverlap >= $kapasitasPerSlot) {
-                    return back()
-                        ->withErrors(['slot_code' => 'Slot ini sudah penuh. Silakan pilih jam lain.'])
-                        ->withInput()
-                        ->with('wizard_step', 2);
+                    return back()->withErrors(['slot_code' => 'Slot sudah penuh']);
                 }
 
-                // Cek kode tema utama tidak double di jam sama
-                $temaKode = $v['tema_kode'] ?? null;
+                /* =========================
+                TEMA UTAMA & TAMBAHAN
+                ========================= */
+                $temaKode = $this->getEffective($v, $booking, 'tema_kode');
 
                 if ($temaKode) {
-                    $temaDipakai = BookingClient::whereDate('photoshoot_date', $v['photoshoot_date'])
+                    $dipakai = BookingClient::where('id','!=',$booking->id)
+                        ->whereDate('photoshoot_date', $effDate)
                         ->where(function ($q) use ($temaKode) {
                             $q->where('tema_kode', $temaKode)
-                                ->orWhere('tema2_kode', $temaKode);
+                            ->orWhere('tema2_kode', $temaKode);
                         })
-                        ->where(function ($q) use ($start, $end) {
-                            $q->whereTime('start_time', '<', $end)
-                                ->whereTime('end_time',   '>', $start);
-                        })
+                        ->whereTime('start_time','<',$end)
+                        ->whereTime('end_time','>',$start)
                         ->exists();
 
-                    if ($temaDipakai) {
-                        return back()
-                            ->withErrors(['tema_kode' => 'Kode baju ini sudah dipakai pasangan lain di jam tersebut. Silakan pilih kode lain.'])
-                            ->withInput()
-                            ->with('wizard_step', 2);
+                    if ($dipakai) {
+                        return back()->withErrors(['tema_kode' => 'Tema sudah dipakai di jam ini']);
                     }
                 }
 
-                // Proses ADDON
-                $addonIds = $request->input('addons', []); 
-                $addons   = empty($addonIds) 
-                    ? collect() 
+                /* =========================
+                ADDON (slot & tema)
+                ========================= */
+                $addonIds = array_key_exists('addons', $v)
+                    ? $request->input('addons', [])
+                    : $booking->addons ?? [];
+
+                $addons = empty($addonIds)
+                    ? collect()
                     : Addon::whereIn('id', $addonIds)->where('is_active', true)->get();
 
-                // Hitung harga paket & addon
-                $package      = Package::findOrFail($v['package_id']);
-                $packagePrice = (int) $package->final_price;
-                $addonsTotal  = (int) $addons->sum('harga');
-                $grandTotal   = $packagePrice + $addonsTotal;
+                $addonSlot = $addons->firstWhere('kategori', 1);
+                $addonTema = $addons->firstWhere('kategori', 2);
 
-                // Generate kode pesanan
-                $kode = 'SPEXEC' . now()->format('YmdHis') . Str::upper(Str::random(4));
+                // ---- extra slot ----
+                $extraMinutes = (int) ($booking->extra_minutes ?? 0);
 
-                // Insert data booking
-                DB::beginTransaction();
-                try {
-                    $booking = BookingClient::create([
-                        'user_id'         => optional(Auth::user())->id,
-                        'nama_cpp'        => $v['nama_cpp'],
-                        'email_cpp'       => $v['email_cpp'] ?? null,
-                        'phone_cpp'       => $v['phone_cpp'],
-                        'alamat_cpp'      => $v['alamat_cpp'] ?? null,
-                        'nama_cpw'        => $v['nama_cpw'],
-                        'email_cpw'       => $v['email_cpw'] ?? null,
-                        'phone_cpw'       => $v['phone_cpw'],
-                        'alamat_cpw'      => $v['alamat_cpw'] ?? null,
-                        'package_id'      => (int) $v['package_id'],
-                        'package_price'   => $packagePrice,
-                        'addons_total'    => $addonsTotal,
-                        'grand_total'     => $grandTotal,
-                        'photoshoot_date' => $v['photoshoot_date'],
-                        'slot_code'       => $v['slot_code'],
-                        'photoshoot_slot' => $v['photoshoot_slot'],
-                        'start_time'      => $v['start_time'],
-                        'end_time'        => $v['end_time'],
-                        'extra_slot_code' => $v['extra_slot_code'],
-                        'extra_photoshoot_slot' => $v['extra_photoshoot_slot'],
-                        'extra_start_time' => $v['extra_start_time'],
-                        'extra_end_time' => $v['extra_end_time'],
-                        'extra_minutes' => $v['extra_minutes'],
-                        'tema_id'         => $v['tema_id'] ?? null,
-                        'tema_nama'       => $v['tema_nama'] ?? null,
-                        'tema_kode'       => $v['tema_kode'],
-                        'tema2_id'        => $v['tema2_id'],
-                        'tema2_nama'      => $v['tema2_nama'],
-                        'tema2_kode'      => $v['tema2_kode'],
-                        'style'           => $v['style'],
-                        'notes'           => $v['notes'] ?? null,
-                        'kode_pesanan'    => $kode,
-                        'status'          => 'submitted',
-                    ]);
-                DB::commit();
-                    } catch (QueryException $e) {
-                        DB::rollBack();
-                        return back()
-                            ->withErrors('Gagal menyimpan booking. Coba lagi.')
-                            ->withInput();
+                if ($addonSlot) {
+                    $es = $this->getEffective($v, $booking, 'extra_start_time');
+                    $ee = $this->getEffective($v, $booking, 'extra_end_time');
+
+                    if (!$es || !$ee) {
+                        return back()->withErrors(['extra_slot_code' => 'Addon slot dipilih tapi jam kosong']);
                     }
+
+                    $es = substr($es, 0, 5);
+                    $ee = substr($ee, 0, 5);
+
+                    if ($es < $end && $ee > $start) {
+                        return back()->withErrors(['extra_slot_code' => 'Extra slot overlap slot utama']);
+                    }
+
+                    $extraOverlap = BookingClient::where('id','!=',$booking->id)
+                        ->whereDate('photoshoot_date', $effDate)
+                        ->where(function ($q) use ($es, $ee) {
+                            $q->whereTime('start_time','<',$ee)
+                            ->whereTime('end_time','>',$es);
+                        })
+                        ->count();
+
+                    if ($extraOverlap >= $kapasitasPerSlot) {
+                        return back()->withErrors(['extra_slot_code' => 'Extra slot penuh']);
+                    }
+
+                    $extraMinutes = (int) ($addonSlot->durasi ?? $extraMinutes);
+                }
+
+                // ---- harga ----
+                $packagePrice = array_key_exists('package_id', $v)
+                    ? (int) Package::findOrFail($v['package_id'])->final_price
+                    : (int) $booking->package_price;
+
+                $addonsTotal = array_key_exists('addons', $v)
+                    ? (int) $addons->sum('harga')
+                    : (int) $booking->addons_total;
+
+                $grandTotal = $packagePrice + $addonsTotal;
+
+                /* =========================
+                SAVE
+                ========================= */
+                foreach ($v as $key => $val) {
+                    $booking->{$key} = $val;
+                }
+
+                $booking->package_price = $packagePrice;
+                $booking->addons_total  = $addonsTotal;
+                $booking->grand_total   = $grandTotal;
+
+                $booking->save();
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                 ->with('success', ucfirst($section).' berhasil ditambahkan!');
