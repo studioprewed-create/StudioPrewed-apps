@@ -2225,6 +2225,110 @@ body.sp-body {
     font-size: 1.1rem;
 }
 
+/* =========================================================
+ JADWAL PESANAN – FILTER
+========================================================= */
+
+.jp-filter-wrap {
+    margin-bottom: 24px;
+}
+
+.jp-scheduler {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 20px;
+}
+
+.jp-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+}
+
+/* ===== CALENDAR ===== */
+.jp-cal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.jp-cal-label {
+    font-weight: 600;
+}
+
+.jp-icon-btn {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.jp-cal-week,
+.jp-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.jp-cal-week div {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 0;
+}
+
+.jp-cal-grid button {
+    border: none;
+    background: none;
+    padding: 10px 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.jp-cal-grid button:hover {
+    background: #e5e7eb;
+}
+
+.jp-cal-grid button.active {
+    background: #2563eb;
+    color: #fff;
+}
+
+/* ===== SLOT ===== */
+.jp-slots-head {
+    margin-bottom: 12px;
+}
+
+.jp-studio {
+    margin-bottom: 16px;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+}
+
+.slot-item {
+    padding: 8px 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    user-select: none;
+}
+
+.slot-available {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.slot-unavailable {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .booking-modal,

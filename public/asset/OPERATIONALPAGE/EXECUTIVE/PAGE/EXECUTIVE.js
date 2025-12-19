@@ -669,6 +669,112 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+
+    const initJadwalFilter = () => {
+    const calGrid   = document.getElementById('jpCalGrid');
+    const calLabel  = document.getElementById('jpCalLabel');
+    const dateLabel = document.getElementById('jpSelectedDateLabel');
+    const todayBtn  = document.getElementById('jpTodayBtn');
+
+    const studio1   = document.getElementById('jpStudio1');
+    const studio2   = document.getElementById('jpStudio2');
+    const hiddenDate= document.getElementById('jpSelectedDate');
+
+    // bukan halaman ini → stop
+    if (!calGrid || !studio1 || !studio2 || !hiddenDate) return;
+
+    let current = new Date(hiddenDate.value);
+
+    /* ===== CALENDAR ===== */
+    const renderCalendar = () => {
+        calGrid.innerHTML = '';
+
+        const year  = current.getFullYear();
+        const month = current.getMonth();
+
+        calLabel.textContent = current.toLocaleString('id-ID', {
+            month: 'long',
+            year: 'numeric'
+        });
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+            calGrid.appendChild(document.createElement('div'));
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+            const btn = document.createElement('button');
+            const iso = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+            btn.textContent = d;
+            if (iso === hiddenDate.value) btn.classList.add('active');
+
+            btn.addEventListener('click', () => {
+                hiddenDate.value = iso;
+                dateLabel.textContent = iso;
+                renderCalendar();
+                loadSlots();
+            });
+
+            calGrid.appendChild(btn);
+        }
+    };
+
+    /* ===== LOAD SLOT ===== */
+    const loadSlots = () => {
+        studio1.innerHTML = '';
+        studio2.innerHTML = '';
+
+        fetch(`/api/slots?date=${hiddenDate.value}`)
+            .then(res => res.json())
+            .then(slots => {
+                slots.forEach(s => {
+                    const cls = s.available ? 'slot-available' : 'slot-unavailable';
+
+                    const el1 = document.createElement('div');
+                    el1.className = `slot-item ${cls}`;
+                    el1.textContent = s.time;
+
+                    const el2 = el1.cloneNode(true);
+
+                    studio1.appendChild(el1);
+                    studio2.appendChild(el2);
+                });
+            });
+    };
+
+    /* ===== NAV ===== */
+    document.getElementById('jpCalPrev')?.addEventListener('click', () => {
+        current.setMonth(current.getMonth() - 1);
+        renderCalendar();
+    });
+
+    document.getElementById('jpCalNext')?.addEventListener('click', () => {
+        current.setMonth(current.getMonth() + 1);
+        renderCalendar();
+    });
+
+    todayBtn?.addEventListener('click', () => {
+        const t = new Date();
+        hiddenDate.value = t.toISOString().slice(0, 10);
+        current = t;
+        dateLabel.textContent = hiddenDate.value;
+        renderCalendar();
+        loadSlots();
+    });
+
+        /* ===== INIT ===== */
+        dateLabel.textContent = hiddenDate.value;
+        renderCalendar();
+        loadSlots();
+    };
+
+    // panggil (AMAN, karena cek elemen)
+    initJadwalFilter();
+
+
     /* ============ BOOKING DETAIL MODAL ============ */
     const initBookingDetailModal = () => {
         const backdrop = document.getElementById('bookingDetailModal');
