@@ -683,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // bukan halaman ini → stop
     if (!calGrid || !studio1 || !studio2 || !hiddenDate) return;
 
-    let current = new Date(hiddenDate.value);
+    let current = parseISODate(hiddenDate.value);
 
     /* ===== CALENDAR ===== */
     const renderCalendar = () => {
@@ -697,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
             year: 'numeric'
         });
 
-        const firstDay = new Date(year, month, 1).getDay();
+        let firstDay = new Date(year, month, 1).getDay(); // 0=Min
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
         for (let i = 0; i < firstDay; i++) {
@@ -711,12 +711,13 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.textContent = d;
             if (iso === hiddenDate.value) btn.classList.add('active');
 
-            btn.addEventListener('click', () => {
+            btn.onclick = () => {
                 hiddenDate.value = iso;
-                dateLabel.textContent = iso;
+                current = parseISODate(iso);
+                dateLabel.textContent = formatDateID(iso);
                 renderCalendar();
                 loadSlots();
-            });
+            };
 
             calGrid.appendChild(btn);
         }
@@ -758,19 +759,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     todayBtn?.addEventListener('click', () => {
         const t = new Date();
-        hiddenDate.value = t.toISOString().slice(0, 10);
-        current = t;
-        dateLabel.textContent = hiddenDate.value;
+        const iso = t.toISOString().slice(0, 10);
+
+        hiddenDate.value = iso;
+        current = parseISODate(iso);
+        dateLabel.textContent = formatDateID(iso);
+
         renderCalendar();
         loadSlots();
     });
 
         /* ===== INIT ===== */
-        dateLabel.textContent = hiddenDate.value;
+        dateLabel.textContent = formatDateID(hiddenDate.value);
         renderCalendar();
         loadSlots();
     };
+    const parseISODate = (iso) => {
+    if (!iso) return new Date();
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d);
+    };
 
+    const formatDateID = (iso) => {
+        const d = parseISODate(iso);
+        return d.toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
     // panggil (AMAN, karena cek elemen)
     initJadwalFilter();
 
