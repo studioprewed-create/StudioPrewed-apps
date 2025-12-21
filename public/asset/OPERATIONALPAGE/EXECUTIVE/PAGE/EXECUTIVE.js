@@ -772,8 +772,22 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSlots();
     };
 
-    /* ===== CALL ===== */
+    const parseISODate = (iso) => {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d);
+    };
+
+    const formatDateID = (iso) => {
+        const d = parseISODate(iso);
+        return d.toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+    if (mainContent?.dataset?.currentPage === 'JadwalPesanan') {
     initJadwalFilter();
+    }
 
 
     /* ============ BOOKING DETAIL MODAL ============ */
