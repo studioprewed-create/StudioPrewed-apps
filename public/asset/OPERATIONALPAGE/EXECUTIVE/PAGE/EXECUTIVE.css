@@ -2328,6 +2328,16 @@ body.sp-body {
     color: #991b1b;
 }
 
+.slot-full {
+    background-color: #e74c3c;  /* Warna merah untuk slot penuh */
+    color: white;
+    font-weight: bold;
+}
+
+.slot-used {
+    background-color: #f39c12;  /* Warna oranye untuk slot terpakai */
+    color: white;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
