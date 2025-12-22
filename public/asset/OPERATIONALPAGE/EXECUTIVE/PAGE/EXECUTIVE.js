@@ -670,17 +670,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    const initJadwalFilter = () => {
-        const calGrid   = document.getElementById('jpCalGrid');
+    const initJadwalPesanan = () => {
+        // Guard utama: hanya jalan kalau halaman ini ada
+        const calGrid    = document.getElementById('jpCalGrid');
+        const studio1    = document.getElementById('jpStudio1');
+        const studio2    = document.getElementById('jpStudio2');
+        const hiddenDate = document.getElementById('jpSelectedDate');
+
+        if (!calGrid || !studio1 || !studio2 || !hiddenDate) return;
+
         const calLabel  = document.getElementById('jpCalLabel');
         const dateLabel = document.getElementById('jpSelectedDateLabel');
         const todayBtn  = document.getElementById('jpTodayBtn');
 
-        const studio1   = document.getElementById('jpStudio1');
-        const studio2   = document.getElementById('jpStudio2');
-        const hiddenDate= document.getElementById('jpSelectedDate');
+        /* ===== helper lokal (TIDAK global) ===== */
+        const parseISODate = (iso) => {
+            const [y, m, d] = iso.split('-').map(Number);
+            return new Date(y, m - 1, d);
+        };
 
-        if (!calGrid || !studio1 || !studio2 || !hiddenDate) return;
+        const formatDateID = (iso) => {
+            const d = parseISODate(iso);
+            return d.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+        };
 
         let current = parseISODate(hiddenDate.value);
 
@@ -696,7 +712,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 year: 'numeric'
             });
 
-            const firstDay = new Date(year, month, 1).getDay();
+            const firstDay    = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
             for (let i = 0; i < firstDay; i++) {
@@ -705,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             for (let d = 1; d <= daysInMonth; d++) {
                 const btn = document.createElement('button');
-                const iso = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const iso = `${year}-${String(month + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
                 btn.textContent = d;
                 if (iso === hiddenDate.value) btn.classList.add('active');
@@ -733,14 +749,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     slots.forEach(s => {
                         const cls = s.available ? 'slot-available' : 'slot-unavailable';
 
-                        const el1 = document.createElement('div');
-                        el1.className = `slot-item ${cls}`;
-                        el1.textContent = s.time;
+                        const el = document.createElement('div');
+                        el.className = `slot-item ${cls}`;
+                        el.textContent = s.time;
 
-                        const el2 = el1.cloneNode(true);
-
-                        studio1.appendChild(el1);
-                        studio2.appendChild(el2);
+                        studio1.appendChild(el);
+                        studio2.appendChild(el.cloneNode(true));
                     });
                 })
                 .catch(err => console.error('Slot API error:', err));
@@ -771,23 +785,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCalendar();
         loadSlots();
     };
-
-    const parseISODate = (iso) => {
-    const [y, m, d] = iso.split('-').map(Number);
-    return new Date(y, m - 1, d);
-    };
-
-    const formatDateID = (iso) => {
-        const d = parseISODate(iso);
-        return d.toLocaleDateString('id-ID', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-    };
-    if (mainContent?.dataset?.currentPage === 'JadwalPesanan') {
-    initJadwalFilter();
-    }
 
 
     /* ============ BOOKING DETAIL MODAL ============ */
@@ -945,6 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initCatalogueTemaEditModals();
         initBookingModals();
         initBookingDetailModal();
+        initJadwalPesanan();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */
