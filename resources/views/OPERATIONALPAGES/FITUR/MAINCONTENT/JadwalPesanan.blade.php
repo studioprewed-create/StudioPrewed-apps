@@ -72,86 +72,84 @@
         </div>
 
     </div>
-</section>
-
-<div class="orders-grid">
-    @foreach ($bookings as $booking)
-        <div class="order-card">
-            <div class="order-header">
-                <span class="order-id">{{ $booking->kode_pesanan }}</span>
-                <span class="order-status status-{{ $booking->status }}">{{ ucfirst($booking->status) }}</span>
-            </div>
-            <div class="order-details">
-                <div class="detail-group">
-                    <span class="detail-label">Klien</span>
-                    <span class="detail-value">{{ $booking->nama_gabungan }}</span>
+    <div class="orders-grid">
+        @foreach ($bookings as $booking)
+            <div class="order-card">
+                <div class="order-header">
+                    <span class="order-id">{{ $booking->kode_pesanan }}</span>
+                    <span class="order-status status-{{ $booking->status }}">{{ ucfirst($booking->status) }}</span>
                 </div>
-                <div class="detail-group">
-                    <span class="detail-label">Tanggal</span>
-                    <span class="detail-value">{{ \Carbon\Carbon::parse($booking->photoshoot_date)->format('d M Y') }}</span>
+                <div class="order-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Klien</span>
+                        <span class="detail-value">{{ $booking->nama_gabungan }}</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Tanggal</span>
+                        <span class="detail-value">{{ \Carbon\Carbon::parse($booking->photoshoot_date)->format('d M Y') }}</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">WhatsApp</span>
+                        <span class="detail-value">{{ $booking->phone_gabungan }}</span>
+                    </div>
                 </div>
-                <div class="detail-group">
-                    <span class="detail-label">WhatsApp</span>
-                    <span class="detail-value">{{ $booking->phone_gabungan }}</span>
-                </div>
-            </div>
-            <div class="order-team">
-                <div class="team-title">Tim Penugasan</div>
-                <div class="team-members">
-                    @foreach ($booking->teamMembers as $member) <!-- Asumsi ada relasi 'teamMembers' -->
-                        <div class="team-member">
-                            <div class="member-avatar">{{ strtoupper($member->initial) }}</div>
-                            <div class="member-info">
-                                <div class="member-name">{{ $member->name }}</div>
-                                <div class="member-role">{{ $member->role }}</div>
+                <div class="order-team">
+                    <div class="team-title">Tim Penugasan</div>
+                    <div class="team-members">
+                        @foreach ($booking->teamMembers as $member) <!-- Asumsi ada relasi 'teamMembers' -->
+                            <div class="team-member">
+                                <div class="member-avatar">{{ strtoupper($member->initial) }}</div>
+                                <div class="member-info">
+                                    <div class="member-name">{{ $member->name }}</div>
+                                    <div class="member-role">{{ $member->role }}</div>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-            <div class="order-actions">
-                 <button class="ticket-action" data-modal-target="#bookingModal-{{ $booking->id }}">
-                    Lihat Detail
-                </button>
-                <div class="booking-modal" id="bookingModal-{{ $booking->id }}">
-                    <div class="booking-modal-backdrop"></div>
+                <div class="order-actions">
+                    <button class="ticket-action" data-modal-target="#bookingModal-{{ $booking->id }}">
+                        Lihat Detail
+                    </button>
+                    <div class="booking-modal" id="bookingModal-{{ $booking->id }}">
+                        <div class="booking-modal-backdrop"></div>
 
-                    <div class="booking-modal-content">
-                        <button class="booking-modal-close">&times;</button>
+                        <div class="booking-modal-content">
+                            <button class="booking-modal-close">&times;</button>
 
-                        <h3>Detail Booking</h3>
+                            <h3>Detail Booking</h3>
 
-                        <div class="modal-grid">
-                            <div><strong>Kode Pesanan</strong><br>#{{ $booking->kode_pesanan }}</div>
-                            <div><strong>Status</strong><br>{{ ucfirst($booking->status) }}</div>
+                            <div class="modal-grid">
+                                <div><strong>Kode Pesanan</strong><br>#{{ $booking->kode_pesanan }}</div>
+                                <div><strong>Status</strong><br>{{ ucfirst($booking->status) }}</div>
 
-                            <div><strong>Paket</strong><br>{{ $booking->package->nama_paket ?? '-' }}</div>
-                            <div><strong>Style</strong><br>{{ $booking->style ?? '-' }}</div>
+                                <div><strong>Paket</strong><br>{{ $booking->package->nama_paket ?? '-' }}</div>
+                                <div><strong>Style</strong><br>{{ $booking->style ?? '-' }}</div>
 
-                            <div><strong>Tanggal</strong><br>{{ $booking->photoshoot_date->format('d F Y') }}</div>
-                            <div><strong>Slot</strong><br>{{ $booking->photoshoot_slot }}</div>
+                                <div><strong>Tanggal</strong><br>{{ $booking->photoshoot_date->format('d F Y') }}</div>
+                                <div><strong>Slot</strong><br>{{ $booking->photoshoot_slot }}</div>
 
-                            <div><strong>CPP</strong><br>{{ $booking->nama_cpp }}</div>
-                            <div><strong>CPW</strong><br>{{ $booking->nama_cpw }}</div>
+                                <div><strong>CPP</strong><br>{{ $booking->nama_cpp }}</div>
+                                <div><strong>CPW</strong><br>{{ $booking->nama_cpw }}</div>
 
-                            <div><strong>Tema Utama</strong><br>{{ $booking->tema_nama }} ({{ $booking->tema_kode }})</div>
-                            <div><strong>Tema Tambahan</strong><br>{{ $booking->tema2_nama ?? '-' }}</div>
+                                <div><strong>Tema Utama</strong><br>{{ $booking->tema_nama }} ({{ $booking->tema_kode }})</div>
+                                <div><strong>Tema Tambahan</strong><br>{{ $booking->tema2_nama ?? '-' }}</div>
 
-                            <div><strong>Addon</strong><br>{{ $booking->addons_total_formatted }}</div>
-                            <div><strong>Total</strong><br>{{ $booking->grand_total_formatted }}</div>
+                                <div><strong>Addon</strong><br>{{ $booking->addons_total_formatted }}</div>
+                                <div><strong>Total</strong><br>{{ $booking->grand_total_formatted }}</div>
 
-                            <div style="grid-column:1/-1">
-                                <strong>Catatan</strong><br>
-                                {{ $booking->notes ?? '-' }}
+                                <div style="grid-column:1/-1">
+                                    <strong>Catatan</strong><br>
+                                    {{ $booking->notes ?? '-' }}
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <button class="action-btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> WA
+                    </button>
                 </div>
-                <button class="action-btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> WA
-                </button>
             </div>
-        </div>
-    @endforeach
-</div>
-
+        @endforeach
+    </div>
+</section>
