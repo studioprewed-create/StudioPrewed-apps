@@ -77,11 +77,6 @@ class SlotHelper
                 $slot['available'] = false;
             }
 
-            if ($overlapCount > 0) {
-                $slot['used'] = $overlapCount;
-                $slot['remaining'] = $kapasitas - $overlapCount;
-            }
-
             $slots[] = $slot;
         }
 

@@ -738,6 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        /* ===== LOAD SLOT ===== */
         const loadSlots = () => {
             studio1.innerHTML = '<small>Memuat slot...</small>';
             studio2.innerHTML = '<small>Memuat slot...</small>';
@@ -745,8 +746,6 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(`/executive/api/slots?date=${hiddenDate.value}`)
                 .then(res => res.json())
                 .then(slots => {
-                    console.log(slots);  // Log data response API
-
                     studio1.innerHTML = '';
                     studio2.innerHTML = '';
 
@@ -759,42 +758,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     slots.forEach(slot => {
                         const cls = slot.available ? 'slot-available' : 'slot-unavailable';
 
-                        // **Studio 1**
+                        // Studio 1
                         const s1 = document.createElement('div');
                         s1.className = `slot-item ${cls}`;
                         s1.textContent = slot.time;
-
-                        // **Menandai slot penuh** di Studio 1
-                        if (slot.remaining === 0) {
-                            s1.classList.add('slot-full');
-                            s1.textContent += ' - Slot Penuh';
-                        }
-
-                        // Menampilkan jumlah yang terpakai
-                        if (slot.used > 0) {
-                            s1.classList.add('slot-used');
-                            s1.textContent += ` (${slot.used} terpakai)`;
-                        }
-
                         studio1.appendChild(s1);
 
-                        // **Studio 2**
+                        // Studio 2
                         const s2 = document.createElement('div');
                         s2.className = `slot-item ${cls}`;
                         s2.textContent = slot.time;
-
-                        // **Menandai slot penuh** di Studio 2
-                        if (slot.remaining === 0) {
-                            s2.classList.add('slot-full');
-                            s2.textContent += ' - Slot Penuh';
-                        }
-
-                        // Menampilkan jumlah yang terpakai
-                        if (slot.used > 0) {
-                            s2.classList.add('slot-used');
-                            s2.textContent += ` (${slot.used} terpakai)`;
-                        }
-
                         studio2.appendChild(s2);
                     });
                 })

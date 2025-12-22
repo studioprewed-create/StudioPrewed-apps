@@ -145,31 +145,14 @@ class EXECUTIVEController extends Controller
             // Generate slot dasar (dengan kapasitas)
             // =====================================
             $slots = SlotHelper::generateSlotCodes($durasiMenit, $booked, $kapasitasPerSlot);
-            
-            foreach ($slots as &$slotPesanan) {
-                // Hitung jumlah booking yang overlap dengan slot ini
-                $overlapCount = 0;
-                $checkPoints = [$slotPesanan['start'], $slotPesanan['end']]; // Cek titik mulai dan berakhir slot
-                foreach ($checkPoints as $point) {
-                    $active = 0;
+            // $slots: masing-masing elemen minimal: ['code' => ..., 'time' => "HH:MM-HH:MM", 'available' => bool]
 
-                    foreach ($booked as $b) {
-                        $bStart = Carbon::createFromFormat('H:i', $b['start']);
-                        $bEnd   = Carbon::createFromFormat('H:i', $b['end']);
-
-                        // booking aktif di titik waktu ini?
-                        if ($point->gte($bStart) && $point->lt($bEnd)) {
-                            $active++;
-                        }
-                    }
-                    $overlapCount = max($overlapCount, $active);
-                }
-
-                // Tentukan berapa banyak studio yang terisi
-                $slotPesanan['used'] = min($overlapCount, $kapasitasPerSlot);
-                $slotPesanan['remaining'] = $kapasitasPerSlot - $slotPesanan['used'];
-            }
-
+            // =====================================
+            // Aturan tambahan utk extra slot:
+            // 1) slot dengan code yg sama dgn $exclude -> selalu tidak available
+            // 2) kalau dikirim main_start & main_end (extra slot):
+            //    semua slot yang overlap jam slot utama -> tidak available
+            // =====================================
             if ($exclude || ($mainStart && $mainEnd)) {
                 foreach ($slots as &$slot) {
                     // 1) tidak boleh pakai slot utama lagi
