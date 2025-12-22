@@ -746,6 +746,8 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(`/executive/api/slots?date=${hiddenDate.value}`)
                 .then(res => res.json())
                 .then(slots => {
+                    console.log(slots);  // Log data response API
+
                     studio1.innerHTML = '';
                     studio2.innerHTML = '';
 
@@ -758,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     slots.forEach(slot => {
                         const cls = slot.available ? 'slot-available' : 'slot-unavailable';
 
-                        // **Studio 1**
+                        // Studio 1
                         const s1 = document.createElement('div');
                         s1.className = `slot-item ${cls}`;
                         s1.textContent = slot.time;
@@ -776,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         studio1.appendChild(s1);
 
-                        // **Studio 2**
+                        // Studio 2
                         const s2 = document.createElement('div');
                         s2.className = `slot-item ${cls}`;
                         s2.textContent = slot.time;
