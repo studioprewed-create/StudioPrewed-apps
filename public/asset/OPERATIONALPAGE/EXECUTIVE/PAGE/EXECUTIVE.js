@@ -549,7 +549,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     };
+    
+    function parseISODate(iso) {
+        const [y, m, d] = iso.split('-').map(Number);
+        return new Date(y, m - 1, d);
+    }
 
+    function formatDateID(iso) {
+        const d = parseISODate(iso);
+        return d.toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+    }
+
+
+    /* =========================================================
+    BOOKING MODAL
+    ========================================================= */
     const initBookingModals = () => {
         const backdrop = document.getElementById('bookingModal');
         const form     = document.getElementById('bookingForm');
@@ -559,9 +577,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateBase  = (form.dataset.updateBase || '').replace(/\/+$/, '');
         const defaultDate = form.dataset.defaultDate || '';
 
-        const titleEl  = document.querySelector('[data-modal-title]');
-        const openBtns = document.querySelectorAll('.js-open-booking-modal');
-        const closeBtns= backdrop.querySelectorAll('[data-close]');
+        const titleEl   = document.querySelector('[data-modal-title]');
+        const openBtns  = document.querySelectorAll('.js-open-booking-modal');
+        const closeBtns = backdrop.querySelectorAll('[data-close]');
 
         const removeMethodSpoof = () => {
             const old = form.querySelector('input[name="_method"]');
@@ -574,21 +592,20 @@ document.addEventListener('DOMContentLoaded', () => {
             removeMethodSpoof();
 
             if (mode === 'create') {
-                if (titleEl) titleEl.textContent = 'Booking Baru';
-                if (storeUrl) form.action = storeUrl;
+                titleEl && (titleEl.textContent = 'Booking Baru');
+                storeUrl && (form.action = storeUrl);
                 form.reset();
-
                 form.querySelector('#f_date')?.value   = defaultDate;
                 form.querySelector('#f_status')?.value = 'submitted';
             }
 
             if (mode === 'edit' && data) {
-                if (titleEl) titleEl.textContent = 'Edit Booking';
+                titleEl && (titleEl.textContent = 'Edit Booking');
                 form.action = `${updateBase}/${data.id}`;
 
                 const m = document.createElement('input');
-                m.type  = 'hidden';
-                m.name  = '_method';
+                m.type = 'hidden';
+                m.name = '_method';
                 m.value = 'PUT';
                 form.appendChild(m);
 
@@ -619,18 +636,13 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
 
-        closeBtns.forEach(btn => {
-            btn.onclick = () => backdrop.classList.remove('is-open');
-        });
-
-        backdrop.onclick = e => {
-            if (e.target === backdrop) backdrop.classList.remove('is-open');
-        };
+        closeBtns.forEach(btn => btn.onclick = () => backdrop.classList.remove('is-open'));
+        backdrop.onclick = e => e.target === backdrop && backdrop.classList.remove('is-open');
     };
 
 
     /* =========================================================
-    JADWAL PESANAN – FILTER KALENDER & SLOT
+    JADWAL PESANAN – FILTER
     ========================================================= */
     const initJadwalFilter = () => {
         const calGrid    = document.getElementById('jpCalGrid');
@@ -651,12 +663,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const year  = current.getFullYear();
             const month = current.getMonth();
 
-            if (calLabel) {
-                calLabel.textContent = current.toLocaleString('id-ID', {
-                    month: 'long',
-                    year: 'numeric'
-                });
-            }
+            calLabel.textContent = current.toLocaleString('id-ID', {
+                month: 'long',
+                year: 'numeric'
+            });
 
             const firstDay    = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -667,7 +677,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             for (let d = 1; d <= daysInMonth; d++) {
                 const btn = document.createElement('button');
-                const iso = `${year}-${String(month + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const iso = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
                 btn.textContent = d;
                 if (iso === hiddenDate.value) btn.classList.add('active');
@@ -675,7 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.onclick = () => {
                     hiddenDate.value = iso;
                     current = parseISODate(iso);
-                    if (dateLabel) dateLabel.textContent = formatDateID(iso);
+                    dateLabel.textContent = formatDateID(iso);
                     renderCalendar();
                     loadSlots();
                 };
@@ -696,7 +706,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     slots.forEach(s => {
                         const cls = s.available ? 'slot-available' : 'slot-unavailable';
-
                         const el1 = document.createElement('div');
                         el1.className = `slot-item ${cls}`;
                         el1.textContent = s.time;
@@ -704,61 +713,36 @@ document.addEventListener('DOMContentLoaded', () => {
                         studio1.appendChild(el1);
                         studio2.appendChild(el1.cloneNode(true));
                     });
-                })
-                .catch(() => {
-                    studio1.innerHTML = '<small style="color:red">Gagal load slot</small>';
-                    studio2.innerHTML = '<small style="color:red">Gagal load slot</small>';
                 });
         };
 
-        document.getElementById('jpCalPrev')?.addEventListener('click', () => {
+        document.getElementById('jpCalPrev')?.onclick = () => {
             current.setMonth(current.getMonth() - 1);
             renderCalendar();
-        });
+        };
 
-        document.getElementById('jpCalNext')?.addEventListener('click', () => {
+        document.getElementById('jpCalNext')?.onclick = () => {
             current.setMonth(current.getMonth() + 1);
             renderCalendar();
-        });
+        };
 
-        todayBtn?.addEventListener('click', () => {
+        todayBtn?.onclick = () => {
             const iso = new Date().toISOString().slice(0,10);
             hiddenDate.value = iso;
             current = parseISODate(iso);
-            if (dateLabel) dateLabel.textContent = formatDateID(iso);
+            dateLabel.textContent = formatDateID(iso);
             renderCalendar();
             loadSlots();
-        });
+        };
 
-        if (dateLabel) {
-            dateLabel.textContent = formatDateID(hiddenDate.value);
-        }
-
+        dateLabel.textContent = formatDateID(hiddenDate.value);
         renderCalendar();
         loadSlots();
     };
 
 
     /* =========================================================
-    HELPER DATE
-    ========================================================= */
-    const parseISODate = (iso) => {
-        const [y, m, d] = iso.split('-').map(Number);
-        return new Date(y, m - 1, d);
-    };
-
-    const formatDateID = (iso) => {
-        const d = parseISODate(iso);
-        return d.toLocaleDateString('id-ID', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-    };
-
-
-    /* =========================================================
-    SAFE INIT (AJAX FRIENDLY)
+    SAFE INIT (AJAX)
     ========================================================= */
     const tryInitJadwalPesanan = () => {
         if (
