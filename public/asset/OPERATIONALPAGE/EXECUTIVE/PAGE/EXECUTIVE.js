@@ -762,12 +762,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         const s1 = document.createElement('div');
                         s1.className = `slot-item ${cls}`;
                         s1.textContent = slot.time;
+                        
+                        // Jika slot "terpakai" (used), kita bisa menambahkan visual berbeda, misal dengan badge
+                        if (slot.used > 0) {
+                            s1.classList.add('slot-used');
+                            s1.textContent += ` (${slot.used} terpakai)`;
+                        }
+
                         studio1.appendChild(s1);
 
-                        // Studio 2
+                        // Studio 2 (sama seperti studio 1, jika ingin visual perbedaan)
                         const s2 = document.createElement('div');
                         s2.className = `slot-item ${cls}`;
                         s2.textContent = slot.time;
+
+                        if (slot.used > 0) {
+                            s2.classList.add('slot-used');
+                            s2.textContent += ` (${slot.used} terpakai)`;
+                        }
+
                         studio2.appendChild(s2);
                     });
                 })

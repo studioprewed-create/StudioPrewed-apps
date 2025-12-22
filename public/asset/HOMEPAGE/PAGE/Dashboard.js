@@ -94,22 +94,60 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ================================
      FAQ TOGGLE (.faq-item)
      ================================ */
-  (function initFaq() {
+  document.addEventListener('DOMContentLoaded', function() {
     const faqItems = document.querySelectorAll('.faq-item');
-    if (!faqItems.length) return;
-
-    faqItems.forEach(item => {
-      const question = item.querySelector('.faq-question');
-      if (!question) return;
-
-      question.addEventListener('click', () => {
-        faqItems.forEach(other => {
-          if (other !== item) other.classList.remove('active');
-        });
-        item.classList.toggle('active');
+    const faqSection = document.querySelector('.faq-section');
+    
+      // Add frame numbers and initialize
+      faqItems.forEach((item, index) => {
+          const question = item.querySelector('.faq-question');
+          const frameNumber = (index + 1).toString().padStart(2, '0');
+          question.setAttribute('data-index', frameNumber);
+          item.style.setProperty('--item-index', index);
+          
+          // Add accessibility
+          item.setAttribute('aria-expanded', 'false');
+          question.setAttribute('aria-controls', faq-answer-${index});
+          const answer = item.querySelector('.faq-answer');
+          answer.id = faq-answer-${index};
+          
+          // Add click event
+          question.addEventListener('click', function() {
+              const isActive = item.classList.contains('active');
+              
+              // Close all other FAQs
+              faqItems.forEach(otherItem => {
+                  if (otherItem !== item && otherItem.classList.contains('active')) {
+                      otherItem.classList.remove('active');
+                      otherItem.setAttribute('aria-expanded', 'false');
+                  }
+              });
+              
+              // Toggle current FAQ
+              if (!isActive) {
+                  item.classList.add('active');
+                  item.setAttribute('aria-expanded', 'true');
+              } else {
+                  item.classList.remove('active');
+                  item.setAttribute('aria-expanded', 'false');
+              }
+          });
       });
-    });
-  })();
+      
+      // Add intersection observer for animations
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.style.opacity = '1';
+                  entry.target.style.transform = 'translateY(0)';
+              }
+          });
+      }, {
+          threshold: 0.1
+      });
+      
+      faqItems.forEach(item => observer.observe(item));
+  });
 
   /* ================================
      GALLERY CAROUSEL (gallery-track)
