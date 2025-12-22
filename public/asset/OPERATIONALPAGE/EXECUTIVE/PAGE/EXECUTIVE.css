@@ -2328,6 +2328,65 @@ body.sp-body {
     color: #991b1b;
 }
 
+.booking-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.booking-modal.is-open {
+    display: flex;
+}
+
+.booking-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.booking-modal-header,
+.booking-modal-footer {
+    text-align: center;
+}
+
+.booking-modal-header h3 {
+    margin: 0;
+}
+
+.booking-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.modal-grid div {
+    padding: 10px;
+}
+
+.modal-grid strong {
+    display: block;
+    margin-bottom: 5px;
+}
 
 /* Responsive */
 @media (max-width: 768px) {

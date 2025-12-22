@@ -550,6 +550,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+     const openBtns = document.querySelectorAll('.ticket-action');
+    const closeBtns = document.querySelectorAll('.booking-modal-close');
+    const backdrop = document.querySelectorAll('.booking-modal-backdrop');
+
+    // Fungsi untuk membuka modal berdasarkan ID modal
+    const openModal = (modalId) => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('is-open');  // Menampilkan modal
+        }
+    };
+
+    // Fungsi untuk menutup modal berdasarkan ID modal
+    const closeModal = (modalId) => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('is-open');  // Menyembunyikan modal
+        }
+    };
+
+    // Event listener untuk tombol "Lihat Detail"
+    openBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal-target');  // Mendapatkan ID modal target
+            openModal(modalId);  // Menampilkan modal dengan ID terkait
+        });
+    });
+
+    // Event listener untuk menutup modal
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const modal = e.target.closest('.booking-modal');  // Menemukan modal terdekat
+            const modalId = modal ? modal.id : '';
+            closeModal(modalId);  // Menutup modal berdasarkan ID
+        });
+    });
+
+    // Event listener untuk menutup modal jika backdrop di-klik
+    backdrop.forEach(backdropElement => {
+        backdropElement.addEventListener('click', (e) => {
+            const modal = e.target.closest('.booking-modal');
+            if (modal) {
+                closeModal(modal.id);  // Menutup modal jika backdrop diklik
+            }
+        });
+    });
+
     /* ============ BOOKING MODAL (CREATE / EDIT) ============ */
     const initBookingModals = () => {
         const backdrop = document.getElementById('bookingModal');
