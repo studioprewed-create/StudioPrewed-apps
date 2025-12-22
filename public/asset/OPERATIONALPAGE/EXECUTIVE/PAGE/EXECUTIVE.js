@@ -670,124 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    const initJadwalFilter = () => {
-        const calGrid   = document.getElementById('jpCalGrid');
-        const calLabel  = document.getElementById('jpCalLabel');
-        const dateLabel = document.getElementById('jpSelectedDateLabel');
-        const todayBtn  = document.getElementById('jpTodayBtn');
-
-        const studio1   = document.getElementById('jpStudio1');
-        const studio2   = document.getElementById('jpStudio2');
-        const hiddenDate= document.getElementById('jpSelectedDate');
-
-        if (!calGrid || !studio1 || !studio2 || !hiddenDate) return;
-
-        let current = parseISODate(hiddenDate.value);
-
-        /* ===== CALENDAR ===== */
-        const renderCalendar = () => {
-            calGrid.innerHTML = '';
-
-            const year  = current.getFullYear();
-            const month = current.getMonth();
-
-            calLabel.textContent = current.toLocaleString('id-ID', {
-                month: 'long',
-                year: 'numeric'
-            });
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            for (let i = 0; i < firstDay; i++) {
-                calGrid.appendChild(document.createElement('div'));
-            }
-
-            for (let d = 1; d <= daysInMonth; d++) {
-                const btn = document.createElement('button');
-                const iso = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-
-                btn.textContent = d;
-                if (iso === hiddenDate.value) btn.classList.add('active');
-
-                btn.onclick = () => {
-                    hiddenDate.value = iso;
-                    current = parseISODate(iso);
-                    dateLabel.textContent = formatDateID(iso);
-                    renderCalendar();
-                    loadSlots();
-                };
-
-                calGrid.appendChild(btn);
-            }
-        };
-
-        /* ===== LOAD SLOT ===== */
-        const loadSlots = () => {
-            studio1.innerHTML = '';
-            studio2.innerHTML = '';
-
-            fetch(`/api/slots?date=${hiddenDate.value}`)
-                .then(res => res.json())
-                .then(slots => {
-                    slots.forEach(s => {
-                        const cls = s.available ? 'slot-available' : 'slot-unavailable';
-
-                        const el1 = document.createElement('div');
-                        el1.className = `slot-item ${cls}`;
-                        el1.textContent = s.time;
-
-                        const el2 = el1.cloneNode(true);
-
-                        studio1.appendChild(el1);
-                        studio2.appendChild(el2);
-                    });
-                })
-                .catch(err => console.error('Slot API error:', err));
-        };
-
-        /* ===== NAV ===== */
-        document.getElementById('jpCalPrev')?.addEventListener('click', () => {
-            current.setMonth(current.getMonth() - 1);
-            renderCalendar();
-        });
-
-        document.getElementById('jpCalNext')?.addEventListener('click', () => {
-            current.setMonth(current.getMonth() + 1);
-            renderCalendar();
-        });
-
-        todayBtn?.addEventListener('click', () => {
-            const iso = new Date().toISOString().slice(0,10);
-            hiddenDate.value = iso;
-            current = parseISODate(iso);
-            dateLabel.textContent = formatDateID(iso);
-            renderCalendar();
-            loadSlots();
-        });
-
-        /* ===== INIT ===== */
-        dateLabel.textContent = formatDateID(hiddenDate.value);
-        renderCalendar();
-        loadSlots();
-    };
-
-    const parseISODate = (iso) => {
-    const [y, m, d] = iso.split('-').map(Number);
-    return new Date(y, m - 1, d);
-    };
-
-    const formatDateID = (iso) => {
-        const d = parseISODate(iso);
-        return d.toLocaleDateString('id-ID', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-    };
-    if (mainContent?.dataset?.currentPage === 'JadwalPesanan') {
-    initJadwalFilter();
-    }
+    
 
 
     /* ============ BOOKING DETAIL MODAL ============ */
@@ -936,6 +819,129 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const initJadwalPesanan = () => {
+        const wrap       = document.getElementById('jpFilter');
+        if (!wrap) return;
+
+        const calGrid    = document.getElementById('jpCalGrid');
+        const calLabel   = document.getElementById('jpCalLabel');
+        const dateLabel  = document.getElementById('jpSelectedDateLabel');
+        const todayBtn   = document.getElementById('jpTodayBtn');
+        const studio1    = document.getElementById('jpStudio1');
+        const studio2    = document.getElementById('jpStudio2');
+        const hiddenDate = document.getElementById('jpSelectedDate');
+
+        if (!calGrid || !hiddenDate || !studio1 || !studio2) return;
+
+        /* ===== helper date ===== */
+        const parseISO = (iso) => {
+            const [y, m, d] = iso.split('-').map(Number);
+            return new Date(y, m - 1, d);
+        };
+
+        const formatID = (iso) => {
+            const d = parseISO(iso);
+            return d.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+        };
+
+        let current = parseISO(hiddenDate.value);
+
+        /* ===== render calendar ===== */
+        const renderCalendar = () => {
+            calGrid.innerHTML = '';
+
+            const year  = current.getFullYear();
+            const month = current.getMonth();
+
+            calLabel.textContent = current.toLocaleString('id-ID', {
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const firstDay    = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            for (let i = 0; i < firstDay; i++) {
+                calGrid.appendChild(document.createElement('div'));
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const btn = document.createElement('button');
+                const iso = `${year}-${String(month + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+                btn.textContent = d;
+                if (iso === hiddenDate.value) btn.classList.add('active');
+
+                btn.onclick = () => {
+                    hiddenDate.value = iso;
+                    current = parseISO(iso);
+                    dateLabel.textContent = formatID(iso);
+                    renderCalendar();
+                    loadSlots();
+                };
+
+                calGrid.appendChild(btn);
+            }
+        };
+
+        /* ===== load slots ===== */
+        const loadSlots = () => {
+            studio1.innerHTML = '<small>Memuat slot...</small>';
+            studio2.innerHTML = '<small>Memuat slot...</small>';
+
+            fetch(`/api/slots?date=${hiddenDate.value}`)
+                .then(res => res.json())
+                .then(slots => {
+                    studio1.innerHTML = '';
+                    studio2.innerHTML = '';
+
+                    slots.forEach(s => {
+                        const cls = s.available ? 'slot-available' : 'slot-unavailable';
+
+                        const el = document.createElement('div');
+                        el.className = `slot-item ${cls}`;
+                        el.textContent = s.time;
+
+                        studio1.appendChild(el);
+                        studio2.appendChild(el.cloneNode(true));
+                    });
+                })
+                .catch(() => {
+                    studio1.innerHTML = '<small style="color:red">Gagal load slot</small>';
+                    studio2.innerHTML = '<small style="color:red">Gagal load slot</small>';
+                });
+        };
+
+        /* ===== navigation ===== */
+        document.getElementById('jpCalPrev')?.addEventListener('click', () => {
+            current.setMonth(current.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('jpCalNext')?.addEventListener('click', () => {
+            current.setMonth(current.getMonth() + 1);
+            renderCalendar();
+        });
+
+        todayBtn?.addEventListener('click', () => {
+            const iso = new Date().toISOString().slice(0, 10);
+            hiddenDate.value = iso;
+            current = parseISO(iso);
+            dateLabel.textContent = formatID(iso);
+            renderCalendar();
+            loadSlots();
+        });
+
+        /* ===== init ===== */
+        dateLabel.textContent = formatID(hiddenDate.value);
+        renderCalendar();
+        loadSlots();
+    };
+
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
         initUserModals();
@@ -978,6 +984,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 localStorage.setItem(LS_KEY, page);
                 initPageScripts();
+                initJadwalPesanan(); 
                 setActiveMenuItem(page);
             })
             .catch(err => {
@@ -1011,6 +1018,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setActiveMenuItem(serverPage);
     initPageScripts();
+    initJadwalPesanan();
     localStorage.setItem(LS_KEY, serverPage);
 
     window.addEventListener('popstate', (event) => {
