@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
             studio1.innerHTML = '<small>Memuat slot...</small>';
             studio2.innerHTML = '<small>Memuat slot...</small>';
 
-            fetch(`/api/slots?date=${hiddenDate.value}`)
+            fetch(`/executive/api/slots?date=${hiddenDate.value}`)
                 .then(res => res.json())
                 .then(slots => {
                     studio1.innerHTML = '';
