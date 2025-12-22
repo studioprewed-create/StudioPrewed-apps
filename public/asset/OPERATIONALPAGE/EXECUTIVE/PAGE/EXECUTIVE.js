@@ -738,7 +738,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        /* ===== LOAD SLOT ===== */
         const loadSlots = () => {
             studio1.innerHTML = '<small>Memuat slot...</small>';
             studio2.innerHTML = '<small>Memuat slot...</small>';
@@ -768,10 +767,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         // **Menandai slot penuh** di Studio 1
                         if (slot.remaining === 0) {
                             s1.classList.add('slot-full');
-                            s1.textContent += ` - Slot Penuh`;
+                            s1.textContent += ' - Slot Penuh';
                         }
 
-                        // Menampilkan informasi terpakai (used)
+                        // Menampilkan jumlah yang terpakai
                         if (slot.used > 0) {
                             s1.classList.add('slot-used');
                             s1.textContent += ` (${slot.used} terpakai)`;
@@ -787,10 +786,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         // **Menandai slot penuh** di Studio 2
                         if (slot.remaining === 0) {
                             s2.classList.add('slot-full');
-                            s2.textContent += ` - Slot Penuh`;
+                            s2.textContent += ' - Slot Penuh';
                         }
 
-                        // Menampilkan informasi terpakai (used)
+                        // Menampilkan jumlah yang terpakai
                         if (slot.used > 0) {
                             s2.classList.add('slot-used');
                             s2.textContent += ` (${slot.used} terpakai)`;
