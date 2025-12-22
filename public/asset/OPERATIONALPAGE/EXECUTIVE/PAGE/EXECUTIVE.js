@@ -740,24 +740,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /* ===== LOAD SLOT ===== */
         const loadSlots = () => {
-            studio1.innerHTML = '';
-            studio2.innerHTML = '';
+            studio1.innerHTML = '<small>Memuat slot...</small>';
+            studio2.innerHTML = '<small>Memuat slot...</small>';
 
             fetch(`/api/slots?date=${hiddenDate.value}`)
                 .then(res => res.json())
                 .then(slots => {
-                    slots.forEach(s => {
-                        const cls = s.available ? 'slot-available' : 'slot-unavailable';
+                    studio1.innerHTML = '';
+                    studio2.innerHTML = '';
 
-                        const el = document.createElement('div');
-                        el.className = `slot-item ${cls}`;
-                        el.textContent = s.time;
+                    if (!Array.isArray(slots) || slots.length === 0) {
+                        studio1.innerHTML = '<small>Tidak ada slot</small>';
+                        studio2.innerHTML = '<small>Tidak ada slot</small>';
+                        return;
+                    }
 
-                        studio1.appendChild(el);
-                        studio2.appendChild(el.cloneNode(true));
+                    slots.forEach(slot => {
+                        const cls = slot.available ? 'slot-available' : 'slot-unavailable';
+
+                        // Studio 1
+                        const s1 = document.createElement('div');
+                        s1.className = `slot-item ${cls}`;
+                        s1.textContent = slot.time;
+                        studio1.appendChild(s1);
+
+                        // Studio 2
+                        const s2 = document.createElement('div');
+                        s2.className = `slot-item ${cls}`;
+                        s2.textContent = slot.time;
+                        studio2.appendChild(s2);
                     });
                 })
-                .catch(err => console.error('Slot API error:', err));
+                .catch(err => {
+                    console.error('Slot API error:', err);
+                    studio1.innerHTML = '<small style="color:red">Gagal load slot</small>';
+                    studio2.innerHTML = '<small style="color:red">Gagal load slot</small>';
+                });
         };
 
         /* ===== NAV ===== */
