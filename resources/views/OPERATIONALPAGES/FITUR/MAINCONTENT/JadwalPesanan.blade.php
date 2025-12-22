@@ -16,7 +16,7 @@
     {{-- sumber kebenaran tanggal --}}
     <input type="hidden"
            id="jpSelectedDate"
-           value="{{ $selectedDate ?? now()->toDateString() }}">
+           value="{{ now()->toDateString() }}">
 
     <div class="jp-scheduler">
 
