@@ -549,28 +549,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     };
-    
-    function parseISODate(iso) {
-        const [y, m, d] = iso.split('-').map(Number);
-        return new Date(y, m - 1, d);
-    }
 
-    function formatDateID(iso) {
-        const d = parseISODate(iso);
-        return d.toLocaleDateString('id-ID', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-    }
-
-
-    /* =========================================================
-    BOOKING MODAL
-    ========================================================= */
+    /* ============ BOOKING MODAL (CREATE / EDIT) ============ */
     const initBookingModals = () => {
         const backdrop = document.getElementById('bookingModal');
         const form     = document.getElementById('bookingForm');
+
         if (!backdrop || !form) return;
 
         const storeUrl    = form.dataset.storeUrl || '';
@@ -581,82 +565,126 @@ document.addEventListener('DOMContentLoaded', () => {
         const openBtns  = document.querySelectorAll('.js-open-booking-modal');
         const closeBtns = backdrop.querySelectorAll('[data-close]');
 
+        const filterBtn     = document.querySelector('.js-toggle-filter');
+        const filterSection = document.querySelector('.filter-section');
+
         const removeMethodSpoof = () => {
-            const old = form.querySelector('input[name="_method"]');
-            if (old) old.remove();
+            const oldMethod = form.querySelector('input[name="_method"]');
+            if (oldMethod) oldMethod.remove();
         };
 
         const openModal = (mode = 'create', data = null) => {
-            backdrop.classList.add('is-open');
             backdrop.setAttribute('aria-hidden', 'false');
+            backdrop.classList.add('is-open');
+
             removeMethodSpoof();
 
             if (mode === 'create') {
-                titleEl && (titleEl.textContent = 'Booking Baru');
-                storeUrl && (form.action = storeUrl);
+                if (titleEl) titleEl.textContent = 'Booking Baru';
+                if (storeUrl) form.action = storeUrl;
                 form.reset();
-                form.querySelector('#f_date')?.value   = defaultDate;
-                form.querySelector('#f_status')?.value = 'submitted';
-            }
 
-            if (mode === 'edit' && data) {
-                titleEl && (titleEl.textContent = 'Edit Booking');
-                form.action = `${updateBase}/${data.id}`;
+                const dateInput   = form.querySelector('#f_date');
+                const statusInput = form.querySelector('#f_status');
 
-                const m = document.createElement('input');
-                m.type = 'hidden';
-                m.name = '_method';
-                m.value = 'PUT';
-                form.appendChild(m);
+                if (dateInput)   dateInput.value   = defaultDate;
+                if (statusInput) statusInput.value = 'submitted';
+            } else if (mode === 'edit' && data) {
+                if (titleEl) titleEl.textContent = 'Edit Booking';
 
-                const set = (id, v) => {
-                    const el = form.querySelector(id);
-                    if (el) el.value = v ?? '';
+                if (updateBase && data.id) {
+                    form.action = `${updateBase}/${data.id}`;
+                }
+
+                const methodInput = document.createElement('input');
+                methodInput.type  = 'hidden';
+                methodInput.name  = '_method';
+                methodInput.value = 'PUT';
+                form.appendChild(methodInput);
+
+                const setVal = (selector, value) => {
+                    const el = form.querySelector(selector);
+                    if (el) el.value = value ?? '';
                 };
 
-                set('#f_nama_cpp', data.nama_cpp);
-                set('#f_phone_cpp', data.phone_cpp);
-                set('#f_nama_cpw', data.nama_cpw);
-                set('#f_phone_cpw', data.phone_cpw);
-                set('#f_date', data.date);
-                set('#f_start', data.start);
-                set('#f_end', data.end);
-                set('#f_package_id', data.package_id);
-                set('#f_style', data.style);
-                set('#f_status', data.status);
-                set('#f_notes', data.notes);
+                setVal('#f_nama_cpp',   data.nama_cpp);
+                setVal('#f_phone_cpp',  data.phone_cpp);
+                setVal('#f_nama_cpw',   data.nama_cpw);
+                setVal('#f_phone_cpw',  data.phone_cpw);
+                setVal('#f_date',       data.date);
+                setVal('#f_start',      data.start);
+                setVal('#f_end',        data.end);
+                setVal('#f_package_id', data.package_id);
+                setVal('#f_style',      data.style || 'Hair');
+                setVal('#f_status',     data.status || 'submitted');
+                setVal('#f_notes',      data.notes);
             }
         };
 
+        const closeModal = () => {
+            backdrop.setAttribute('aria-hidden', 'true');
+            backdrop.classList.remove('is-open');
+        };
+
         openBtns.forEach(btn => {
-            btn.onclick = () => {
-                btn.classList.contains('btn-edit')
-                    ? openModal('edit', btn.dataset)
-                    : openModal('create');
-            };
+            btn.addEventListener('click', () => {
+                const mode = btn.dataset.mode || (btn.classList.contains('btn-edit') ? 'edit' : 'create');
+
+                if (mode === 'edit') {
+                    const ds = btn.dataset;
+                    openModal('edit', {
+                        id:         ds.id,
+                        nama_cpp:   ds.nama_cpp,
+                        phone_cpp:  ds.phone_cpp,
+                        nama_cpw:   ds.nama_cpw,
+                        phone_cpw:  ds.phone_cpw,
+                        date:       ds.date,
+                        start:      ds.start,
+                        end:        ds.end,
+                        package_id: ds.package_id,
+                        style:      ds.style,
+                        status:     ds.status,
+                        notes:      ds.notes
+                    });
+                } else {
+                    openModal('create');
+                }
+            });
         });
 
-        closeBtns.forEach(btn => btn.onclick = () => backdrop.classList.remove('is-open'));
-        backdrop.onclick = e => e.target === backdrop && backdrop.classList.remove('is-open');
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) {
+                closeModal();
+            }
+        });
+
+        if (filterBtn && filterSection) {
+            filterBtn.addEventListener('click', () => {
+                filterSection.classList.toggle('is-open');
+            });
+        }
     };
 
 
-    /* =========================================================
-    JADWAL PESANAN – FILTER
-    ========================================================= */
     const initJadwalFilter = () => {
-        const calGrid    = document.getElementById('jpCalGrid');
-        const calLabel   = document.getElementById('jpCalLabel');
-        const dateLabel  = document.getElementById('jpSelectedDateLabel');
-        const todayBtn   = document.getElementById('jpTodayBtn');
-        const studio1    = document.getElementById('jpStudio1');
-        const studio2    = document.getElementById('jpStudio2');
-        const hiddenDate = document.getElementById('jpSelectedDate');
+        const calGrid   = document.getElementById('jpCalGrid');
+        const calLabel  = document.getElementById('jpCalLabel');
+        const dateLabel = document.getElementById('jpSelectedDateLabel');
+        const todayBtn  = document.getElementById('jpTodayBtn');
+
+        const studio1   = document.getElementById('jpStudio1');
+        const studio2   = document.getElementById('jpStudio2');
+        const hiddenDate= document.getElementById('jpSelectedDate');
 
         if (!calGrid || !studio1 || !studio2 || !hiddenDate) return;
 
         let current = parseISODate(hiddenDate.value);
 
+        /* ===== CALENDAR ===== */
         const renderCalendar = () => {
             calGrid.innerHTML = '';
 
@@ -668,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 year: 'numeric'
             });
 
-            const firstDay    = new Date(year, month, 1).getDay();
+            const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
             for (let i = 0; i < firstDay; i++) {
@@ -694,66 +722,219 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        /* ===== LOAD SLOT ===== */
         const loadSlots = () => {
-            studio1.innerHTML = '<small>Memuat slot...</small>';
-            studio2.innerHTML = '<small>Memuat slot...</small>';
+            studio1.innerHTML = '';
+            studio2.innerHTML = '';
 
             fetch(`/api/slots?date=${hiddenDate.value}`)
                 .then(res => res.json())
                 .then(slots => {
-                    studio1.innerHTML = '';
-                    studio2.innerHTML = '';
-
                     slots.forEach(s => {
                         const cls = s.available ? 'slot-available' : 'slot-unavailable';
+
                         const el1 = document.createElement('div');
                         el1.className = `slot-item ${cls}`;
                         el1.textContent = s.time;
 
+                        const el2 = el1.cloneNode(true);
+
                         studio1.appendChild(el1);
-                        studio2.appendChild(el1.cloneNode(true));
+                        studio2.appendChild(el2);
                     });
-                });
+                })
+                .catch(err => console.error('Slot API error:', err));
         };
 
-        document.getElementById('jpCalPrev')?.onclick = () => {
+        /* ===== NAV ===== */
+        document.getElementById('jpCalPrev')?.addEventListener('click', () => {
             current.setMonth(current.getMonth() - 1);
             renderCalendar();
-        };
+        });
 
-        document.getElementById('jpCalNext')?.onclick = () => {
+        document.getElementById('jpCalNext')?.addEventListener('click', () => {
             current.setMonth(current.getMonth() + 1);
             renderCalendar();
-        };
+        });
 
-        todayBtn?.onclick = () => {
+        todayBtn?.addEventListener('click', () => {
             const iso = new Date().toISOString().slice(0,10);
             hiddenDate.value = iso;
             current = parseISODate(iso);
             dateLabel.textContent = formatDateID(iso);
             renderCalendar();
             loadSlots();
-        };
+        });
 
+        /* ===== INIT ===== */
         dateLabel.textContent = formatDateID(hiddenDate.value);
         renderCalendar();
         loadSlots();
     };
 
-
-    /* =========================================================
-    SAFE INIT (AJAX)
-    ========================================================= */
-    const tryInitJadwalPesanan = () => {
-        if (
-            document.getElementById('jpCalGrid') &&
-            document.getElementById('jpSelectedDate') &&
-            document.getElementById('jpStudio1')
-        ) {
-            initJadwalFilter();
-        }
+    const parseISODate = (iso) => {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d);
     };
 
+    const formatDateID = (iso) => {
+        const d = parseISODate(iso);
+        return d.toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+    if (mainContent?.dataset?.currentPage === 'JadwalPesanan') {
+    initJadwalFilter();
+    }
+
+
+    /* ============ BOOKING DETAIL MODAL ============ */
+    const initBookingDetailModal = () => {
+        const backdrop = document.getElementById('bookingDetailModal');
+        if (!backdrop) return;
+
+        const openBtns  = document.querySelectorAll('.js-open-booking-detail');
+        const closeBtns = backdrop.querySelectorAll('[data-close-detail]');
+
+        const openModal = (data) => {
+            backdrop.classList.add('is-open');
+            backdrop.setAttribute('aria-hidden', 'false');
+
+            const setText = (id, value) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value || '-';
+            };
+
+            setText('d_kode',            data.kode);
+            setText('d_status',          data.status);
+            setText('d_tanggal',         data.tanggal);
+            setText('d_jam',             data.jam);
+            setText('d_created_at',      data.created_at);
+
+            setText('d_nama_cpp',        data.nama_cpp);
+            setText('d_email_cpp',       data.email_cpp);
+            setText('d_phone_cpp',       data.phone_cpp);
+            setText('d_alamat_cpp',      data.alamat_cpp);
+
+            setText('d_nama_cpw',        data.nama_cpw);
+            setText('d_email_cpw',       data.email_cpw);
+            setText('d_phone_cpw',       data.phone_cpw);
+            setText('d_alamat_cpw',      data.alamat_cpw);
+
+            setText('d_ig_cpp',          data.ig_cpp);
+            setText('d_ig_cpw',          data.ig_cpw);
+            setText('d_tiktok_cpp',      data.tiktok_cpp);
+            setText('d_tiktok_cpw',      data.tiktok_cpw);
+
+            const sosmedEl = document.getElementById('d_sosmed_lain');
+            if (sosmedEl) {
+                if (data.sosmed_lain) {
+                    try {
+                        const parsed = JSON.parse(data.sosmed_lain);
+                        sosmedEl.textContent = JSON.stringify(parsed, null, 2);
+                    } catch (e) {
+                        sosmedEl.textContent = data.sosmed_lain;
+                    }
+                } else {
+                    sosmedEl.textContent = '-';
+                }
+            }
+
+            setText('d_package',         data.package);
+            setText('d_package_price',   data.package_price);
+            setText('d_addons_total',    data.addons_total);
+            setText('d_grand_total',     data.grand_total);
+
+            setText('d_slot_code',              data.slot_code);
+            setText('d_photoshoot_slot',        data.photoshoot_slot);
+            setText('d_extra_slot_code',        data.extra_slot_code);
+            setText('d_extra_photoshoot_slot',  data.extra_photoshoot_slot);
+            setText('d_extra_start_time',       data.extra_start_time);
+            setText('d_extra_end_time',         data.extra_end_time);
+            setText('d_extra_minutes',          data.extra_minutes);
+
+            setText('d_tema_nama',       data.tema_nama);
+            setText('d_tema_kode',       data.tema_kode);
+            setText('d_tema2_nama',      data.tema2_nama);
+            setText('d_tema2_kode',      data.tema2_kode);
+
+            setText('d_style',           data.style);
+            setText('d_wedding_date',    data.wedding_date);
+            setText('d_nama_gabungan',   data.nama_gabungan);
+            setText('d_email_gabungan',  data.email_gabungan);
+            setText('d_phone_gabungan',  data.phone_gabungan);
+
+            const notesEl = document.getElementById('d_notes');
+            if (notesEl) {
+                notesEl.textContent = data.notes || '-';
+            }
+        };
+
+        const closeModal = () => {
+            backdrop.classList.remove('is-open');
+            backdrop.setAttribute('aria-hidden', 'true');
+        };
+
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const ds = btn.dataset;
+                openModal({
+                    id:                     ds.id,
+                    kode:                   ds.kode,
+                    status:                 ds.status,
+                    tanggal:                ds.tanggal,
+                    jam:                    ds.jam,
+                    created_at:             ds.created_at,
+                    nama_cpp:               ds.nama_cpp,
+                    email_cpp:              ds.email_cpp,
+                    phone_cpp:              ds.phone_cpp,
+                    alamat_cpp:             ds.alamat_cpp,
+                    nama_cpw:               ds.nama_cpw,
+                    email_cpw:              ds.email_cpw,
+                    phone_cpw:              ds.phone_cpw,
+                    alamat_cpw:             ds.alamat_cpw,
+                    ig_cpp:                 ds.ig_cpp,
+                    ig_cpw:                 ds.ig_cpw,
+                    tiktok_cpp:             ds.tiktok_cpp,
+                    tiktok_cpw:             ds.tiktok_cpw,
+                    sosmed_lain:            ds.sosmed_lain,
+                    package:                ds.package,
+                    package_price:          ds.package_price,
+                    addons_total:           ds.addons_total,
+                    grand_total:            ds.grand_total,
+                    slot_code:              ds.slot_code,
+                    photoshoot_slot:        ds.photoshoot_slot,
+                    extra_slot_code:        ds.extra_slot_code,
+                    extra_photoshoot_slot:  ds.extra_photoshoot_slot,
+                    extra_start_time:       ds.extra_start_time,
+                    extra_end_time:         ds.extra_end_time,
+                    extra_minutes:          ds.extra_minutes,
+                    tema_nama:              ds.tema_nama,
+                    tema_kode:              ds.tema_kode,
+                    tema2_nama:             ds.tema2_nama,
+                    tema2_kode:             ds.tema2_kode,
+                    style:                  ds.style,
+                    wedding_date:           ds.wedding_date,
+                    notes:                  ds.notes,
+                    nama_gabungan:          ds.nama_gabungan,
+                    email_gabungan:         ds.email_gabungan,
+                    phone_gabungan:         ds.phone_gabungan
+                });
+            });
+        });
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) {
+                closeModal();
+            }
+        });
+    };
 
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
