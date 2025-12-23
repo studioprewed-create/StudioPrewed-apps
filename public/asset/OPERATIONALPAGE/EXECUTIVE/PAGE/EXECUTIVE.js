@@ -779,7 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadBookings = () => {
             ordersGrid.innerHTML = '<small>Memuat data booking...</small>';
 
-            fetch(`/jadwalpesanan/loadBookings?date=${hiddenDate.value}`)
+            fetch(`executive/jadwalpesanan/loadBookings?date=${hiddenDate.value}`)
                 .then(res => res.json())
                 .then(bookings => {
                     ordersGrid.innerHTML = '';
