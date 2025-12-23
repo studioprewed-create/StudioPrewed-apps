@@ -2220,54 +2220,63 @@ class EXECUTIVEController extends Controller
                 ]);
             }
             if ($page === 'JadwalPesanan') {
-                $selectedDate = $request->input('date', now()->toDateString());
-                $status       = $request->input('status', 'all');
-                $search       = $request->input('search');
+            // Ambil tanggal yang dipilih (defaultnya hari ini)
+            $selectedDate = $request->input('date', now()->toDateString());
+            $status       = $request->input('status', 'all');
+            $search       = $request->input('search');
 
-                $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
+            // Query untuk mengambil data booking berdasarkan tanggal yang dipilih
+            $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
-                // OPTIONAL: kalau ini khusus booking executive, aktifkan filter prefix ini
-                $query->where('kode_pesanan', 'like', 'SPEXEC%');
+            // Filter khusus untuk booking executive jika diperlukan
+            $query->where('kode_pesanan', 'like', 'SPEXEC%');
 
-                $statusMap = [
-                    'pending'   => 'submitted',
-                    'confirmed' => 'confirmed',
-                    'canceled'  => 'cancelled',
-                    'completed' => 'completed',
-                ];
+            // Mapping status
+            $statusMap = [
+                'pending'   => 'submitted',
+                'confirmed' => 'confirmed',
+                'canceled'  => 'cancelled',
+                'completed' => 'completed',
+            ];
 
-                if ($status !== 'all' && isset($statusMap[$status])) {
-                    $query->where('status', $statusMap[$status]);
-                }
-
-                if ($search) {
-                    $query->where(function ($q) use ($search) {
-                        $q->where('kode_pesanan', 'like', "%{$search}%")
-                        ->orWhere('nama_gabungan', 'like', "%{$search}%")
-                        ->orWhere('nama_cpp', 'like', "%{$search}%")
-                        ->orWhere('nama_cpw', 'like', "%{$search}%")
-                        ->orWhere('phone_gabungan', 'like', "%{$search}%")
-                        ->orWhere('phone_cpp', 'like', "%{$search}%")
-                        ->orWhere('phone_cpw', 'like', "%{$search}%");
-                    });
-                }
-
-                $bookings = $query->orderBy('start_time')->get();
-
-                // dropdown & wizard needs these:
-                $packages = Package::orderBy('order')->get();
-                $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
-                $temas    = TemaBaju::orderBy('order')->get();
-
-                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                    'page'         => $page,
-                    'bookings'     => $bookings,
-                    'selectedDate' => $selectedDate,
-                    'packages'     => $packages,
-                    'addons'       => $addons,
-                    'temas'        => $temas,
-                ]);
+            // Filter berdasarkan status jika status bukan 'all'
+            if ($status !== 'all' && isset($statusMap[$status])) {
+                $query->where('status', $statusMap[$status]);
             }
+
+            // Filter berdasarkan pencarian
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('kode_pesanan', 'like', "%{$search}%")
+                    ->orWhere('nama_gabungan', 'like', "%{$search}%")
+                    ->orWhere('nama_cpp', 'like', "%{$search}%")
+                    ->orWhere('nama_cpw', 'like', "%{$search}%")
+                    ->orWhere('phone_gabungan', 'like', "%{$search}%")
+                    ->orWhere('phone_cpp', 'like', "%{$search}%")
+                    ->orWhere('phone_cpw', 'like', "%{$search}%");
+                });
+            }
+
+            // Ambil data booking yang sudah difilter
+            $bookings = $query->orderBy('start_time')->get();
+
+            // Ambil data tambahan seperti packages, addons, temas
+            $packages = Package::orderBy('order')->get();
+            $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
+            $temas    = TemaBaju::orderBy('order')->get();
+
+            // Menggunakan loadPage untuk memuat halaman utama dengan data yang sudah disiapkan
+            return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                'page'         => $page,
+                'bookings'     => $bookings,
+                'selectedDate' => $selectedDate,
+                'status'       => $status,
+                'search'       => $search,
+                'packages'     => $packages,
+                'addons'       => $addons,
+                'temas'        => $temas,
+            ]);
+        }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -2401,15 +2410,18 @@ class EXECUTIVEController extends Controller
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('slides', 'promos','addons'));
             }
             if ($page === 'JadwalPesanan') {
+                // Ambil input tanggal, status, dan search dari request
                 $selectedDate = $request->input('date', now()->toDateString());
                 $status       = $request->input('status', 'all');
                 $search       = $request->input('search');
 
+                // Query untuk mengambil data booking berdasarkan tanggal yang dipilih
                 $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
-                // OPTIONAL: khusus executive
+                // Filter khusus untuk executive jika perlu
                 $query->where('kode_pesanan', 'like', 'SPEXEC%');
 
+                // Mapping status
                 $statusMap = [
                     'pending'   => 'submitted',
                     'confirmed' => 'confirmed',
@@ -2417,10 +2429,12 @@ class EXECUTIVEController extends Controller
                     'completed' => 'completed',
                 ];
 
+                // Filter berdasarkan status
                 if ($status !== 'all' && isset($statusMap[$status])) {
                     $query->where('status', $statusMap[$status]);
                 }
 
+                // Filter berdasarkan pencarian
                 if ($search) {
                     $query->where(function ($q) use ($search) {
                         $q->where('kode_pesanan', 'like', "%{$search}%")
@@ -2433,14 +2447,17 @@ class EXECUTIVEController extends Controller
                     });
                 }
 
+                // Ambil data booking yang sudah difilter
                 $bookings = $query->orderBy('start_time')->get();
 
+                // Ambil data lainnya seperti packages, addons, temas
                 $packages = Package::orderBy('order')->get();
                 $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
                 $temas    = TemaBaju::orderBy('order')->get();
 
+                // Kirim data ke view menggunakan loadContent
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact(
-                    'bookings', 'selectedDate', 'packages', 'addons', 'temas'
+                    'bookings', 'selectedDate', 'status', 'search', 'packages', 'addons', 'temas'
                 ));
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -2605,15 +2622,18 @@ class EXECUTIVEController extends Controller
                     ]);
                 }
                 if ($page === 'JadwalPesanan') {
+                    // Ambil input tanggal, status, dan search dari request
                     $selectedDate = $request->input('date', now()->toDateString());
                     $status       = $request->input('status', 'all');
                     $search       = $request->input('search');
 
+                    // Query untuk mengambil data booking berdasarkan tanggal yang dipilih
                     $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
-                    // OPTIONAL: khusus executive
+                    // Filter khusus untuk executive jika perlu
                     $query->where('kode_pesanan', 'like', 'SPEXEC%');
 
+                    // Mapping status
                     $statusMap = [
                         'pending'   => 'submitted',
                         'confirmed' => 'confirmed',
@@ -2621,10 +2641,12 @@ class EXECUTIVEController extends Controller
                         'completed' => 'completed',
                     ];
 
+                    // Filter berdasarkan status
                     if ($status !== 'all' && isset($statusMap[$status])) {
                         $query->where('status', $statusMap[$status]);
                     }
 
+                    // Filter berdasarkan pencarian
                     if ($search) {
                         $query->where(function ($q) use ($search) {
                             $q->where('kode_pesanan', 'like', "%{$search}%")
@@ -2637,16 +2659,21 @@ class EXECUTIVEController extends Controller
                         });
                     }
 
+                    // Ambil data booking sesuai query yang sudah difilter
                     $bookings = $query->orderBy('start_time')->get();
 
+                    // Ambil data lainnya seperti packages, addons, temas
                     $packages = Package::orderBy('order')->get();
                     $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
                     $temas    = TemaBaju::orderBy('order')->get();
 
+                    // Menggunakan view untuk memuat halaman utama dengan data yang sudah disiapkan
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page'         => $page,
                         'bookings'     => $bookings,
                         'selectedDate' => $selectedDate,
+                        'status'       => $status,
+                        'search'       => $search,
                         'packages'     => $packages,
                         'addons'       => $addons,
                         'temas'        => $temas,

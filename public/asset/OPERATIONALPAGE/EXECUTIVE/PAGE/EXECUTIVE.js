@@ -718,19 +718,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const initJadwalPesanan = () => {
-        // Guard utama: hanya jalan kalau halaman ini ada
-        const calGrid    = document.getElementById('jpCalGrid');
-        const studio1    = document.getElementById('jpStudio1');
-        const studio2    = document.getElementById('jpStudio2');
+        const calGrid = document.getElementById('jpCalGrid');
+        const ordersGrid = document.getElementById('ordersGrid');
         const hiddenDate = document.getElementById('jpSelectedDate');
-
-        if (!calGrid || !studio1 || !studio2 || !hiddenDate) return;
-
-        const calLabel  = document.getElementById('jpCalLabel');
+        const studio1 = document.getElementById('jpStudio1');
+        const studio2 = document.getElementById('jpStudio2');
         const dateLabel = document.getElementById('jpSelectedDateLabel');
-        const todayBtn  = document.getElementById('jpTodayBtn');
+        const todayBtn = document.getElementById('jpTodayBtn');
 
-        /* ===== helper lokal (TIDAK global) ===== */
+        if (!calGrid || !ordersGrid || !hiddenDate || !studio1 || !studio2 || !dateLabel) return;
+
         const parseISODate = (iso) => {
             const [y, m, d] = iso.split('-').map(Number);
             return new Date(y, m - 1, d);
@@ -747,19 +744,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let current = parseISODate(hiddenDate.value);
 
-        /* ===== CALENDAR ===== */
+        // Render Calendar
         const renderCalendar = () => {
             calGrid.innerHTML = '';
-
-            const year  = current.getFullYear();
+            const year = current.getFullYear();
             const month = current.getMonth();
+            calLabel.textContent = current.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
 
-            calLabel.textContent = current.toLocaleString('id-ID', {
-                month: 'long',
-                year: 'numeric'
-            });
-
-            const firstDay    = new Date(year, month, 1).getDay();
+            const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
             for (let i = 0; i < firstDay; i++) {
@@ -768,24 +760,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
             for (let d = 1; d <= daysInMonth; d++) {
                 const btn = document.createElement('button');
-                const iso = `${year}-${String(month + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-
+                const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                 btn.textContent = d;
                 if (iso === hiddenDate.value) btn.classList.add('active');
-
                 btn.onclick = () => {
                     hiddenDate.value = iso;
                     current = parseISODate(iso);
                     dateLabel.textContent = formatDateID(iso);
                     renderCalendar();
+                    loadBookings();
                     loadSlots();
                 };
-
                 calGrid.appendChild(btn);
             }
         };
 
-        /* ===== LOAD SLOT ===== */
+        // Load Bookings based on selected date
+        const loadBookings = () => {
+            ordersGrid.innerHTML = '<small>Memuat data booking...</small>';
+
+            fetch(`/jadwalpesanan/loadBookings?date=${hiddenDate.value}`)
+                .then(res => res.json())
+                .then(bookings => {
+                    ordersGrid.innerHTML = '';
+                    if (!Array.isArray(bookings) || bookings.length === 0) {
+                        ordersGrid.innerHTML = '<small>Tidak ada booking untuk tanggal ini</small>';
+                        return;
+                    }
+
+                    bookings.forEach(booking => {
+                        const bookingCard = document.createElement('div');
+                        bookingCard.classList.add('order-card');
+                        bookingCard.innerHTML = `
+                            <div class="order-header">
+                                <span class="order-id">${booking.kode_pesanan}</span>
+                                <span class="order-status status-${booking.status}">${booking.status}</span>
+                            </div>
+                            <div class="order-details">
+                                <div class="detail-group">
+                                    <span class="detail-label">Klien</span>
+                                    <span class="detail-value">${booking.nama_gabungan}</span>
+                                </div>
+                                <div class="detail-group">
+                                    <span class="detail-label">Tanggal</span>
+                                    <span class="detail-value">${new Date(booking.photoshoot_date).toLocaleDateString()}</span>
+                                </div>
+                                <div class="detail-group">
+                                    <span class="detail-label">WhatsApp</span>
+                                    <span class="detail-value">${booking.phone_gabungan}</span>
+                                </div>
+                            </div>
+                        `;
+                        ordersGrid.appendChild(bookingCard);
+                    });
+                })
+                .catch(err => {
+                    console.error('Error fetching booking data:', err);
+                    ordersGrid.innerHTML = '<small style="color:red">Gagal memuat data booking</small>';
+                });
+        };
+
+        // Load Slots for the selected date
         const loadSlots = () => {
             studio1.innerHTML = '<small>Memuat slot...</small>';
             studio2.innerHTML = '<small>Memuat slot...</small>';
@@ -825,7 +860,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         };
 
-        /* ===== NAV ===== */
+        // Event listeners for calendar navigation
         document.getElementById('jpCalPrev')?.addEventListener('click', () => {
             current.setMonth(current.getMonth() - 1);
             renderCalendar();
@@ -837,18 +872,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         todayBtn?.addEventListener('click', () => {
-            const iso = new Date().toISOString().slice(0,10);
+            const iso = new Date().toISOString().slice(0, 10);
             hiddenDate.value = iso;
             current = parseISODate(iso);
             dateLabel.textContent = formatDateID(iso);
             renderCalendar();
+            loadBookings();
             loadSlots();
         });
 
-        /* ===== INIT ===== */
+        // Initialize
         dateLabel.textContent = formatDateID(hiddenDate.value);
         renderCalendar();
-        loadSlots();
+        loadBookings();  // Initial data load
+        loadSlots();     // Initial slots load
     };
 
 
