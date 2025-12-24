@@ -869,149 +869,27 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSlots();
     };
 
-    /* ============ BOOKING DETAIL MODAL ============ */
     const initBookingDetailModal = () => {
-        const backdrop = document.getElementById('bookingDetailModal');
-        if (!backdrop) return;
+        const openButtons = document.querySelectorAll('.ticket-action');
 
-        const openBtns  = document.querySelectorAll('.js-open-booking-detail');
-        const closeBtns = backdrop.querySelectorAll('[data-close-detail]');
-
-        const openModal = (data) => {
-            backdrop.classList.add('is-open');
-            backdrop.setAttribute('aria-hidden', 'false');
-
-            const setText = (id, value) => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = value || '-';
-            };
-
-            setText('d_kode',            data.kode);
-            setText('d_status',          data.status);
-            setText('d_tanggal',         data.tanggal);
-            setText('d_jam',             data.jam);
-            setText('d_created_at',      data.created_at);
-
-            setText('d_nama_cpp',        data.nama_cpp);
-            setText('d_email_cpp',       data.email_cpp);
-            setText('d_phone_cpp',       data.phone_cpp);
-            setText('d_alamat_cpp',      data.alamat_cpp);
-
-            setText('d_nama_cpw',        data.nama_cpw);
-            setText('d_email_cpw',       data.email_cpw);
-            setText('d_phone_cpw',       data.phone_cpw);
-            setText('d_alamat_cpw',      data.alamat_cpw);
-
-            setText('d_ig_cpp',          data.ig_cpp);
-            setText('d_ig_cpw',          data.ig_cpw);
-            setText('d_tiktok_cpp',      data.tiktok_cpp);
-            setText('d_tiktok_cpw',      data.tiktok_cpw);
-
-            const sosmedEl = document.getElementById('d_sosmed_lain');
-            if (sosmedEl) {
-                if (data.sosmed_lain) {
-                    try {
-                        const parsed = JSON.parse(data.sosmed_lain);
-                        sosmedEl.textContent = JSON.stringify(parsed, null, 2);
-                    } catch (e) {
-                        sosmedEl.textContent = data.sosmed_lain;
-                    }
-                } else {
-                    sosmedEl.textContent = '-';
-                }
-            }
-
-            setText('d_package',         data.package);
-            setText('d_package_price',   data.package_price);
-            setText('d_addons_total',    data.addons_total);
-            setText('d_grand_total',     data.grand_total);
-
-            setText('d_slot_code',              data.slot_code);
-            setText('d_photoshoot_slot',        data.photoshoot_slot);
-            setText('d_extra_slot_code',        data.extra_slot_code);
-            setText('d_extra_photoshoot_slot',  data.extra_photoshoot_slot);
-            setText('d_extra_start_time',       data.extra_start_time);
-            setText('d_extra_end_time',         data.extra_end_time);
-            setText('d_extra_minutes',          data.extra_minutes);
-
-            setText('d_tema_nama',       data.tema_nama);
-            setText('d_tema_kode',       data.tema_kode);
-            setText('d_tema2_nama',      data.tema2_nama);
-            setText('d_tema2_kode',      data.tema2_kode);
-
-            setText('d_style',           data.style);
-            setText('d_wedding_date',    data.wedding_date);
-            setText('d_nama_gabungan',   data.nama_gabungan);
-            setText('d_email_gabungan',  data.email_gabungan);
-            setText('d_phone_gabungan',  data.phone_gabungan);
-
-            const notesEl = document.getElementById('d_notes');
-            if (notesEl) {
-                notesEl.textContent = data.notes || '-';
-            }
-        };
-
-        const closeModal = () => {
-            backdrop.classList.remove('is-open');
-            backdrop.setAttribute('aria-hidden', 'true');
-        };
-
-        openBtns.forEach(btn => {
+        openButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                const ds = btn.dataset;
-                openModal({
-                    id:                     ds.id,
-                    kode:                   ds.kode,
-                    status:                 ds.status,
-                    tanggal:                ds.tanggal,
-                    jam:                    ds.jam,
-                    created_at:             ds.created_at,
-                    nama_cpp:               ds.nama_cpp,
-                    email_cpp:              ds.email_cpp,
-                    phone_cpp:              ds.phone_cpp,
-                    alamat_cpp:             ds.alamat_cpp,
-                    nama_cpw:               ds.nama_cpw,
-                    email_cpw:              ds.email_cpw,
-                    phone_cpw:              ds.phone_cpw,
-                    alamat_cpw:             ds.alamat_cpw,
-                    ig_cpp:                 ds.ig_cpp,
-                    ig_cpw:                 ds.ig_cpw,
-                    tiktok_cpp:             ds.tiktok_cpp,
-                    tiktok_cpw:             ds.tiktok_cpw,
-                    sosmed_lain:            ds.sosmed_lain,
-                    package:                ds.package,
-                    package_price:          ds.package_price,
-                    addons_total:           ds.addons_total,
-                    grand_total:            ds.grand_total,
-                    slot_code:              ds.slot_code,
-                    photoshoot_slot:        ds.photoshoot_slot,
-                    extra_slot_code:        ds.extra_slot_code,
-                    extra_photoshoot_slot:  ds.extra_photoshoot_slot,
-                    extra_start_time:       ds.extra_start_time,
-                    extra_end_time:         ds.extra_end_time,
-                    extra_minutes:          ds.extra_minutes,
-                    tema_nama:              ds.tema_nama,
-                    tema_kode:              ds.tema_kode,
-                    tema2_nama:             ds.tema2_nama,
-                    tema2_kode:             ds.tema2_kode,
-                    style:                  ds.style,
-                    wedding_date:           ds.wedding_date,
-                    notes:                  ds.notes,
-                    nama_gabungan:          ds.nama_gabungan,
-                    email_gabungan:         ds.email_gabungan,
-                    phone_gabungan:         ds.phone_gabungan
-                });
+                const modalId = btn.getAttribute('data-modal-target');
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+
+                modal.classList.add('is-open');
+
+                const closeBtn = modal.querySelector('.booking-modal-close');
+                const backdrop = modal.querySelector('.booking-modal-backdrop');
+
+                const closeModal = () => {
+                    modal.classList.remove('is-open');
+                };
+
+                closeBtn?.addEventListener('click', closeModal);
+                backdrop?.addEventListener('click', closeModal);
             });
-        });
-
-        closeBtns.forEach(btn => {
-            btn.addEventListener('click', closeModal);
-        });
-
-        backdrop.addEventListener('click', (e) => {
-            if (e.target === backdrop) {
-                closeModal();
-            }
         });
     };
 
