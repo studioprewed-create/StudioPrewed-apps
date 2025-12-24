@@ -2312,49 +2312,55 @@ body.sp-body {
     display: none;
     position: fixed;
     inset: 0;
+    z-index: 1000;
 
     justify-content: center;
     align-items: center;
-
-    z-index: 1000;
 }
 
 .booking-modal.is-open {
     display: flex;
 }
 
-/* backdrop */
+/* BACKDROP */
 .booking-modal-backdrop {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
 }
 
-/* konten */
+/* CONTENT */
 .booking-modal-content {
     position: relative;
     z-index: 1;
 
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px;
 
-    width: 80%;
-    max-width: 600px;
-    max-height: 85vh;        /* ⭐ PENTING */
-    overflow-y: auto;        /* ⭐ PENTING */
+    width: 90%;
+    max-width: 720px;
 
-    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+    max-height: 85vh;
+    overflow-y: auto;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+
+    /* ❗ KUNCI POSISI */
+    pointer-events: auto;
+    transform: none;
 }
 
+/* CLOSE BUTTON */
 .booking-modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: sticky;
+    top: 0;
+    float: right;
 
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
 }
 
