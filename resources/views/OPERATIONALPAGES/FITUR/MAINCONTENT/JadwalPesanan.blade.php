@@ -9,7 +9,6 @@
     <input type="hidden" id="jpSelectedDate" value="{{ $selectedDate }}">
 
     <div class="jp-scheduler">
-        {{-- KALENDER --}}
         <div class="jp-card jp-calendar-card">
             <div class="jp-cal-head">
                 <button type="button" class="jp-icon-btn" id="jpCalPrev">‹</button>
@@ -29,8 +28,6 @@
                 <button type="button" class="jp-btn jp-btn-ghost" id="jpTodayBtn">Hari ini</button>
             </div>
         </div>
-
-        {{-- SLOT --}}
         <div class="jp-card jp-slots-card">
             <div class="jp-slots-head">
                 <h4>Slot Waktu Tersedia</h4>
@@ -50,7 +47,6 @@
     <div class="orders-grid" id="ordersGrid">
         @forelse ($bookings as $booking)
             <div class="order-card">
-
                 <div class="order-header">
                     <span class="order-id">{{ $booking->kode_pesanan }}</span>
                     <span class="order-status status-{{ $booking->status }}">
@@ -60,13 +56,29 @@
 
                 <div class="order-details">
                     <div class="detail-group">
-                        <span class="detail-label">Klien</span>
-                        <span class="detail-value">{{ $booking->nama_gabungan }}</span>
+                        <span class="detail-label">NamaCPP</span>
+                        <span class="detail-value">{{ $booking->nama_cpp }}</span>
+                    </div>
+                     <div class="detail-group">
+                        <span class="detail-label">NamaCPW</span>
+                        <span class="detail-value">{{ $booking->nama_cpw }}</span>
                     </div>
                     <div class="detail-group">
-                        <span class="detail-label">Tanggal</span>
+                        <span class="detail-label">Tanggal booking</span>
                         <span class="detail-value">
                             {{ $booking->photoshoot_date->format('d M Y') }}
+                        </span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Nama Paket</span>
+                        <span class="detail-value">
+                            {{ $booking->package->nama_paket ?? '-' }}
+                        </span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Style</span>
+                        <span class="detail-value">
+                            {{ $booking->style }}
                         </span>
                     </div>
                     <div class="detail-group">
@@ -76,7 +88,7 @@
                 </div>
 
                 <div class="order-actions">
-                    <button
+                    <button class="action-btn btn-view"
                         class="ticket-action js-open-booking-modal"
                         data-kode="{{ $booking->kode_pesanan }}"
                         data-status="{{ ucfirst($booking->status) }}"
@@ -94,6 +106,16 @@
                     >
                         Lihat Detail
                     </button>
+                    <form action="{{ route('executive.homepages.destroy', ['section' => 'bookingexecutive', 'id' => $booking->id]) }}"
+                            method="POST"
+                            style="display:inline-block"
+                            onsubmit="return confirm('Yakin ingin menghapus booking ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="action-btn btn-delete" type="submit">
+                            <i class="fa fa-trash"></i> Hapus
+                        </button>
+                    </form>
                 </div>
 
             </div>
@@ -184,13 +206,6 @@
 
                     </div>
                 </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="btnCloseBooking2">
-                        Tutup
-                    </button>
-                </div>
-
             </div>
         </div>
 </section>

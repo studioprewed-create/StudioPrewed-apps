@@ -2317,6 +2317,63 @@ body.sp-body {
     color: #991b1b;
 }
 
+/* Header kalender */
+.jp-cal-label {
+    color: #111827;
+}
+
+/* Hari (Min–Sab) */
+.jp-cal-week div {
+    color: #374151;
+}
+
+/* Tombol tanggal */
+.jp-cal-grid button {
+    color: #111827;
+}
+
+/* Footer kalender */
+.jp-cal-footer span,
+.jp-cal-footer strong {
+    color: #111827;
+}
+
+/* ===== SLOT ===== */
+.jp-slots-head h4 {
+    color: #111827;
+}
+
+.jp-slots-head small {
+    color: #6b7280; /* abu soft */
+}
+
+/* Studio title */
+.jp-studio h5 {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* Slot default (kalau belum ada class) */
+.slot-item {
+    color: #111827;
+}
+
+/* Tombol icon kalender */
+.jp-icon-btn {
+    color: #111827;
+}
+.jp-icon-btn:hover {
+    color: #2563eb;
+}
+
+/* Button "Hari ini" */
+.jp-btn {
+    color: #111827;
+}
+.jp-btn-ghost:hover {
+    background: #f3f4f6;
+}
+
 .booking-modal {
     display: none;
     position: absolute;       /* ⬅️ KUNCI */
@@ -2420,6 +2477,31 @@ body.sp-body {
 /* FULL WIDTH ROW */
 .form-group[style*="grid-column"] {
     grid-column: 1 / -1;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    background: #ffffff;
+    border: 1px dashed #e5e7eb;
+    border-radius: 12px;
+
+    padding: 40px 24px;
+    text-align: center;
+
+    color: #374151;
+    font-size: 14px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state::before {
+    content: "📅";
+    font-size: 28px;
+    opacity: .7;
 }
 
 /* MOBILE */

@@ -50,18 +50,18 @@
                 <div class="step-head">
                     <h4>CPP (Pria)</h4>
                 </div>
-                <label>Nama CPP</label><input type="text" id="nama_cpp">
-                <label>Email CPP</label><input type="email" id="email_cpp">
-                <label>No. Telp CPP</label><input type="text" id="phone_cpp">
+                <label>Nama CPP (Wajib isi )</label><input type="text" id="nama_cpp">
+                <label>Email CPP (Opsional)</label><input type="email" id="email_cpp">
+                <label>No. Telp CPP (Wajib isi)</label><input type="text" id="phone_cpp">
                 <label>Alamat CPP (opsional)</label><input type="text" id="alamat_cpp">
             </div>
             <div>
                 <div class="step-head">
                     <h4>CPW (Perempuan)</h4>
                 </div>
-                <label>Nama CPW</label><input type="text" id="nama_cpw">
-                <label>Email CPW</label><input type="email" id="email_cpw">
-                <label>No. Telp CPW</label><input type="text" id="phone_cpw">
+                <label>Nama CPW (Wajib isi )</label><input type="text" id="nama_cpw">
+                <label>Email CPW (Opsional)</label><input type="email" id="email_cpw">
+                <label>No. Telp CPW (Wajib isi )</label><input type="text" id="phone_cpw">
                 <label>Alamat CPW (opsional)</label><input type="text" id="alamat_cpw">
             </div>
         </div>
