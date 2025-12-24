@@ -2227,7 +2227,7 @@ class EXECUTIVEController extends Controller
 
                 // Query untuk mengambil data booking berdasarkan tanggal yang dipilih
                 $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
-                $query->where('kode_pesanan', 'like', 'SPEXEC%'); // Filter khusus untuk executive
+                $query->where('kode_pesanan', 'like', 'SP%');
 
                 // Mapping status
                 $statusMap = [
@@ -2417,7 +2417,7 @@ class EXECUTIVEController extends Controller
                 $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
                 // Filter khusus untuk executive jika perlu
-                $query->where('kode_pesanan', 'like', 'SPEXEC%');
+                $query->where('kode_pesanan', 'like', 'SP%');
 
                 // Mapping status
                 $statusMap = [
@@ -2629,7 +2629,7 @@ class EXECUTIVEController extends Controller
                     $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
 
                     // Filter khusus untuk executive jika perlu
-                    $query->where('kode_pesanan', 'like', 'SPEXEC%');
+                    $query->where('kode_pesanan', 'like', 'SP%');
 
                     // Mapping status
                     $statusMap = [
