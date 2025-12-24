@@ -950,6 +950,15 @@ textarea:focus {
     border-top:1px solid var(--dark-border);
   }
 
+#bookingModal strong {
+    color: #f8fafc;
+    font-weight: 600;
+  }
+
+#bookingModal .form-group div {
+    color: #cbd5f5;
+  }
+
   
 
   /* Grid & cards reused */
