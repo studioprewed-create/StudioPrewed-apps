@@ -72,20 +72,9 @@
                             <span class="detail-value">{{ $booking->phone_gabungan }}</span>
                         </div>
                     </div>
-                    <div class="order-team">
-                        <div class="team-title">Tim Penugasan</div>
-                        <div class="team-members">
-                            @foreach ($booking->teamMembers as $member)
-                                <div class="team-member">
-                                    <div class="member-avatar">{{ strtoupper($member->initial) }}</div>
-                                    <div class="member-info">
-                                        <div class="member-name">{{ $member->name }}</div>
-                                        <div class="member-role">{{ $member->role }}</div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                </div>
+            @endforeach
+        </div>
                     <div class="order-actions">
                         <button class="ticket-action" data-modal-target="#bookingModal-{{ $booking->id }}">
                             Lihat Detail

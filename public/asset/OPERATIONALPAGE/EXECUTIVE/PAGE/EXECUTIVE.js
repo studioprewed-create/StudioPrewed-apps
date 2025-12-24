@@ -779,45 +779,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadBookings = () => {
             ordersGrid.innerHTML = '<small>Memuat data booking...</small>';
 
-            fetch(`/executive/jadwalpesanan/loadBookings?date=${hiddenDate.value}`)
-                .then(res => res.json())
-                .then(bookings => {
-                    ordersGrid.innerHTML = '';
-                    if (!Array.isArray(bookings) || bookings.length === 0) {
-                        ordersGrid.innerHTML = '<small>Tidak ada booking untuk tanggal ini</small>';
-                        return;
-                    }
+            fetch(`/executive/jadwalpesanan?date=${hiddenDate.value}&status=${status}&search=${search}`, {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            })
+            .then(res => res.json())
+            .then(bookings => {
+                ordersGrid.innerHTML = '';
+                if (!Array.isArray(bookings) || bookings.length === 0) {
+                    ordersGrid.innerHTML = '<small>Tidak ada booking untuk tanggal ini</small>';
+                    return;
+                }
 
-                    bookings.forEach(booking => {
-                        const bookingCard = document.createElement('div');
-                        bookingCard.classList.add('order-card');
-                        bookingCard.innerHTML = `
-                            <div class="order-header">
-                                <span class="order-id">${booking.kode_pesanan}</span>
-                                <span class="order-status status-${booking.status}">${booking.status}</span>
+                bookings.forEach(booking => {
+                    const bookingCard = document.createElement('div');
+                    bookingCard.classList.add('order-card');
+                    bookingCard.innerHTML = `
+                        <div class="order-header">
+                            <span class="order-id">${booking.kode_pesanan}</span>
+                            <span class="order-status status-${booking.status}">${booking.status}</span>
+                        </div>
+                        <div class="order-details">
+                            <div class="detail-group">
+                                <span class="detail-label">Klien</span>
+                                <span class="detail-value">${booking.nama_gabungan}</span>
                             </div>
-                            <div class="order-details">
-                                <div class="detail-group">
-                                    <span class="detail-label">Klien</span>
-                                    <span class="detail-value">${booking.nama_gabungan}</span>
-                                </div>
-                                <div class="detail-group">
-                                    <span class="detail-label">Tanggal</span>
-                                    <span class="detail-value">${new Date(booking.photoshoot_date).toLocaleDateString()}</span>
-                                </div>
-                                <div class="detail-group">
-                                    <span class="detail-label">WhatsApp</span>
-                                    <span class="detail-value">${booking.phone_gabungan}</span>
-                                </div>
+                            <div class="detail-group">
+                                <span class="detail-label">Tanggal</span>
+                                <span class="detail-value">${new Date(booking.photoshoot_date).toLocaleDateString()}</span>
                             </div>
-                        `;
-                        ordersGrid.appendChild(bookingCard);
-                    });
-                })
-                .catch(err => {
-                    console.error('Error fetching booking data:', err);
-                    ordersGrid.innerHTML = '<small style="color:red">Gagal memuat data booking</small>';
+                            <div class="detail-group">
+                                <span class="detail-label">WhatsApp</span>
+                                <span class="detail-value">${booking.phone_gabungan}</span>
+                            </div>
+                        </div>
+                    `;
+                    ordersGrid.appendChild(bookingCard);
                 });
+            })
+            .catch(err => {
+                console.error('Error fetching booking data:', err);
+                ordersGrid.innerHTML = '<small style="color:red">Gagal memuat data booking</small>';
+            });
         };
 
         // Load Slots for the selected date
