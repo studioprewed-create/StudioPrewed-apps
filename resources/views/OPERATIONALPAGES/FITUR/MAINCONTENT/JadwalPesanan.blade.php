@@ -47,7 +47,6 @@
         </div>
     </div>
 
-    {{-- DATA PESANAN --}}
     <div class="orders-grid" id="ordersGrid">
         @forelse ($bookings as $booking)
             <div class="order-card">
@@ -77,26 +76,42 @@
                 </div>
 
                 <div class="order-actions">
-                    <button class="ticket-action"
-                            data-modal-target="bookingModal-{{ $booking->id }}">
+                    <button
+                        class="ticket-action js-open-booking-modal"
+                        data-kode="{{ $booking->kode_pesanan }}"
+                        data-status="{{ ucfirst($booking->status) }}"
+                        data-paket="{{ $booking->package->nama_paket ?? '-' }}"
+                        data-style="{{ $booking->style ?? '-' }}"
+                        data-tanggal="{{ $booking->photoshoot_date->format('d F Y') }}"
+                        data-slot="{{ $booking->photoshoot_slot }}"
+                        data-cpp="{{ $booking->nama_cpp }}"
+                        data-cpw="{{ $booking->nama_cpw }}"
+                        data-tema="{{ $booking->tema_nama }}"
+                        data-tema2="{{ $booking->tema2_nama ?? '-' }}"
+                        data-addon="{{ $booking->addons_total_formatted }}"
+                        data-total="{{ $booking->grand_total_formatted }}"
+                        data-notes="{{ $booking->notes ?? '-' }}"
+                    >
                         Lihat Detail
                     </button>
                 </div>
 
             </div>
         @empty
-            <div class="empty-state">Tidak ada booking pada tanggal ini</div>
+            <div class="empty-state">
+                Tidak ada booking pada tanggal ini
+            </div>
         @endforelse
     </div>
-    @foreach ($bookings as $booking)
-        <div class="booking-modal" id="bookingModal-{{ $booking->id }}">
-            <div class="booking-modal-backdrop"></div>
-
-            <div class="booking-modal-content modal-xl">
+    <div class="custom-modal-backdrop" id="bookingBackdrop"></div>
+        <div class="custom-modal" id="bookingModal" aria-hidden="true">
+            <div class="modal-content modal-xl">
 
                 <div class="modal-header">
                     <h5>Detail Booking</h5>
-                    <button class="booking-modal-close">&times;</button>
+                    <button class="btn btn-secondary" type="button" id="btnCloseBooking">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
 
                 <div class="modal-body">
@@ -104,79 +119,78 @@
 
                         <div class="form-group">
                             <strong>Kode Pesanan</strong>
-                            <div>#{{ $booking->kode_pesanan }}</div>
+                            <div id="b_kode"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Status</strong>
-                            <div>{{ ucfirst($booking->status) }}</div>
+                            <div id="b_status"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Paket</strong>
-                            <div>{{ $booking->package->nama_paket ?? '-' }}</div>
+                            <div id="b_paket"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Style</strong>
-                            <div>{{ $booking->style ?? '-' }}</div>
+                            <div id="b_style"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Tanggal</strong>
-                            <div>{{ $booking->photoshoot_date->format('d F Y') }}</div>
+                            <div id="b_tanggal"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Slot</strong>
-                            <div>{{ $booking->photoshoot_slot }}</div>
+                            <div id="b_slot"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>CPP</strong>
-                            <div>{{ $booking->nama_cpp }}</div>
+                            <div id="b_cpp"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>CPW</strong>
-                            <div>{{ $booking->nama_cpw }}</div>
+                            <div id="b_cpw"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Tema Utama</strong>
-                            <div>{{ $booking->tema_nama }}</div>
+                            <div id="b_tema"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Tema Tambahan</strong>
-                            <div>{{ $booking->tema2_nama ?? '-' }}</div>
+                            <div id="b_tema2"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Addon</strong>
-                            <div>{{ $booking->addons_total_formatted }}</div>
+                            <div id="b_addon"></div>
                         </div>
 
                         <div class="form-group">
                             <strong>Total</strong>
-                            <div>{{ $booking->grand_total_formatted }}</div>
+                            <div id="b_total"></div>
                         </div>
 
                         <div class="form-group" style="grid-column:1/-1">
                             <strong>Catatan</strong>
-                            <div>{{ $booking->notes ?? '-' }}</div>
+                            <div id="b_notes"></div>
                         </div>
 
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="jp-btn jp-btn-ghost booking-modal-close">
+                    <button class="btn btn-secondary" type="button" id="btnCloseBooking2">
                         Tutup
                     </button>
                 </div>
 
             </div>
         </div>
-    @endforeach
 </section>

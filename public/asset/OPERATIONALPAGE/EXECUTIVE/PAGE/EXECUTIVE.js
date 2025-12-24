@@ -550,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-     const openBtns = document.querySelectorAll('.ticket-action');
+    const openBtns = document.querySelectorAll('.ticket-action');
     const closeBtns = document.querySelectorAll('.booking-modal-close');
     const backdrop = document.querySelectorAll('.booking-modal-backdrop');
 
@@ -870,27 +870,59 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initBookingDetailModal = () => {
-        const openButtons = document.querySelectorAll('.ticket-action');
+        const backdrop = document.getElementById('bookingBackdrop');
+        const modal    = document.getElementById('bookingModal');
 
-        openButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const modalId = btn.getAttribute('data-modal-target');
-                const modal = document.getElementById(modalId);
-                if (!modal) return;
+        if (!backdrop || !modal) return;
 
-                modal.classList.add('is-open');
+        const openBtns = document.querySelectorAll('.js-open-booking-modal');
+        const closeBtns = [
+            document.getElementById('btnCloseBooking'),
+            document.getElementById('btnCloseBooking2')
+        ];
 
-                const closeBtn = modal.querySelector('.booking-modal-close');
-                const backdrop = modal.querySelector('.booking-modal-backdrop');
+        const setText = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value || '-';
+        };
 
-                const closeModal = () => {
-                    modal.classList.remove('is-open');
-                };
+        const openModal = (ds) => {
+            setText('b_kode',   ds.kode);
+            setText('b_status', ds.status);
+            setText('b_paket',  ds.paket);
+            setText('b_style',  ds.style);
+            setText('b_tanggal',ds.tanggal);
+            setText('b_slot',   ds.slot);
+            setText('b_cpp',    ds.cpp);
+            setText('b_cpw',    ds.cpw);
+            setText('b_tema',   ds.tema);
+            setText('b_tema2',  ds.tema2);
+            setText('b_addon',  ds.addon);
+            setText('b_total',  ds.total);
+            setText('b_notes',  ds.notes);
 
-                closeBtn?.addEventListener('click', closeModal);
-                backdrop?.addEventListener('click', closeModal);
-            });
+            backdrop.classList.add('show');
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+        };
+
+        const closeModal = () => {
+            backdrop.classList.remove('show');
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+        };
+
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', () => openModal(btn.dataset));
         });
+
+        closeBtns.forEach(btn => {
+            if (btn) btn.onclick = closeModal;
+        });
+
+        backdrop.onclick = (e) => {
+            if (e.target === backdrop) closeModal();
+        };
     };
 
     /* ============ INIT PER PAGE ============ */
