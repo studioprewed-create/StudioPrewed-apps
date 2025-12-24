@@ -717,17 +717,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-     const initJadwalPesanan = () => {
-        const calGrid = document.getElementById('jpCalGrid');
-        const ordersGrid = document.getElementById('ordersGrid');
-        const hiddenDate = document.getElementById('jpSelectedDate');
-        const studio1 = document.getElementById('jpStudio1');
-        const studio2 = document.getElementById('jpStudio2');
-        const dateLabel = document.getElementById('jpSelectedDateLabel');
-        const todayBtn = document.getElementById('jpTodayBtn');
+    const initJadwalPesanan = () => {
+    const calGrid   = document.getElementById('jpCalGrid');
+    const hiddenDate = document.getElementById('jpSelectedDate');
+    const studio1   = document.getElementById('jpStudio1');
+    const studio2   = document.getElementById('jpStudio2');
+    const dateLabel = document.getElementById('jpSelectedDateLabel');
+    const todayBtn  = document.getElementById('jpTodayBtn');
+    const calLabel  = document.getElementById('jpCalLabel');
 
-        if (!calGrid || !ordersGrid || !hiddenDate || !studio1 || !studio2 || !dateLabel) return;
+        if (!calGrid || !hiddenDate || !studio1 || !studio2 || !dateLabel) return;
 
+        /* ===== helper ===== */
         const parseISODate = (iso) => {
             const [y, m, d] = iso.split('-').map(Number);
             return new Date(y, m - 1, d);
@@ -744,14 +745,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let current = parseISODate(hiddenDate.value);
 
-        // Render Calendar
+        /* ===== RELOAD PAGE VIA SPA (INI INTINYA) ===== */
+        const reloadPageByDate = (iso) => {
+            const link = document.querySelector(
+                '.sidebar .menu a[data-page="JadwalPesanan"]'
+            );
+            if (!link) return;
+
+            const url = new URL(link.getAttribute('href'), window.location.origin);
+            url.searchParams.set('date', iso);
+
+            fetch(url.toString(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('main-content').innerHTML = html;
+                    initPageScripts(); // PENTING, BIAR JS KELOAD LAGI
+                })
+                .catch(err => console.error(err));
+        };
+
+        /* ===== KALENDAR ===== */
         const renderCalendar = () => {
             calGrid.innerHTML = '';
-            const year = current.getFullYear();
-            const month = current.getMonth();
-            calLabel.textContent = current.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
 
-            const firstDay = new Date(year, month, 1).getDay();
+            const year  = current.getFullYear();
+            const month = current.getMonth();
+            calLabel.textContent = current.toLocaleString('id-ID', {
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const firstDay    = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
             for (let i = 0; i < firstDay; i++) {
@@ -760,70 +786,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             for (let d = 1; d <= daysInMonth; d++) {
                 const btn = document.createElement('button');
-                const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const iso = `${year}-${String(month + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
                 btn.textContent = d;
                 if (iso === hiddenDate.value) btn.classList.add('active');
+
                 btn.onclick = () => {
                     hiddenDate.value = iso;
                     current = parseISODate(iso);
                     dateLabel.textContent = formatDateID(iso);
                     renderCalendar();
-                    loadBookings();
+
+                    reloadPageByDate(iso); // <<< INI YANG KAMU MAU
                     loadSlots();
                 };
+
                 calGrid.appendChild(btn);
             }
         };
 
-        // Load Bookings based on selected date
-        const loadBookings = () => {
-            ordersGrid.innerHTML = '<small>Memuat data booking...</small>';
-
-            fetch(`/executive/jadwalpesanan?date=${hiddenDate.value}&status=${status}&search=${search}`, {
-                method: 'GET',
-                headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            })
-            .then(res => res.json())
-            .then(bookings => {
-                ordersGrid.innerHTML = '';
-                if (!Array.isArray(bookings) || bookings.length === 0) {
-                    ordersGrid.innerHTML = '<small>Tidak ada booking untuk tanggal ini</small>';
-                    return;
-                }
-
-                bookings.forEach(booking => {
-                    const bookingCard = document.createElement('div');
-                    bookingCard.classList.add('order-card');
-                    bookingCard.innerHTML = `
-                        <div class="order-header">
-                            <span class="order-id">${booking.kode_pesanan}</span>
-                            <span class="order-status status-${booking.status}">${booking.status}</span>
-                        </div>
-                        <div class="order-details">
-                            <div class="detail-group">
-                                <span class="detail-label">Klien</span>
-                                <span class="detail-value">${booking.nama_gabungan}</span>
-                            </div>
-                            <div class="detail-group">
-                                <span class="detail-label">Tanggal</span>
-                                <span class="detail-value">${new Date(booking.photoshoot_date).toLocaleDateString()}</span>
-                            </div>
-                            <div class="detail-group">
-                                <span class="detail-label">WhatsApp</span>
-                                <span class="detail-value">${booking.phone_gabungan}</span>
-                            </div>
-                        </div>
-                    `;
-                    ordersGrid.appendChild(bookingCard);
-                });
-            })
-            .catch(err => {
-                console.error('Error fetching booking data:', err);
-                ordersGrid.innerHTML = '<small style="color:red">Gagal memuat data booking</small>';
-            });
-        };
-
-        // Load Slots for the selected date
+        /* ===== SLOT (API KAMU, BIARKAN) ===== */
         const loadSlots = () => {
             studio1.innerHTML = '<small>Memuat slot...</small>';
             studio2.innerHTML = '<small>Memuat slot...</small>';
@@ -843,27 +825,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     slots.forEach(slot => {
                         const cls = slot.available ? 'slot-available' : 'slot-unavailable';
 
-                        // Studio 1
                         const s1 = document.createElement('div');
                         s1.className = `slot-item ${cls}`;
                         s1.textContent = slot.time;
                         studio1.appendChild(s1);
 
-                        // Studio 2
                         const s2 = document.createElement('div');
                         s2.className = `slot-item ${cls}`;
                         s2.textContent = slot.time;
                         studio2.appendChild(s2);
                     });
                 })
-                .catch(err => {
-                    console.error('Slot API error:', err);
+                .catch(() => {
                     studio1.innerHTML = '<small style="color:red">Gagal load slot</small>';
                     studio2.innerHTML = '<small style="color:red">Gagal load slot</small>';
                 });
         };
 
-        // Event listeners for calendar navigation
+        /* ===== NAV ===== */
         document.getElementById('jpCalPrev')?.addEventListener('click', () => {
             current.setMonth(current.getMonth() - 1);
             renderCalendar();
@@ -880,15 +859,14 @@ document.addEventListener('DOMContentLoaded', () => {
             current = parseISODate(iso);
             dateLabel.textContent = formatDateID(iso);
             renderCalendar();
-            loadBookings();
+            reloadPageByDate(iso);
             loadSlots();
         });
 
-        // Initialize
+        /* ===== INIT ===== */
         dateLabel.textContent = formatDateID(hiddenDate.value);
         renderCalendar();
-        loadBookings();  // Initial data load
-        loadSlots();     // Initial slots load
+        loadSlots();
     };
 
     /* ============ BOOKING DETAIL MODAL ============ */
