@@ -2311,13 +2311,11 @@ body.sp-body {
 .booking-modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    inset: 0;
+
     justify-content: center;
     align-items: center;
+
     z-index: 1000;
 }
 
@@ -2325,28 +2323,35 @@ body.sp-body {
     display: flex;
 }
 
+/* backdrop */
+.booking-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* konten */
 .booking-modal-content {
+    position: relative;
+    z-index: 1;
+
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
+
     width: 80%;
     max-width: 600px;
-    position: relative;
-}
+    max-height: 85vh;        /* ⭐ PENTING */
+    overflow-y: auto;        /* ⭐ PENTING */
 
-.booking-modal-header,
-.booking-modal-footer {
-    text-align: center;
-}
-
-.booking-modal-header h3 {
-    margin: 0;
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
 }
 
 .booking-modal-close {
     position: absolute;
     top: 10px;
     right: 10px;
+
     background: none;
     border: none;
     font-size: 20px;
