@@ -20,7 +20,7 @@
             </li>
 
             <li class="menu-item {{ request()->routeIs('executive.jadwalpesanan') ? 'active' : '' }}">
-                <a href="{{ route('executive.jadwalpesanan') }}" data-page="JadwalPesanan">
+                <a href="{{ url('/executive/JadwalPesanan') }}" data-page="JadwalPesanan">
                     <i class="fas fa-calendar-check"></i> <span>Jadwal Pesanan</span>
                 </a>
             </li>
@@ -86,7 +86,7 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('executive.jadwalpesanan') }}" data-page="JadwalPesanan">
+                <a href="{{ url('/executive/JadwalPesanan') }}" data-page="JadwalPesanan">
                     <i class="fas fa-calendar-check"></i> <span>Jadwal Pesanan</span>
                 </a>
             </li>
@@ -109,7 +109,7 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('executive.jadwalpesanan') }}" data-page="JadwalPesanan">
+                <a href="{{ url('/executive/JadwalPesanan') }}" data-page="JadwalPesanan">
                     <i class="fas fa-calendar-check"></i> <span>Jadwal Pesanan</span>
                 </a>
             </li>
