@@ -717,7 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    const initJadwalPesanan = () => {
+     const initJadwalPesanan = () => {
         const calGrid = document.getElementById('jpCalGrid');
         const ordersGrid = document.getElementById('ordersGrid');
         const hiddenDate = document.getElementById('jpSelectedDate');
@@ -779,7 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadBookings = () => {
             ordersGrid.innerHTML = '<small>Memuat data booking...</small>';
 
-            fetch(`executive/jadwalpesanan/loadBookings?date=${hiddenDate.value}`)
+            fetch(`/executive/jadwalpesanan/loadBookings?date=${hiddenDate.value}`)
                 .then(res => res.json())
                 .then(bookings => {
                     ordersGrid.innerHTML = '';
@@ -887,7 +887,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadBookings();  // Initial data load
         loadSlots();     // Initial slots load
     };
-
 
     /* ============ BOOKING DETAIL MODAL ============ */
     const initBookingDetailModal = () => {
