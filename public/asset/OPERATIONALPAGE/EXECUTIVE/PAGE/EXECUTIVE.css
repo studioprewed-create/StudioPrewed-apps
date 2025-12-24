@@ -2310,9 +2310,9 @@ body.sp-body {
 
 .booking-modal {
     display: none;
-    position: fixed;
+    position: absolute;       /* ⬅️ KUNCI */
     inset: 0;
-    z-index: 1000;
+    z-index: 50;
 
     align-items: center;
     justify-content: center;
@@ -2322,11 +2322,11 @@ body.sp-body {
     display: flex;
 }
 
-/* BACKDROP */
+/* BACKDROP (hanya area main) */
 .booking-modal-backdrop {
-    position: fixed;
+    position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.45);
     z-index: 0;
 }
 
@@ -2338,79 +2338,89 @@ body.sp-body {
     background: #ffffff;
     color: #000000;
 
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 24px;
 
-    width: 92%;
-    max-width: 900px;
+    width: 90%;
+    max-width: 920px;
 
-    max-height: 85vh;
+    max-height: 85%;
     overflow-y: auto;
 
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 30px 70px rgba(0,0,0,.35);
 
-    /* PENTING: hilangkan efek aneh */
     transform: none;
     pointer-events: auto;
 }
 
 /* HEADER */
-.booking-modal-content h3 {
-    margin-top: 0;
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 16px;
-    font-size: 20px;
+}
+
+.modal-header h5 {
+    margin: 0;
+    font-size: 18px;
     font-weight: 700;
     color: #000;
 }
 
+/* BODY */
+.modal-body {
+    color: #000;
+}
+
+/* FOOTER */
+.modal-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* CLOSE BUTTON */
 .booking-modal-close {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-
     background: none;
     border: none;
-    font-size: 24px;
-    line-height: 1;
+    font-size: 22px;
     cursor: pointer;
-
     color: #000;
 }
 
-/* GRID DETAIL */
-.modal-grid {
+/* GRID */
+.form-grid-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 14px;
 }
 
-.modal-grid > div {
-    padding: 10px 0;
-    font-size: 14px;
-    color: #000;
-}
-
-.modal-grid strong {
+.form-group strong {
     display: block;
     margin-bottom: 4px;
     font-weight: 600;
     color: #111;
 }
 
+.form-group div {
+    font-size: 14px;
+    color: #000;
+}
+
 /* FULL WIDTH ROW */
-.modal-grid > div[style*="grid-column"] {
+.form-group[style*="grid-column"] {
     grid-column: 1 / -1;
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 @media (max-width: 640px) {
-    .modal-grid {
+    .form-grid-2 {
         grid-template-columns: 1fr;
     }
 
     .booking-modal-content {
-        max-width: 95%;
+        width: 95%;
         padding: 20px;
     }
 }
