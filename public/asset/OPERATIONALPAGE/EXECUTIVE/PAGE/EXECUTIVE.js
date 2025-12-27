@@ -716,6 +716,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const initBookingCreateModal = () => {
+    const backdrop = document.getElementById('bookingBackdrop');
+    const modal    = document.getElementById('bookingModal');
+    const btnOpen  = document.getElementById('btnOpenBooking');
+    const btnClose = document.getElementById('btnCloseBooking');
+    const btnClose2= document.getElementById('btnCloseBooking2');
+
+        if (!backdrop || !modal) return;
+
+        const showModal = () => {
+            backdrop.classList.add('show');
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+        };
+
+        const hideModal = () => {
+            backdrop.classList.remove('show');
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+        };
+
+        btnOpen && btnOpen.addEventListener('click', showModal);
+        btnClose && btnClose.addEventListener('click', hideModal);
+        btnClose2 && btnClose2.addEventListener('click', hideModal);
+
+        backdrop.addEventListener('click', hideModal);
+    };
 
     const initJadwalPesanan = () => {
     const calGrid   = document.getElementById('jpCalGrid');
@@ -935,6 +962,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initBookingModals();
         initBookingDetailModal();
         initJadwalPesanan();
+        initBookingCreateModal();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */
