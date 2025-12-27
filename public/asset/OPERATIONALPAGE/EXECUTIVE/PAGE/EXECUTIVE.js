@@ -720,27 +720,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const backdrop = document.getElementById('bookingCreateBackdrop');
     const modal    = document.getElementById('bookingCreateModal');
     const btnOpen  = document.getElementById('btnOpenBooking');
-    const btnClose = document.getElementById('btnCloseBookingCreate');
-    const btnClose2= document.getElementById('btnCloseBookingCreate2');
 
-        if (!backdrop || !modal) return;
+        if (!backdrop || !modal || !btnOpen) return;
 
-        const show = () => {
+        const btnClose  = document.getElementById('btnCloseBookingCreate');
+        const btnClose2 = document.getElementById('btnCloseBookingCreate2');
+
+        const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
         };
 
-        const hide = () => {
+        const hideModal = () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
             modal.setAttribute('aria-hidden', 'true');
         };
 
-        btnOpen?.addEventListener('click', show);
-        btnClose?.addEventListener('click', hide);
-        btnClose2?.addEventListener('click', hide);
-        backdrop?.addEventListener('click', hide);
+        btnOpen.addEventListener('click', showModal);
+        btnClose  && btnClose.addEventListener('click', hideModal);
+        btnClose2 && btnClose2.addEventListener('click', hideModal);
+
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) hideModal();
+        });
     };
 
     const initJadwalPesanan = () => {
@@ -896,16 +900,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initBookingDetailModal = () => {
-        const backdrop = document.getElementById('bookingBackdrop');
-        const modal    = document.getElementById('bookingModal');
+    const backdrop = document.getElementById('bookingBackdrop');
+    const modal    = document.getElementById('bookingModal');
+    const openBtns = document.querySelectorAll('.js-open-booking-modal');
 
-        if (!backdrop || !modal) return;
+        if (!backdrop || !modal || openBtns.length === 0) return;
 
-        const openBtns = document.querySelectorAll('.js-open-booking-modal');
-        const closeBtns = [
-            document.getElementById('btnCloseBooking'),
-            document.getElementById('btnCloseBooking2')
-        ];
+        const btnClose  = document.getElementById('btnCloseBooking');
+        const btnClose2 = document.getElementById('btnCloseBooking2');
 
         const setText = (id, value) => {
             const el = document.getElementById(id);
@@ -942,13 +944,12 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => openModal(btn.dataset));
         });
 
-        closeBtns.forEach(btn => {
-            if (btn) btn.onclick = closeModal;
-        });
+        btnClose  && btnClose.addEventListener('click', closeModal);
+        btnClose2 && btnClose2.addEventListener('click', closeModal);
 
-        backdrop.onclick = (e) => {
+        backdrop.addEventListener('click', (e) => {
             if (e.target === backdrop) closeModal();
-        };
+        });
     };
 
     /* ============ INIT PER PAGE ============ */
