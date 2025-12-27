@@ -747,6 +747,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const initBookingEditModal = () => {
+        const backdrop = document.getElementById('bookingEditBackdrop');
+        const modal    = document.getElementById('bookingEditModal');
+        const openBtns = document.querySelectorAll('.js-open-booking-edit');
+
+        if (!backdrop || !modal || openBtns.length === 0) return;
+
+        const btnClose  = document.getElementById('btnCloseBookingEdit');
+        const btnClose2 = document.getElementById('btnCloseBookingEdit2');
+
+        const setText = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value || '-';
+        };
+
+        const openModal = (ds) => {
+            setText('e_kode',    ds.kode);
+            setText('e_status',  ds.status);
+            setText('e_cpp',     ds.cpp);
+            setText('e_cpw',     ds.cpw);
+            setText('e_tanggal', ds.tanggal);
+            setText('e_style',   ds.style);
+
+            backdrop.classList.add('show');
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+        };
+
+        const closeModal = () => {
+            backdrop.classList.remove('show');
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+        };
+
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', () => openModal(btn.dataset));
+        });
+
+        btnClose  && btnClose.addEventListener('click', closeModal);
+        btnClose2 && btnClose2.addEventListener('click', closeModal);
+
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) closeModal();
+        });
+    };
+
     const initJadwalPesanan = () => {
     const calGrid   = document.getElementById('jpCalGrid');
     const hiddenDate = document.getElementById('jpSelectedDate');
@@ -963,6 +1009,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initBookingDetailModal();
         initJadwalPesanan();
         initBookingCreateModal();
+        initBookingEditModal();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */
