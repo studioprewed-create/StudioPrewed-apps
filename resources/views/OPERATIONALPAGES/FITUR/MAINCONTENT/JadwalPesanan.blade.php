@@ -133,6 +133,7 @@
             </div>
         @endforelse
     </div>
+
     <div class="custom-modal-backdrop" id="bookingBackdrop"></div>
         <div class="custom-modal" id="bookingModal" aria-hidden="true">
             <div class="modal-content modal-xl">
@@ -216,31 +217,30 @@
             </div>
         </div>
 
-    <div class="custom-modal-backdrop" id="bookingBackdrop"></div>
+  <div class="custom-modal-backdrop" id="bookingCreateBackdrop"></div>
 
-        <div class="custom-modal" id="bookingModal" aria-hidden="true">
-            <div class="modal-content modal-xl">
+    <div class="custom-modal" id="bookingCreateModal" aria-hidden="true">
+        <div class="modal-content modal-xl">
 
-                <div class="modal-header">
-                    <h5>Booking Baru</h5>
-                    <button class="btn btn-secondary" type="button" id="btnCloseBooking">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <!-- NANTI DI SINI bookingWizard -->
-                    <p style="opacity:.7">
-                        Wizard booking akan ditempatkan di sini.
-                    </p>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="btnCloseBooking2">
-                        Tutup
-                    </button>
-                </div>
-
+            <div class="modal-header">
+                <h5>Booking Baru</h5>
+                <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
+
+            <div class="modal-body">
+                <p style="opacity:.7">
+                    Wizard booking akan ditempatkan di sini.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate2">
+                    Tutup
+                </button>
+            </div>
+
         </div>
+    </div>
 </section>
