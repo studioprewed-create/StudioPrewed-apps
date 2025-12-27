@@ -116,8 +116,7 @@
                     </button>
                     <button
                         type="button"
-                        class="action-btn btn-edit"
-                        id="btnOpenBookingEdit"
+                        class="action-btn btn-edit js-open-booking-edit"
                     >
                         <i class="fas fa-edit"></i> Edit
                     </button>

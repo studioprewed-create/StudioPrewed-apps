@@ -748,13 +748,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initBookingEditModal = () => {
-        const backdrop = document.getElementById('bookingEditBackdrop');
-        const modal    = document.getElementById('bookingEditModal');
-        const btnOpen  = document.getElementById('btnOpenBookingEdit');
-        const btnClose = document.getElementById('btnCloseBookingEdit');
-        const btnClose2= document.getElementById('btnCloseBookingEdit2');
+    const backdrop = document.getElementById('bookingEditBackdrop');
+    const modal    = document.getElementById('bookingEditModal');
 
-        if (!backdrop || !modal) return;
+    const openBtns = document.querySelectorAll('.js-open-booking-edit');
+
+    const closeBtns = [
+        document.getElementById('btnCloseBookingEdit'),
+        document.getElementById('btnCloseBookingEdit2')
+    ];
+
+        if (!backdrop || !modal || !openBtns.length) return;
 
         const show = () => {
             backdrop.classList.add('show');
@@ -768,9 +772,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.setAttribute('aria-hidden', 'true');
         };
 
-        btnOpen?.addEventListener('click', show);
-        btnClose?.addEventListener('click', hide);
-        btnClose2?.addEventListener('click', hide);
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', show);
+        });
+
+        closeBtns.forEach(btn => {
+            if (btn) btn.addEventListener('click', hide);
+        });
 
         backdrop.addEventListener('click', (e) => {
             if (e.target === backdrop) hide();
