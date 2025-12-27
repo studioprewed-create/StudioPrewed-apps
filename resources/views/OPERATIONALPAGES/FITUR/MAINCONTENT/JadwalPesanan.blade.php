@@ -41,13 +41,15 @@
                 <h5>Studio 2</h5>
                 <div class="slots-grid" id="jpStudio2"></div>
             </div>
+        </div>
+        <div class="jp-card jp-slots-card">
             <div class="jp-studio">
-                   <button
-                        type="button"
-                        class="btn btn-primary"
-                        id="btnOpenBooking">
-                        + Booking Baru
-                    </button>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="btnOpenBooking">
+                    + Booking Baru
+                </button>
             </div>
         </div>
     </div>
