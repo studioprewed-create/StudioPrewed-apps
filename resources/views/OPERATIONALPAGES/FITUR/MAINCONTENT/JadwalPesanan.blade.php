@@ -258,18 +258,6 @@
                             </div>
                         @endif
 
-                        @if($dataDiri)
-                        <div id="prefillData"
-                            data-nama="{{ e($dataDiri->nama) }}"
-                            data-phone="{{ e($dataDiri->phone) }}"
-                            data-gender="{{ e($dataDiri->jenis_kelamin) }}"
-                            data-nama-pasangan="{{ e($dataDiri->nama_pasangan) }}"
-                            data-phone-pasangan="{{ e($dataDiri->phone_pasangan) }}"
-                            data-gender-pasangan="{{ e($dataDiri->jenis_kelamin_pasangan) }}"
-                            data-email="{{ e($user->email ?? Auth::user()->email ?? '') }}">
-                        </div>
-                        @endif
-
                             <h2>Form Booking Prewed</h2>
 
                             <div class="steps-indicator">
