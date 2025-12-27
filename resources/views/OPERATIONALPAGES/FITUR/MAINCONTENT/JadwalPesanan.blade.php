@@ -88,8 +88,8 @@
                 </div>
 
                 <div class="order-actions">
-                    <button class="action-btn btn-view"
-                        class="ticket-action js-open-booking-modal"
+                    <button
+                        class="action-btn btn-view js-open-booking-modal"
                         data-kode="{{ $booking->kode_pesanan }}"
                         data-status="{{ ucfirst($booking->status) }}"
                         data-paket="{{ $booking->package->nama_paket ?? '-' }}"
@@ -203,7 +203,6 @@
                             <strong>Catatan</strong>
                             <div id="b_notes"></div>
                         </div>
-
                     </div>
                 </div>
             </div>

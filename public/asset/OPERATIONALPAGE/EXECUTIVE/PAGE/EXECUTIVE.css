@@ -1713,6 +1713,7 @@ body.sp-body {
 /* ===== ORDERS GRID & CARDS ===== */
 
 .orders-grid {
+  padding-top: 15px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 18px;
