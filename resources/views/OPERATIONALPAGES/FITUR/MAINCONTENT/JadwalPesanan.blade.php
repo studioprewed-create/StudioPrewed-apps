@@ -115,14 +115,9 @@
                         Lihat Detail
                     </button>
                     <button
-                        class="action-btn btn-edit js-open-booking-edit"
-                        data-id="{{ $booking->id }}"
-                        data-kode="{{ $booking->kode_pesanan }}"
-                        data-status="{{ $booking->status }}"
-                        data-cpp="{{ $booking->nama_cpp }}"
-                        data-cpw="{{ $booking->nama_cpw }}"
-                        data-style="{{ $booking->style }}"
-                        data-tanggal="{{ $booking->photoshoot_date->format('Y-m-d') }}"
+                        type="button"
+                        class="action-btn btn-edit"
+                        id="btnOpenBookingEdit"
                     >
                         <i class="fas fa-edit"></i> Edit
                     </button>
@@ -260,50 +255,25 @@
 
                 <div class="modal-header">
                     <h5>Edit Booking</h5>
-                    <button class="btn btn-secondary" type="button" id="btnCloseBookingEdit">
+                    <button
+                        class="btn btn-secondary"
+                        type="button"
+                        id="btnCloseBookingEdit">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <!-- NANTI DIGANTI bookingWizard versi edit -->
-                    <div class="form-grid-2">
-
-                        <div class="form-group">
-                            <strong>Kode Pesanan</strong>
-                            <div id="e_kode"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>Status</strong>
-                            <div id="e_status"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>CPP</strong>
-                            <div id="e_cpp"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>CPW</strong>
-                            <div id="e_cpw"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>Tanggal</strong>
-                            <div id="e_tanggal"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>Style</strong>
-                            <div id="e_style"></div>
-                        </div>
-
-                    </div>
+                    <p style="opacity:.7">
+                        Form edit booking akan ditempatkan di sini.
+                    </p>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="btnCloseBookingEdit2">
+                    <button
+                        class="btn btn-secondary"
+                        type="button"
+                        id="btnCloseBookingEdit2">
                         Tutup
                     </button>
                 </div>

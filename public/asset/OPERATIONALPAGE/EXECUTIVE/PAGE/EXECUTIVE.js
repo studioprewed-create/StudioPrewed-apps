@@ -750,46 +750,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const initBookingEditModal = () => {
         const backdrop = document.getElementById('bookingEditBackdrop');
         const modal    = document.getElementById('bookingEditModal');
-        const openBtns = document.querySelectorAll('.js-open-booking-edit');
+        const btnOpen  = document.getElementById('btnOpenBookingEdit');
+        const btnClose = document.getElementById('btnCloseBookingEdit');
+        const btnClose2= document.getElementById('btnCloseBookingEdit2');
 
-        if (!backdrop || !modal || openBtns.length === 0) return;
+        if (!backdrop || !modal) return;
 
-        const btnClose  = document.getElementById('btnCloseBookingEdit');
-        const btnClose2 = document.getElementById('btnCloseBookingEdit2');
-
-        const setText = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = value || '-';
-        };
-
-        const openModal = (ds) => {
-            setText('e_kode',    ds.kode);
-            setText('e_status',  ds.status);
-            setText('e_cpp',     ds.cpp);
-            setText('e_cpw',     ds.cpw);
-            setText('e_tanggal', ds.tanggal);
-            setText('e_style',   ds.style);
-
+        const show = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
         };
 
-        const closeModal = () => {
+        const hide = () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
             modal.setAttribute('aria-hidden', 'true');
         };
 
-        openBtns.forEach(btn => {
-            btn.addEventListener('click', () => openModal(btn.dataset));
-        });
-
-        btnClose  && btnClose.addEventListener('click', closeModal);
-        btnClose2 && btnClose2.addEventListener('click', closeModal);
+        btnOpen?.addEventListener('click', show);
+        btnClose?.addEventListener('click', hide);
+        btnClose2?.addEventListener('click', hide);
 
         backdrop.addEventListener('click', (e) => {
-            if (e.target === backdrop) closeModal();
+            if (e.target === backdrop) hide();
         });
     };
 
