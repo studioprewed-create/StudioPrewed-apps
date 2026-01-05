@@ -91,62 +91,62 @@ document.addEventListener("DOMContentLoaded", function () {
     startCarousel();
   })();
 
-  /* ================================
-     FAQ TOGGLE (.faq-item)
-     ================================ */
-  const faqItems = document.querySelectorAll('.faq-item');
-    if (!faqItems.length) return;
+  
+  (function initFaqToggle() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (!faqItems.length) return; // ⬅️ AMAN: hanya keluar dari FAQ
 
     faqItems.forEach((item, index) => {
-        const question = item.querySelector('.faq-question');
-        if (!question) return;
+      const question = item.querySelector('.faq-question');
+      const answer   = item.querySelector('.faq-answer');
+      if (!question || !answer) return;
 
-        // Menambahkan nomor urut (frame number)
-        const frameNumber = (index + 1).toString().padStart(2, '0');
-        question.setAttribute('data-index', frameNumber);
-        item.style.setProperty('--item-index', index);
+      // Nomor urut
+      const frameNumber = (index + 1).toString().padStart(2, '0');
+      question.setAttribute('data-index', frameNumber);
+      item.style.setProperty('--item-index', index);
 
-        // Menambahkan aksesibilitas
-        item.setAttribute('aria-expanded', 'false');
-        question.setAttribute('aria-controls', `faq-answer-${index}`);
-        
-        const answer = item.querySelector('.faq-answer');
-        answer.id = `faq-answer-${index}`;
+      // Aksesibilitas
+      item.setAttribute('aria-expanded', 'false');
+      question.setAttribute('aria-controls', `faq-answer-${index}`);
+      answer.id = `faq-answer-${index}`;
 
-        // Menambahkan event klik untuk toggle FAQ
-        question.addEventListener('click', function() {
-            const isActive = item.classList.contains('active');
-            
-            // Menutup semua FAQ lain
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                    otherItem.setAttribute('aria-expanded', 'false');
-                }
-            });
-            
-            // Toggle FAQ yang sedang dipilih
-            if (!isActive) {
-                item.classList.add('active');
-                item.setAttribute('aria-expanded', 'true');
-            } else {
-                item.classList.remove('active');
-                item.setAttribute('aria-expanded', 'false');
-            }
+      // Toggle FAQ
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Tutup FAQ lain
+        faqItems.forEach(other => {
+          if (other !== item && other.classList.contains('active')) {
+            other.classList.remove('active');
+            other.setAttribute('aria-expanded', 'false');
+          }
         });
+
+        // Toggle current
+        item.classList.toggle('active', !isActive);
+        item.setAttribute('aria-expanded', String(!isActive));
+      });
     });
 
-    // Menambahkan Intersection Observer untuk animasi
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    // Intersection Observer (animasi masuk)
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+              observer.unobserve(entry.target);
             }
-        });
-    }, { threshold: 0.1 });
+          });
+        },
+        { threshold: 0.1 }
+      );
 
-    faqItems.forEach(item => observer.observe(item));
+      faqItems.forEach(item => observer.observe(item));
+    }
+  })();
 
   /* ================================
      GALLERY CAROUSEL (gallery-track)
