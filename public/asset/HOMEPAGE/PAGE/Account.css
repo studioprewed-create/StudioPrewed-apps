@@ -1165,10 +1165,13 @@ select.input {
 }
 
 .modal-section-title {
+  grid-column: 1 / -1;      /* ⬅️ INI KUNCINYA */
+  
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(20px, 2.2vw, 28px);
   letter-spacing: .2px;
-  margin-bottom: 14px;
+  margin: 20px 0 14px;
+
   display: flex;
   align-items: center;
   gap: 10px;
