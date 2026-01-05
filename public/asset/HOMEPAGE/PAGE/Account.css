@@ -1197,6 +1197,20 @@ select.input {
   border-color: rgba(241,153,22,.22);
 }
 
+.modal-section-title {
+  grid-column: 1 / -1;          /* full width di grid */
+  margin: 16px 0 8px;
+  padding-bottom: 6px;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+
+  color: #444;
+  border-bottom: 1px solid #e5e7eb; /* garis tipis */
+}
+
 /* anim keyframes */
 @keyframes modalIn{
   to { opacity: 1; transform: translateY(0) scale(1); }
