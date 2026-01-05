@@ -725,19 +725,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnClose  = document.getElementById('btnCloseBookingCreate');
         const btnClose2 = document.getElementById('btnCloseBookingCreate2');
 
-        let wizardInitialized = false; // ⬅️ kunci penting
+        let wizardInitialized = false;
 
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
 
+            // 🔥 PENTING: init wizard SETELAH modal tampil
             if (!wizardInitialized) {
                 requestAnimationFrame(() => {
-                    if (typeof initBookingWizard === 'function') {
-                        initBookingWizard();
-                        wizardInitialized = true;
-                    }
+                    initBookingWizard();
+                    wizardInitialized = true;
                 });
             }
         };
@@ -749,8 +748,8 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         btnOpen.addEventListener('click', showModal);
-        btnClose  && btnClose.addEventListener('click', hideModal);
-        btnClose2 && btnClose2.addEventListener('click', hideModal);
+        btnClose?.addEventListener('click', hideModal);
+        btnClose2?.addEventListener('click', hideModal);
 
         backdrop.addEventListener('click', (e) => {
             if (e.target === backdrop) hideModal();
@@ -1088,7 +1087,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    (function initBookingWizard() {
+    function initBookingWizard() {
         const wizard = $('#bookingWizard');
         if (!wizard) return;
 
@@ -1999,7 +1998,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 s3.sosmed_lain ? JSON.stringify(s3.sosmed_lain) : ''
             );
 
-            // Addons[]
+           // Addons[]
             (s2.addons || []).forEach(a =>
                 addHidden('addons[]', a.id)
             );
@@ -2019,7 +2018,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadExtraSlots,
             250
         );
-
+ 
         selPackage &&
             selPackage.addEventListener('change', () => {
                 debouncedLoadMainSlots();
@@ -2149,5 +2148,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Init
         setStep(0);
-    })();
+    };
 });

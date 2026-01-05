@@ -3248,10 +3248,12 @@ body.sp-body {
 
 .booking-container .step {
     display: none;
+    pointer-events: none;
 }
 
 .booking-container .step.active {
     display: block;
+    pointer-events: auto;
 }
 
 
