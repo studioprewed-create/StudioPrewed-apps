@@ -1164,6 +1164,16 @@ select.input {
   margin-top: 14px;
 }
 
+.modal-section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  letter-spacing: .2px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* setiap item jadi "card" kecil */
 .modal-grid > div{
   background: rgba(255,255,255,.04);
@@ -1197,19 +1207,7 @@ select.input {
   border-color: rgba(241,153,22,.22);
 }
 
-.modal-section-title {
-  grid-column: 1 / -1;          /* full width di grid */
-  margin: 16px 0 8px;
-  padding-bottom: 6px;
 
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-
-  color: #444;
-  border-bottom: 1px solid #e5e7eb; /* garis tipis */
-}
 
 /* anim keyframes */
 @keyframes modalIn{
