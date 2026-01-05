@@ -41,7 +41,7 @@
         <h3 class="modal-section-title">Harga & Tambahan</h3>
 
         <div class="modal-grid">   
-            <div><strong>Harga</strong><br>{{ $booking->package_price }}</div>
+            <div><strong>Harga</strong><br>{{ 'Rp ' . number_format((int)$booking->package_price, 0, ',', '.') }}</div>
             <div><strong>Addon</strong><br>{{ $booking->addons_total_formatted }}</div>
 
             <div style="grid-column:1/-1">
