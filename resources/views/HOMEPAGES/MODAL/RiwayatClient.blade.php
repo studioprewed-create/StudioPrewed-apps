@@ -17,7 +17,6 @@
             <div><strong>Tanggal</strong><br>{{ $booking->photoshoot_date->format('d F Y') }}</div>
             <div><strong>Slot</strong><br>{{ $booking->photoshoot_slot }}</div>
 
-            <div><strong>Tanggal</strong><br>{{ $booking->photoshoot_date->format('d F Y') }}</div>
             <div><strong>Extra Slot</strong><br>{{ $booking->extra_photoshoot_slot }}</div>
 
             <div><strong>Tema Utama</strong><br>{{ $booking->tema_nama }} ({{ $booking->tema_kode }})</div>
