@@ -732,10 +732,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
 
-            // ⬇️ INIT WIZARD DI SINI (BUKAN DI PAGE LOAD)
-            if (!wizardInitialized && typeof initBookingWizard === 'function') {
-                initBookingWizard();
-                wizardInitialized = true;
+            if (!wizardInitialized) {
+                requestAnimationFrame(() => {
+                    if (typeof initBookingWizard === 'function') {
+                        initBookingWizard();
+                        wizardInitialized = true;
+                    }
+                });
             }
         };
 
