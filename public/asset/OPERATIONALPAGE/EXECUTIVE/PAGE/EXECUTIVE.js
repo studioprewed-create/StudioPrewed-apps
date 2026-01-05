@@ -727,17 +727,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let wizardInitialized = false;
 
+        // ✅ tunggu DOM wizard benar-benar ada (SPA SAFE)
+        const initWizardSafely = () => {
+            const wizard = document.getElementById('bookingWizard');
+            if (!wizard) {
+                setTimeout(initWizardSafely, 50);
+                return;
+            }
+
+            // ⛔ cegah double init di DOM yang sama
+            if (wizard.dataset.inited === '1') return;
+            wizard.dataset.inited = '1';
+
+            initBookingWizard();
+            wizardInitialized = true;
+        };
+
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
 
-            // 🔥 PENTING: init wizard SETELAH modal tampil
+            // 🔥 INIT WIZARD HANYA DI SINI
             if (!wizardInitialized) {
-                requestAnimationFrame(() => {
-                    initBookingWizard();
-                    wizardInitialized = true;
-                });
+                requestAnimationFrame(initWizardSafely);
             }
         };
 
@@ -745,6 +758,14 @@ document.addEventListener('DOMContentLoaded', () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
             modal.setAttribute('aria-hidden', 'true');
+
+            // 🔁 reset agar SPA reload aman
+            wizardInitialized = false;
+
+            const wizard = document.getElementById('bookingWizard');
+            if (wizard) {
+                delete wizard.dataset.inited;
+            }
         };
 
         btnOpen.addEventListener('click', showModal);
@@ -1088,8 +1109,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function initBookingWizard() {
-        const wizard = $('#bookingWizard');
+        const wizard = document.getElementById('bookingWizard');
         if (!wizard) return;
+
+        if (wizard.dataset.inited === '1') return;
+        wizard.dataset.inited = '1';
 
         const APP_ROUTES = window.APP_ROUTES || {};
         const API_SLOTS  = APP_ROUTES.apiSlots || '/executive/api/slots';
