@@ -727,47 +727,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let wizardInitialized = false;
 
-        // ✅ tunggu DOM wizard benar-benar ada (SPA SAFE)
+        // ============================
+        // INIT WIZARD AMAN (SPA + MODAL)
+        // ============================
         const initWizardSafely = () => {
             const wizard = document.getElementById('bookingWizard');
             if (!wizard) {
+                // tunggu sampai DOM wizard benar-benar ada
                 setTimeout(initWizardSafely, 50);
                 return;
             }
 
-            // ⛔ cegah double init di DOM yang sama
+            // cegah init dua kali di DOM yang sama
             if (wizard.dataset.inited === '1') return;
             wizard.dataset.inited = '1';
 
+            // init wizard panjang kamu
             initBookingWizard();
+
             wizardInitialized = true;
         };
 
+        // ============================
+        // SHOW MODAL
+        // ============================
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
 
-            // 🔥 INIT WIZARD HANYA DI SINI
+            // INIT WIZARD HANYA DI SINI
             if (!wizardInitialized) {
                 requestAnimationFrame(initWizardSafely);
             }
         };
 
+        // ============================
+        // HIDE MODAL (TANPA RESET)
+        // ============================
         const hideModal = () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
             modal.setAttribute('aria-hidden', 'true');
-
-            // 🔁 reset agar SPA reload aman
-            wizardInitialized = false;
-
-            const wizard = document.getElementById('bookingWizard');
-            if (wizard) {
-                delete wizard.dataset.inited;
-            }
         };
 
+        // ============================
+        // EVENTS
+        // ============================
         btnOpen.addEventListener('click', showModal);
         btnClose?.addEventListener('click', hideModal);
         btnClose2?.addEventListener('click', hideModal);
