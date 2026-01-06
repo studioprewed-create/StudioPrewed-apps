@@ -236,25 +236,44 @@
 
             <div class="modal-body">
                 <div class="booking-container">
-
                 <h2>Form Booking Prewed (Admin)</h2>
-
-                <!-- CPP & CPW -->
                 <div class="grid-2">
-                    <div>
-                    <h4>CPP</h4>
-                    <input name="nama_cpp" placeholder="Nama CPP" required>
-                    <input name="email_cpp" type="email" placeholder="Email CPP">
-                    <input name="phone_cpp" placeholder="No HP CPP" required>
-                    <input name="alamat_cpp" placeholder="Alamat CPP">
+                     <div>
+                <div class="step-head">
+                    <h4>CPP (Pria)</h4>
+                </div>
+
+                <label>Nama CPP</label>
+                <input type="text" name="nama_cpp" placeholder="Nama CPP" required>
+
+                <label>Email CPP</label>
+                <input type="email" name="email_cpp" placeholder="Email CPP">
+
+                <label>No. Telp CPP</label>
+                <input type="text" name="phone_cpp" placeholder="08xxxxxxxx" required>
+
+                <label>Alamat CPP</label>
+                <input type="text" name="alamat_cpp" placeholder="Alamat CPP">
+                </div>
+
+                <!-- CPW -->
+                <div>
+                    <div class="step-head">
+                        <h4>CPW (Perempuan)</h4>
                     </div>
-                    <div>
-                    <h4>CPW</h4>
-                    <input name="nama_cpw" placeholder="Nama CPW" required>
-                    <input name="email_cpw" type="email" placeholder="Email CPW">
-                    <input name="phone_cpw" placeholder="No HP CPW" required>
-                    <input name="alamat_cpw" placeholder="Alamat CPW">
-                    </div>
+
+                    <label>Nama CPW</label>
+                    <input type="text" name="nama_cpw" placeholder="Nama CPW" required>
+
+                    <label>Email CPW</label>
+                    <input type="email" name="email_cpw" placeholder="Email CPW">
+
+                    <label>No. Telp CPW</label>
+                    <input type="text" name="phone_cpw" placeholder="08xxxxxxxx" required>
+
+                    <label>Alamat CPW</label>
+                    <input type="text" name="alamat_cpw" placeholder="Alamat CPW">
+                </div>
                 </div>
 
                 <!-- Booking -->
