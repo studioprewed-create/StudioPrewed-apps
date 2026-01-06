@@ -718,33 +718,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const initBookingCreateModal = () => {
     const backdrop = document.getElementById('bookingCreateBackdrop');
     const modal    = document.getElementById('bookingCreateModal');
-    const btnOpen  = document.getElementById('btnOpenBooking');
+    const openBtn  = document.getElementById('btnOpenBooking');
+    const close1   = document.getElementById('btnCloseBookingCreate');
+    const close2   = document.getElementById('btnCloseBookingCreate2');
 
-        if (!backdrop || !modal || !btnOpen) return;
-        if (modal.dataset.inited === '1') return;
+        if (!modal || !openBtn) return;
+        if (modal.dataset.inited) return;
         modal.dataset.inited = '1';
 
-        const btnClose  = document.getElementById('btnCloseBookingCreate');
-        const btnClose2 = document.getElementById('btnCloseBookingCreate2');
-
-        const showModal = () => {
+        const show = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // matiin scroll belakang
         };
 
-        const hideModal = () => {
+        const hide = () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
-            document.body.style.overflow = '';
         };
 
-        btnOpen.addEventListener('click', showModal);
-        btnClose?.addEventListener('click', hideModal);
-        btnClose2?.addEventListener('click', hideModal);
+        openBtn.addEventListener('click', show);
+        close1?.addEventListener('click', hide);
+        close2?.addEventListener('click', hide);
 
         backdrop.addEventListener('click', e => {
-            if (e.target === backdrop) hideModal();
+            if (e.target === backdrop) hide();
         });
     };
 

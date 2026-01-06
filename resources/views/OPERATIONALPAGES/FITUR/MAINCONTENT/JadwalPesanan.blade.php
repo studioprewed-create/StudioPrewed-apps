@@ -222,98 +222,91 @@
 
     <div class="custom-modal-backdrop" id="bookingCreateBackdrop"></div>
         <div class="custom-modal" id="bookingCreateModal" aria-hidden="true">
-            <div class="modal-content modal-xl">
+        <div class="modal-content modal-xl">
 
-                <div class="modal-header">
-                <h5>Booking Baru</h5>
-                <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                </div>
+            <div class="modal-header">
+            <h5>Booking Baru</h5>
+            <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate">
+                ✕
+            </button>
+            </div>
 
-                <form method="POST"
+            <div class="modal-body">
+            <form method="POST"
                 action="{{ route('executive.homepages.store', ['section' => 'bookingexecutive']) }}">
                 @csrf
 
-                <div class="modal-body">
-                    <div class="booking-container">
+                <div class="booking-container">
 
-                    <h2>Form Booking Prewed (Admin)</h2>
+                <h2>Form Booking Prewed (Admin)</h2>
 
-                    <div class="grid-2">
-                        <div>
-                        <h4>CPP</h4>
-                        <label>Nama</label>
-                        <input name="nama_cpp" required>
-                        <label>Email</label>
-                        <input name="email_cpp" type="email">
-                        <label>No. Telp</label>
-                        <input name="phone_cpp" required>
-                        <label>Alamat</label>
-                        <input name="alamat_cpp">
-                        </div>
-
-                        <div>
-                        <h4>CPW</h4>
-                        <label>Nama</label>
-                        <input name="nama_cpw" required>
-                        <label>Email</label>
-                        <input name="email_cpw" type="email">
-                        <label>No. Telp</label>
-                        <input name="phone_cpw" required>
-                        <label>Alamat</label>
-                        <input name="alamat_cpw">
-                        </div>
+                <div class="grid-2">
+                    <div class="card-section">
+                    <h4>CPP</h4>
+                    <label>Nama</label><input name="nama_cpp" required>
+                    <label>Email</label><input name="email_cpp" type="email">
+                    <label>No. Telp</label><input name="phone_cpp" required>
+                    <label>Alamat</label><input name="alamat_cpp">
                     </div>
 
-                    <h4 class="section-title">Detail Booking</h4>
+                    <div class="card-section">
+                    <h4>CPW</h4>
+                    <label>Nama</label><input name="nama_cpw" required>
+                    <label>Email</label><input name="email_cpw" type="email">
+                    <label>No. Telp</label><input name="phone_cpw" required>
+                    <label>Alamat</label><input name="alamat_cpw">
+                    </div>
+                </div>
 
-                    <label>Paket</label>
-                    <select name="package_id" required>
-                        <option value="">-- pilih paket --</option>
-                        @foreach($packages as $pkg)
-                        <option value="{{ $pkg->id }}">{{ $pkg->nama_paket }}</option>
-                        @endforeach
+                <h4 class="section-title">Detail Booking</h4>
+
+                <label>Paket</label>
+                <select name="package_id" required>
+                    <option value="">-- pilih paket --</option>
+                    @foreach($packages as $pkg)
+                    <option value="{{ $pkg->id }}">{{ $pkg->nama_paket }}</option>
+                    @endforeach
+                </select>
+
+                <div class="grid-2">
+                    <div>
+                    <label>Tanggal</label>
+                    <input type="date" name="photoshoot_date" required>
+                    </div>
+                    <div>
+                    <label>Status</label>
+                    <select name="status">
+                        <option value="submitted">Submitted</option>
+                        <option value="confirmed">Confirmed</option>
                     </select>
-
-                    <div class="grid-2">
-                        <div>
-                        <label>Tanggal</label>
-                        <input type="date" name="photoshoot_date" required>
-                        </div>
-                        <div>
-                        <label>Status</label>
-                        <select name="status" required>
-                            <option value="submitted">Submitted</option>
-                            <option value="confirmed">Confirmed</option>
-                        </select>
-                        </div>
-                    </div>
-
-                    <div class="grid-2">
-                        <div>
-                        <label>Jam Mulai</label>
-                        <input type="time" name="start_time" required>
-                        </div>
-                        <div>
-                        <label>Jam Selesai</label>
-                        <input type="time" name="end_time" required>
-                        </div>
-                    </div>
-
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Simpan Booking</button>
-                    <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate2">
-                    Tutup
-                    </button>
+                <div class="grid-2">
+                    <div>
+                    <label>Jam Mulai</label>
+                    <input type="time" name="start_time" required>
+                    </div>
+                    <div>
+                    <label>Jam Selesai</label>
+                    <input type="time" name="end_time" required>
+                    </div>
                 </div>
 
-                </form>
+                </div>
+            </form>
             </div>
+
+            <div class="modal-footer">
+            <button class="btn btn-primary"
+                onclick="this.closest('.modal-content').querySelector('form').submit()">
+                Simpan Booking
+            </button>
+            <button class="btn btn-secondary" id="btnCloseBookingCreate2">Tutup</button>
             </div>
+
+        </div>
+        </div>
     <div class="custom-modal-backdrop" id="bookingEditBackdrop"></div>
         <div class="custom-modal" id="bookingEditModal" aria-hidden="true">
             <div class="modal-content modal-xl">
