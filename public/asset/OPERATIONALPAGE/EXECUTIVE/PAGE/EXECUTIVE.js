@@ -720,26 +720,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal    = document.getElementById('bookingCreateModal');
     const btnOpen  = document.getElementById('btnOpenBooking');
 
-        // kalau halaman ini tidak punya modal booking → STOP
         if (!backdrop || !modal || !btnOpen) return;
 
         const btnClose  = document.getElementById('btnCloseBookingCreate');
         const btnClose2 = document.getElementById('btnCloseBookingCreate2');
         const modalBody = modal.querySelector('.modal-body');
 
-        // ====== ANTI DOUBLE INIT (SPA) ======
         if (modal.dataset.inited === '1') return;
         modal.dataset.inited = '1';
 
-        // ====== HELPER SCROLL ======
         const scrollModalTop = () => {
-            if (!modalBody) return;
-            modalBody.scrollTop = 0;
+            modalBody && (modalBody.scrollTop = 0);
         };
 
         const scrollModalBottom = () => {
-            if (!modalBody) return;
-            modalBody.scrollTo({
+            modalBody?.scrollTo({
                 top: modalBody.scrollHeight,
                 behavior: 'smooth'
             });
@@ -747,20 +742,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const scrollToElement = (el) => {
             if (!modalBody || !el) return;
-            const top = el.offsetTop - 20;
+
+            const bodyRect = modalBody.getBoundingClientRect();
+            const elRect   = el.getBoundingClientRect();
+
+            const top = modalBody.scrollTop + (elRect.top - bodyRect.top) - 20;
+
             modalBody.scrollTo({
                 top,
                 behavior: 'smooth'
             });
         };
 
-        // ====== SHOW / HIDE ======
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
-
-            // selalu reset ke atas saat buka
             setTimeout(scrollModalTop, 50);
         };
 
@@ -770,7 +767,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.setAttribute('aria-hidden', 'true');
         };
 
-        // ====== EVENTS ======
         btnOpen.addEventListener('click', (e) => {
             e.preventDefault();
             showModal();
@@ -783,17 +779,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === backdrop) hideModal();
         });
 
-        // ====== AUTO SCROLL LOGIC (STEP 2) ======
         const pkgSelect = modal.querySelector('#package_id');
         if (pkgSelect) {
             pkgSelect.addEventListener('change', () => {
                 const dateInput = modal.querySelector('#photoshoot_date');
                 setTimeout(() => {
-                    if (dateInput) {
-                        scrollToElement(dateInput);
-                    } else {
-                        scrollModalBottom();
-                    }
+                    dateInput ? scrollToElement(dateInput) : scrollModalBottom();
                 }, 150);
             });
         }
@@ -803,15 +794,12 @@ document.addEventListener('DOMContentLoaded', () => {
             dateInput.addEventListener('change', () => {
                 const startTime = modal.querySelector('[name="start_time"]');
                 setTimeout(() => {
-                    if (startTime) {
-                        scrollToElement(startTime);
-                    } else {
-                        scrollModalBottom();
-                    }
+                    startTime ? scrollToElement(startTime) : scrollModalBottom();
                 }, 150);
             });
         }
     };
+
 
     const initBookingEditModal = () => {
     const backdrop = document.getElementById('bookingEditBackdrop');

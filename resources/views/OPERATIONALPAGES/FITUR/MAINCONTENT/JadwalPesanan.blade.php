@@ -222,116 +222,101 @@
 
     <div class="custom-modal-backdrop" id="bookingCreateBackdrop"></div>
         <div class="custom-modal" id="bookingCreateModal" aria-hidden="true">
-        <div class="modal-content modal-xl">
+            <div class="modal-content modal-xl">
 
-            <div class="modal-header">
-            <h5>Booking Baru</h5>
-            <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            </div>
-
-            <form method="POST"action="{{ route('executive.homepages.store', ['section' => 'bookingexecutive']) }}">
-            @csrf
-
-            <div class="modal-body">
-                <div class="booking-container">
-                <h2>Form Booking Prewed (Admin)</h2>
-                <div class="grid-2">
-                     <div>
-                <div class="step-head">
-                    <h4>CPP (Pria)</h4>
+                <div class="modal-header">
+                <h5>Booking Baru</h5>
+                <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
                 </div>
 
-                <label>Nama CPP</label>
-                <input type="text" name="nama_cpp" placeholder="Nama CPP" required>
+                <form method="POST"
+                    action="{{ route('executive.homepages.store', ['section' => 'bookingexecutive']) }}">
+                @csrf
 
-                <label>Email CPP</label>
-                <input type="email" name="email_cpp" placeholder="Email CPP">
+                <div class="modal-body">
+                    <div class="booking-container">
 
-                <label>No. Telp CPP</label>
-                <input type="text" name="phone_cpp" placeholder="08xxxxxxxx" required>
+                    <h2>Form Booking Prewed (Admin)</h2>
 
-                <label>Alamat CPP</label>
-                <input type="text" name="alamat_cpp" placeholder="Alamat CPP">
-                </div>
+                    <div class="grid-2">
+                        <!-- CPP -->
+                        <div>
+                        <div class="step-head"><h4>CPP (Pria)</h4></div>
+                        <label>Nama CPP</label>
+                        <input name="nama_cpp" required>
+                        <label>Email CPP</label>
+                        <input name="email_cpp" type="email">
+                        <label>No. Telp CPP</label>
+                        <input name="phone_cpp" required>
+                        <label>Alamat CPP</label>
+                        <input name="alamat_cpp">
+                        </div>
 
-                <!-- CPW -->
-                <div>
-                    <div class="step-head">
-                        <h4>CPW (Perempuan)</h4>
+                        <!-- CPW -->
+                        <div>
+                        <div class="step-head"><h4>CPW (Perempuan)</h4></div>
+                        <label>Nama CPW</label>
+                        <input name="nama_cpw" required>
+                        <label>Email CPW</label>
+                        <input name="email_cpw" type="email">
+                        <label>No. Telp CPW</label>
+                        <input name="phone_cpw" required>
+                        <label>Alamat CPW</label>
+                        <input name="alamat_cpw">
+                        </div>
                     </div>
 
-                    <label>Nama CPW</label>
-                    <input type="text" name="nama_cpw" placeholder="Nama CPW" required>
+                    <div class="step-head" style="margin-top:24px">
+                        <h4>Detail Booking</h4>
+                    </div>
 
-                    <label>Email CPW</label>
-                    <input type="email" name="email_cpw" placeholder="Email CPW">
+                    <label>Paket</label>
+                    <select name="package_id" id="package_id" required>
+                        <option value="">-- pilih paket --</option>
+                        @foreach($packages as $pkg)
+                        <option value="{{ $pkg->id }}">{{ $pkg->nama_paket }}</option>
+                        @endforeach
+                    </select>
 
-                    <label>No. Telp CPW</label>
-                    <input type="text" name="phone_cpw" placeholder="08xxxxxxxx" required>
-
-                    <label>Alamat CPW</label>
-                    <input type="text" name="alamat_cpw" placeholder="Alamat CPW">
-                </div>
-                </div>
-
-                <!-- Booking -->
-                <div class="step-head" style="margin-top:24px">
-                    <h4>Detail Booking</h4>
-                </div>
-
-                <label>Paket</label>
-                <select name="package_id" id="package_id" required>
-                    <option value="">-- pilih paket --</option>
-                    @foreach($packages as $pkg)
-                        <option value="{{ $pkg->id }}">
-                            {{ $pkg->nama_paket }}
-                        </option>
-                    @endforeach
-                </select>
-
-                <div class="grid-2">
-                    <div>
+                    <div class="grid-2">
+                        <div>
                         <label>Tanggal</label>
-                        <input type="date"
-                            name="photoshoot_date"
-                            id="photoshoot_date"
-                            min="{{ now()->toDateString() }}"
-                            required>
-                    </div>
-                    <div>
+                        <input type="date" id="photoshoot_date" name="photoshoot_date" required>
+                        </div>
+                        <div>
                         <label>Status</label>
                         <select name="status" required>
                             <option value="submitted">Submitted</option>
                             <option value="confirmed">Confirmed</option>
                         </select>
+                        </div>
                     </div>
-                </div>
 
-                <!-- SLOT (sementara manual) -->
-                <div class="grid-2">
-                    <div>
+                    <div class="grid-2">
+                        <div>
                         <label>Jam Mulai</label>
                         <input type="time" name="start_time" required>
-                    </div>
-                    <div>
+                        </div>
+                        <div>
                         <label>Jam Selesai</label>
                         <input type="time" name="end_time" required>
+                        </div>
+                    </div>
+
                     </div>
                 </div>
 
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="submit">
-                Simpan Booking
-                </button>
-                <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate2">
-                Tutup
-                </button>
-            </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Simpan Booking</button>
+                    <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate2">
+                    Tutup
+                    </button>
+                </div>
 
-            </form>
-        </div>
+                </form>
+            </div>
         </div>
     <div class="custom-modal-backdrop" id="bookingEditBackdrop"></div>
         <div class="custom-modal" id="bookingEditModal" aria-hidden="true">
