@@ -231,7 +231,7 @@
             </button>
             </div>
 
-            <form method="POST" action="{{ route('executive.page.store', ['section'=>'bookingexecutive']) }}">
+            <form method="POST"action="{{ route('executive.homepages.store', ['section' => 'bookingexecutive']) }}">
             @csrf
 
             <div class="modal-body">
