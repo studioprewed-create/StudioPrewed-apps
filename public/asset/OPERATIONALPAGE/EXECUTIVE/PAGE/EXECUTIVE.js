@@ -730,14 +730,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
-            modal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // matiin scroll belakang
         };
 
         const hideModal = () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
-            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
         };
 
@@ -745,15 +743,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnClose?.addEventListener('click', hideModal);
         btnClose2?.addEventListener('click', hideModal);
 
-        backdrop.addEventListener('click', (e) => {
+        backdrop.addEventListener('click', e => {
             if (e.target === backdrop) hideModal();
-        });
-
-        // ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('show')) {
-                hideModal();
-            }
         });
     };
 
