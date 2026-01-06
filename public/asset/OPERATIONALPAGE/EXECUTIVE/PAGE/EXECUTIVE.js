@@ -719,15 +719,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const backdrop = document.getElementById('bookingCreateBackdrop');
     const modal    = document.getElementById('bookingCreateModal');
     const btnOpen  = document.getElementById('btnOpenBooking');
-    const btnClose = document.getElementById('btnCloseBookingCreate');
-    const btnClose2= document.getElementById('btnCloseBookingCreate2');
 
+        // kalau halaman ini tidak punya modal booking → STOP
         if (!backdrop || !modal || !btnOpen) return;
 
+        const btnClose  = document.getElementById('btnCloseBookingCreate');
+        const btnClose2 = document.getElementById('btnCloseBookingCreate2');
+        const modalBody = modal.querySelector('.modal-body');
+
+        // ====== ANTI DOUBLE INIT (SPA) ======
+        if (modal.dataset.inited === '1') return;
+        modal.dataset.inited = '1';
+
+        // ====== HELPER SCROLL ======
+        const scrollModalTop = () => {
+            if (!modalBody) return;
+            modalBody.scrollTop = 0;
+        };
+
+        const scrollModalBottom = () => {
+            if (!modalBody) return;
+            modalBody.scrollTo({
+                top: modalBody.scrollHeight,
+                behavior: 'smooth'
+            });
+        };
+
+        const scrollToElement = (el) => {
+            if (!modalBody || !el) return;
+            const top = el.offsetTop - 20;
+            modalBody.scrollTo({
+                top,
+                behavior: 'smooth'
+            });
+        };
+
+        // ====== SHOW / HIDE ======
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
+
+            // selalu reset ke atas saat buka
+            setTimeout(scrollModalTop, 50);
         };
 
         const hideModal = () => {
@@ -736,13 +770,47 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.setAttribute('aria-hidden', 'true');
         };
 
-        btnOpen.addEventListener('click', showModal);
+        // ====== EVENTS ======
+        btnOpen.addEventListener('click', (e) => {
+            e.preventDefault();
+            showModal();
+        });
+
         btnClose?.addEventListener('click', hideModal);
         btnClose2?.addEventListener('click', hideModal);
 
         backdrop.addEventListener('click', (e) => {
             if (e.target === backdrop) hideModal();
         });
+
+        // ====== AUTO SCROLL LOGIC (STEP 2) ======
+        const pkgSelect = modal.querySelector('#package_id');
+        if (pkgSelect) {
+            pkgSelect.addEventListener('change', () => {
+                const dateInput = modal.querySelector('#photoshoot_date');
+                setTimeout(() => {
+                    if (dateInput) {
+                        scrollToElement(dateInput);
+                    } else {
+                        scrollModalBottom();
+                    }
+                }, 150);
+            });
+        }
+
+        const dateInput = modal.querySelector('#photoshoot_date');
+        if (dateInput) {
+            dateInput.addEventListener('change', () => {
+                const startTime = modal.querySelector('[name="start_time"]');
+                setTimeout(() => {
+                    if (startTime) {
+                        scrollToElement(startTime);
+                    } else {
+                        scrollModalBottom();
+                    }
+                }, 150);
+            });
+        }
     };
 
     const initBookingEditModal = () => {

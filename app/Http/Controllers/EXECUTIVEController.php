@@ -1037,8 +1037,6 @@ class EXECUTIVEController extends Controller
             }
             elseif ($section === 'bookingexecutive') {
 
-                $booking = BookingClient::findOrFail($id);
-
                 $v = $request->validate([
                     'nama_cpp'        => 'sometimes|required|string|max:100',
                     'phone_cpp'       => 'sometimes|required|string|max:30',

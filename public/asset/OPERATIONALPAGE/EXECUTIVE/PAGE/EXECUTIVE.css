@@ -3245,15 +3245,26 @@ body.sp-body {
 /* =====================================================
    STEP VISIBILITY (AMAN UNTUK JS)
    ===================================================== */
-
-.booking-container .step {
-    display: none;
-    pointer-events: none;
+.custom-modal {
+    max-height: 90vh;
+    overflow: hidden;
 }
 
-.booking-container .step.active {
-    display: block;
-    pointer-events: auto;
+.custom-modal .modal-content {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-modal .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+/* OPTIONAL biar scroll halus */
+.custom-modal .modal-body {
+    scroll-behavior: smooth;
 }
 
 

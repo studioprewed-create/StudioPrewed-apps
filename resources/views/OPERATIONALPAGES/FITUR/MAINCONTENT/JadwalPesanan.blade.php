@@ -277,36 +277,49 @@
                 </div>
 
                 <!-- Booking -->
+                <div class="step-head" style="margin-top:24px">
+                    <h4>Detail Booking</h4>
+                </div>
+
                 <label>Paket</label>
-                <select name="package_id" required>
+                <select name="package_id" id="package_id" required>
                     <option value="">-- pilih paket --</option>
                     @foreach($packages as $pkg)
-                    <option value="{{ $pkg->id }}">{{ $pkg->nama_paket }}</option>
+                        <option value="{{ $pkg->id }}">
+                            {{ $pkg->nama_paket }}
+                        </option>
                     @endforeach
                 </select>
 
                 <div class="grid-2">
                     <div>
-                    <label>Tanggal</label>
-                    <input type="date" name="photoshoot_date" required>
+                        <label>Tanggal</label>
+                        <input type="date"
+                            name="photoshoot_date"
+                            id="photoshoot_date"
+                            min="{{ now()->toDateString() }}"
+                            required>
                     </div>
                     <div>
-                    <label>Status</label>
-                    <select name="status" required>
-                        <option value="submitted">Submitted</option>
-                        <option value="confirmed">Confirmed</option>
-                    </select>
+                        <label>Status</label>
+                        <select name="status" required>
+                            <option value="submitted">Submitted</option>
+                            <option value="confirmed">Confirmed</option>
+                        </select>
                     </div>
                 </div>
 
                 <!-- SLOT (sementara manual) -->
                 <div class="grid-2">
-                    <input type="time" name="start_time" required>
-                    <input type="time" name="end_time" required>
+                    <div>
+                        <label>Jam Mulai</label>
+                        <input type="time" name="start_time" required>
+                    </div>
+                    <div>
+                        <label>Jam Selesai</label>
+                        <input type="time" name="end_time" required>
+                    </div>
                 </div>
-
-                </div>
-            </div>
 
             <div class="modal-footer">
                 <button class="btn btn-primary" type="submit">
