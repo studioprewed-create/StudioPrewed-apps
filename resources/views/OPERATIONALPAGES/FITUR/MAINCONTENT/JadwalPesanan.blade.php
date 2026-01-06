@@ -226,13 +226,13 @@
 
                 <div class="modal-header">
                 <h5>Booking Baru</h5>
-                <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate">
+                <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 </div>
 
                 <form method="POST"
-                    action="{{ route('executive.homepages.store', ['section' => 'bookingexecutive']) }}">
+                action="{{ route('executive.homepages.store', ['section' => 'bookingexecutive']) }}">
                 @csrf
 
                 <div class="modal-body">
@@ -241,39 +241,35 @@
                     <h2>Form Booking Prewed (Admin)</h2>
 
                     <div class="grid-2">
-                        <!-- CPP -->
                         <div>
-                        <div class="step-head"><h4>CPP (Pria)</h4></div>
-                        <label>Nama CPP</label>
+                        <h4>CPP</h4>
+                        <label>Nama</label>
                         <input name="nama_cpp" required>
-                        <label>Email CPP</label>
+                        <label>Email</label>
                         <input name="email_cpp" type="email">
-                        <label>No. Telp CPP</label>
+                        <label>No. Telp</label>
                         <input name="phone_cpp" required>
-                        <label>Alamat CPP</label>
+                        <label>Alamat</label>
                         <input name="alamat_cpp">
                         </div>
 
-                        <!-- CPW -->
                         <div>
-                        <div class="step-head"><h4>CPW (Perempuan)</h4></div>
-                        <label>Nama CPW</label>
+                        <h4>CPW</h4>
+                        <label>Nama</label>
                         <input name="nama_cpw" required>
-                        <label>Email CPW</label>
+                        <label>Email</label>
                         <input name="email_cpw" type="email">
-                        <label>No. Telp CPW</label>
+                        <label>No. Telp</label>
                         <input name="phone_cpw" required>
-                        <label>Alamat CPW</label>
+                        <label>Alamat</label>
                         <input name="alamat_cpw">
                         </div>
                     </div>
 
-                    <div class="step-head" style="margin-top:24px">
-                        <h4>Detail Booking</h4>
-                    </div>
+                    <h4 class="section-title">Detail Booking</h4>
 
                     <label>Paket</label>
-                    <select name="package_id" id="package_id" required>
+                    <select name="package_id" required>
                         <option value="">-- pilih paket --</option>
                         @foreach($packages as $pkg)
                         <option value="{{ $pkg->id }}">{{ $pkg->nama_paket }}</option>
@@ -283,7 +279,7 @@
                     <div class="grid-2">
                         <div>
                         <label>Tanggal</label>
-                        <input type="date" id="photoshoot_date" name="photoshoot_date" required>
+                        <input type="date" name="photoshoot_date" required>
                         </div>
                         <div>
                         <label>Status</label>
@@ -309,15 +305,15 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">Simpan Booking</button>
-                    <button class="btn btn-secondary" type="button" id="btnCloseBookingCreate2">
+                    <button type="submit" class="btn btn-primary">Simpan Booking</button>
+                    <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate2">
                     Tutup
                     </button>
                 </div>
 
                 </form>
             </div>
-        </div>
+            </div>
     <div class="custom-modal-backdrop" id="bookingEditBackdrop"></div>
         <div class="custom-modal" id="bookingEditModal" aria-hidden="true">
             <div class="modal-content modal-xl">

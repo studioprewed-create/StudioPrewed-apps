@@ -721,57 +721,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpen  = document.getElementById('btnOpenBooking');
 
         if (!backdrop || !modal || !btnOpen) return;
-
-        const btnClose  = document.getElementById('btnCloseBookingCreate');
-        const btnClose2 = document.getElementById('btnCloseBookingCreate2');
-        const modalBody = modal.querySelector('.modal-body');
-
         if (modal.dataset.inited === '1') return;
         modal.dataset.inited = '1';
 
-        const scrollModalTop = () => {
-            modalBody && (modalBody.scrollTop = 0);
-        };
-
-        const scrollModalBottom = () => {
-            modalBody?.scrollTo({
-                top: modalBody.scrollHeight,
-                behavior: 'smooth'
-            });
-        };
-
-        const scrollToElement = (el) => {
-            if (!modalBody || !el) return;
-
-            const bodyRect = modalBody.getBoundingClientRect();
-            const elRect   = el.getBoundingClientRect();
-
-            const top = modalBody.scrollTop + (elRect.top - bodyRect.top) - 20;
-
-            modalBody.scrollTo({
-                top,
-                behavior: 'smooth'
-            });
-        };
+        const btnClose  = document.getElementById('btnCloseBookingCreate');
+        const btnClose2 = document.getElementById('btnCloseBookingCreate2');
 
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
-            setTimeout(scrollModalTop, 50);
+            document.body.style.overflow = 'hidden';
         };
 
         const hideModal = () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
             modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
         };
 
-        btnOpen.addEventListener('click', (e) => {
-            e.preventDefault();
-            showModal();
-        });
-
+        btnOpen.addEventListener('click', showModal);
         btnClose?.addEventListener('click', hideModal);
         btnClose2?.addEventListener('click', hideModal);
 
@@ -779,27 +749,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === backdrop) hideModal();
         });
 
-        const pkgSelect = modal.querySelector('#package_id');
-        if (pkgSelect) {
-            pkgSelect.addEventListener('change', () => {
-                const dateInput = modal.querySelector('#photoshoot_date');
-                setTimeout(() => {
-                    dateInput ? scrollToElement(dateInput) : scrollModalBottom();
-                }, 150);
-            });
-        }
-
-        const dateInput = modal.querySelector('#photoshoot_date');
-        if (dateInput) {
-            dateInput.addEventListener('change', () => {
-                const startTime = modal.querySelector('[name="start_time"]');
-                setTimeout(() => {
-                    startTime ? scrollToElement(startTime) : scrollModalBottom();
-                }, 150);
-            });
-        }
+        // ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                hideModal();
+            }
+        });
     };
-
 
     const initBookingEditModal = () => {
     const backdrop = document.getElementById('bookingEditBackdrop');
