@@ -242,19 +242,46 @@
 
                 <div class="grid-2">
                     <div class="card-section">
-                    <h4>CPP</h4>
-                    <label>Nama</label><input name="nama_cpp" required>
-                    <label>Email</label><input name="email_cpp" type="email">
-                    <label>No. Telp</label><input name="phone_cpp" required>
-                    <label>Alamat</label><input name="alamat_cpp">
-                    </div>
+                        <h4>CPP</h4>
 
+                        <label>Nama</label>
+                        <input name="nama_cpp" required>
+
+                        <label>Email</label>
+                        <input name="email_cpp" type="email">
+
+                        <label>No. Telp</label>
+                        <input name="phone_cpp" required>
+
+                        <label>Alamat</label>
+                        <input name="alamat_cpp">
+
+                        <label>Instagram</label>
+                        <input name="ig_cpp">
+
+                        <label>TikTok</label>
+                        <input name="tiktok_cpp">
+                    </div>
                     <div class="card-section">
-                    <h4>CPW</h4>
-                    <label>Nama</label><input name="nama_cpw" required>
-                    <label>Email</label><input name="email_cpw" type="email">
-                    <label>No. Telp</label><input name="phone_cpw" required>
-                    <label>Alamat</label><input name="alamat_cpw">
+                        <h4>CPW</h4>
+
+                        <label>Nama</label>
+                        <input name="nama_cpw" required>
+
+                        <label>Email</label>
+                        <input name="email_cpw" type="email">
+
+                        <label>No. Telp</label>
+                        <input name="phone_cpw" required>
+
+                        <label>Alamat</label>
+                        <input name="alamat_cpw">
+
+                        <label>Instagram</label>
+                        <input name="ig_cpw">
+
+                        <label>TikTok</label>
+                        <input name="tiktok_cpw">
                     </div>
                 </div>
 
