@@ -743,8 +743,8 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadSlots = async () => {
-            const pkg  = selPackage?.value;
-            const date = inputDate?.value;
+        const pkg  = selPackage?.value;
+        const date = inputDate?.value;
 
             if (!pkg || !date) {
                 slotList.innerHTML =
@@ -765,8 +765,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!res.ok) throw new Error();
 
                 const slots = await res.json();
+
+                // ✅ DEBUG DI SINI
+                console.log('slots:', slots);
+
                 renderSlots(Array.isArray(slots) ? slots : []);
-            } catch {
+            } catch (e) {
+                console.error('slot error:', e);
                 slotList.innerHTML =
                     '<p style="color:#f56565">Gagal memuat slot.</p>';
             }
