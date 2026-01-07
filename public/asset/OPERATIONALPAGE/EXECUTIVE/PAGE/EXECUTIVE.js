@@ -726,6 +726,88 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modal.dataset.inited) return;
         modal.dataset.inited = '1';
 
+        // ===== SLOT ELEMENT =====
+        const selPackage = modal.querySelector('#package_id');
+        const inputDate  = modal.querySelector('#photoshoot_date');
+        const slotList   = modal.querySelector('#slotList');
+
+        const slotCodeInp = modal.querySelector('[name="slot_code"]');
+        const startInp    = modal.querySelector('[name="start_time"]');
+        const endInp      = modal.querySelector('[name="end_time"]');
+
+        const API_SLOTS = '/executive/api/slots';
+
+        const splitTimeRange = (range) => {
+            const [s, e] = String(range || '').split('-');
+            return { start: s?.trim() || '', end: e?.trim() || '' };
+        };
+
+        const loadSlots = async () => {
+            const pkg  = selPackage?.value;
+            const date = inputDate?.value;
+
+            if (!pkg || !date) {
+                slotList.innerHTML =
+                    '<p style="opacity:.7">Pilih paket & tanggal untuk melihat slot.</p>';
+                return;
+            }
+
+            slotList.innerHTML = '<p style="opacity:.7">Memuat slot...</p>';
+
+            try {
+                const url = new URL(API_SLOTS, location.origin);
+                url.searchParams.set('package_id', pkg);
+                url.searchParams.set('date', date);
+
+                const res = await fetch(url.toString(), {
+                    headers: { Accept: 'application/json' },
+                });
+                if (!res.ok) throw new Error();
+
+                const slots = await res.json();
+                renderSlots(Array.isArray(slots) ? slots : []);
+            } catch {
+                slotList.innerHTML =
+                    '<p style="color:#f56565">Gagal memuat slot.</p>';
+            }
+        };
+
+        const renderSlots = (slots) => {
+            if (!slots.length) {
+                slotList.innerHTML =
+                    '<p style="opacity:.7">Tidak ada slot tersedia.</p>';
+                return;
+            }
+
+            slotList.innerHTML = slots.map(s => `
+                <div class="slot-item ${s.available ? '' : 'unavail'}"
+                    data-code="${s.code}"
+                    data-time="${s.time}">
+                    <span>${s.time}</span>
+                    <small style="margin-left:auto;opacity:.7">${s.code}</small>
+                </div>
+            `).join('');
+        };
+
+        slotList.addEventListener('click', e => {
+            const item = e.target.closest('.slot-item');
+            if (!item || item.classList.contains('unavail')) return;
+
+            const { start, end } = splitTimeRange(item.dataset.time);
+
+            slotCodeInp.value = item.dataset.code;
+            startInp.value    = start;
+            endInp.value      = end;
+
+            slotList.querySelectorAll('.slot-item')
+                .forEach(el => el.classList.remove('active'));
+            item.classList.add('active');
+        });
+
+        selPackage?.addEventListener('change', loadSlots);
+        inputDate?.addEventListener('change', loadSlots);
+
+        // ===== MODAL OPEN / CLOSE =====
         const show = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');

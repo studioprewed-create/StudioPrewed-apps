@@ -288,41 +288,55 @@
                 <h4 class="section-title">Detail Booking</h4>
 
                 <label>Paket</label>
-                <select name="package_id" required>
-                    <option value="">-- pilih paket --</option>
-                    @foreach($packages as $pkg)
-                    <option value="{{ $pkg->id }}">{{ $pkg->nama_paket }}</option>
-                    @endforeach
-                </select>
-
-                <div class="grid-2">
-                    <div>
-                    <label>Tanggal</label>
-                    <input type="date" name="photoshoot_date" required>
-                    </div>
-                    <div>
-                    <label>Status</label>
-                    <select name="status">
-                        <option value="submitted">Submitted</option>
-                        <option value="confirmed">Confirmed</option>
+                    <select name="package_id" id="package_id" required>
+                        <option value="">-- pilih paket --</option>
+                        @foreach($packages as $pkg)
+                            <option
+                                value="{{ $pkg->id }}"
+                                data-durasi="{{ (int) $pkg->durasi }}"
+                            >
+                                {{ $pkg->nama_paket }} ({{ (int) $pkg->durasi }} menit)
+                            </option>
+                        @endforeach
                     </select>
-                    </div>
-                </div>
 
-                <div class="grid-2">
-                    <div>
-                    <label>Jam Mulai</label>
-                    <input type="time" name="start_time" required>
+                    <!-- TANGGAL & STYLE -->
+                    <div class="grid-2">
+                        <div>
+                            <label>Tanggal Photoshoot</label>
+                            <input
+                                type="date"
+                                name="photoshoot_date"
+                                id="photoshoot_date"
+                                min="{{ now()->toDateString() }}"
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label>Style</label>
+                            <select name="style" id="style" required>
+                                <option value="">-- pilih style --</option>
+                                <option value="Hijab">Hijab</option>
+                                <option value="HairDo">HairDo</option>
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                    <label>Jam Selesai</label>
-                    <input type="time" name="end_time" required>
+
+                    <!-- SLOT -->
+                    <label>Pilih Slot Waktu</label>
+                    <div id="slotList" class="slots-grid">
+                        <p style="opacity:.7">
+                            Pilih paket & tanggal untuk melihat slot.
+                        </p>
                     </div>
-                </div>
+
+                    <!-- SLOT RESULT (DIISI JS) -->
+                    <input type="hidden" name="slot_code">
+                    <input type="hidden" name="start_time">
+                    <input type="hidden" name="end_time">
 
                 </div>
-            </form>
-            </div>
 
             <div class="modal-footer">
             <button class="btn btn-primary"
