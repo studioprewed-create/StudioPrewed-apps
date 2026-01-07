@@ -716,17 +716,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initBookingCreateModal = () => {
-    const backdrop = document.getElementById('bookingCreateBackdrop');
-    const modal    = document.getElementById('bookingCreateModal');
-    const openBtn  = document.getElementById('btnOpenBooking');
-    const close1   = document.getElementById('btnCloseBookingCreate');
-    const close2   = document.getElementById('btnCloseBookingCreate2');
+        const backdrop = document.getElementById('bookingCreateBackdrop');
+        const modal    = document.getElementById('bookingCreateModal');
+        const openBtn  = document.getElementById('btnOpenBooking');
+        const close1   = document.getElementById('btnCloseBookingCreate');
+        const close2   = document.getElementById('btnCloseBookingCreate2');
 
         if (!modal || !openBtn) return;
         if (modal.dataset.inited) return;
         modal.dataset.inited = '1';
 
-        // ===== SLOT ELEMENT =====
+        // ===== ELEMENT SLOT =====
         const selPackage = modal.querySelector('#package_id');
         const inputDate  = modal.querySelector('#photoshoot_date');
         const slotList   = modal.querySelector('#slotList');
@@ -737,14 +737,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const API_SLOTS = '/executive/api/slots';
 
+        // ===== UTIL =====
         const splitTimeRange = (range) => {
             const [s, e] = String(range || '').split('-');
             return { start: s?.trim() || '', end: e?.trim() || '' };
         };
 
+        // ===== LOAD SLOT (CLIENT STYLE) =====
         const loadSlots = async () => {
-        const pkg  = selPackage?.value;
-        const date = inputDate?.value;
+            const pkg  = selPackage.value;
+            const date = inputDate.value;
 
             if (!pkg || !date) {
                 slotList.innerHTML =
@@ -752,7 +754,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            slotList.innerHTML = '<p style="opacity:.7">Memuat slot...</p>';
+            slotList.innerHTML =
+                '<p style="opacity:.7">Memuat slot...</p>';
 
             try {
                 const url = new URL(API_SLOTS, location.origin);
@@ -765,18 +768,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!res.ok) throw new Error();
 
                 const slots = await res.json();
-
-                // ✅ DEBUG DI SINI
-                console.log('slots:', slots);
+                console.log('ADMIN slots:', slots);
 
                 renderSlots(Array.isArray(slots) ? slots : []);
             } catch (e) {
-                console.error('slot error:', e);
+                console.error(e);
                 slotList.innerHTML =
                     '<p style="color:#f56565">Gagal memuat slot.</p>';
             }
         };
 
+        // ===== RENDER SLOT (WAJIB LABEL + RADIO) =====
         const renderSlots = (slots) => {
             if (!slots.length) {
                 slotList.innerHTML =
@@ -784,35 +786,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            slotList.innerHTML = slots.map(s => `
-                <div class="slot-item ${s.available ? '' : 'unavail'}"
-                    data-code="${s.code}"
-                    data-time="${s.time}">
-                    <span>${s.time}</span>
-                    <small style="margin-left:auto;opacity:.7">${s.code}</small>
-                </div>
-            `).join('');
+            slotList.innerHTML = slots
+                .map(s => {
+                    const id = `slot_admin_${s.code}`;
+                    return `
+                    <label class="slot-item ${s.available ? '' : 'unavail'}" for="${id}">
+                        <input type="radio"
+                            name="slot_main"
+                            id="${id}"
+                            value="${s.code}"
+                            data-time="${s.time}"
+                            ${s.available ? '' : 'disabled'}>
+                        <span>${s.time}</span>
+                        <small style="margin-left:auto;opacity:.7">${s.code}</small>
+                    </label>
+                `;
+                })
+                .join('');
         };
 
-        slotList.addEventListener('click', e => {
-            const item = e.target.closest('.slot-item');
-            if (!item || item.classList.contains('unavail')) return;
+        // ===== SLOT PICK =====
+        slotList.addEventListener('change', e => {
+            if (e.target.name !== 'slot_main') return;
 
-            const { start, end } = splitTimeRange(item.dataset.time);
+            const { start, end } = splitTimeRange(e.target.dataset.time);
 
-            slotCodeInp.value = item.dataset.code;
+            slotCodeInp.value = e.target.value;
             startInp.value    = start;
             endInp.value      = end;
-
-            slotList.querySelectorAll('.slot-item')
-                .forEach(el => el.classList.remove('active'));
-            item.classList.add('active');
         });
 
-        selPackage?.addEventListener('change', loadSlots);
-        inputDate?.addEventListener('change', loadSlots);
+        // ===== EVENT =====
+        selPackage.addEventListener('change', loadSlots);
+        inputDate.addEventListener('change', loadSlots);
 
-        // ===== MODAL OPEN / CLOSE =====
+        // ===== MODAL =====
         const show = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
@@ -826,7 +834,6 @@ document.addEventListener('DOMContentLoaded', () => {
         openBtn.addEventListener('click', show);
         close1?.addEventListener('click', hide);
         close2?.addEventListener('click', hide);
-
         backdrop.addEventListener('click', e => {
             if (e.target === backdrop) hide();
         });
