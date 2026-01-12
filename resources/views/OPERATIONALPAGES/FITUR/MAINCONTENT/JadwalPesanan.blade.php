@@ -35,11 +35,11 @@
             </div>
             <div class="jp-studio">
                 <h5>Studio 1</h5>
-                <div class="jp-slots-grid" id="jpStudio1"></div>
+                <div class="slots-grid" id="jpStudio1"></div>
             </div>
             <div class="jp-studio">
                 <h5>Studio 2</h5>
-                <div class="jp-slots-grid" id="jpStudio2"></div>
+                <div class="slots-grid" id="jpStudio2"></div>
             </div>
             <div class="jp-studio">
             <button type="button" class="btn btn-primary" id="btnOpenBooking">
@@ -325,8 +325,10 @@
 
                     <!-- SLOT -->
                     <label>Pilih Slot Waktu</label>
-                    <div id="slotList" class="slots-grid-booking">
-                        <p style="opacity:.7">Pilih paket & tanggal untuk melihat slot.</p>
+                    <div id="slotList" class="slots-grid">
+                        <p style="opacity:.7">
+                            Pilih paket & tanggal untuk melihat slot.
+                        </p>
                     </div>
 
                     <!-- SLOT RESULT (DIISI JS) -->

@@ -2293,6 +2293,31 @@ body.sp-body {
 .jp-studio {
     margin-bottom: 16px;
 }
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+}
+
+.slot-item {
+    padding: 8px 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    user-select: none;
+}
+
+.slot-available {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.slot-unavailable {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
 /* Header kalender */
 .jp-cal-label {
     color: #111827;
@@ -2328,6 +2353,12 @@ body.sp-body {
     color: #111827;
     font-weight: 600;
 }
+
+/* Slot default (kalau belum ada class) */
+.slot-item {
+    color: #111827;
+}
+
 /* Tombol icon kalender */
 .jp-icon-btn {
     color: #111827;
@@ -2342,29 +2373,6 @@ body.sp-body {
 }
 .jp-btn-ghost:hover {
     background: #f3f4f6;
-}
-
-.jp-slots-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
-}
-
-.jp-slot-item {
-    padding: 8px 4px;
-    border-radius: 6px;
-    font-size: 12px;
-    text-align: center;
-}
-
-.jp-slot-item.slot-available {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.jp-slot-item.slot-unavailable {
-    background: #fee2e2;
-    color: #991b1b;
 }
 
 .booking-modal {
@@ -2977,38 +2985,30 @@ body.sp-body {
   color: var(--text);
 }
 
-.jp-studio .slots-grid {
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-}
-
-.slots-grid-booking {
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 12px;
   margin-top: 10px;
   margin-bottom: 18px;
 }
 
-.slots-grid-booking .slot-item {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.15);
-  background: rgba(255,255,255,.05);
-  cursor: pointer;
+/* ===============================
+   SLOT ITEM
+   =============================== */
+.slot-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--sp-radius-md);
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .25s ease;
+  color: var(--text);
 }
-
-.slots-grid-booking .slot-item.active {
-  border-color: var(--sp-primary);
-  background: rgba(61,56,255,.2);
-}
-
-.slots-grid-booking .slot-item.unavail {
-  opacity: .4;
-  pointer-events: none;
-}
-
 
 .slot-item:hover {
   background: rgba(255,255,255,.12);
@@ -3041,52 +3041,6 @@ body.sp-body {
 .slot-item small {
   font-size: 11px;
   color: var(--text-muted);
-}
-
-.slots-grid-booking {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
-    gap: 12px !important;
-}
-
-/* Slot item dalam booking */
-.slots-grid-booking .slot-item {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.06);
-
-    cursor: pointer;
-    font-size: 13px;
-    transition: all .2s ease;
-}
-
-/* hover */
-.slots-grid-booking .slot-item:hover {
-    background: rgba(255,255,255,.12);
-    transform: translateY(-1px);
-}
-
-/* slot tidak tersedia */
-.slots-grid-booking .slot-item.unavail {
-    opacity: .4;
-    pointer-events: none;
-}
-
-/* radio disembunyikan */
-.slots-grid-booking .slot-item input {
-    display: none;
-}
-
-/* slot terpilih */
-.slots-grid-booking .slot-item input:checked + span {
-    color: var(--sp-primary);
-    font-weight: 600;
 }
 
 
