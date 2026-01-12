@@ -2294,6 +2294,30 @@ body.sp-body {
     margin-bottom: 16px;
 }
 
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+}
+
+.slot-item {
+    padding: 8px 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    user-select: none;
+}
+
+.slot-available {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.slot-unavailable {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
 /* Header kalender */
 .jp-cal-label {
     color: #111827;
@@ -2329,12 +2353,6 @@ body.sp-body {
     color: #111827;
     font-weight: 600;
 }
-
-/* Slot default (kalau belum ada class) */
-.slot-item {
-    color: #111827;
-}
-
 /* Tombol icon kalender */
 .jp-icon-btn {
     color: #111827;
@@ -2993,22 +3011,6 @@ body.sp-body {
   pointer-events: none;
 }
 
-/* ===============================
-   SLOT ITEM
-   =============================== */
-.slot-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: var(--sp-radius-md);
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
-  font-size: 13px;
-  cursor: pointer;
-  transition: all .25s ease;
-  color: var(--text);
-}
 
 .slot-item:hover {
   background: rgba(255,255,255,.12);
