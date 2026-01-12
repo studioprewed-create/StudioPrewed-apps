@@ -2293,31 +2293,6 @@ body.sp-body {
 .jp-studio {
     margin-bottom: 16px;
 }
-
-.slots-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
-}
-
-.slot-item {
-    padding: 8px 4px;
-    border-radius: 6px;
-    font-size: 12px;
-    text-align: center;
-    user-select: none;
-}
-
-.slot-available {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.slot-unavailable {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
 /* Header kalender */
 .jp-cal-label {
     color: #111827;
@@ -2367,6 +2342,29 @@ body.sp-body {
 }
 .jp-btn-ghost:hover {
     background: #f3f4f6;
+}
+
+.jp-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+}
+
+.jp-slot-item {
+    padding: 8px 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.jp-slot-item.slot-available {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.jp-slot-item.slot-unavailable {
+    background: #fee2e2;
+    color: #991b1b;
 }
 
 .booking-modal {

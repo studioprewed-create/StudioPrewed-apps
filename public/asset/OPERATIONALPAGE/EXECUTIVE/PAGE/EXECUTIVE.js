@@ -986,7 +986,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const cls = slot.available ? 'slot-available' : 'slot-unavailable';
 
                         const s1 = document.createElement('div');
-                        s1.className = `slot-item ${cls}`;
+                        s1.className = `jp-slot-item ${cls}`;
                         s1.textContent = slot.time;
                         studio1.appendChild(s1);
 
