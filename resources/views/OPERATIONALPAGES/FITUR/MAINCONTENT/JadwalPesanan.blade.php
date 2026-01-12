@@ -325,7 +325,7 @@
 
                     <!-- SLOT -->
                     <label>Pilih Slot Waktu</label>
-                    <div id="slotList" class="slots-grid">
+                    <<div id="slotList" class="slots-grid slots-grid-booking">
                         <p style="opacity:.7">
                             Pilih paket & tanggal untuk melihat slot.
                         </p>

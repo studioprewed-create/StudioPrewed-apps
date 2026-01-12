@@ -2295,11 +2295,9 @@ body.sp-body {
 }
 
 .slots-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 10px;
-  margin-top: 10px;
-  margin-bottom: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
 }
 
 .slot-item {
@@ -2987,6 +2985,41 @@ body.sp-body {
   color: var(--text);
 }
 
+.jp-studio .slots-grid {
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+}
+
+.slots-grid-booking {
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
+.slots-grid-booking .slot-item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.05);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slots-grid-booking .slot-item.active {
+  border-color: var(--sp-primary);
+  background: rgba(61,56,255,.2);
+}
+
+.slots-grid-booking .slot-item.unavail {
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* ===============================
+   SLOT ITEM
+   =============================== */
 .slot-item {
   display: flex;
   align-items: center;
