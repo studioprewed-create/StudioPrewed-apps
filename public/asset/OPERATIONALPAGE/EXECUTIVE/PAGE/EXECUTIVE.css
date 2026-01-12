@@ -2295,9 +2295,11 @@ body.sp-body {
 }
 
 .slots-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 18px;
 }
 
 .slot-item {
@@ -2985,17 +2987,6 @@ body.sp-body {
   color: var(--text);
 }
 
-.slots-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
-  margin-bottom: 18px;
-}
-
-/* ===============================
-   SLOT ITEM
-   =============================== */
 .slot-item {
   display: flex;
   align-items: center;
