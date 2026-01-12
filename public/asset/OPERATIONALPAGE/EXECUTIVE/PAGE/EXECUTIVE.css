@@ -3043,6 +3043,52 @@ body.sp-body {
   color: var(--text-muted);
 }
 
+.slots-grid-booking {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+    gap: 12px !important;
+}
+
+/* Slot item dalam booking */
+.slots-grid-booking .slot-item {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+
+    cursor: pointer;
+    font-size: 13px;
+    transition: all .2s ease;
+}
+
+/* hover */
+.slots-grid-booking .slot-item:hover {
+    background: rgba(255,255,255,.12);
+    transform: translateY(-1px);
+}
+
+/* slot tidak tersedia */
+.slots-grid-booking .slot-item.unavail {
+    opacity: .4;
+    pointer-events: none;
+}
+
+/* radio disembunyikan */
+.slots-grid-booking .slot-item input {
+    display: none;
+}
+
+/* slot terpilih */
+.slots-grid-booking .slot-item input:checked + span {
+    color: var(--sp-primary);
+    font-weight: 600;
+}
+
 
 
 @media (max-width: 768px) {
