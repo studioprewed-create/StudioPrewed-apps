@@ -2294,30 +2294,6 @@ body.sp-body {
     margin-bottom: 16px;
 }
 
-.slots-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
-}
-
-.slot-item {
-    padding: 8px 4px;
-    border-radius: 6px;
-    font-size: 12px;
-    text-align: center;
-    user-select: none;
-}
-
-.slot-available {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.slot-unavailable {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
 /* Header kalender */
 .jp-cal-label {
     color: #111827;
