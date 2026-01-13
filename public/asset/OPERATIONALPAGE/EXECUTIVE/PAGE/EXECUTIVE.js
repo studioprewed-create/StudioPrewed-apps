@@ -744,6 +744,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return { start, end };
         };
 
+        const addonChecks      = modal.querySelectorAll('.addon-check');
+        const extraSlotWrap   = modal.querySelector('#extraSlotWrapper');
+        const extraSlotList   = modal.querySelector('#extraSlotList');
+        const extraTemaWrap   = modal.querySelector('#extraTemaWrapper');
+        const tema2Nama       = modal.querySelector('#tema2_nama');
+        const tema2Kode       = modal.querySelector('#tema2_kode');
+        const addonHiddenBag  = modal.querySelector('#addonHiddenBag');
+
         // ===== UTIL =====
         const splitTimeRange = (range) => {
             const [s, e] = String(range || '').split('-');
@@ -901,6 +909,109 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        const getSelectedAddons = () => {
+            return Array.from(addonChecks)
+                .filter(ch => ch.checked)
+                .map(ch => ({
+                    id: ch.dataset.id,
+                    kategori: ch.dataset.kategori,
+                    durasi: parseInt(ch.dataset.durasi || '0'),
+                }));
+        };
+
+        const getAddonSlot = () => {
+            return getSelectedAddons().find(a => a.kategori == 1);
+        };
+
+        const getAddonTema = () => {
+            return getSelectedAddons().find(a => a.kategori == 2);
+        };
+
+        // hanya 1 addon slot boleh
+        addonChecks.forEach(ch => {
+            ch.addEventListener('change', () => {
+                if (ch.dataset.kategori == 1 && ch.checked) {
+                    addonChecks.forEach(o => {
+                        if (o !== ch && o.dataset.kategori == 1) o.checked = false;
+                    });
+                }
+                updateAddonPanels();
+            });
+        });
+
+        const updateAddonPanels = () => {
+            const slotAddon = getAddonSlot();
+            const temaAddon = getAddonTema();
+
+            // slot tambahan
+            if (slotAddon) {
+                extraSlotWrap.style.display = 'block';
+                loadExtraSlots(slotAddon.durasi);
+            } else {
+                extraSlotWrap.style.display = 'none';
+                extraSlotList.innerHTML = '';
+            }
+
+            // tema tambahan
+            if (temaAddon) {
+                extraTemaWrap.style.display = 'block';
+            } else {
+                extraTemaWrap.style.display = 'none';
+                tema2Nama.value = '';
+                tema2Kode.value = '';
+            }
+        };
+
+        const loadExtraSlots = async (durasi) => {
+            const date = inputDate.value;
+            const main = slotCodeInp.value;
+
+            if (!date || !main) return;
+
+            const url = new URL(API_SLOTS, location.origin);
+            url.searchParams.set('date', date);
+            url.searchParams.set('durasi', durasi);
+            url.searchParams.set('exclude', main);
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            extraSlotList.innerHTML = data.map(s => `
+                <label class="slot-item ${s.available ? '' : 'unavail'}">
+                    <input type="radio" name="slot_extra" value="${s.code}" data-time="${s.time}" ${s.available ? '' : 'disabled'}>
+                    <span>${s.time}</span>
+                </label>
+            `).join('');
+        };
+
+        extraSlotList.addEventListener('change', e => {
+            if (e.target.name !== 'slot_extra') return;
+            const [s,e2] = e.target.dataset.time.split('-');
+
+            modal.querySelector('[name="extra_slot_code"]').value = e.target.value;
+            modal.querySelector('[name="extra_start_time"]').value = s.trim();
+            modal.querySelector('[name="extra_end_time"]').value = e2.trim();
+        });
+
+        tema2Kode.addEventListener('change', () => {
+            const opt = tema2Kode.selectedOptions[0];
+            modal.querySelector('[name="tema2_kode"]').value = tema2Kode.value;
+            modal.querySelector('[name="tema2_nama"]').value = opt?.dataset.nama || '';
+        });
+
+        addonChecks.forEach(ch => {
+            ch.addEventListener('change', () => {
+                addonHiddenBag.innerHTML = '';
+                getSelectedAddons().forEach(a => {
+                    const i = document.createElement('input');
+                    i.type='hidden';
+                    i.name='addons[]';
+                    i.value=a.id;
+                    addonHiddenBag.appendChild(i);
+                });
+            });
+        });
+    
         // ===== EVENT =====
         selPackage.addEventListener('change', loadSlots);
         inputDate.addEventListener('change', loadSlots);

@@ -324,9 +324,15 @@
                 </div>
 
                 <!-- Hidden slot result -->
-                <input type="hidden" name="slot_code">
-                <input type="hidden" name="start_time">
-                <input type="hidden" name="end_time">
+                <input type="hidden" name="extra_slot_code">
+                <input type="hidden" name="extra_start_time">
+                <input type="hidden" name="extra_end_time">
+                <input type="hidden" name="extra_minutes">
+
+                <input type="hidden" name="tema2_kode">
+                <input type="hidden" name="tema2_nama">
+
+                <div id="addonHiddenBag"></div>
 
                 <!-- ================= TEMA ================= -->
                 <h4 class="section-title">Tema Baju Utama (opsional)</h4>
@@ -355,6 +361,73 @@
                         </option>
                         @endforeach
                     </select>
+                    </div>
+                </div>
+
+                <div class="addon-section" style="margin-top:32px">
+                    <h4 style="margin-bottom:10px">Addon (Opsional)</h4>
+                    <p style="opacity:.7;font-size:12px">
+                        Addon dapat menambah slot waktu atau tema baju tambahan.
+                    </p>
+
+                    <div class="addons-grid">
+                        @foreach ($addonGroups as $kategori => $group)
+                        <div class="addon-group">
+                            <h5>{{ $group->first()->kategori_label }}</h5>
+
+                            @foreach ($group as $addon)
+                            <label class="addon-item">
+                                <input
+                                    type="checkbox"
+                                    class="addon-check"
+                                    data-id="{{ $addon->id }}"
+                                    data-kategori="{{ $addon->kategori }}"
+                                    data-harga="{{ $addon->harga }}"
+                                    data-durasi="{{ $addon->durasi ?? 0 }}"
+                                >
+                                <span>{{ $addon->nama }}</span>
+                                <small>{{ $addon->durasi_label }}</small>
+                                <b>Rp {{ number_format($addon->harga,0,',','.') }}</b>
+                            </label>
+                            @endforeach
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- SLOT TAMBAHAN -->
+                <div id="extraSlotWrapper" style="display:none;margin-top:20px">
+                    <h4>Slot Tambahan</h4>
+                    <div id="extraSlotList" class="slots-grid"></div>
+                </div>
+
+                <!-- TEMA TAMBAHAN -->
+                <div id="extraTemaWrapper" style="display:none;margin-top:20px">
+                    <h4>Tema Tambahan</h4>
+                    <div class="grid-3">
+                        <div>
+                            <label>Nama Tema Tambahan</label>
+                            <select id="tema2_nama">
+                                <option value="">-- pilih --</option>
+                                @foreach($temas->groupBy('nama') as $nama => $list)
+                                    <option value="{{ $nama }}">{{ $nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label>Kode Tema Tambahan</label>
+                            <select id="tema2_kode" disabled>
+                                <option value="">-- pilih --</option>
+                                @foreach($temas as $t)
+                                    <option
+                                        value="{{ $t->kode }}"
+                                        data-nama="{{ $t->nama }}"
+                                        data-id="{{ $t->id }}">
+                                        {{ $t->kode }} - {{ $t->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
 
