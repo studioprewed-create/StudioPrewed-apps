@@ -840,7 +840,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateAddonPanels();
         });
 
-        const filterTemaKode = (selectKode, temaId) => {
+        const filterTemaKode = (selectKode, temaNama) => {
             if (!selectKode) return;
 
             const opts = Array.from(selectKode.options);
@@ -850,8 +850,8 @@ document.addEventListener('DOMContentLoaded', () => {
             opts.forEach((opt, i) => {
                 if (i === 0) return;
 
-                const optTemaId = opt.dataset.temaId;
-                const show = temaId && optTemaId === temaId;
+                const optNama = opt.dataset.nama;   // ⬅ pakai NAMA
+                const show = temaNama && optNama === temaNama;
 
                 opt.style.display = show ? '' : 'none';
                 if (show) anyVisible = true;
@@ -859,6 +859,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             selectKode.disabled = !anyVisible;
         };
+
+        selTemaKode.addEventListener('change', () => {
+            const opt = selTemaKode.selectedOptions[0];
+            modal.querySelector('[name="tema_id"]').value = opt?.dataset.temaId || '';
+        });
 
         const refreshAdminTema = async () => {
             if (!selTemaNama || !selTemaKode) return;
