@@ -338,6 +338,18 @@
 
                 </div>
 
+                <label>Tema Baju Utama (opsional)</label>
+                    <div class="grid-3">
+                    <div>
+                        <label>Nama Tema</label>
+                        <select id="tema_nama">...</select>
+                    </div>
+                    <div>
+                        <label>Kode Tema</label>
+                        <select id="tema_kode" disabled>...</select>
+                    </div>
+                </div>
+
             <div class="modal-footer">
             <button class="btn btn-primary"
                 onclick="this.closest('.modal-content').querySelector('form').submit()">
@@ -345,7 +357,7 @@
             </button>
             <button class="btn btn-secondary" id="btnCloseBookingCreate2">Tutup</button>
             </div>
-
+            
         </div>
         </div>
     <div class="custom-modal-backdrop" id="bookingEditBackdrop"></div>

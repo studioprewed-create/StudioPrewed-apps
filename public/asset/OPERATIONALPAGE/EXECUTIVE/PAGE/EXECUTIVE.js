@@ -730,12 +730,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const selPackage = modal.querySelector('#package_id');
         const inputDate  = modal.querySelector('#photoshoot_date');
         const slotList   = modal.querySelector('#slotList');
-
         const slotCodeInp = modal.querySelector('[name="slot_code"]');
         const startInp    = modal.querySelector('[name="start_time"]');
         const endInp      = modal.querySelector('[name="end_time"]');
-
         const API_SLOTS = '/executive/api/slots';
+        const selTemaNama = modal.querySelector('#tema_nama');
+        const selTemaKode = modal.querySelector('#tema_kode');
+        const API_TEMA_BY_NAME = '/executive/api/tema-by-name';
+        const getAdminSlot = () => {
+        const start = startInp.value;
+        const end   = endInp.value;
+            if (!start || !end) return null;
+            return { start, end };
+        };
 
         // ===== UTIL =====
         const splitTimeRange = (range) => {
@@ -814,11 +821,91 @@ document.addEventListener('DOMContentLoaded', () => {
             slotCodeInp.value = e.target.value;
             startInp.value    = start;
             endInp.value      = end;
+
+            refreshAdminTema();
         });
+
+        const filterTemaKode = (selectKode, nama) => {
+            if (!selectKode) return;
+
+            const opts = Array.from(selectKode.options);
+            selectKode.value = '';
+            let anyVisible = false;
+
+            opts.forEach((opt, i) => {
+                if (i === 0) return;
+
+                const optNama = opt.dataset.nama || '';
+                const show = nama && optNama === nama;
+
+                opt.style.display = show ? '' : 'none';
+                if (show) anyVisible = true;
+            });
+
+            selectKode.disabled = !anyVisible;
+        };
+
+        const refreshAdminTema = async () => {
+            if (!selTemaNama || !selTemaKode) return;
+
+            const nama = selTemaNama.value;
+            const date = inputDate.value;
+            const slot = getAdminSlot();
+
+            // Filter dulu by nama
+            filterTemaKode(selTemaKode, nama);
+
+            // Kalau belum lengkap, jangan disable apa pun
+            if (!nama || !date || !slot) {
+                Array.from(selTemaKode.options).forEach(opt => {
+                    opt.disabled = false;
+                    opt.classList.remove('unavail');
+                });
+                return;
+            }
+
+            try {
+                const url = new URL(API_TEMA_BY_NAME, location.origin);
+                url.searchParams.set('nama', nama);
+                url.searchParams.set('date', date);
+                url.searchParams.set('start', slot.start);
+                url.searchParams.set('end', slot.end);
+
+                const res = await fetch(url.toString(), {
+                    headers: { Accept: 'application/json' }
+                });
+                if (!res.ok) return;
+
+                const data = await res.json();
+
+                const unavailable = new Set(
+                    (Array.isArray(data) ? data : [])
+                        .filter(t => t.available === false)
+                        .map(t => String(t.kode))
+                );
+
+                Array.from(selTemaKode.options).forEach((opt, i) => {
+                    if (i === 0 || !opt.value) return;
+
+                    if (unavailable.has(opt.value)) {
+                        opt.disabled = true;
+                        opt.classList.add('unavail');
+                    } else {
+                        opt.disabled = false;
+                        opt.classList.remove('unavail');
+                    }
+                });
+
+            } catch (e) {
+                console.error('Tema API error', e);
+            }
+        };
 
         // ===== EVENT =====
         selPackage.addEventListener('change', loadSlots);
         inputDate.addEventListener('change', loadSlots);
+        selTemaNama?.addEventListener('change', refreshAdminTema);
+        inputDate?.addEventListener('change', refreshAdminTema);
 
         // ===== MODAL =====
         const show = () => {
