@@ -918,49 +918,85 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const refreshTema2 = async () => {
+            if (!tema2Nama || !tema2Kode) return;
+
             const nama = tema2Nama.value;
             const date = inputDate.value;
             const main = getSelectedMainSlot();
-            const temaUtama = getTemaUtamaKode();
+            const temaUtama = selTemaKode.value;
 
+            // Reset dulu
+            tema2Kode.value = '';
+            tema2Kode.disabled = true;
+
+            // Kalau addon tema belum aktif, jangan lakukan apa pun
+            if (!getAddonTema()) return;
+
+            // Kalau belum pilih nama tema
             if (!nama) return;
 
-            // Filter by nama
-            Array.from(tema2Kode.options).forEach(opt => {
-                if (!opt.value) return;
-                opt.style.display = (opt.dataset.nama === nama) ? '' : 'none';
+            // 1️⃣ FILTER berdasarkan NAMA
+            let anyVisible = false;
+            Array.from(tema2Kode.options).forEach((opt, i) => {
+                if (i === 0) return;
+
+                const show = opt.dataset.nama === nama;
+                opt.style.display = show ? '' : 'none';
+
+                if (show) anyVisible = true;
             });
 
-            // Jangan boleh sama dengan tema utama
+            if (!anyVisible) return;
+
+            // 2️⃣ Jangan boleh sama dengan tema utama
             Array.from(tema2Kode.options).forEach(opt => {
+                if (!opt.value) return;
+
                 if (opt.value === temaUtama) {
                     opt.disabled = true;
                     opt.classList.add('unavail');
+                } else {
+                    opt.disabled = false;
+                    opt.classList.remove('unavail');
                 }
             });
 
-            if (!date || !main) return;
+            // 3️⃣ Kalau belum ada tanggal atau slot utama → enable saja (tanpa API)
+            if (!date || !main) {
+                tema2Kode.disabled = false;
+                return;
+            }
 
-            const url = new URL(API_TEMA_BY_NAME, location.origin);
-            url.searchParams.set('nama', nama);
-            url.searchParams.set('date', date);
-            url.searchParams.set('start', main.start);
-            url.searchParams.set('end', main.end);
-            url.searchParams.set('exclude_kode', temaUtama);
+            // 4️⃣ Cek availability dari API
+            try {
+                const url = new URL(API_TEMA_BY_NAME, location.origin);
+                url.searchParams.set('nama', nama);
+                url.searchParams.set('date', date);
+                url.searchParams.set('start', main.start);
+                url.searchParams.set('end', main.end);
+                url.searchParams.set('exclude_kode', temaUtama);
 
-            const res = await fetch(url);
-            const data = await res.json();
+                const res = await fetch(url);
+                const data = await res.json();
 
-            const unavailable = new Set(
-                data.filter(t => !t.available).map(t => t.kode)
-            );
+                const unavailable = new Set(
+                    data.filter(t => !t.available).map(t => String(t.kode))
+                );
 
-            Array.from(tema2Kode.options).forEach(opt => {
-                if (unavailable.has(opt.value)) {
-                    opt.disabled = true;
-                    opt.classList.add('unavail');
-                }
-            });
+                Array.from(tema2Kode.options).forEach(opt => {
+                    if (!opt.value) return;
+
+                    if (unavailable.has(opt.value)) {
+                        opt.disabled = true;
+                        opt.classList.add('unavail');
+                    }
+                });
+
+            } catch (e) {
+                console.error('Tema2 API error', e);
+            }
+
+            tema2Kode.disabled = false;
         };
 
         const getSelectedAddons = () => {
@@ -1017,9 +1053,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // tema addon
             if (temaAddon) {
                 extraTemaWrap.style.display = 'block';
-                refreshTema2();
+                refreshTema2(); // ⬅️ ini sekarang satu-satunya yang atur tema2
             } else {
                 extraTemaWrap.style.display = 'none';
+                tema2Nama.value = '';
+                tema2Kode.value = '';
+                tema2Kode.disabled = true;
             }
         };
 
