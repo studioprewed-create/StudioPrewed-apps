@@ -1571,6 +1571,7 @@ class EXECUTIVEController extends Controller
 
                     'package_id'      => 'sometimes|required|exists:packages,id',
                     'photoshoot_date' => 'sometimes|required|date',
+                    'photoshoot_slot' => 'nullable|string|max:20',
                     'slot_code'       => 'sometimes|required|string|max:10',
                     'start_time'      => 'sometimes|required|date_format:H:i',
                     'end_time'        => 'sometimes|required|date_format:H:i',
@@ -1600,14 +1601,25 @@ class EXECUTIVEController extends Controller
                 $effStart = $v['start_time']      ?? $booking->start_time;
                 $effEnd   = $v['end_time']        ?? $booking->end_time;
 
-                $start = substr((string)$effStart, 0, 5);
-                $end   = substr((string)$effEnd,   0, 5);
+                $start = substr((string) $effStart, 0, 5);
+                $end   = substr((string) $effEnd,   0, 5);
+
+                /* Wajib generate slot string karena kolom NOT NULL */
+                if ($start && $end) {
+                    $v['photoshoot_slot'] = $start . ' - ' . $end;
+                } else {
+                    $v['photoshoot_slot'] = $booking->photoshoot_slot; // fallback
+                }
+
+                if ($start && $end && $end <= $start) {
+                    return back()
+                        ->withErrors(['end_time' => 'Jam akhir harus setelah jam mulai'])
+                        ->withInput();
+                }
 
                 if ($end <= $start) {
                     return back()->withErrors(['end_time'=>'Jam akhir harus setelah jam mulai'])->withInput();
                 }
-
-                $v['photoshoot_slot'] = $start.' - '.$end;
 
                 /* ============================
                 KAPASITAS SLOT (2 STUDIO)
@@ -1652,10 +1664,29 @@ class EXECUTIVEController extends Controller
                     }
                 }
 
+                $tema2 = $v['tema2_kode'] ?? $booking->tema2_kode;
+                if ($tema2) {
+                    $dipakai2 = BookingClient::where('id','!=',$booking->id)
+                        ->whereDate('photoshoot_date',$effDate)
+                        ->where(function($q) use ($tema2){
+                            $q->where('tema_kode',$tema2)
+                            ->orWhere('tema2_kode',$tema2);
+                        })
+                        ->whereTime('start_time','<',$end)
+                        ->whereTime('end_time','>',$start)
+                        ->exists();
+
+                    if ($dipakai2) {
+                        return back()
+                            ->withErrors(['tema2_kode'=>'Tema tambahan sudah dipakai di jam ini'])
+                            ->withInput();
+                    }
+                }
+
                 /* ============================
                 ADDON
                 ============================ */
-                $addonIds = $v['addons'] ?? [];
+                $addonIds = $request->input('addons', []);
                 $addons = empty($addonIds) ? collect() : Addon::whereIn('id',$addonIds)->where('is_active',1)->get();
 
                 $addonSlot = $addons->firstWhere('kategori',1);
