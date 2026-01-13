@@ -1215,6 +1215,8 @@ class EXECUTIVEController extends Controller
                 $booking->nama_gabungan  = $v['nama_cpp'].' & '.$v['nama_cpw'];
                 $booking->phone_gabungan = $v['phone_cpp'].' & '.$v['phone_cpw'];
 
+                $booking->kode_pesanan = 'SP' . now()->format('YmdHis') . Str::upper(Str::random(4));
+
                 $booking->save();
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])
