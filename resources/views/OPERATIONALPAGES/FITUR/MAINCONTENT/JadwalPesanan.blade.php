@@ -361,14 +361,14 @@
                 <div class="grid-2">
                     <div>
                     <label>Nama Tema</label>
-                    <select id="tema_nama" name="tema_nama">
-                        <option value="">-- pilih nama tema --</option>
-                        @foreach($temas->groupBy('nama') as $nama => $list)
-                            <option value="{{ $nama }}">
-                                {{ $nama }}
-                            </option>
-                        @endforeach
-                    </select>
+                        <select id="tema_nama" name="tema_nama">
+                            <option value="">-- pilih nama tema --</option>
+                            @foreach($temas->groupBy('nama') as $nama => $list)
+                                <option value="{{ $nama }}">
+                                    {{ $nama }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div>
