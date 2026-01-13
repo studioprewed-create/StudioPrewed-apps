@@ -3007,7 +3007,7 @@ body.sp-body {
   font-size: 13px;
   cursor: pointer;
   transition: all .25s ease;
-  color: var(--text);
+  color: var(--Brown);
 }
 
 .slot-item:hover {
