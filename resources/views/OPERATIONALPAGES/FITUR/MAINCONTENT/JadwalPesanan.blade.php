@@ -336,18 +336,19 @@
                     <input type="hidden" name="start_time">
                     <input type="hidden" name="end_time">
 
-                </div>
-
-                <label>Tema Baju Utama (opsional)</label>
+                    <!-- TEMA HARUS DI DALAM FORM -->
+                    <label>Tema Baju Utama (opsional)</label>
                     <div class="grid-3">
-                    <div>
-                        <label>Nama Tema</label>
-                        <select id="tema_nama">...</select>
+                        <div>
+                            <label>Nama Tema</label>
+                            <select id="tema_nama">...</select>
+                        </div>
+                        <div>
+                            <label>Kode Tema</label>
+                            <select id="tema_kode" disabled>...</select>
+                        </div>
                     </div>
-                    <div>
-                        <label>Kode Tema</label>
-                        <select id="tema_kode" disabled>...</select>
-                    </div>
+
                 </div>
 
             <div class="modal-footer">
