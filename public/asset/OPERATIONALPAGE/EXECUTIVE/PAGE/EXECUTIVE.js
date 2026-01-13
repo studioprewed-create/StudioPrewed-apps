@@ -946,31 +946,74 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateAddonPanels = () => {
             const slotAddon = getAddonSlot();
             const temaAddon = getAddonTema();
+            const mainSlot  = getSelectedMainSlot(); // ⬅️ ini kunci
 
-            // slot tambahan
+            // ====== Kalau belum pilih slot utama ======
+            if (!mainSlot) {
+                // Matikan semua addon
+                addonChecks.forEach(ch => ch.checked = false);
+
+                // Tutup panel addon
+                extraSlotWrap.style.display = 'none';
+                extraSlotList.innerHTML = '';
+
+                extraTemaWrap.style.display = 'none';
+                tema2Nama.value = '';
+                tema2Kode.value = '';
+
+                return; // STOP
+            }
+
+            // ====== SLOT TAMBAHAN ======
             if (slotAddon) {
                 extraSlotWrap.style.display = 'block';
                 loadExtraSlots(slotAddon.durasi);
             } else {
                 extraSlotWrap.style.display = 'none';
                 extraSlotList.innerHTML = '';
+
+                // Bersihkan hidden
+                modal.querySelector('[name="extra_slot_code"]').value = '';
+                modal.querySelector('[name="extra_start_time"]').value = '';
+                modal.querySelector('[name="extra_end_time"]').value = '';
+                modal.querySelector('[name="extra_minutes"]').value = '';
             }
 
-            // tema tambahan
+            // ====== TEMA TAMBAHAN ======
             if (temaAddon) {
                 extraTemaWrap.style.display = 'block';
             } else {
                 extraTemaWrap.style.display = 'none';
                 tema2Nama.value = '';
                 tema2Kode.value = '';
+
+                modal.querySelector('[name="tema2_kode"]').value = '';
+                modal.querySelector('[name="tema2_nama"]').value = '';
             }
         };
 
+        const getSelectedMainSlot = () => {
+            const input = modal.querySelector('input[name="slot_main"]:checked');
+            if (!input) return null;
+
+            const { start, end } = splitTimeRange(input.dataset.time || '');
+            return {
+                code: input.value,
+                start,
+                end
+            };
+        };
+
+        
+
         const loadExtraSlots = async (durasi) => {
             const date = inputDate.value;
-            const main = slotCodeInp.value;
-
+            const main = getSelectedMainSlot();
             if (!date || !main) return;
+
+            url.searchParams.set('exclude', main.code);
+            url.searchParams.set('main_start', main.start);
+            url.searchParams.set('main_end', main.end);
 
             const url = new URL(API_SLOTS, location.origin);
             url.searchParams.set('date', date);
