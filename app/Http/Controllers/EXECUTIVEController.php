@@ -1036,9 +1036,6 @@ class EXECUTIVEController extends Controller
                 ]);
             }
             elseif ($section === 'bookingexecutive') {
-
-                $booking = BookingClient::findOrFail($id);
-
                 /* ============================
                 VALIDATION
                 ============================ */
