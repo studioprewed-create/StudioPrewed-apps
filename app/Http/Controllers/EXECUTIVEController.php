@@ -2260,6 +2260,7 @@ class EXECUTIVEController extends Controller
                 $packages = Package::orderBy('order')->get();
                 $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
                 $temas    = TemaBaju::orderBy('order')->get();
+                $addonGroups = $addons->groupBy('kategori');
 
                 // Menggunakan loadPage untuk memuat halaman utama dengan data yang sudah disiapkan
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
@@ -2271,6 +2272,7 @@ class EXECUTIVEController extends Controller
                     'packages'     => $packages,
                     'addons'       => $addons,
                     'temas'        => $temas,
+                    'addonGroups' => $addonGroups,
                 ]);
             }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
@@ -2451,9 +2453,11 @@ class EXECUTIVEController extends Controller
                 $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
                 $temas    = TemaBaju::orderBy('order')->get();
 
+                $addonGroups = $addons->groupBy('kategori');
+
                 // Kirim data ke view menggunakan loadContent
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact(
-                    'bookings', 'selectedDate', 'status', 'search', 'packages', 'addons', 'temas'
+                    'bookings', 'selectedDate', 'status', 'search', 'packages', 'addons', 'temas', 'addonGroups'
                 ));
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -2663,6 +2667,8 @@ class EXECUTIVEController extends Controller
                     $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
                     $temas    = TemaBaju::orderBy('order')->get();
 
+                    $addonGroups = $addons->groupBy('kategori');
+
                     // Menggunakan view untuk memuat halaman utama dengan data yang sudah disiapkan
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page'         => $page,
@@ -2673,6 +2679,7 @@ class EXECUTIVEController extends Controller
                         'packages'     => $packages,
                         'addons'       => $addons,
                         'temas'        => $temas,
+                        'addonGroups' => $addonGroups,
                     ]);
                 }
                 if ($page === 'GalleryAttire') {
