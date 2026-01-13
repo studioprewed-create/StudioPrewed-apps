@@ -1038,172 +1038,162 @@ class EXECUTIVEController extends Controller
             elseif ($section === 'bookingexecutive') {
 
                 $v = $request->validate([
-                    'nama_cpp'        => 'sometimes|required|string|max:100',
-                    'phone_cpp'       => 'sometimes|required|string|max:30',
-                    'email_cpp'       => 'sometimes|nullable|email|max:120',
-                    'alamat_cpp'      => 'sometimes|nullable|string|max:255',
+                    'nama_cpp'        => 'required|string|max:100',
+                    'phone_cpp'       => 'required|string|max:30',
+                    'email_cpp'       => 'nullable|email|max:120',
+                    'alamat_cpp'      => 'nullable|string|max:255',
 
-                    'nama_cpw'        => 'sometimes|required|string|max:100',
-                    'phone_cpw'       => 'sometimes|required|string|max:30',
-                    'email_cpw'       => 'sometimes|nullable|email|max:120',
-                    'alamat_cpw'      => 'sometimes|nullable|string|max:255',
+                    'nama_cpw'        => 'required|string|max:100',
+                    'phone_cpw'       => 'required|string|max:30',
+                    'email_cpw'       => 'nullable|email|max:120',
+                    'alamat_cpw'      => 'nullable|string|max:255',
 
-                    'package_id'      => 'sometimes|required|exists:packages,id',
-                    'photoshoot_date' => 'sometimes|required|date',
-                    'slot_code'       => 'sometimes|required|string|max:10',
-                    'photoshoot_slot' => 'sometimes|required|string|max:20',
-                    'start_time'      => 'sometimes|required|date_format:H:i',
-                    'end_time'        => 'sometimes|required|date_format:H:i',
-                    'style'           => 'sometimes|required|in:Hijab,HairDo',
+                    'package_id'      => 'required|exists:packages,id',
+                    'photoshoot_date' => 'required|date',
+                    'slot_code'       => 'required|string|max:20',
+                    'start_time'      => 'required|date_format:H:i',
+                    'end_time'        => 'required|date_format:H:i',
+                    'style'           => 'required|in:Hijab,HairDo',
 
-                    'tema_id'         => 'sometimes|nullable|exists:tema_baju,id',
-                    'tema_nama'       => 'sometimes|nullable|string|max:100',
-                    'tema_kode'       => 'sometimes|nullable|string|max:100',
+                    'wedding_date'    => 'nullable|date',
+                    'notes'           => 'nullable|string',
 
-                    'tema2_id'        => 'sometimes|nullable|exists:tema_baju,id',
-                    'tema2_nama'      => 'sometimes|nullable|string|max:100',
-                    'tema2_kode'      => 'sometimes|nullable|string|max:100',
+                    'tema_nama'       => 'nullable|string|max:100',
+                    'tema_kode'       => 'nullable|string|max:50',
 
-                    'addons'          => 'sometimes|nullable|array',
+                    'tema2_nama'      => 'nullable|string|max:100',
+                    'tema2_kode'      => 'nullable|string|max:50',
+
+                    'addons'          => 'nullable|array',
                     'addons.*'        => 'integer|exists:addons,id',
 
-                    'extra_slot_code'       => 'sometimes|nullable|string|max:10',
-                    'extra_photoshoot_slot' => 'sometimes|nullable|string|max:20',
-                    'extra_start_time'      => 'sometimes|nullable|date_format:H:i',
-                    'extra_end_time'        => 'sometimes|nullable|date_format:H:i',
-                    'extra_minutes'         => 'sometimes|nullable|integer|min:0',
-
-                    'notes'           => 'sometimes|nullable|string',
-                    'status'          => 'sometimes|required|in:submitted,confirmed,cancelled,completed',
+                    'extra_slot_code' => 'nullable|string|max:20',
+                    'extra_start_time'=> 'nullable|date_format:H:i',
+                    'extra_end_time'  => 'nullable|date_format:H:i',
                 ]);
 
                 /* =========================
-                EFFECTIVE VALUE
+                BASIC TIME VALIDATION
                 ========================= */
-                $effDate  = $this->getEffective($v, $booking, 'photoshoot_date');
-                $effStart = $this->getEffective($v, $booking, 'start_time');
-                $effEnd   = $this->getEffective($v, $booking, 'end_time');
-
-                $start = substr((string)$effStart, 0, 5);
-                $end   = substr((string)$effEnd,   0, 5);
-
-                if ($end <= $start) {
+                if ($v['end_time'] <= $v['start_time']) {
                     return back()->withErrors(['end_time' => 'End time harus setelah start time']);
                 }
 
-                $kapasitasPerSlot = 2;
+                $kapasitas = 2; // max 2 booking per slot
 
                 /* =========================
-                SLOT UTAMA (exclude diri sendiri)
+                CEK SLOT UTAMA
                 ========================= */
-                $jumlahOverlap = BookingClient::where('id', '!=', $booking->id)
-                    ->whereDate('photoshoot_date', $effDate)
-                    ->where(function ($q) use ($start, $end) {
-                        $q->whereTime('start_time', '<', $end)
-                        ->whereTime('end_time',   '>', $start)
-                        ->orWhere(function ($q2) use ($start, $end) {
-                            $q2->whereNotNull('extra_start_time')
-                                ->whereNotNull('extra_end_time')
-                                ->whereTime('extra_start_time', '<', $end)
-                                ->whereTime('extra_end_time',   '>', $start);
-                        });
+                $overlap = BookingClient::whereDate('photoshoot_date', $v['photoshoot_date'])
+                    ->where(function ($q) use ($v) {
+                        $q->whereTime('start_time', '<', $v['end_time'])
+                        ->whereTime('end_time',   '>', $v['start_time']);
                     })
                     ->count();
 
-                if ($jumlahOverlap >= $kapasitasPerSlot) {
-                    return back()->withErrors(['slot_code' => 'Slot sudah penuh']);
+                if ($overlap >= $kapasitas) {
+                    return back()->withErrors(['slot_code' => 'Slot utama sudah penuh']);
                 }
 
                 /* =========================
-                TEMA UTAMA & TAMBAHAN
+                CEK TEMA UTAMA
                 ========================= */
-                $temaKode = $this->getEffective($v, $booking, 'tema_kode');
-
-                if ($temaKode) {
-                    $dipakai = BookingClient::where('id','!=',$booking->id)
-                        ->whereDate('photoshoot_date', $effDate)
-                        ->where(function ($q) use ($temaKode) {
-                            $q->where('tema_kode', $temaKode)
-                            ->orWhere('tema2_kode', $temaKode);
+                if (!empty($v['tema_kode'])) {
+                    $temaDipakai = BookingClient::whereDate('photoshoot_date', $v['photoshoot_date'])
+                        ->where(function ($q) use ($v) {
+                            $q->where('tema_kode', $v['tema_kode'])
+                            ->orWhere('tema2_kode', $v['tema_kode']);
                         })
-                        ->whereTime('start_time','<',$end)
-                        ->whereTime('end_time','>',$start)
+                        ->whereTime('start_time', '<', $v['end_time'])
+                        ->whereTime('end_time',   '>', $v['start_time'])
                         ->exists();
 
-                    if ($dipakai) {
-                        return back()->withErrors(['tema_kode' => 'Tema sudah dipakai di jam ini']);
+                    if ($temaDipakai) {
+                        return back()->withErrors(['tema_kode' => 'Tema utama sudah dipakai di jam ini']);
                     }
                 }
 
                 /* =========================
-                ADDON (slot & tema)
+                ADDON
                 ========================= */
-                $addonIds = array_key_exists('addons', $v)
-                    ? $request->input('addons', [])
-                    : $booking->addons ?? [];
-
-                $addons = empty($addonIds)
+                $addons = empty($v['addons'])
                     ? collect()
-                    : Addon::whereIn('id', $addonIds)->where('is_active', true)->get();
+                    : Addon::whereIn('id', $v['addons'])->where('is_active', true)->get();
 
                 $addonSlot = $addons->firstWhere('kategori', 1);
                 $addonTema = $addons->firstWhere('kategori', 2);
 
-                // ---- extra slot ----
-                $extraMinutes = (int) ($booking->extra_minutes ?? 0);
-
+                /* =========================
+                EXTRA SLOT
+                ========================= */
                 if ($addonSlot) {
-                    $es = $this->getEffective($v, $booking, 'extra_start_time');
-                    $ee = $this->getEffective($v, $booking, 'extra_end_time');
-
-                    if (!$es || !$ee) {
+                    if (empty($v['extra_start_time']) || empty($v['extra_end_time'])) {
                         return back()->withErrors(['extra_slot_code' => 'Addon slot dipilih tapi jam kosong']);
                     }
 
-                    $es = substr($es, 0, 5);
-                    $ee = substr($ee, 0, 5);
-
-                    if ($es < $end && $ee > $start) {
+                    if ($v['extra_start_time'] < $v['end_time'] && $v['extra_end_time'] > $v['start_time']) {
                         return back()->withErrors(['extra_slot_code' => 'Extra slot overlap slot utama']);
                     }
 
-                    $extraOverlap = BookingClient::where('id','!=',$booking->id)
-                        ->whereDate('photoshoot_date', $effDate)
-                        ->where(function ($q) use ($es, $ee) {
-                            $q->whereTime('start_time','<',$ee)
-                            ->whereTime('end_time','>',$es);
+                    $extraOverlap = BookingClient::whereDate('photoshoot_date', $v['photoshoot_date'])
+                        ->where(function ($q) use ($v) {
+                            $q->whereTime('start_time', '<', $v['extra_end_time'])
+                            ->whereTime('end_time',   '>', $v['extra_start_time']);
                         })
                         ->count();
 
-                    if ($extraOverlap >= $kapasitasPerSlot) {
+                    if ($extraOverlap >= $kapasitas) {
                         return back()->withErrors(['extra_slot_code' => 'Extra slot penuh']);
                     }
-
-                    $extraMinutes = (int) ($addonSlot->durasi ?? $extraMinutes);
+                } else {
+                    $v['extra_slot_code'] = null;
+                    $v['extra_start_time'] = null;
+                    $v['extra_end_time'] = null;
                 }
 
-                // ---- harga ----
-                $packagePrice = array_key_exists('package_id', $v)
-                    ? (int) Package::findOrFail($v['package_id'])->final_price
-                    : (int) $booking->package_price;
+                /* =========================
+                TEMA TAMBAHAN
+                ========================= */
+                if ($addonTema && !empty($v['tema2_kode'])) {
 
-                $addonsTotal = array_key_exists('addons', $v)
-                    ? (int) $addons->sum('harga')
-                    : (int) $booking->addons_total;
+                    if ($v['tema2_kode'] === $v['tema_kode']) {
+                        return back()->withErrors(['tema2_kode' => 'Tema tambahan tidak boleh sama dengan tema utama']);
+                    }
 
-                $grandTotal = $packagePrice + $addonsTotal;
+                    $dipakai = BookingClient::whereDate('photoshoot_date', $v['photoshoot_date'])
+                        ->where(function ($q) use ($v) {
+                            $q->where('tema_kode', $v['tema2_kode'])
+                            ->orWhere('tema2_kode', $v['tema2_kode']);
+                        })
+                        ->whereTime('start_time', '<', $v['end_time'])
+                        ->whereTime('end_time',   '>', $v['start_time'])
+                        ->exists();
+
+                    if ($dipakai) {
+                        return back()->withErrors(['tema2_kode' => 'Tema tambahan sudah dipakai di jam ini']);
+                    }
+                } else {
+                    $v['tema2_kode'] = null;
+                    $v['tema2_nama'] = null;
+                }
+
+                /* =========================
+                HARGA
+                ========================= */
+                $package = Package::findOrFail($v['package_id']);
+                $packagePrice = (int) $package->final_price;
+                $addonsTotal  = (int) $addons->sum('harga');
+                $grandTotal   = $packagePrice + $addonsTotal;
 
                 /* =========================
                 SAVE
                 ========================= */
-                foreach ($v as $key => $val) {
-                    $booking->{$key} = $val;
-                }
-
+                $booking = new BookingClient();
+                $booking->fill($v);
                 $booking->package_price = $packagePrice;
                 $booking->addons_total  = $addonsTotal;
                 $booking->grand_total   = $grandTotal;
-
+                $booking->status        = 'confirmed';
                 $booking->save();
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])

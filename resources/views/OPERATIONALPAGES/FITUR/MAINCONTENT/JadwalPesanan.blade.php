@@ -287,6 +287,24 @@
                     </div>
                 </div>
 
+                <div class="card-section" style="margin-top:20px">
+                    <label>Wedding Date (opsional)</label>
+                    <input
+                        type="date"
+                        name="wedding_date"
+                        id="wedding_date"
+                        min="{{ now()->toDateString() }}"
+                    >
+
+                    <label style="margin-top:12px">Notes (opsional)</label>
+                    <textarea
+                        name="notes"
+                        id="notes"
+                        placeholder="Catatan tambahan"
+                        rows="3"
+                    ></textarea>
+                </div>
+
                 <!-- ================= DETAIL BOOKING ================= -->
                 <h4 class="section-title">Detail Booking</h4>
 
