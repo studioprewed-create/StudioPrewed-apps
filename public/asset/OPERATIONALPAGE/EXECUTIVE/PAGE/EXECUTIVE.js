@@ -913,6 +913,56 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        const getTemaUtamaKode = () => {
+            return selTemaKode?.value || '';
+        };
+
+        const refreshTema2 = async () => {
+            const nama = tema2Nama.value;
+            const date = inputDate.value;
+            const main = getSelectedMainSlot();
+            const temaUtama = getTemaUtamaKode();
+
+            if (!nama) return;
+
+            // Filter by nama
+            Array.from(tema2Kode.options).forEach(opt => {
+                if (!opt.value) return;
+                opt.style.display = (opt.dataset.nama === nama) ? '' : 'none';
+            });
+
+            // Jangan boleh sama dengan tema utama
+            Array.from(tema2Kode.options).forEach(opt => {
+                if (opt.value === temaUtama) {
+                    opt.disabled = true;
+                    opt.classList.add('unavail');
+                }
+            });
+
+            if (!date || !main) return;
+
+            const url = new URL(API_TEMA_BY_NAME, location.origin);
+            url.searchParams.set('nama', nama);
+            url.searchParams.set('date', date);
+            url.searchParams.set('start', main.start);
+            url.searchParams.set('end', main.end);
+            url.searchParams.set('exclude_kode', temaUtama);
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            const unavailable = new Set(
+                data.filter(t => !t.available).map(t => t.kode)
+            );
+
+            Array.from(tema2Kode.options).forEach(opt => {
+                if (unavailable.has(opt.value)) {
+                    opt.disabled = true;
+                    opt.classList.add('unavail');
+                }
+            });
+        };
+
         const getSelectedAddons = () => {
             return Array.from(addonChecks)
                 .filter(ch => ch.checked)
@@ -946,49 +996,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateAddonPanels = () => {
             const slotAddon = getAddonSlot();
             const temaAddon = getAddonTema();
-            const mainSlot  = getSelectedMainSlot(); // ⬅️ ini kunci
+            const main = getSelectedMainSlot();
 
-            // ====== Kalau belum pilih slot utama ======
-            if (!mainSlot) {
-                // Matikan semua addon
+            // belum pilih slot utama → kunci addon
+            if (!main) {
                 addonChecks.forEach(ch => ch.checked = false);
-
-                // Tutup panel addon
                 extraSlotWrap.style.display = 'none';
-                extraSlotList.innerHTML = '';
-
                 extraTemaWrap.style.display = 'none';
-                tema2Nama.value = '';
-                tema2Kode.value = '';
-
-                return; // STOP
+                return;
             }
 
-            // ====== SLOT TAMBAHAN ======
+            // slot addon
             if (slotAddon) {
                 extraSlotWrap.style.display = 'block';
                 loadExtraSlots(slotAddon.durasi);
             } else {
                 extraSlotWrap.style.display = 'none';
-                extraSlotList.innerHTML = '';
-
-                // Bersihkan hidden
-                modal.querySelector('[name="extra_slot_code"]').value = '';
-                modal.querySelector('[name="extra_start_time"]').value = '';
-                modal.querySelector('[name="extra_end_time"]').value = '';
-                modal.querySelector('[name="extra_minutes"]').value = '';
             }
 
-            // ====== TEMA TAMBAHAN ======
+            // tema addon
             if (temaAddon) {
                 extraTemaWrap.style.display = 'block';
+                refreshTema2();
             } else {
                 extraTemaWrap.style.display = 'none';
-                tema2Nama.value = '';
-                tema2Kode.value = '';
-
-                modal.querySelector('[name="tema2_kode"]').value = '';
-                modal.querySelector('[name="tema2_nama"]').value = '';
             }
         };
 
@@ -1004,31 +1035,35 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         };
 
-        
 
         const loadExtraSlots = async (durasi) => {
             const date = inputDate.value;
             const main = getSelectedMainSlot();
             if (!date || !main) return;
 
-            url.searchParams.set('exclude', main.code);
-            url.searchParams.set('main_start', main.start);
-            url.searchParams.set('main_end', main.end);
-
             const url = new URL(API_SLOTS, location.origin);
             url.searchParams.set('date', date);
             url.searchParams.set('durasi', durasi);
-            url.searchParams.set('exclude', main);
+            url.searchParams.set('exclude', main.code);       // ⬅️ kode slot utama
+            url.searchParams.set('main_start', main.start);  // ⬅️ supaya backend tahu overlap
+            url.searchParams.set('main_end', main.end);
 
             const res = await fetch(url);
             const data = await res.json();
 
-            extraSlotList.innerHTML = data.map(s => `
-                <label class="slot-item ${s.available ? '' : 'unavail'}">
-                    <input type="radio" name="slot_extra" value="${s.code}" data-time="${s.time}" ${s.available ? '' : 'disabled'}>
-                    <span>${s.time}</span>
-                </label>
-            `).join('');
+            extraSlotList.innerHTML = data.map(s => {
+                const disabled = !s.available || s.code === main.code;
+                return `
+                    <label class="slot-item ${disabled ? 'unavail' : ''}">
+                        <input type="radio"
+                            name="slot_extra"
+                            value="${s.code}"
+                            data-time="${s.time}"
+                            ${disabled ? 'disabled' : ''}>
+                        <span>${s.time}</span>
+                    </label>
+                `;
+            }).join('');
         };
 
         extraSlotList.addEventListener('change', e => {
@@ -1064,6 +1099,8 @@ document.addEventListener('DOMContentLoaded', () => {
         inputDate.addEventListener('change', loadSlots);
         selTemaNama?.addEventListener('change', refreshAdminTema);
         inputDate?.addEventListener('change', refreshAdminTema);
+        tema2Nama.addEventListener('change', refreshTema2);
+        selTemaKode.addEventListener('change', refreshTema2);
 
         // ===== MODAL =====
         const show = () => {
