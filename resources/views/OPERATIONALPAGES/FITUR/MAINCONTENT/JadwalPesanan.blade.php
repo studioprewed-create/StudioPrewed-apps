@@ -324,6 +324,9 @@
                 </div>
 
                 <!-- Hidden slot result -->
+                <input type="hidden" name="slot_code">
+                <input type="hidden" name="start_time">
+                <input type="hidden" name="end_time">
                 <input type="hidden" name="extra_slot_code">
                 <input type="hidden" name="extra_start_time">
                 <input type="hidden" name="extra_end_time">
@@ -343,7 +346,9 @@
                     <select id="tema_nama" name="tema_nama">
                         <option value="">-- pilih nama tema --</option>
                         @foreach($temas->groupBy('nama') as $nama => $list)
-                        <option value="{{ $nama }}">{{ $nama }}</option>
+                            <option value="{{ $list->first()->id }}">
+                                {{ $nama }}
+                            </option>
                         @endforeach
                     </select>
                     </div>
@@ -355,8 +360,7 @@
                         @foreach($temas as $t)
                         <option
                             value="{{ $t->kode }}"
-                            data-nama="{{ $t->nama }}"
-                            data-id="{{ $t->id }}">
+                            data-tema-id="{{ $t->id }}">
                             {{ $t->kode }} - {{ $t->nama }}
                         </option>
                         @endforeach

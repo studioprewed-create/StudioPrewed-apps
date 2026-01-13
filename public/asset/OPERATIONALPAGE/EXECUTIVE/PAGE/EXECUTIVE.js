@@ -737,13 +737,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const selTemaNama = modal.querySelector('#tema_nama');
         const selTemaKode = modal.querySelector('#tema_kode');
         const API_TEMA_BY_NAME = '/executive/api/tema-by-name';
-        const getAdminSlot = () => {
-        const start = startInp.value;
-        const end   = endInp.value;
-            if (!start || !end) return null;
-            return { start, end };
-        };
-
         const addonChecks      = modal.querySelectorAll('.addon-check');
         const extraSlotWrap   = modal.querySelector('#extraSlotWrapper');
         const extraSlotList   = modal.querySelector('#extraSlotList');
@@ -793,6 +786,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        const getAdminSlot = () => {
+            const input = modal.querySelector('input[name="slot_main"]:checked');
+            if (!input) return null;
+
+            const { start, end } = splitTimeRange(input.dataset.time || '');
+            if (!start || !end) return null;
+
+            return { start, end };
+        };
+
         // ===== RENDER SLOT (WAJIB LABEL + RADIO) =====
         const renderSlots = (slots) => {
             if (!slots.length) {
@@ -831,9 +834,10 @@ document.addEventListener('DOMContentLoaded', () => {
             endInp.value      = end;
 
             refreshAdminTema();
+            updateAddonPanels(); // ⬅ WAJIB
         });
 
-        const filterTemaKode = (selectKode, nama) => {
+        const filterTemaKode = (selectKode, temaId) => {
             if (!selectKode) return;
 
             const opts = Array.from(selectKode.options);
@@ -843,8 +847,8 @@ document.addEventListener('DOMContentLoaded', () => {
             opts.forEach((opt, i) => {
                 if (i === 0) return;
 
-                const optNama = opt.dataset.nama || '';
-                const show = nama && optNama === nama;
+                const optTemaId = opt.dataset.temaId;
+                const show = temaId && optTemaId === temaId;
 
                 opt.style.display = show ? '' : 'none';
                 if (show) anyVisible = true;
@@ -861,7 +865,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const slot = getAdminSlot();
 
             // Filter dulu by nama
-            filterTemaKode(selTemaKode, nama);
+            filterTemaKode(selTemaKode, selTemaNama.value);
 
             // Kalau belum lengkap, jangan disable apa pun
             if (!nama || !date || !slot) {
