@@ -349,7 +349,7 @@
                 <input type="hidden" name="extra_start_time">
                 <input type="hidden" name="extra_end_time">
                 <input type="hidden" name="extra_minutes">
-
+                <input type="hidden" name="photoshoot_slot">
                 <input type="hidden" name="tema2_kode">
                 <input type="hidden" name="tema2_nama">
 

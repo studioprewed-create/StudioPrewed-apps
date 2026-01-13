@@ -833,8 +833,11 @@ document.addEventListener('DOMContentLoaded', () => {
             startInp.value    = start;
             endInp.value      = end;
 
+            // 🔥 WAJIB: kirim ke backend
+            modal.querySelector('[name="photoshoot_slot"]').value = `${start} - ${end}`;
+
             refreshAdminTema();
-            updateAddonPanels(); // ⬅ WAJIB
+            updateAddonPanels();
         });
 
         const filterTemaKode = (selectKode, temaId) => {

@@ -1608,7 +1608,11 @@ class EXECUTIVEController extends Controller
                 if ($start && $end) {
                     $v['photoshoot_slot'] = $start . ' - ' . $end;
                 } else {
-                    $v['photoshoot_slot'] = $booking->photoshoot_slot; // fallback
+                    // fallback keras, jangan pernah NULL
+                    $v['photoshoot_slot'] = $booking->photoshoot_slot
+                        ?? ($booking->start_time && $booking->end_time
+                            ? substr($booking->start_time,0,5).' - '.substr($booking->end_time,0,5)
+                            : '00:00 - 00:00');
                 }
 
                 if ($start && $end && $end <= $start) {
