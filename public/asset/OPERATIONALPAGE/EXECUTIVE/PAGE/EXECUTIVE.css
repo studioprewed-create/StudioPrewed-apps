@@ -3181,6 +3181,168 @@ body.sp-body {
   margin-bottom: 18px;
 }
 
+.addon-section {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.addon-section h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f5f5f5;
+}
+
+.addon-section p {
+    margin-top: 4px;
+    color: rgba(255,255,255,.6);
+}
+
+/* ===============================
+   ADDON GRID
+================================ */
+.addons-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+    gap: 14px;
+}
+
+.addon-group h5 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,.7);
+    font-weight: 600;
+}
+
+/* ===============================
+   ADDON ITEM
+================================ */
+.addon-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.addon-item:hover {
+    border-color: rgba(99,102,241,.6);
+    background: rgba(99,102,241,.08);
+}
+
+/* checkbox */
+.addon-item input {
+    width: 18px;
+    height: 18px;
+    accent-color: #6366f1;
+    cursor: pointer;
+}
+
+/* name */
+.addon-item span {
+    flex: 1;
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+/* durasi */
+.addon-item small {
+    font-size: 12px;
+    color: rgba(255,255,255,.5);
+}
+
+/* harga */
+.addon-item b {
+    font-size: 13px;
+    font-weight: 600;
+    color: #a5b4fc;
+}
+
+/* ===============================
+   CHECKED STATE
+================================ */
+.addon-item input:checked + span,
+.addon-item input:checked ~ span {
+    color: #fff;
+}
+
+.addon-item:has(input:checked) {
+    border-color: #6366f1;
+    background: linear-gradient(
+        135deg,
+        rgba(99,102,241,.15),
+        rgba(99,102,241,.05)
+    );
+}
+
+/* ===============================
+   SLOT TAMBAHAN
+================================ */
+#extraSlotWrapper {
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(255,255,255,.15);
+}
+
+#extraSlotWrapper h4 {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #f5f5f5;
+}
+
+/* ===============================
+   TEMA TAMBAHAN
+================================ */
+#extraTemaWrapper {
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(255,255,255,.15);
+}
+
+#extraTemaWrapper h4 {
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #f5f5f5;
+}
+
+/* Grid tema tambahan */
+#extraTemaWrapper .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 16px;
+}
+
+#extraTemaWrapper select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(0,0,0,.5);
+    border: 1px solid rgba(255,255,255,.15);
+    color: #fff;
+}
+
+#extraTemaWrapper select:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media(max-width: 768px){
+    .addons-grid {
+        grid-template-columns: 1fr;
+    }
+    #extraTemaWrapper .grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* responsive */
 @media (max-width: 768px) {
   #bookingCreateModal .grid-3 {
