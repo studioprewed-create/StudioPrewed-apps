@@ -3043,6 +3043,119 @@ body.sp-body {
   color: var(--text-muted);
 }
 
+/* ============================================================
+   SLOT SYSTEM ISOLATION
+   ============================================================ */
+
+/* ====== DEFAULT RESET ====== */
+.slots-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.slot-item {
+  border-radius: 8px;
+  font-size: 13px;
+  padding: 10px 12px;
+  user-select: none;
+}
+
+
+/* ============================================================
+   1️⃣ SLOT DI JADWAL PESANAN (PAGE)
+   parent: .jp-scheduler
+   ============================================================ */
+
+.jp-scheduler .slots-grid {
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 8px;
+}
+
+.jp-scheduler .slot-item {
+  background: #f3f4f6;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  font-weight: 600;
+  text-align: center;
+  cursor: default;
+}
+
+.jp-scheduler .slot-item.slot-available {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.jp-scheduler .slot-item.slot-unavailable {
+  background: #fee2e2;
+  color: #991b1b;
+  opacity: .6;
+}
+
+
+/* ============================================================
+   2️⃣ SLOT DI BOOKING CREATE MODAL
+   parent: #bookingCreateModal
+   ============================================================ */
+
+#bookingCreateModal .slots-grid {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+#bookingCreateModal .slot-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.18);
+  color: var(--Brown);
+  cursor: pointer;
+
+  transition: all .25s ease;
+}
+
+#bookingCreateModal .slot-item:hover {
+  background: rgba(255,255,255,.12);
+  transform: translateY(-1px);
+}
+
+#bookingCreateModal .slot-item.active {
+  border-color: var(--sp-primary);
+  background: linear-gradient(
+    135deg,
+    rgba(61,56,255,.25),
+    rgba(61,56,255,.15)
+  );
+  box-shadow: 0 0 0 2px rgba(61,56,255,.35);
+}
+
+#bookingCreateModal .slot-item.unavail {
+  opacity: .4;
+  cursor: not-allowed;
+  background: rgba(255,255,255,.03);
+}
+
+#bookingCreateModal .slot-item small {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+
+/* ============================================================
+   3️⃣ Lindungi slot di modal detail (kalau suatu saat ada)
+   ============================================================ */
+
+#bookingModal .slots-grid {
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+#bookingModal .slot-item {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--text);
+}
 
 
 @media (max-width: 768px) {
