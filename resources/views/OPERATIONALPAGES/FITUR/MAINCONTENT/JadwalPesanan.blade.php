@@ -221,17 +221,19 @@
         </div>
 
     <div class="custom-modal-backdrop" id="bookingCreateBackdrop"></div>
+
         <div class="custom-modal" id="bookingCreateModal" aria-hidden="true">
         <div class="modal-content modal-xl">
 
+            <!-- ================= HEADER ================= -->
             <div class="modal-header">
             <h5>Booking Baru</h5>
-            <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate">
-                ✕
-            </button>
+            <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate">✕</button>
             </div>
 
+            <!-- ================= BODY ================= -->
             <div class="modal-body">
+
             <form method="POST"
                 action="{{ route('executive.homepages.store', ['section' => 'bookingexecutive']) }}">
                 @csrf
@@ -240,125 +242,133 @@
 
                 <h2>Form Booking Prewed (Admin)</h2>
 
+                <!-- ================= CPP & CPW ================= -->
                 <div class="grid-2">
                     <div class="card-section">
-                        <h4>CPP</h4>
+                    <h4>CPP</h4>
+                    <label>Nama</label>
+                    <input name="nama_cpp" required>
 
-                        <label>Nama</label>
-                        <input name="nama_cpp" required>
+                    <label>Email</label>
+                    <input name="email_cpp" type="email">
 
-                        <label>Email</label>
-                        <input name="email_cpp" type="email">
+                    <label>No. Telp</label>
+                    <input name="phone_cpp" required>
 
-                        <label>No. Telp</label>
-                        <input name="phone_cpp" required>
+                    <label>Alamat</label>
+                    <input name="alamat_cpp">
 
-                        <label>Alamat</label>
-                        <input name="alamat_cpp">
+                    <label>Instagram</label>
+                    <input name="ig_cpp">
 
-                        <label>Instagram</label>
-                        <input name="ig_cpp">
-
-                        <label>TikTok</label>
-                        <input name="tiktok_cpp">
+                    <label>TikTok</label>
+                    <input name="tiktok_cpp">
                     </div>
+
                     <div class="card-section">
-                        <h4>CPW</h4>
+                    <h4>CPW</h4>
+                    <label>Nama</label>
+                    <input name="nama_cpw" required>
 
-                        <label>Nama</label>
-                        <input name="nama_cpw" required>
+                    <label>Email</label>
+                    <input name="email_cpw" type="email">
 
-                        <label>Email</label>
-                        <input name="email_cpw" type="email">
+                    <label>No. Telp</label>
+                    <input name="phone_cpw" required>
 
-                        <label>No. Telp</label>
-                        <input name="phone_cpw" required>
+                    <label>Alamat</label>
+                    <input name="alamat_cpw">
 
-                        <label>Alamat</label>
-                        <input name="alamat_cpw">
+                    <label>Instagram</label>
+                    <input name="ig_cpw">
 
-                        <label>Instagram</label>
-                        <input name="ig_cpw">
-
-                        <label>TikTok</label>
-                        <input name="tiktok_cpw">
+                    <label>TikTok</label>
+                    <input name="tiktok_cpw">
                     </div>
                 </div>
 
+                <!-- ================= DETAIL BOOKING ================= -->
                 <h4 class="section-title">Detail Booking</h4>
 
                 <label>Paket</label>
-                    <select name="package_id" id="package_id" required>
-                        <option value="">-- pilih paket --</option>
-                        @foreach($packages as $pkg)
-                            <option
-                                value="{{ $pkg->id }}"
-                                data-durasi="{{ (int) $pkg->durasi }}"
-                            >
-                                {{ $pkg->nama_paket }} ({{ (int) $pkg->durasi }} menit)
-                            </option>
-                        @endforeach
+                <select name="package_id" id="package_id" required>
+                    <option value="">-- pilih paket --</option>
+                    @foreach($packages as $pkg)
+                    <option value="{{ $pkg->id }}" data-durasi="{{ (int) $pkg->durasi }}">
+                        {{ $pkg->nama_paket }} ({{ (int) $pkg->durasi }} menit)
+                    </option>
+                    @endforeach
+                </select>
+
+                <div class="grid-2">
+                    <div>
+                    <label>Tanggal Photoshoot</label>
+                    <input type="date" name="photoshoot_date" id="photoshoot_date"
+                            min="{{ now()->toDateString() }}" required>
+                    </div>
+
+                    <div>
+                    <label>Style</label>
+                    <select name="style" id="style" required>
+                        <option value="">-- pilih style --</option>
+                        <option value="Hijab">Hijab</option>
+                        <option value="HairDo">HairDo</option>
                     </select>
-
-                    <!-- TANGGAL & STYLE -->
-                    <div class="grid-2">
-                        <div>
-                            <label>Tanggal Photoshoot</label>
-                            <input
-                                type="date"
-                                name="photoshoot_date"
-                                id="photoshoot_date"
-                                min="{{ now()->toDateString() }}"
-                                required
-                            >
-                        </div>
-
-                        <div>
-                            <label>Style</label>
-                            <select name="style" id="style" required>
-                                <option value="">-- pilih style --</option>
-                                <option value="Hijab">Hijab</option>
-                                <option value="HairDo">HairDo</option>
-                            </select>
-                        </div>
                     </div>
-
-                    <!-- SLOT -->
-                    <label>Pilih Slot Waktu</label>
-                    <div id="slotList" class="slots-grid">
-                        <p style="opacity:.7">
-                            Pilih paket & tanggal untuk melihat slot.
-                        </p>
-                    </div>
-
-                    <!-- SLOT RESULT (DIISI JS) -->
-                    <input type="hidden" name="slot_code">
-                    <input type="hidden" name="start_time">
-                    <input type="hidden" name="end_time">
-
-                    <!-- TEMA HARUS DI DALAM FORM -->
-                    <label>Tema Baju Utama (opsional)</label>
-                    <div class="grid-3">
-                        <div>
-                            <label>Nama Tema</label>
-                            <select id="tema_nama">...</select>
-                        </div>
-                        <div>
-                            <label>Kode Tema</label>
-                            <select id="tema_kode" disabled>...</select>
-                        </div>
-                    </div>
-
                 </div>
 
-            <div class="modal-footer">
-            <button class="btn btn-primary"
-                onclick="this.closest('.modal-content').querySelector('form').submit()">
-                Simpan Booking
-            </button>
-            <button class="btn btn-secondary" id="btnCloseBookingCreate2">Tutup</button>
-            </div>
-            
+                <!-- ================= SLOT ================= -->
+                <label>Pilih Slot Waktu</label>
+                <div id="slotList" class="slots-grid">
+                    <p style="opacity:.7">Pilih paket & tanggal untuk melihat slot.</p>
+                </div>
+
+                <!-- Hidden slot result -->
+                <input type="hidden" name="slot_code">
+                <input type="hidden" name="start_time">
+                <input type="hidden" name="end_time">
+
+                <!-- ================= TEMA ================= -->
+                <h4 class="section-title">Tema Baju Utama (opsional)</h4>
+
+                <div class="grid-2">
+                    <div>
+                    <label>Nama Tema</label>
+                    <select id="tema_nama" name="tema_nama">
+                        <option value="">-- pilih nama tema --</option>
+                        @foreach($temas->groupBy('nama') as $nama => $list)
+                        <option value="{{ $nama }}">{{ $nama }}</option>
+                        @endforeach
+                    </select>
+                    </div>
+
+                    <div>
+                    <label>Kode Tema</label>
+                    <select id="tema_kode" name="tema_kode" disabled>
+                        <option value="">-- pilih kode tema --</option>
+                        @foreach($temas as $t)
+                        <option
+                            value="{{ $t->kode }}"
+                            data-nama="{{ $t->nama }}"
+                            data-id="{{ $t->id }}">
+                            {{ $t->kode }} - {{ $t->nama }}
+                        </option>
+                        @endforeach
+                    </select>
+                    </div>
+                </div>
+
+                </div><!-- /booking-container -->
+
+                <!-- ================= FOOTER (DI DALAM FORM) ================= -->
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Simpan Booking</button>
+                <button type="button" class="btn btn-secondary" id="btnCloseBookingCreate2">Tutup</button>
+                </div>
+
+            </form>
+            </div><!-- /modal-body -->
+
         </div>
         </div>
     <div class="custom-modal-backdrop" id="bookingEditBackdrop"></div>
