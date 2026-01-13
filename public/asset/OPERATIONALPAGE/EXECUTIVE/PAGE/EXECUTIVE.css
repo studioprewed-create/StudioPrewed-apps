@@ -3157,6 +3157,36 @@ body.sp-body {
   color: var(--text);
 }
 
+#bookingCreateModal #tema_nama,
+#bookingCreateModal #tema_kode {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.2);
+  color: var(--text);
+}
+
+#bookingCreateModal #tema_kode:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+#bookingCreateModal #tema_kode option.unavail {
+  color: #f56565;
+  background: rgba(245, 101, 101, 0.15);
+}
+
+#bookingCreateModal .grid-3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  margin-bottom: 18px;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  #bookingCreateModal .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media (max-width: 768px) {
     .booking-modal,
