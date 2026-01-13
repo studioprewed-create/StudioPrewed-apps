@@ -378,7 +378,8 @@
                         @foreach($temas as $t)
                         <option
                             value="{{ $t->kode }}"
-                            data-tema-id="{{ $t->id }}">
+                            data-tema-id="{{ $t->id }}"
+                            data-nama="{{ $t->nama }}">
                             {{ $t->kode }} - {{ $t->nama }}
                         </option>
                         @endforeach
