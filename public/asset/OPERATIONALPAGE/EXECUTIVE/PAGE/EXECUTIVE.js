@@ -1384,20 +1384,68 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const openModal = (ds) => {
+            // === KODE & STATUS ===
             setText('b_kode',   ds.kode);
             setText('b_status', ds.status);
-            setText('b_paket',  ds.paket);
-            setText('b_style',  ds.style);
-            setText('b_tanggal',ds.tanggal);
-            setText('b_slot',   ds.slot);
-            setText('b_cpp',    ds.cpp);
-            setText('b_cpw',    ds.cpw);
-            setText('b_tema',   ds.tema);
-            setText('b_tema2',  ds.tema2);
-            setText('b_addon',  ds.addon);
-            setText('b_total',  ds.total);
-            setText('b_notes',  ds.notes);
 
+            // === PAKET ===
+            setText('b_paket', ds.paket);
+            setText('b_package_price', ds.packagePrice);
+
+            // === STYLE & WEDDING ===
+            setText('b_style', ds.style);
+            setText('b_wedding', ds.wedding);
+
+            // === TANGGAL & SLOT ===
+            setText('b_tanggal', ds.dateLabel);
+            setText('b_slot', ds.slot);
+            setText('b_slot_code', ds.slotCode);
+            setText('b_start', ds.start);
+            setText('b_end', ds.end);
+
+            // === SLOT TAMBAHAN ===
+            setText('b_extra_slot', ds.extraSlot);
+            setText('b_extra_slot_code', ds.extraSlotCode);
+            setText('b_extra_start', ds.extraStart);
+            setText('b_extra_end', ds.extraEnd);
+            setText('b_extra_minutes', ds.extraMinutes);
+
+            // === CPP ===
+            setText('b_cpp', ds.cpp);
+            setText('b_email_cpp', ds.emailCpp);
+            setText('b_phone_cpp', ds.phoneCpp);
+            setText('b_alamat_cpp', ds.alamatCpp);
+            setText('b_ig_cpp', ds.igCpp);
+            setText('b_tiktok_cpp', ds.tiktokCpp);
+
+            // === CPW ===
+            setText('b_cpw', ds.cpw);
+            setText('b_email_cpw', ds.emailCpw);
+            setText('b_phone_cpw', ds.phoneCpw);
+            setText('b_alamat_cpw', ds.alamatCpw);
+            setText('b_ig_cpw', ds.igCpw);
+            setText('b_tiktok_cpw', ds.tiktokCpw);
+
+            // === TEMA UTAMA ===
+            setText('b_tema', `${ds.temaKode || ''} — ${ds.temaNama || ''}`);
+            setText('b_tema_id', ds.temaId);
+
+            // === TEMA TAMBAHAN ===
+            setText('b_tema2', `${ds.tema2Kode || ''} — ${ds.tema2Nama || ''}`);
+            setText('b_tema2_id', ds.tema2Id);
+
+            // === HARGA ===
+            setText('b_addons', ds.addonsLabel);
+            setText('b_total', ds.totalLabel);
+
+            // === RAW NUMERIC (optional admin) ===
+            setText('b_addons_raw', ds.addonsTotal);
+            setText('b_grand_raw', ds.grandTotal);
+
+            // === CATATAN ===
+            setText('b_notes', ds.notes);
+
+            // === SHOW MODAL ===
             backdrop.classList.add('show');
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');

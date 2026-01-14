@@ -95,19 +95,64 @@
                 <div class="order-actions">
                     <button
                         class="action-btn btn-view js-open-booking-modal"
-                        data-kode="{{ $booking->kode_pesanan }}"
-                        data-status="{{ ucfirst($booking->status) }}"
-                        data-paket="{{ $booking->package->nama_paket ?? '-' }}"
-                        data-style="{{ $booking->style ?? '-' }}"
-                        data-tanggal="{{ $booking->photoshoot_date->format('d F Y') }}"
-                        data-slot="{{ $booking->photoshoot_slot }}"
                         data-cpp="{{ $booking->nama_cpp }}"
                         data-cpw="{{ $booking->nama_cpw }}"
-                        data-tema="{{ $booking->tema_nama }}"
-                        data-tema2="{{ $booking->tema2_nama ?? '-' }}"
-                        data-addon="{{ $booking->addons_total_formatted }}"
-                        data-total="{{ $booking->grand_total_formatted }}"
-                        data-notes="{{ $booking->notes ?? '-' }}"
+
+                        data-email-cpp="{{ $booking->email_cpp }}"
+                        data-email-cpw="{{ $booking->email_cpw }}"
+
+                        data-phone-cpp="{{ $booking->phone_cpp }}"
+                        data-phone-cpw="{{ $booking->phone_cpw }}"
+
+                        data-alamat-cpp="{{ $booking->alamat_cpp }}"
+                        data-alamat-cpw="{{ $booking->alamat_cpw }}"
+
+                        data-ig-cpp="{{ $booking->ig_cpp }}"
+                        data-ig-cpw="{{ $booking->ig_cpw }}"
+
+                        data-tiktok-cpp="{{ $booking->tiktok_cpp }}"
+                        data-tiktok-cpw="{{ $booking->tiktok_cpw }}"
+
+                        data-package-id="{{ $booking->package_id }}"
+                        data-paket="{{ $booking->package->nama_paket ?? '-' }}"
+                        data-package-price="{{ $booking->package_price }}"
+
+                        data-date="{{ $booking->photoshoot_date->format('Y-m-d') }}"
+                        data-date-label="{{ $booking->photoshoot_date->format('d F Y') }}"
+
+                        data-slot="{{ $booking->photoshoot_slot }}"
+                        data-slot-code="{{ $booking->slot_code }}"
+                        data-start="{{ $booking->start_time }}"
+                        data-end="{{ $booking->end_time }}"
+
+                        data-extra-slot-code="{{ $booking->extra_slot_code }}"
+                        data-extra-slot="{{ $booking->extra_photoshoot_slot }}"
+                        data-extra-start="{{ $booking->extra_start_time }}"
+                        data-extra-end="{{ $booking->extra_end_time }}"
+                        data-extra-minutes="{{ $booking->extra_minutes }}"
+
+                        data-tema-id="{{ $booking->tema_id }}"
+                        data-tema-kode="{{ $booking->tema_kode }}"
+                        data-tema-nama="{{ $booking->tema_nama }}"
+
+                        data-tema2-id="{{ $booking->tema2_id }}"
+                        data-tema2-kode="{{ $booking->tema2_kode }}"
+                        data-tema2-nama="{{ $booking->tema2_nama }}"
+
+                        data-style="{{ $booking->style }}"
+                        data-wedding="{{ optional($booking->wedding_date)->format('Y-m-d') }}"
+
+                        data-package-price="{{ $booking->package_price }}"
+                        data-addons-total="{{ $booking->addons_total }}"
+                        data-grand-total="{{ $booking->grand_total }}"
+
+                        data-addons-label="{{ $booking->addons_total_formatted }}"
+                        data-total-label="{{ $booking->grand_total_formatted }}"
+
+                        data-kode="{{ $booking->kode_pesanan }}"
+                        data-status="{{ $booking->status }}"
+
+                        data-notes="{{ $booking->notes }}"
                     >
                         Lihat Detail
                     </button>
@@ -150,65 +195,144 @@
 
                 <div class="modal-body">
                     <div class="form-grid-2">
-
                         <div class="form-group">
-                            <strong>Kode Pesanan</strong>
-                            <div id="b_kode"></div>
+                        <strong>Kode Pesanan</strong>
+                        <div id="b_kode"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Status</strong>
-                            <div id="b_status"></div>
+                        <strong>Status</strong>
+                        <div id="b_status"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                        <strong>CPP</strong>
+                        <div id="b_cpp"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Paket</strong>
-                            <div id="b_paket"></div>
+                        <strong>CPW</strong>
+                        <div id="b_cpw"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Style</strong>
-                            <div id="b_style"></div>
+                        <strong>Email CPP</strong>
+                        <div id="b_email_cpp"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Tanggal</strong>
-                            <div id="b_tanggal"></div>
+                        <strong>Email CPW</strong>
+                        <div id="b_email_cpw"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Slot</strong>
-                            <div id="b_slot"></div>
+                        <strong>Phone CPP</strong>
+                        <div id="b_phone_cpp"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>CPP</strong>
-                            <div id="b_cpp"></div>
+                        <strong>Phone CPW</strong>
+                        <div id="b_phone_cpw"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>CPW</strong>
-                            <div id="b_cpw"></div>
+                        <strong>Alamat CPP</strong>
+                        <div id="b_alamat_cpp"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Tema Utama</strong>
-                            <div id="b_tema"></div>
+                        <strong>Alamat CPW</strong>
+                        <div id="b_alamat_cpw"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Tema Tambahan</strong>
-                            <div id="b_tema2"></div>
+                        <strong>Instagram CPP</strong>
+                        <div id="b_ig_cpp"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Addon</strong>
-                            <div id="b_addon"></div>
+                        <strong>Instagram CPW</strong>
+                        <div id="b_ig_cpw"></div>
                         </div>
 
                         <div class="form-group">
-                            <strong>Total</strong>
-                            <div id="b_total"></div>
+                        <strong>TikTok CPP</strong>
+                        <div id="b_tiktok_cpp"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>TikTok CPW</strong>
+                        <div id="b_tiktok_cpw"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Style</strong>
+                        <div id="b_style"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Wedding Date</strong>
+                        <div id="b_wedding"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Paket</strong>
+                        <div id="b_paket"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Harga Paket</strong>
+                        <div id="b_package_price"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Tanggal Photoshoot</strong>
+                        <div id="b_tanggal"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Slot</strong>
+                        <div id="b_slot"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Slot Tambahan</strong>
+                        <div id="b_extra_slot"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Kode Slot Tambahan</strong>
+                        <div id="b_extra_slot_code"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Tema Utama</strong>
+                        <div id="b_tema"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Tema Tambahan</strong>
+                        <div id="b_tema2"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Total Addon</strong>
+                        <div id="b_addons"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Total Keseluruhan</strong>
+                        <div id="b_total"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Addon (raw)</strong>
+                        <div id="b_addons_raw"></div>
+                        </div>
+
+                        <div class="form-group">
+                        <strong>Grand Total (raw)</strong>
+                        <div id="b_grand_raw"></div>
                         </div>
 
                         <div class="form-group" style="grid-column:1/-1">
