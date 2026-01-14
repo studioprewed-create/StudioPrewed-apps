@@ -352,6 +352,8 @@
                 <input type="hidden" name="photoshoot_slot">
                 <input type="hidden" name="tema2_kode">
                 <input type="hidden" name="tema2_nama">
+                <input type="hidden" name="tema_id">
+                <input type="hidden" name="tema_nama_selected">
 
                 <div id="addonHiddenBag"></div>
 

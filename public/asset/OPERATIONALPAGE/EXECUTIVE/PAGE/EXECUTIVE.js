@@ -862,7 +862,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         selTemaKode.addEventListener('change', () => {
             const opt = selTemaKode.selectedOptions[0];
-            modal.querySelector('[name="tema_id"]').value = opt?.dataset.temaId || '';
+            if (!opt || !opt.value) return;
+
+            // ID lama (supaya sistem lama tetap jalan)
+            modal.querySelector('[name="tema_id"]').value = opt.dataset.temaId || '';
+
+            // 🔥 Nama tema yang kamu mau simpan
+            modal.querySelector('[name="tema_nama_selected"]').value = opt.dataset.nama || '';
+        });
+
+        selTemaNama.addEventListener('change', () => {
+            modal.querySelector('[name="tema_nama_selected"]').value = selTemaNama.value;
         });
 
         const refreshAdminTema = async () => {
