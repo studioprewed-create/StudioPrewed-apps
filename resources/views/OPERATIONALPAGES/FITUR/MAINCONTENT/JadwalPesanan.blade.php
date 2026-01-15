@@ -325,16 +325,6 @@
                         <div id="b_total"></div>
                         </div>
 
-                        <div class="form-group">
-                        <strong>Addon (raw)</strong>
-                        <div id="b_addons_raw"></div>
-                        </div>
-
-                        <div class="form-group">
-                        <strong>Grand Total (raw)</strong>
-                        <div id="b_grand_raw"></div>
-                        </div>
-
                         <div class="form-group" style="grid-column:1/-1">
                             <strong>Catatan</strong>
                             <div id="b_notes"></div>
