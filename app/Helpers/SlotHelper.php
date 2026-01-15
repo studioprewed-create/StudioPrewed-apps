@@ -21,31 +21,26 @@ class SlotHelper
     ): array {
         // Mulai jam kerja, misal 10:00
         $startOfDay = Carbon::createFromTime(10, 0, 0);
-        $endOfDay   = Carbon::createFromTime(21, 0, 0); // 21:00
-        $totalMenit = $endOfDay->diffInMinutes($startOfDay); // 10:00 → 21:00
 
+        // Sampai jam berapa? Untuk 60m: 10–15, untuk 120m: 10–16 (sesuai logika lama)
         if ($durasiMenit === 60) {
             $prefix    = '00';
-            $totalSlot = intdiv($totalMenit, 60);   // 11 slot (10–21)
+            $totalSlot = 5; // 10–15
         } elseif ($durasiMenit === 120) {
             $prefix    = '01';
-            $totalSlot = intdiv($totalMenit, 120);  // 5 slot (10–21)
+            $totalSlot = 3; // 10–16
         } else {
-            $prefix    = '09';
-            $totalSlot = max(1, intdiv($totalMenit, $durasiMenit));
+            // fallback dinamis: 10:00–17:00
+            $prefix      = '09';
+            $totalMenit  = 7 * 60; // 7 jam
+            $totalSlot   = max(1, intdiv($totalMenit, $durasiMenit));
         }
-
-        
 
         $slots = [];
 
         for ($i = 1; $i <= $totalSlot; $i++) {
             $begin = $startOfDay->copy()->addMinutes(($i - 1) * $durasiMenit);
             $end   = $begin->copy()->addMinutes($durasiMenit);
-
-            if ($end->gt($endOfDay)) {
-                break; // jangan bikin slot lewat jam 21:00
-            }
 
             $slot = [
                 'code'      => $prefix . str_pad($i, 2, '0', STR_PAD_LEFT),
