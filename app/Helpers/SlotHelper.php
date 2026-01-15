@@ -19,21 +19,26 @@ class SlotHelper
         array $booked = [],
         int $kapasitas = 1
     ): array {
-        // Mulai jam kerja, misal 10:00
-        $startOfDay = Carbon::createFromTime(10, 0, 0);
 
-        // Sampai jam berapa? Untuk 60m: 10–15, untuk 120m: 10–16 (sesuai logika lama)
+        // Mulai jam kerja
+        $startOfDay = Carbon::createFromTime(10, 0, 0); // 10:00
+        $endOfDay   = Carbon::createFromTime(21, 0, 0); // 21:00
+
+        // =============================
+        // Tentukan total slot
+        // =============================
+        $totalMenit = $endOfDay->diffInMinutes($startOfDay);
+
         if ($durasiMenit === 60) {
             $prefix    = '00';
-            $totalSlot = 5; // 10–15
+            $totalSlot = intdiv($totalMenit, 60);   // 11 slot → 10:00 - 21:00
         } elseif ($durasiMenit === 120) {
             $prefix    = '01';
-            $totalSlot = 3; // 10–16
+            $totalSlot = intdiv($totalMenit, 120);  // 5 slot → 10:00 - 21:00
         } else {
-            // fallback dinamis: 10:00–17:00
-            $prefix      = '09';
-            $totalMenit  = 7 * 60; // 7 jam
-            $totalSlot   = max(1, intdiv($totalMenit, $durasiMenit));
+            // durasi custom (addon dll)
+            $prefix    = '09';
+            $totalSlot = max(1, intdiv($totalMenit, $durasiMenit));
         }
 
         $slots = [];
@@ -42,29 +47,32 @@ class SlotHelper
             $begin = $startOfDay->copy()->addMinutes(($i - 1) * $durasiMenit);
             $end   = $begin->copy()->addMinutes($durasiMenit);
 
+            // ❗ jangan bikin slot lewat jam 21:00
+            if ($end->gt($endOfDay)) {
+                break;
+            }
+
             $slot = [
                 'code'      => $prefix . str_pad($i, 2, '0', STR_PAD_LEFT),
                 'time'      => $begin->format('H:i') . '-' . $end->format('H:i'),
                 'available' => true,
             ];
 
-            // Hitung berapa booking yang overlap dengan slot ini
+            // =============================
+            // Hitung overlap kapasitas
+            // =============================
             $overlapCount = 0;
-
             $checkPoints = [$begin, $end];
 
             foreach ($checkPoints as $point) {
                 $active = 0;
 
                 foreach ($booked as $b) {
-                    if (empty($b['start']) || empty($b['end'])) {
-                        continue;
-                    }
+                    if (empty($b['start']) || empty($b['end'])) continue;
 
                     $bStart = Carbon::createFromFormat('H:i', substr($b['start'], 0, 5));
                     $bEnd   = Carbon::createFromFormat('H:i', substr($b['end'],   0, 5));
 
-                    // booking aktif di titik waktu ini?
                     if ($point->gte($bStart) && $point->lt($bEnd)) {
                         $active++;
                     }
