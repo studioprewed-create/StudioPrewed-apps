@@ -25,14 +25,14 @@ class SlotHelper
         // Sampai jam berapa? Untuk 60m: 10–15, untuk 120m: 10–16 (sesuai logika lama)
         if ($durasiMenit === 60) {
             $prefix    = '00';
-            $totalSlot = 5; // 10–15
+            $totalSlot = 11; // 10–15
         } elseif ($durasiMenit === 120) {
             $prefix    = '01';
-            $totalSlot = 3; // 10–16
+            $totalSlot = 5; // 10–16
         } else {
             // fallback dinamis: 10:00–17:00
             $prefix      = '09';
-            $totalMenit  = 7 * 60; // 7 jam
+            $totalMenit  = 11 * 60; // 7 jam
             $totalSlot   = max(1, intdiv($totalMenit, $durasiMenit));
         }
 
@@ -51,7 +51,10 @@ class SlotHelper
             // Hitung berapa booking yang overlap dengan slot ini
             $overlapCount = 0;
 
-            $checkPoints = [$begin, $end];
+            $checkPoints = [
+                $begin->copy()->addMinute(),
+                $end->copy()->subMinute()
+            ];
 
             foreach ($checkPoints as $point) {
                 $active = 0;
