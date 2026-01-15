@@ -435,8 +435,7 @@
                 <div class="grid-2">
                     <div>
                     <label>Tanggal Photoshoot</label>
-                    <input type="date" name="photoshoot_date" id="photoshoot_date"
-                            min="{{ now()->toDateString() }}" required>
+                    <input type="date"name="photoshoot_date"id="photoshoot_date" required>
                     </div>
 
                     <div>
