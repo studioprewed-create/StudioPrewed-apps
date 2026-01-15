@@ -19,27 +19,23 @@ class SlotHelper
         array $booked = [],
         int $kapasitas = 1
     ): array {
-
-        // Mulai jam kerja
-        $startOfDay = Carbon::createFromTime(10, 0, 0); // 10:00
+        // Mulai jam kerja, misal 10:00
+        $startOfDay = Carbon::createFromTime(10, 0, 0);
         $endOfDay   = Carbon::createFromTime(21, 0, 0); // 21:00
-
-        // =============================
-        // Tentukan total slot
-        // =============================
-        $totalMenit = $endOfDay->diffInMinutes($startOfDay);
+        $totalMenit = $endOfDay->diffInMinutes($startOfDay); // 10:00 → 21:00
 
         if ($durasiMenit === 60) {
             $prefix    = '00';
-            $totalSlot = intdiv($totalMenit, 60);   // 11 slot → 10:00 - 21:00
+            $totalSlot = intdiv($totalMenit, 60);   // 11 slot (10–21)
         } elseif ($durasiMenit === 120) {
             $prefix    = '01';
-            $totalSlot = intdiv($totalMenit, 120);  // 5 slot → 10:00 - 21:00
+            $totalSlot = intdiv($totalMenit, 120);  // 5 slot (10–21)
         } else {
-            // durasi custom (addon dll)
             $prefix    = '09';
             $totalSlot = max(1, intdiv($totalMenit, $durasiMenit));
         }
+
+        
 
         $slots = [];
 
@@ -47,9 +43,8 @@ class SlotHelper
             $begin = $startOfDay->copy()->addMinutes(($i - 1) * $durasiMenit);
             $end   = $begin->copy()->addMinutes($durasiMenit);
 
-            // ❗ jangan bikin slot lewat jam 21:00
             if ($end->gt($endOfDay)) {
-                break;
+                break; // jangan bikin slot lewat jam 21:00
             }
 
             $slot = [
@@ -58,21 +53,23 @@ class SlotHelper
                 'available' => true,
             ];
 
-            // =============================
-            // Hitung overlap kapasitas
-            // =============================
+            // Hitung berapa booking yang overlap dengan slot ini
             $overlapCount = 0;
+
             $checkPoints = [$begin, $end];
 
             foreach ($checkPoints as $point) {
                 $active = 0;
 
                 foreach ($booked as $b) {
-                    if (empty($b['start']) || empty($b['end'])) continue;
+                    if (empty($b['start']) || empty($b['end'])) {
+                        continue;
+                    }
 
                     $bStart = Carbon::createFromFormat('H:i', substr($b['start'], 0, 5));
                     $bEnd   = Carbon::createFromFormat('H:i', substr($b['end'],   0, 5));
 
+                    // booking aktif di titik waktu ini?
                     if ($point->gte($bStart) && $point->lt($bEnd)) {
                         $active++;
                     }
