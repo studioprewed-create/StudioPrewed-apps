@@ -31,4 +31,9 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\BookingClient::class, 'user_id');
     }
 
+    public function dataDiriKaryawan()
+    {
+        return $this->hasOne(DataDiriKaryawan::class);
+    }
+
 }
