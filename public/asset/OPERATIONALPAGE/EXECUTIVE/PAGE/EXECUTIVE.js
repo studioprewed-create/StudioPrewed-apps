@@ -29,15 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!backdrop || !createModal || !editModal) return;
 
+        const lockBodyScroll = () => {
+            document.body.style.overflow = 'hidden';
+        };
+
+        const unlockBodyScroll = () => {
+            document.body.style.overflow = '';
+        };
+        
         const showModal = (modal) => {
             backdrop.classList.add('show');
             modal.classList.add('show');
+            lockBodyScroll(); // ⬅️ KUNCI SCROLL HALAMAN
+
+            const body = modal.querySelector('.modal-body');
+            if (body) body.scrollTop = 0;
         };
 
         const hideModals = () => {
             backdrop.classList.remove('show');
             createModal.classList.remove('show');
             editModal.classList.remove('show');
+            unlockBodyScroll(); // ⬅️ BALIKIN SCROLL HALAMAN
         };
 
         if (btnOpenCreate) {
