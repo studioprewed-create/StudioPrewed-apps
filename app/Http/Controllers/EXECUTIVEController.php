@@ -1450,20 +1450,12 @@ class EXECUTIVEController extends Controller
             }
             elseif ($section === 'user') {
                 $user = User::findOrFail($id);
-
-                // ===============================
-                // VALIDASI USER UTAMA
-                // ===============================
                 $request->validate([
-                    'name'  => 'required|string|max:255',
-                    'email' => 'required|email|unique:users,email,' . $user->id,
-                    'role'  => 'required|string',
+                    'name'     => 'required|string|max:255',
+                    'email'    => 'required|email|unique:users,email,' . $user->id,
+                    'role'     => 'required|string',
                     'password' => 'nullable|string|min:6|confirmed',
                 ]);
-
-                // ===============================
-                // UPDATE USER
-                // ===============================
                 $user->name  = $request->name;
                 $user->email = $request->email;
                 $user->role  = $request->role;
@@ -1473,39 +1465,41 @@ class EXECUTIVEController extends Controller
                 }
 
                 $user->save();
-
-                // =====================================================
-                // ================ CLIENT ==============================
-                // =====================================================
                 if ($user->role === 'CLIENT') {
 
-                    if ($request->has('data_diri')) {
+                    if ($request->filled('data_diri')) {
+
+                        $data = $request->input('data_diri');
+
+                        if (empty($data['nama'])) {
+                            $data['nama'] = $user->name;
+                        }
+
                         $user->dataDiri()->updateOrCreate(
                             ['user_id' => $user->id],
-                            $request->input('data_diri')
+                            $data
                         );
                     }
 
-                    // optional: hapus data karyawan jika role berubah
                     $user->dataDiriKaryawan()?->delete();
                 }
-
-                // =====================================================
-                // ================ NON CLIENT / KARYAWAN ===============
-                // =====================================================
                 else {
 
-                    if ($request->has('data_diri_karyawan')) {
+                    if ($request->filled('data_diri_karyawan')) {
+
+                        $data = $request->input('data_diri_karyawan');
+
+                        if (empty($data['nama_lengkap'])) {
+                            $data['nama_lengkap'] = $user->name;
+                        }
+
                         $user->dataDiriKaryawan()->updateOrCreate(
                             ['user_id' => $user->id],
-                            array_merge(
-                                $request->input('data_diri_karyawan'),
-                                ['role' => $user->role] // sinkron role
-                            )
+                            array_merge($data, [
+                                'role' => $user->role,
+                            ])
                         );
                     }
-
-                    // optional: hapus data client jika role berubah
                     $user->dataDiri()?->delete();
                 }
             }

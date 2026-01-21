@@ -25,6 +25,12 @@ class DataDiriKaryawan extends Model
         'tanggal_keluar',
     ];
 
+    protected $casts = [
+        'tanggal_lahir'  => 'date',
+        'tanggal_masuk'  => 'date',
+        'tanggal_keluar' => 'date',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
