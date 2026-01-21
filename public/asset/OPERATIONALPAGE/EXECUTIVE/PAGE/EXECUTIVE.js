@@ -46,20 +46,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelectorAll('.btn-edit-user').forEach(btn => {
             btn.onclick = () => {
+
                 const id    = btn.dataset.id;
                 const name  = btn.dataset.name;
                 const email = btn.dataset.email;
                 const role  = btn.dataset.role;
 
-                const form    = document.getElementById('editUserForm');
+                const form = document.getElementById('editUserForm');
                 if (!form) return;
 
-                const baseUrl = form.dataset.baseUrl;
+                // set action
+                form.action = `${form.dataset.baseUrl}/${id}`;
 
-                form.action = `${baseUrl}/${id}`;
-                document.getElementById('edit-name').value  = name;
-                document.getElementById('edit-email').value = email;
-                document.getElementById('edit-role').value  = role;
+                // ======================
+                // USER UTAMA
+                // ======================
+                document.getElementById('edit-name').value  = name || '';
+                document.getElementById('edit-email').value = email || '';
+                document.getElementById('edit-role').value  = role || '';
+
+                // ======================
+                // FORM WRAPPER
+                // ======================
+                const formClient   = document.getElementById('form-client');
+                const formKaryawan = document.getElementById('form-karyawan');
+
+                if (formClient)   formClient.style.display = 'none';
+                if (formKaryawan) formKaryawan.style.display = 'none';
+
+                // =================================================
+                // ================= CLIENT ========================
+                // =================================================
+                if (role === 'CLIENT') {
+                    if (formClient) formClient.style.display = 'block';
+
+                    document.getElementById('dd-nama').value               = btn.dataset.ddNama || '';
+                    document.getElementById('dd-phone').value              = btn.dataset.ddPhone || '';
+                    document.getElementById('dd-jk').value                 = btn.dataset.ddJk || '';
+                    document.getElementById('dd-tgl-lahir').value          = btn.dataset.ddTglLahir || '';
+                    document.getElementById('dd-tgl-nikah').value          = btn.dataset.ddTglNikah || '';
+
+                    document.getElementById('dd-nama-pasangan').value      = btn.dataset.ddNamaPasangan || '';
+                    document.getElementById('dd-phone-pasangan').value     = btn.dataset.ddPhonePasangan || '';
+                    document.getElementById('dd-jk-pasangan').value        = btn.dataset.ddJkPasangan || '';
+                    document.getElementById('dd-tgl-lahir-pasangan').value = btn.dataset.ddTglLahirPasangan || '';
+                }
+
+                // =================================================
+                // ================= KARYAWAN ======================
+                // =================================================
+                else {
+                    if (formKaryawan) formKaryawan.style.display = 'block';
+
+                    document.getElementById('ddk-nama').value              = btn.dataset.ddkNama || '';
+                    document.getElementById('ddk-tempat-lahir').value      = btn.dataset.ddkTempatLahir || '';
+                    document.getElementById('ddk-tanggal-lahir').value     = btn.dataset.ddkTanggalLahir || '';
+                    document.getElementById('ddk-jk').value                = btn.dataset.ddkJk || '';
+                    document.getElementById('ddk-status-nikah').value      = btn.dataset.ddkStatusNikah || '';
+                    document.getElementById('ddk-kewarganegaraan').value   = btn.dataset.ddkKewarganegaraan || '';
+                    document.getElementById('ddk-alamat').value            = btn.dataset.ddkAlamat || '';
+                    document.getElementById('ddk-no-hp').value             = btn.dataset.ddkNoHp || '';
+                    document.getElementById('ddk-status-karyawan').value   = btn.dataset.ddkStatusKaryawan || '';
+                    document.getElementById('ddk-tanggal-masuk').value     = btn.dataset.ddkTanggalMasuk || '';
+                    document.getElementById('ddk-tanggal-keluar').value    = btn.dataset.ddkTanggalKeluar || '';
+                }
 
                 showModal(editModal);
             };

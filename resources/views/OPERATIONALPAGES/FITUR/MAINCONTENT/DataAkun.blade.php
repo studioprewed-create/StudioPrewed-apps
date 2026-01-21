@@ -79,11 +79,22 @@
                                 <button
                                     type="button"
                                     class="btn btn-secondary btn-edit-user"
-                                    style="margin-right: 6px;"
                                     data-id="{{ $user->id }}"
                                     data-name="{{ $user->name }}"
                                     data-email="{{ $user->email }}"
                                     data-role="{{ $user->role }}"
+
+                                    data-ddk-nama="{{ $user->dataDiriKaryawan?->nama_lengkap ?? '' }}"
+                                    data-ddk-tempat-lahir="{{ $user->dataDiriKaryawan?->tempat_lahir ?? '' }}"
+                                    data-ddk-tanggal-lahir="{{ $user->dataDiriKaryawan?->tanggal_lahir?->format('Y-m-d') ?? '' }}"
+                                    data-ddk-jk="{{ $user->dataDiriKaryawan?->jenis_kelamin ?? '' }}"
+                                    data-ddk-status-nikah="{{ $user->dataDiriKaryawan?->status_pernikahan ?? '' }}"
+                                    data-ddk-kewarganegaraan="{{ $user->dataDiriKaryawan?->kewarganegaraan ?? '' }}"
+                                    data-ddk-alamat="{{ $user->dataDiriKaryawan?->alamat ?? '' }}"
+                                    data-ddk-no-hp="{{ $user->dataDiriKaryawan?->no_hp ?? '' }}"
+                                    data-ddk-status-karyawan="{{ $user->dataDiriKaryawan?->status_karyawan ?? '' }}"
+                                    data-ddk-tanggal-masuk="{{ $user->dataDiriKaryawan?->tanggal_masuk?->format('Y-m-d') ?? '' }}"
+                                    data-ddk-tanggal-keluar="{{ $user->dataDiriKaryawan?->tanggal_keluar?->format('Y-m-d') ?? '' }}"
                                 >
                                     <i class="fa fa-pen"></i> Edit
                                 </button>
@@ -140,11 +151,20 @@
                                 <button
                                     type="button"
                                     class="btn btn-secondary btn-edit-user"
-                                    style="margin-right: 6px;"
                                     data-id="{{ $user->id }}"
                                     data-name="{{ $user->name }}"
                                     data-email="{{ $user->email }}"
                                     data-role="{{ $user->role }}"
+
+                                    data-dd-nama="{{ $user->dataDiri?->nama ?? '' }}"
+                                    data-dd-phone="{{ $user->dataDiri?->phone ?? '' }}"
+                                    data-dd-jk="{{ $user->dataDiri?->jenis_kelamin ?? '' }}"
+                                    data-dd-tgl-lahir="{{ $user->dataDiri?->tanggal_lahir?->format('Y-m-d') ?? '' }}"
+                                    data-dd-tgl-nikah="{{ $user->dataDiri?->tanggal_pernikahan?->format('Y-m-d') ?? '' }}"
+                                    data-dd-nama-pasangan="{{ $user->dataDiri?->nama_pasangan ?? '' }}"
+                                    data-dd-phone-pasangan="{{ $user->dataDiri?->phone_pasangan ?? '' }}"
+                                    data-dd-jk-pasangan="{{ $user->dataDiri?->jenis_kelamin_pasangan ?? '' }}"
+                                    data-dd-tgl-lahir-pasangan="{{ $user->dataDiri?->tanggal_lahir_pasangan?->format('Y-m-d') ?? '' }}"
                                 >
                                     <i class="fa fa-pen"></i> Edit
                                 </button>
@@ -235,27 +255,35 @@
             <button type="button" class="btn btn-secondary" data-close-modal>&times;</button>
         </div>
 
-        <form id="editUserForm" method="POST" data-base-url="{{ url('executive/homepages/update/user') }}">
+        <form id="editUserForm" method="POST"
+              data-base-url="{{ url('executive/homepages/update/user') }}">
             @csrf
             @method('PUT')
+
             <div class="modal-body">
+
+                {{-- ================= USER UTAMA ================= --}}
                 <div class="mb-3">
                     <label>Nama</label>
-                    <input type="text" name="name" id="edit-name" class="form-control" required>
+                    <input type="text" name="name" id="edit-name"
+                           class="form-control" required>
                 </div>
+
                 <div class="mb-3">
                     <label>Email</label>
-                    <input type="email" name="email" id="edit-email" class="form-control" required>
+                    <input type="email" name="email" id="edit-email"
+                           class="form-control" required>
                 </div>
+
                 <div class="mb-3">
                     <label>Role</label>
-                    <select name="role" id="edit-role" class="form-control" required>
+                    <select name="role" id="edit-role"
+                            class="form-control" required>
                         <optgroup label="Executive">
                             <option value="DIREKTUR">DIREKTUR</option>
                             <option value="ADMIN">ADMIN</option>
                             <option value="ADMIN_EDITOR">ADMIN_EDITOR</option>
                         </optgroup>
-
                         <optgroup label="Teamtive">
                             <option value="ATTIRE">ATTIRE</option>
                             <option value="EDITOR">EDITOR</option>
@@ -263,25 +291,214 @@
                             <option value="VIDEOGRAFER">VIDEOGRAFER</option>
                             <option value="MAKE_UP">MAKE_UP</option>
                         </optgroup>
-
                         <optgroup label="Client">
                             <option value="CLIENT">CLIENT</option>
                         </optgroup>
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label>Password (opsional)</label>
-                    <input type="password" name="password" class="form-control">
+                    <input type="password" name="password"
+                           class="form-control">
                 </div>
+
                 <div class="mb-3">
                     <label>Konfirmasi Password</label>
-                    <input type="password" name="password_confirmation" class="form-control">
+                    <input type="password" name="password_confirmation"
+                           class="form-control">
                 </div>
+
+                {{-- ================================================= --}}
+                {{-- ================= DATA DIRI CLIENT =============== --}}
+                {{-- ================================================= --}}
+                <div id="form-client" style="display:none;">
+                    <hr>
+                    <h6>Data Diri Client</h6>
+
+                    <div class="mb-3">
+                        <label>Nama</label>
+                        <input type="text" id="dd-nama"
+                               name="data_diri[nama]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>No HP</label>
+                        <input type="text" id="dd-phone"
+                               name="data_diri[phone]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Jenis Kelamin</label>
+                        <select id="dd-jk"
+                                name="data_diri[jenis_kelamin]"
+                                class="form-control">
+                            <option value="">- Pilih -</option>
+                            <option value="laki-laki">Laki-laki</option>
+                            <option value="perempuan">Perempuan</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" id="dd-tgl-lahir"
+                               name="data_diri[tanggal_lahir]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tanggal Pernikahan</label>
+                        <input type="date" id="dd-tgl-nikah"
+                               name="data_diri[tanggal_pernikahan]"
+                               class="form-control">
+                    </div>
+
+                    <hr>
+                    <h6>Data Pasangan</h6>
+
+                    <div class="mb-3">
+                        <label>Nama Pasangan</label>
+                        <input type="text" id="dd-nama-pasangan"
+                               name="data_diri[nama_pasangan]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>No HP Pasangan</label>
+                        <input type="text" id="dd-phone-pasangan"
+                               name="data_diri[phone_pasangan]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Jenis Kelamin Pasangan</label>
+                        <select id="dd-jk-pasangan"
+                                name="data_diri[jenis_kelamin_pasangan]"
+                                class="form-control">
+                            <option value="">- Pilih -</option>
+                            <option value="laki-laki">Laki-laki</option>
+                            <option value="perempuan">Perempuan</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tanggal Lahir Pasangan</label>
+                        <input type="date" id="dd-tgl-lahir-pasangan"
+                               name="data_diri[tanggal_lahir_pasangan]"
+                               class="form-control">
+                    </div>
+                </div>
+
+                {{-- ================================================= --}}
+                {{-- ============== DATA DIRI KARYAWAN ================ --}}
+                {{-- ================================================= --}}
+                <div id="form-karyawan" style="display:none;">
+                    <hr>
+                    <h6>Data Diri Karyawan</h6>
+
+                    <div class="mb-3">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="ddk-nama"
+                               name="data_diri_karyawan[nama_lengkap]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tempat Lahir</label>
+                        <input type="text" id="ddk-tempat-lahir"
+                               name="data_diri_karyawan[tempat_lahir]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" id="ddk-tanggal-lahir"
+                               name="data_diri_karyawan[tanggal_lahir]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Jenis Kelamin</label>
+                        <select id="ddk-jk"
+                                name="data_diri_karyawan[jenis_kelamin]"
+                                class="form-control">
+                            <option value="">- Pilih -</option>
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Status Pernikahan</label>
+                        <select id="ddk-status-nikah"
+                                name="data_diri_karyawan[status_pernikahan]"
+                                class="form-control">
+                            <option value="">- Pilih -</option>
+                            <option value="Lajang">Lajang</option>
+                            <option value="Menikah">Menikah</option>
+                            <option value="Cerai">Cerai</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Kewarganegaraan</label>
+                        <input type="text" id="ddk-kewarganegaraan"
+                               name="data_diri_karyawan[kewarganegaraan]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Alamat</label>
+                        <textarea id="ddk-alamat"
+                                  name="data_diri_karyawan[alamat]"
+                                  class="form-control"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>No HP</label>
+                        <input type="text" id="ddk-no-hp"
+                               name="data_diri_karyawan[no_hp]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Status Karyawan</label>
+                        <select id="ddk-status-karyawan"
+                                name="data_diri_karyawan[status_karyawan]"
+                                class="form-control">
+                            <option value="">- Pilih -</option>
+                            <option value="Tetap">Tetap</option>
+                            <option value="Kontrak">Kontrak</option>
+                            <option value="Magang">Magang</option>
+                            <option value="Freelance">Freelance</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tanggal Masuk</label>
+                        <input type="date" id="ddk-tanggal-masuk"
+                               name="data_diri_karyawan[tanggal_masuk]"
+                               class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tanggal Keluar</label>
+                        <input type="date" id="ddk-tanggal-keluar"
+                               name="data_diri_karyawan[tanggal_keluar]"
+                               class="form-control">
+                    </div>
+                </div>
+
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-close-modal>Batal</button>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-close-modal>Batal</button>
+                <button type="submit"
+                        class="btn btn-primary">Update</button>
             </div>
         </form>
     </div>

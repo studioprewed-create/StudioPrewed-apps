@@ -26,6 +26,7 @@ use App\Models\BookingClient;
 use App\Models\Addon;
 use App\Models\BookingAddon;
 use App\Models\DataDiri;
+use App\Models\DataDiriKaryawan;
 
 class EXECUTIVEController extends Controller
 {
@@ -1450,24 +1451,63 @@ class EXECUTIVEController extends Controller
             elseif ($section === 'user') {
                 $user = User::findOrFail($id);
 
+                // ===============================
+                // VALIDASI USER UTAMA
+                // ===============================
                 $request->validate([
                     'name'  => 'required|string|max:255',
-                    'email' => 'required|string|email|unique:users,email,'. $user->id,
+                    'email' => 'required|email|unique:users,email,' . $user->id,
                     'role'  => 'required|string',
+                    'password' => 'nullable|string|min:6|confirmed',
                 ]);
 
+                // ===============================
+                // UPDATE USER
+                // ===============================
                 $user->name  = $request->name;
                 $user->email = $request->email;
                 $user->role  = $request->role;
 
                 if ($request->filled('password')) {
-                    $request->validate([
-                        'password' => 'string|min:6|confirmed',
-                    ]);
                     $user->password = Hash::make($request->password);
                 }
 
                 $user->save();
+
+                // =====================================================
+                // ================ CLIENT ==============================
+                // =====================================================
+                if ($user->role === 'CLIENT') {
+
+                    if ($request->has('data_diri')) {
+                        $user->dataDiri()->updateOrCreate(
+                            ['user_id' => $user->id],
+                            $request->input('data_diri')
+                        );
+                    }
+
+                    // optional: hapus data karyawan jika role berubah
+                    $user->dataDiriKaryawan()?->delete();
+                }
+
+                // =====================================================
+                // ================ NON CLIENT / KARYAWAN ===============
+                // =====================================================
+                else {
+
+                    if ($request->has('data_diri_karyawan')) {
+                        $user->dataDiriKaryawan()->updateOrCreate(
+                            ['user_id' => $user->id],
+                            array_merge(
+                                $request->input('data_diri_karyawan'),
+                                ['role' => $user->role] // sinkron role
+                            )
+                        );
+                    }
+
+                    // optional: hapus data client jika role berubah
+                    $user->dataDiri()?->delete();
+                }
             }
             elseif ($section === 'temabaju') {
                 $item = TemaBaju::findOrFail($id);
@@ -2190,7 +2230,7 @@ class EXECUTIVEController extends Controller
                 return $this->loadContent($request, $page);
             }
             if ($page === 'DataAkun') {
-                $users = User::all();
+                $users = User::with(['dataDiri', 'dataDiriKaryawan'])->get();
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
                     'users' => $users,
@@ -2316,7 +2356,7 @@ class EXECUTIVEController extends Controller
     public function loadContent(Request $request, $page)
         {
             if ($page === 'DataAkun') {
-                $users = User::all();
+                $users = User::with(['dataDiri', 'dataDiriKaryawan'])->get();
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('users'));
             }
             if ($page === 'Catalogue') {
@@ -2506,7 +2546,7 @@ class EXECUTIVEController extends Controller
         {
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
                 if ($page === 'DataAkun') {
-                    $users = User::all();
+                    $users = User::with(['dataDiri', 'dataDiriKaryawan'])->get();
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page'  => $page,
                         'users' => $users,
