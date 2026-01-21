@@ -647,13 +647,71 @@ body {
 /* Badge aktif */
 .role-badge {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
 }
+
 .badge-active   { background: rgba(72,187,120,.15); color: #48bb78; }
 .badge-inactive { background: rgba(245,101,101,.15); color: #f56565; }
+
+.role-admin {
+  background: rgba(66,153,225,.15);
+  color: #63b3ed;
+  border-color: rgba(66,153,225,.35);
+}
+
+.role-direktur {
+  background: rgba(255,214,0,.15);
+  color: #ffd600;
+  border-color: rgba(255,214,0,.35);
+}
+
+.role-admin_editor {
+  background: rgba(0,199,190,.15);
+  color: #00c7be;
+  border-color: rgba(0,199,190,.35);
+}
+
+.role-editor {
+  background: rgba(114,9,183,.15);
+  color: #c084fc;
+  border-color: rgba(114,9,183,.35);
+}
+
+.role-photografer {
+  background: rgba(48,209,88,.15);
+  color: #30d158;
+  border-color: rgba(48,209,88,.35);
+}
+
+.role-videografer {
+  background: rgba(255,159,10,.15);
+  color: #ff9f0a;
+  border-color: rgba(255,159,10,.35);
+}
+
+.role-make_up {
+  background: rgba(255,55,95,.15);
+  color: #ff375f;
+  border-color: rgba(255,55,95,.35);
+}
+
+.role-attire {
+  background: rgba(191,90,242,.15);
+  color: #bf5af2;
+  border-color: rgba(191,90,242,.35);
+}
+
+.role-client {
+  background: rgba(160,174,192,.15);
+  color: #a0aec0;
+  border-color: rgba(160,174,192,.35);
+}
 
 /* Chips meta */
 .chips {
@@ -3717,17 +3775,6 @@ body.sp-body {
     border-radius: 20px;
     display: inline-block;
 }
-
-
-.role-admin { background: rgba(66, 153, 225, 0.1); color: var(--info); }
-.role-editor { background: rgba(114, 9, 183, 0.1); color: #7209b7; }
-.role-photographer { background: rgba(48, 209, 88, 0.1); color: #30d158; }
-.role-videographer { background: rgba(255, 159, 10, 0.1); color: #ff9f0a; }
-.role-makeup { background: rgba(255, 55, 95, 0.1); color: #ff375f; }
-.role-designer { background: rgba(191, 90, 242, 0.1); color: #bf5af2; }
-.role-lead-editor { background: rgba(0, 199, 190, 0.1); color: #00c7be; }
-.role-director { background: rgba(255, 214, 0, 0.1); color: #ffd600; }
-
 
 /* Legend */
 .role-legend {
