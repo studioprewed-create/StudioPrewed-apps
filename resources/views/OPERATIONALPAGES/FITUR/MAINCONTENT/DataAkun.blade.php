@@ -313,8 +313,6 @@
                     {{-- ================= DATA DIRI CLIENT =============== --}}
                     {{-- ================================================= --}}
                     <div id="form-client" style="display:none;">
-                        <hr>
-                        <h6>Data Diri Client</h6>
 
                         <div class="mb-3">
                             <label>Nama</label>
@@ -355,9 +353,6 @@
                                 class="form-control">
                         </div>
 
-                        <hr>
-                        <h6>Data Pasangan</h6>
-
                         <div class="mb-3">
                             <label>Nama Pasangan</label>
                             <input type="text" id="dd-nama-pasangan"
@@ -395,8 +390,6 @@
                     {{-- ============== DATA DIRI KARYAWAN ================ --}}
                     {{-- ================================================= --}}
                     <div id="form-karyawan" style="display:none;">
-                        <hr>
-                        <h6>Data Diri Karyawan</h6>
 
                         <div class="mb-3">
                             <label>Nama Lengkap</label>
