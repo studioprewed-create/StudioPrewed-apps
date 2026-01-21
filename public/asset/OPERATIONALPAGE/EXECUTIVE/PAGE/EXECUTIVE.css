@@ -3430,6 +3430,397 @@ body.sp-body {
     cursor: not-allowed;
 }
 
+.welcome-section {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+
+.welcome-section h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.welcome-section p {
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+
+.see-all {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+
+.see-all:hover {
+    color: var(--secondary);
+    transform: translateX(5px);
+}
+
+
+.see-all i {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+
+/* Filter Section */
+.filter-section {
+    background: linear-gradient(135deg, var(--dark-light), var(--darker));
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.filter-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+
+.filter-controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+
+.date-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.date-filter label {
+    font-size: 14px;
+    color: var(--text-muted);
+    min-width: 100px;
+}
+
+
+.date-input {
+    background: var(--darker);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: var(--text);
+    font-size: 14px;
+    min-width: 180px;
+    transition: all 0.3s ease;
+}
+
+
+.date-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.3);
+}
+
+
+.filter-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+}
+
+
+/* Schedule Table */
+.schedule-container {
+    background: linear-gradient(135deg, var(--dark-light), var(--darker));
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+.schedule-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.week-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.week-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--text);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.week-btn:hover {
+    background: var(--primary);
+}
+
+
+.current-week {
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 200px;
+    text-align: center;
+}
+
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+
+.schedule-table th {
+    background: rgba(124, 58, 237, 0.2);
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary-light);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.schedule-table td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: top;
+}
+
+
+.schedule-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+.schedule-table tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+
+.date-cell {
+    min-width: 120px;
+}
+
+
+.date-display {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+
+.day-display {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
+.staff-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+
+.staff-card:hover {
+    background: rgba(124, 58, 237, 0.15);
+    transform: translateX(5px);
+}
+
+
+.staff-time {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 3px 6px;
+    border-radius: 10px;
+    color: var(--primary-light);
+}
+
+
+.staff-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    padding-right: 60px;
+}
+
+
+.staff-role {
+    font-size: 12px;
+    color: var(--primary-light);
+    background: rgba(124, 58, 237, 0.1);
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+
+.role-admin { background: rgba(66, 153, 225, 0.1); color: var(--info); }
+.role-editor { background: rgba(114, 9, 183, 0.1); color: #7209b7; }
+.role-photographer { background: rgba(48, 209, 88, 0.1); color: #30d158; }
+.role-videographer { background: rgba(255, 159, 10, 0.1); color: #ff9f0a; }
+.role-makeup { background: rgba(255, 55, 95, 0.1); color: #ff375f; }
+.role-designer { background: rgba(191, 90, 242, 0.1); color: #bf5af2; }
+.role-lead-editor { background: rgba(0, 199, 190, 0.1); color: #00c7be; }
+.role-director { background: rgba(255, 214, 0, 0.1); color: #ffd600; }
+
+
+/* Legend */
+.role-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+}
+
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+
+/* Floating button */
+.floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    z-index: 1000;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    transition: all 0.3s ease;
+}
+
+
+.floating-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .schedule-table {
+        min-width: 900px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+    }
+   
+    .date-filter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+   
+    .sidebar:hover {
+        width: 100px;
+        align-items: center;
+        padding-left: 0;
+    }
+   
+    .sidebar:hover .menu li {
+        text-align: center;
+        padding-left: 0;
+    }
+   
+    .sidebar:hover .menu span {
+        opacity: 0;
+    }
+   
+    .sidebar:hover ~ .main {
+        margin-left: 100px;
+        width: calc(100% - 100px);
+    }
+}
 /* ===============================
    RESPONSIVE
 ================================ */
