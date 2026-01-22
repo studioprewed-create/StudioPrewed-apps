@@ -2346,8 +2346,14 @@ class EXECUTIVEController extends Controller
                 ]);
             }
             if ($page === 'JadwalKerja') {
-                $startOfWeek = now()->startOfDay();        
-                $endOfWeek   = now()->addDays(6)->endOfDay(); 
+                $weekOffset = (int) $request->input('week', 0);
+
+                $startOfWeek = now()
+                    ->startOfWeek()
+                    ->addWeeks($weekOffset);
+
+                $endOfWeek = $startOfWeek->copy()->addDays(6);
+
                 $bookings = BookingClient::with([
                     'skemaKerja.editor',
                     'skemaKerja.fotografer',
@@ -2357,18 +2363,19 @@ class EXECUTIVEController extends Controller
                 ])
                 ->whereBetween('photoshoot_date', [
                     $startOfWeek->toDateString(),
-                    $endOfWeek->toDateString()
+                    $endOfWeek->toDateString(),
                 ])
-                ->orderBy('photoshoot_date', 'asc')
-                ->orderBy('start_time', 'asc')
+                ->orderBy('photoshoot_date')
+                ->orderBy('start_time')
                 ->get();
+
                 foreach ($bookings as $booking) {
                     $booking->skemaKerja()->firstOrCreate([]);
                 }
 
-                $bookingsByDate = $bookings->groupBy(function ($booking) {
-                    return $booking->photoshoot_date->format('Y-m-d');
-                });
+                $bookingsByDate = $bookings->groupBy(fn ($b) =>
+                    $b->photoshoot_date->format('Y-m-d')
+                );
 
                 $karyawanByRole = [
                     'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
@@ -2380,8 +2387,8 @@ class EXECUTIVEController extends Controller
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page'           => $page,
-                    'bookingsByDate' => $bookingsByDate,
                     'startOfWeek'    => $startOfWeek,
+                    'bookingsByDate' => $bookingsByDate,
                     'karyawanByRole' => $karyawanByRole,
                 ]);
             }
@@ -2571,8 +2578,15 @@ class EXECUTIVEController extends Controller
                 ));
             }
             if ($page === 'JadwalKerja') {
-                $startOfWeek = now()->startOfDay();
-                $endOfWeek   = now()->addDays(6)->endOfDay();
+
+                $weekOffset = (int) $request->input('week', 0);
+
+                $startOfWeek = now()
+                    ->startOfWeek()
+                    ->addWeeks($weekOffset);
+
+                $endOfWeek = $startOfWeek->copy()->addDays(6);
+
                 $bookings = BookingClient::with([
                     'skemaKerja.editor',
                     'skemaKerja.fotografer',
@@ -2584,15 +2598,17 @@ class EXECUTIVEController extends Controller
                     $startOfWeek->toDateString(),
                     $endOfWeek->toDateString(),
                 ])
-                ->orderBy('photoshoot_date', 'asc')
-                ->orderBy('start_time', 'asc')
+                ->orderBy('photoshoot_date')
+                ->orderBy('start_time')
                 ->get();
+
                 foreach ($bookings as $booking) {
                     $booking->skemaKerja()->firstOrCreate([]);
                 }
-                $bookingsByDate = $bookings->groupBy(function ($booking) {
-                    return $booking->photoshoot_date->format('Y-m-d');
-                });
+
+                $bookingsByDate = $bookings->groupBy(fn ($b) =>
+                    $b->photoshoot_date->format('Y-m-d')
+                );
 
                 $karyawanByRole = [
                     'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
@@ -2604,11 +2620,7 @@ class EXECUTIVEController extends Controller
 
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
-                    compact(
-                        'bookingsByDate',
-                        'startOfWeek',
-                        'karyawanByRole'
-                    )
+                    compact('startOfWeek', 'bookingsByDate', 'karyawanByRole')
                 );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -2840,8 +2852,15 @@ class EXECUTIVEController extends Controller
                     ]);
                 }
                 if ($page === 'JadwalKerja') {
-                    $startOfWeek = now()->startOfDay();
-                    $endOfWeek   = now()->addDays(6)->endOfDay();
+
+                    $weekOffset = (int) $request->input('week', 0);
+
+                    $startOfWeek = now()
+                        ->startOfWeek()
+                        ->addWeeks($weekOffset);
+
+                    $endOfWeek = $startOfWeek->copy()->addDays(6);
+
                     $bookings = BookingClient::with([
                         'skemaKerja.editor',
                         'skemaKerja.fotografer',
@@ -2853,15 +2872,18 @@ class EXECUTIVEController extends Controller
                         $startOfWeek->toDateString(),
                         $endOfWeek->toDateString(),
                     ])
-                    ->orderBy('photoshoot_date', 'asc')
-                    ->orderBy('start_time', 'asc')
+                    ->orderBy('photoshoot_date')
+                    ->orderBy('start_time')
                     ->get();
+
                     foreach ($bookings as $booking) {
                         $booking->skemaKerja()->firstOrCreate([]);
                     }
-                    $bookingsByDate = $bookings->groupBy(function ($booking) {
-                        return $booking->photoshoot_date->format('Y-m-d');
-                    });
+
+                    $bookingsByDate = $bookings->groupBy(fn ($b) =>
+                        $b->photoshoot_date->format('Y-m-d')
+                    );
+
                     $karyawanByRole = [
                         'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
                         'photografer' => DataDiriKaryawan::where('role', 'PHOTOGRAFER')->get(),
@@ -2872,8 +2894,8 @@ class EXECUTIVEController extends Controller
 
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page'           => $page,
-                        'bookingsByDate' => $bookingsByDate,
                         'startOfWeek'    => $startOfWeek,
+                        'bookingsByDate' => $bookingsByDate,
                         'karyawanByRole' => $karyawanByRole,
                     ]);
                 }
