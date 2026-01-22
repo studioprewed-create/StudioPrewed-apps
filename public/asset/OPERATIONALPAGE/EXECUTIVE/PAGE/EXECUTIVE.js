@@ -1584,9 +1584,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initSkemaKerjaModal = () => {
-    const modal     = document.getElementById('skemaModal');
-    const backdrop  = document.getElementById('skemaBackdrop');
-    const form      = document.getElementById('skemaForm');
+        const modal    = document.getElementById('skemaModal');
+        const backdrop = document.getElementById('skemaBackdrop');
+        const form     = document.getElementById('skemaForm');
 
         if (!modal || !form) return;
 
@@ -1603,25 +1603,31 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         document.querySelectorAll('.btn-edit-skema').forEach(btn => {
-            btn.onclick = () => {
+            btn.addEventListener('click', () => {
                 const ds = btn.dataset;
 
+                // set action (PAKAI STRUCTURE KAMU)
+                form.action = `${form.dataset.baseUrl}/${ds.bookingId}`;
+
+                // isi hidden
                 document.getElementById('sk-booking-id').value = ds.bookingId;
 
-                document.getElementById('sk-editor').value      = ds.editor || '';
-                document.getElementById('sk-fotografer').value  = ds.fotografer || '';
-                document.getElementById('sk-videografer').value = ds.videografer || '';
-                document.getElementById('sk-makeup').value      = ds.makeup || '';
-                document.getElementById('sk-attire').value      = ds.attire || '';
-
-                // 🔥 FIX PENTING
-                form.action = form.dataset.baseUrl;
-
+                // 🔥 TUNGGU MODAL TAMPIL
                 open();
-            };
+
+                // 🔥 SET VALUE SETELAH MODAL MUNCUL
+                setTimeout(() => {
+                    document.getElementById('sk-editor').value      = ds.editor || '';
+                    document.getElementById('sk-fotografer').value  = ds.fotografer || '';
+                    document.getElementById('sk-videografer').value = ds.videografer || '';
+                    document.getElementById('sk-makeup').value      = ds.makeup || '';
+                    document.getElementById('sk-attire').value      = ds.attire || '';
+                }, 0);
+            });
         });
 
         document.getElementById('closeSkema')?.addEventListener('click', close);
+        document.getElementById('closeSkema2')?.addEventListener('click', close);
         backdrop?.addEventListener('click', close);
     };
 
