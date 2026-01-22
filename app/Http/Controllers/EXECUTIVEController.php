@@ -1794,11 +1794,11 @@ class EXECUTIVEController extends Controller
                 $booking = BookingClient::findOrFail($id);
 
                 $validated = $request->validate([
-                    'editor_karyawan_id'      => 'nullable|exists:data_diri_karyawans,id',
-                    'photografer_karyawan_id' => 'nullable|exists:data_diri_karyawans,id',
-                    'videografer_karyawan_id' => 'nullable|exists:data_diri_karyawans,id',
-                    'makeup_karyawan_id'      => 'nullable|exists:data_diri_karyawans,id',
-                    'attire_karyawan_id'      => 'nullable|exists:data_diri_karyawans,id',
+                    'editor_karyawan_id'      => 'nullable|exists:data_diri_karyawan,id',
+                    'photografer_karyawan_id' => 'nullable|exists:data_diri_karyawan,id',
+                    'videografer_karyawan_id' => 'nullable|exists:data_diri_karyawan,id',
+                    'makeup_karyawan_id'      => 'nullable|exists:data_diri_karyawan,id',
+                    'attire_karyawan_id'      => 'nullable|exists:data_diri_karyawan,id',
                 ]);
 
                 SkemaKerja::updateOrCreate(
