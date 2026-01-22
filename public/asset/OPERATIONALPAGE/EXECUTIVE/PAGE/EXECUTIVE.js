@@ -1592,11 +1592,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const open = () => {
             modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
             backdrop.classList.add('show');
         };
 
         const close = () => {
             modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
             backdrop.classList.remove('show');
         };
 
