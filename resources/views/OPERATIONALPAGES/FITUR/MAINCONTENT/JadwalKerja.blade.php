@@ -9,14 +9,10 @@
     <div class="filter-title">Filter Jadwal</div>
     <div class="filter-controls">
         <div class="date-filter">
-            <label for="start-date">Dari Tanggal:</label>
-            <input type="text" id="start-date" class="date-input" placeholder="Pilih tanggal">
+            <label for="filter-date">Pilih Tanggal:</label>
+            <input type="date" id="filter-date" class="date-input">
         </div>
-        <div class="date-filter">
-            <label for="end-date">Sampai Tanggal:</label>
-            <input type="text" id="end-date" class="date-input" placeholder="Pilih tanggal">
-        </div>
-        <button class="filter-btn">
+        <button id="apply-filter" class="filter-btn">
             <i class="fas fa-filter"></i> Terapkan Filter
         </button>
     </div>
@@ -203,6 +199,7 @@
 </div>
 
 <div class="custom-modal-backdrop" id="skemaBackdrop"></div>
+
     <div class="custom-modal" id="skemaModal" aria-hidden="true">
         <div class="modal-content modal-md">
 

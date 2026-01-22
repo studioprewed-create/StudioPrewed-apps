@@ -1533,51 +1533,104 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initJadwalKerja = () => {
-    const prevBtn = document.getElementById('prev-week');
-    const nextBtn = document.getElementById('next-week');
+    const prevBtn   = document.getElementById('prev-week');
+    const nextBtn   = document.getElementById('next-week');
+    const filterBtn = document.getElementById('apply-filter');
+    const dateInput = document.getElementById('filter-date');
 
         if (!prevBtn || !nextBtn) return;
 
+        // =============================
+        // UTIL
+        // =============================
         const getWeekFromUrl = () => {
             const params = new URLSearchParams(window.location.search);
             return parseInt(params.get('week') || '0', 10);
         };
 
-        const loadWeek = (offset) => {
+        const formatDate = (d) => d.toISOString().split('T')[0];
+
+        const getWeekRangeFromDate = (dateStr) => {
+            const date = new Date(dateStr);
+            const day = date.getDay(); // 0 = Minggu
+            const diff = day === 0 ? -6 : 1 - day;
+
+            const monday = new Date(date);
+            monday.setDate(date.getDate() + diff);
+
+            const sunday = new Date(monday);
+            sunday.setDate(monday.getDate() + 6);
+
+            return {
+                start: formatDate(monday),
+                end: formatDate(sunday)
+            };
+        };
+
+        // =============================
+        // LOADER UTAMA
+        // =============================
+        const loadJadwal = ({ week = null, start = null, end = null } = {}) => {
             const link = document.querySelector(
                 '.sidebar .menu a[data-page="JadwalKerja"]'
             );
             if (!link) return;
 
             const url = new URL(link.getAttribute('href'), window.location.origin);
-            url.searchParams.set('week', offset);
+
+            if (start && end) {
+                url.searchParams.set('start', start);
+                url.searchParams.set('end', end);
+                url.searchParams.delete('week');
+            } else if (week !== null) {
+                url.searchParams.set('week', week);
+                url.searchParams.delete('start');
+                url.searchParams.delete('end');
+            }
 
             fetch(url.toString(), {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
             .then(res => res.text())
             .then(html => {
-                const main = document.getElementById('main-content');
-                main.innerHTML = html;
-
+                document.getElementById('main-content').innerHTML = html;
                 history.replaceState({ page: 'JadwalKerja' }, '', url);
                 initPageScripts();
             })
-            .catch(err => {
-                console.error(err);
-                alert('Gagal memuat jadwal kerja');
-            });
+            .catch(() => alert('Gagal memuat jadwal kerja'));
         };
 
-        window.reloadJadwalKerjaWeek = loadWeek;
+        // expose jika dibutuhkan global
+        window.reloadJadwalKerjaWeek = (offset) => {
+            loadJadwal({ week: offset });
+        };
 
+        // =============================
+        // PREV / NEXT WEEK
+        // =============================
         prevBtn.onclick = () => {
-            loadWeek(getWeekFromUrl() - 1);
+            loadJadwal({ week: getWeekFromUrl() - 1 });
         };
 
         nextBtn.onclick = () => {
-            loadWeek(getWeekFromUrl() + 1);
+            loadJadwal({ week: getWeekFromUrl() + 1 });
         };
+
+        // =============================
+        // FILTER 1 TANGGAL
+        // =============================
+        if (filterBtn && dateInput) {
+            filterBtn.onclick = () => {
+                const date = dateInput.value;
+                if (!date) {
+                    alert('Pilih tanggal dulu');
+                    return;
+                }
+
+                const range = getWeekRangeFromDate(date);
+                loadJadwal(range);
+            };
+        }
     };
 
     const initSkemaKerjaModal = () => {
