@@ -1602,27 +1602,32 @@ document.addEventListener('DOMContentLoaded', () => {
             backdrop.classList.remove('show');
         };
 
+        const setSelectValue = (id, value) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.value = '';
+            requestAnimationFrame(() => {
+                el.value = value ?? '';
+            });
+        };
+
         document.querySelectorAll('.btn-edit-skema').forEach(btn => {
             btn.addEventListener('click', () => {
                 const ds = btn.dataset;
 
-                // set action (PAKAI STRUCTURE KAMU)
+                // action
                 form.action = `${form.dataset.baseUrl}/${ds.bookingId}`;
 
-                // isi hidden
+                // hidden
                 document.getElementById('sk-booking-id').value = ds.bookingId;
 
-                // 🔥 TUNGGU MODAL TAMPIL
                 open();
 
-                // 🔥 SET VALUE SETELAH MODAL MUNCUL
-                setTimeout(() => {
-                    document.getElementById('sk-editor').value      = ds.editor || '';
-                    document.getElementById('sk-fotografer').value  = ds.fotografer || '';
-                    document.getElementById('sk-videografer').value = ds.videografer || '';
-                    document.getElementById('sk-makeup').value      = ds.makeup || '';
-                    document.getElementById('sk-attire').value      = ds.attire || '';
-                }, 0);
+                setSelectValue('sk-editor', ds.editor);
+                setSelectValue('sk-fotografer', ds.fotografer);
+                setSelectValue('sk-videografer', ds.videografer);
+                setSelectValue('sk-makeup', ds.makeup);
+                setSelectValue('sk-attire', ds.attire);
             });
         });
 
@@ -1630,7 +1635,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('closeSkema2')?.addEventListener('click', close);
         backdrop?.addEventListener('click', close);
     };
-
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
         initUserModals();

@@ -1264,7 +1264,7 @@ class EXECUTIVEController extends Controller
                 'package'   => 'Catalogue',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
-                'skemakerja'=> 'JadwalKerja',
+                'skemakerja' => 'JadwalKerja',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';

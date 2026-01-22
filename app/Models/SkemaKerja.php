@@ -28,7 +28,7 @@ class SkemaKerja extends Model
         return $this->belongsTo(DataDiriKaryawan::class, 'editor_karyawan_id');
     }
 
-    public function fotografer()
+    public function photografer()
     {
         return $this->belongsTo(DataDiriKaryawan::class, 'photografer_karyawan_id');
     }

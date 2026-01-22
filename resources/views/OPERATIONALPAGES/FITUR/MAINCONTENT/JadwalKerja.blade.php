@@ -215,8 +215,10 @@
 
             <!-- BODY -->
             <div class="modal-body">
-                <form id="skemaForm" method="POST" data-base-url="/executive/skema-kerja">
+                <form id="skemaForm" method="POST"
+                    data-base-url="{{ url('executive/homepages/update/skemakerja') }}">
                     @csrf
+                    @method('PUT')
 
                     <input type="hidden" name="booking_client_id" id="sk-booking-id">
 
