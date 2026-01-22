@@ -23,168 +23,126 @@
 </div>
 
 <div class="schedule-container">
+
+    {{-- HEADER --}}
     <div class="schedule-header">
         <h3>Jadwal Mingguan</h3>
         <div class="week-navigation">
             <button class="week-btn" id="prev-week">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <div class="current-week" id="current-week">3 - 9 September 2025</div>
+
+            <div class="current-week">
+                {{ $startOfWeek->translatedFormat('d') }}
+                -
+                {{ $startOfWeek->copy()->addDays(6)->translatedFormat('d F Y') }}
+            </div>
+
             <button class="week-btn" id="next-week">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
-    
+
+    {{-- TABLE --}}
     <div class="table-responsive">
         <table class="schedule-table">
+
+            {{-- TABLE HEAD (7 HARI) --}}
             <thead>
                 <tr>
-                    <th>Senin<br><span class="day-display">01 Sept</span></th>
-                    <th>Selasa<br><span class="day-display">02 Sept</span></th>
-                    <th>Rabu<br><span class="day-display">03 Sept</span></th>
-                    <th>Kamis<br><span class="day-display">04 Sept</span></th>
-                    <th>Jumat<br><span class="day-display">05 Sept</span></th>
-                    <th>Sabtu<br><span class="day-display">06 Sept</span></th>
-                    <th>Minggu<br><span class="day-display">07 Sept</span></th>
+                    @for ($i = 0; $i < 7; $i++)
+                        @php
+                            $dateObj = $startOfWeek->copy()->addDays($i);
+                        @endphp
+                        <th>
+                            {{ $dateObj->translatedFormat('l') }}<br>
+                            <span class="day-display">
+                                {{ $dateObj->format('d M') }}
+                            </span>
+                        </th>
+                    @endfor
                 </tr>
             </thead>
+
+            {{-- TABLE BODY --}}
             <tbody>
                 <tr>
-                    <!-- Senin -->
-                    <td>
-                        <div class="staff-card">
-                            <span class="staff-time">08:00-16:00</span>
-                            <div class="staff-name">Budi Santoso</div>
-                            <span class="staff-role role-photographer">Photographer</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">09:00-17:00</span>
-                            <div class="staff-name">Sari Dewi</div>
-                            <span class="staff-role role-makeup">Makeup Artist</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">10:00-15:00</span>
-                            <div class="staff-name">Ahmad Fauzi</div>
-                            <span class="staff-role role-videographer">Videographer</span>
-                        </div>
-                    </td>
-                    
-                    <!-- Selasa -->
-                    <td>
-                        <div class="staff-card">
-                            <span class="staff-time">08:00-16:00</span>
-                            <div class="staff-name">Ahmad Fauzi</div>
-                            <span class="staff-role role-videographer">Videographer</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">09:00-17:00</span>
-                            <div class="staff-name">Dewi Lestari</div>
-                            <span class="staff-role role-editor">Editor</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">13:00-18:00</span>
-                            <div class="staff-name">Budi Santoso</div>
-                            <span class="staff-role role-photographer">Photographer</span>
-                        </div>
-                    </td>
-                    
-                    <!-- Rabu -->
-                    <td>
-                        <div class="staff-card">
-                            <span class="staff-time">08:00-12:00</span>
-                            <div class="staff-name">Rina Wijaya</div>
-                            <span class="staff-role role-admin">Admin</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">09:00-17:00</span>
-                            <div class="staff-name">Joko Prasetyo</div>
-                            <span class="staff-role role-director">Direktur</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">14:00-19:00</span>
-                            <div class="staff-name">Sari Dewi</div>
-                            <span class="staff-role role-makeup">Makeup Artist</span>
-                        </div>
-                    </td>
-                    
-                    <!-- Kamis -->
-                    <td>
-                        <div class="staff-card">
-                            <span class="staff-time">10:00-16:00</span>
-                            <div class="staff-name">Maya Sari</div>
-                            <span class="staff-role role-designer">Designer/Attire</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">08:00-17:00</span>
-                            <div class="staff-name">Fajar Nugroho</div>
-                            <span class="staff-role role-lead-editor">Lead Editor</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">12:00-20:00</span>
-                            <div class="staff-name">Ahmad Fauzi</div>
-                            <span class="staff-role role-videographer">Videographer</span>
-                        </div>
-                    </td>
-                    
-                    <!-- Jumat -->
-                    <td>
-                        <div class="staff-card">
-                            <span class="staff-time">09:00-16:00</span>
-                            <div class="staff-name">Citra Ayu</div>
-                            <span class="staff-role role-makeup">Makeup Artist</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">10:00-18:00</span>
-                            <div class="staff-name">Hendra Kurniawan</div>
-                            <span class="staff-role role-photographer">Photographer</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">08:00-15:00</span>
-                            <div class="staff-name">Dewi Lestari</div>
-                            <span class="staff-role role-editor">Editor</span>
-                        </div>
-                    </td>
-                    
-                    <!-- Sabtu -->
-                    <td>
-                        <div class="staff-card">
-                            <span class="staff-time">08:00-14:00</span>
-                            <div class="staff-name">Dian Pratama</div>
-                            <span class="staff-role role-videographer">Videographer</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">10:00-17:00</span>
-                            <div class="staff-name">Rizky Maulana</div>
-                            <span class="staff-role role-editor">Editor</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">13:00-19:00</span>
-                            <div class="staff-name">Hendra Kurniawan</div>
-                            <span class="staff-role role-photographer">Photographer</span>
-                        </div>
-                    </td>
-                    
-                    <!-- Minggu -->
-                    <td>
-                        <div class="staff-card">
-                            <span class="staff-time">09:00-15:00</span>
-                            <div class="staff-name">Lia Amelia</div>
-                            <span class="staff-role role-admin">Admin</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">11:00-17:00</span>
-                            <div class="staff-name">Anton Susanto</div>
-                            <span class="staff-role role-director">Direktur</span>
-                        </div>
-                        <div class="staff-card">
-                            <span class="staff-time">10:00-16:00</span>
-                            <div class="staff-name">Citra Ayu</div>
-                            <span class="staff-role role-makeup">Makeup Artist</span>
-                        </div>
-                    </td>
+                    @for ($i = 0; $i < 7; $i++)
+                        @php
+                            $dateKey = $startOfWeek->copy()->addDays($i)->format('Y-m-d');
+                            $dayBookings = $bookingsByDate[$dateKey] ?? collect();
+                        @endphp
+
+                        <td>
+                            @forelse ($dayBookings as $booking)
+
+                                <div class="staff-card">
+
+                                    {{-- KODE PESANAN --}}
+                                    <div class="staff-time">
+                                        {{ $booking->kode_pesanan }}
+                                    </div>
+
+                                    {{-- NAMA GABUNGAN --}}
+                                    <div class="staff-name">
+                                        {{ $booking->display_nama_gabungan }}
+                                    </div>
+
+                                    {{-- SLOT --}}
+                                    <div class="staff-slot">
+                                        {{ $booking->photoshoot_slot }}
+                                    </div>
+
+                                    {{-- ROLE KARYAWAN --}}
+                                    <div class="staff-roles">
+
+                                        @if($booking->skemaKerja?->fotografer)
+                                            <span class="staff-role role-photographer">
+                                                Fotografer:
+                                                {{ $booking->skemaKerja->fotografer->nama_lengkap }}
+                                            </span>
+                                        @endif
+
+                                        @if($booking->skemaKerja?->videografer)
+                                            <span class="staff-role role-videographer">
+                                                Videografer:
+                                                {{ $booking->skemaKerja->videografer->nama_lengkap }}
+                                            </span>
+                                        @endif
+
+                                        @if($booking->skemaKerja?->editor)
+                                            <span class="staff-role role-editor">
+                                                Editor:
+                                                {{ $booking->skemaKerja->editor->nama_lengkap }}
+                                            </span>
+                                        @endif
+
+                                        @if($booking->skemaKerja?->makeup)
+                                            <span class="staff-role role-makeup">
+                                                Makeup:
+                                                {{ $booking->skemaKerja->makeup->nama_lengkap }}
+                                            </span>
+                                        @endif
+
+                                        @if($booking->skemaKerja?->attire)
+                                            <span class="staff-role role-attire">
+                                                Attire:
+                                                {{ $booking->skemaKerja->attire->nama_lengkap }}
+                                            </span>
+                                        @endif
+
+                                    </div>
+                                </div>
+
+                            @empty
+                                <span class="text-muted">Tidak ada booking</span>
+                            @endforelse
+                        </td>
+                    @endfor
                 </tr>
             </tbody>
+
         </table>
     </div>
 </div>

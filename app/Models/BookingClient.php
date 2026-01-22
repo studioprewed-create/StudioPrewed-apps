@@ -113,6 +113,11 @@ class BookingClient extends Model
         return $this->belongsTo(TemaBaju::class, 'tema2_id');
     }
 
+    public function skemaKerja()
+    {
+        return $this->hasOne(\App\Models\SkemaKerja::class, 'booking_client_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Helper / Accessor kecil (optional)

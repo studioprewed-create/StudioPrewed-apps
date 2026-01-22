@@ -2345,6 +2345,46 @@ class EXECUTIVEController extends Controller
                     'addonGroups' => $addonGroups,
                 ]);
             }
+            if ($page === 'JadwalKerja') {
+                $startOfWeek = now()->startOfDay();        
+                $endOfWeek   = now()->addDays(6)->endOfDay(); 
+                $bookings = BookingClient::with([
+                    'skemaKerja.editor',
+                    'skemaKerja.fotografer',
+                    'skemaKerja.videografer',
+                    'skemaKerja.makeup',
+                    'skemaKerja.attire',
+                ])
+                ->whereBetween('photoshoot_date', [
+                    $startOfWeek->toDateString(),
+                    $endOfWeek->toDateString()
+                ])
+                ->orderBy('photoshoot_date', 'asc')
+                ->orderBy('start_time', 'asc')
+                ->get();
+                foreach ($bookings as $booking) {
+                    $booking->skemaKerja()->firstOrCreate([]);
+                }
+
+                $bookingsByDate = $bookings->groupBy(function ($booking) {
+                    return $booking->photoshoot_date->format('Y-m-d');
+                });
+
+                $karyawanByRole = [
+                    'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
+                    'photografer' => DataDiriKaryawan::where('role', 'PHOTOGRAFER')->get(),
+                    'videografer' => DataDiriKaryawan::where('role', 'VIDEOGRAFER')->get(),
+                    'makeup' => DataDiriKaryawan::where('role', 'MAKE_UP')->get(),
+                    'attire' => DataDiriKaryawan::where('role', 'ATTIRE')->get(),
+                ];
+
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page'           => $page,
+                    'bookingsByDate' => $bookingsByDate,
+                    'startOfWeek'    => $startOfWeek,
+                    'karyawanByRole' => $karyawanByRole,
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -2529,6 +2569,47 @@ class EXECUTIVEController extends Controller
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact(
                     'bookings', 'selectedDate', 'status', 'search', 'packages', 'addons', 'temas', 'addonGroups'
                 ));
+            }
+            if ($page === 'JadwalKerja') {
+                $startOfWeek = now()->startOfDay();
+                $endOfWeek   = now()->addDays(6)->endOfDay();
+                $bookings = BookingClient::with([
+                    'skemaKerja.editor',
+                    'skemaKerja.fotografer',
+                    'skemaKerja.videografer',
+                    'skemaKerja.makeup',
+                    'skemaKerja.attire',
+                ])
+                ->whereBetween('photoshoot_date', [
+                    $startOfWeek->toDateString(),
+                    $endOfWeek->toDateString(),
+                ])
+                ->orderBy('photoshoot_date', 'asc')
+                ->orderBy('start_time', 'asc')
+                ->get();
+                foreach ($bookings as $booking) {
+                    $booking->skemaKerja()->firstOrCreate([]);
+                }
+                $bookingsByDate = $bookings->groupBy(function ($booking) {
+                    return $booking->photoshoot_date->format('Y-m-d');
+                });
+
+                $karyawanByRole = [
+                    'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
+                    'photografer' => DataDiriKaryawan::where('role', 'PHOTOGRAFER')->get(),
+                    'videografer' => DataDiriKaryawan::where('role', 'VIDEOGRAFER')->get(),
+                    'makeup' => DataDiriKaryawan::where('role', 'MAKE_UP')->get(),
+                    'attire' => DataDiriKaryawan::where('role', 'ATTIRE')->get(),
+                ];
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact(
+                        'bookingsByDate',
+                        'startOfWeek',
+                        'karyawanByRole'
+                    )
+                );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page");
@@ -2759,15 +2840,43 @@ class EXECUTIVEController extends Controller
                     ]);
                 }
                 if ($page === 'JadwalKerja') {
-                    // Isi dengan data yang diperlukan untuk Jadwal Kerja
+                    $startOfWeek = now()->startOfDay();
+                    $endOfWeek   = now()->addDays(6)->endOfDay();
+                    $bookings = BookingClient::with([
+                        'skemaKerja.editor',
+                        'skemaKerja.fotografer',
+                        'skemaKerja.videografer',
+                        'skemaKerja.makeup',
+                        'skemaKerja.attire',
+                    ])
+                    ->whereBetween('photoshoot_date', [
+                        $startOfWeek->toDateString(),
+                        $endOfWeek->toDateString(),
+                    ])
+                    ->orderBy('photoshoot_date', 'asc')
+                    ->orderBy('start_time', 'asc')
+                    ->get();
+                    foreach ($bookings as $booking) {
+                        $booking->skemaKerja()->firstOrCreate([]);
+                    }
+                    $bookingsByDate = $bookings->groupBy(function ($booking) {
+                        return $booking->photoshoot_date->format('Y-m-d');
+                    });
+                    $karyawanByRole = [
+                        'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
+                        'photografer' => DataDiriKaryawan::where('role', 'PHOTOGRAFER')->get(),
+                        'videografer' => DataDiriKaryawan::where('role', 'VIDEOGRAFER')->get(),
+                        'makeup' => DataDiriKaryawan::where('role', 'MAKE_UP')->get(),
+                        'attire' => DataDiriKaryawan::where('role', 'ATTIRE')->get(),
+                    ];
+
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                        'page' => $page,
+                        'page'           => $page,
+                        'bookingsByDate' => $bookingsByDate,
+                        'startOfWeek'    => $startOfWeek,
+                        'karyawanByRole' => $karyawanByRole,
                     ]);
                 }
-
-                // 8. JadwalPesanan
-
-                // 9. Statistik
                 if ($page === 'Statistik') {
                     // Isi dengan data yang diperlukan untuk Statistik
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
