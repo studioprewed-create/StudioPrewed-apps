@@ -1535,12 +1535,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const initJadwalKerja = () => {
     const prevBtn   = document.getElementById('prev-week');
     const nextBtn   = document.getElementById('next-week');
-    const container = document.querySelector('.schedule-container');
 
-        if (!prevBtn || !nextBtn || !container) return;
+        if (!prevBtn || !nextBtn) return;
 
-        // simpan offset minggu di dataset (default 0)
-        let weekOffset = parseInt(container.dataset.weekOffset || '0', 10);
+        // ambil week dari URL (bukan dari dataset)
+        const getWeekFromUrl = () => {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('week') || '0', 10);
+        };
 
         const loadWeek = (offset) => {
             const link = document.querySelector(
@@ -1554,26 +1556,30 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(url.toString(), {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
-                .then(res => res.text())
-                .then(html => {
-                    const main = document.getElementById('main-content');
-                    main.innerHTML = html;
-                    initPageScripts(); // WAJIB di SPA kamu
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Gagal memuat jadwal kerja');
-                });
+            .then(res => res.text())
+            .then(html => {
+                const main = document.getElementById('main-content');
+                main.innerHTML = html;
+
+                // update URL biar offset KEINGAT
+                history.replaceState({ page: 'JadwalKerja' }, '', url);
+
+                initPageScripts();
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Gagal memuat jadwal kerja');
+            });
         };
 
         prevBtn.onclick = () => {
-            weekOffset--;
-            loadWeek(weekOffset);
+            const current = getWeekFromUrl();
+            loadWeek(current - 1);
         };
 
         nextBtn.onclick = () => {
-            weekOffset++;
-            loadWeek(weekOffset);
+            const current = getWeekFromUrl();
+            loadWeek(current + 1);
         };
     };
 
