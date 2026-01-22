@@ -21,7 +21,119 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /* ============ MODAL DATA AKUN ============ */
- 
+    const initUserModals = () => {
+        const backdrop      = document.getElementById('modal-backdrop');
+        const createModal   = document.getElementById('modal-create');
+        const editModal     = document.getElementById('modal-edit');
+        const btnOpenCreate = document.getElementById('btn-open-create');
+
+        if (!backdrop || !createModal || !editModal) return;
+
+        const lockBodyScroll = () => {
+            document.body.style.overflow = 'hidden';
+        };
+
+        const unlockBodyScroll = () => {
+            document.body.style.overflow = '';
+        };
+        
+        const showModal = (modal) => {
+            backdrop.classList.add('show');
+            modal.classList.add('show');
+            lockBodyScroll(); // ⬅️ KUNCI SCROLL HALAMAN
+
+            const body = modal.querySelector('.modal-body');
+            if (body) body.scrollTop = 0;
+        };
+
+        const hideModals = () => {
+            backdrop.classList.remove('show');
+            createModal.classList.remove('show');
+            editModal.classList.remove('show');
+            unlockBodyScroll(); // ⬅️ BALIKIN SCROLL HALAMAN
+        };
+
+        if (btnOpenCreate) {
+            btnOpenCreate.onclick = () => showModal(createModal);
+        }
+
+        document.querySelectorAll('.btn-edit-user').forEach(btn => {
+            btn.onclick = () => {
+
+                const id    = btn.dataset.id;
+                const name  = btn.dataset.name;
+                const email = btn.dataset.email;
+                const role  = btn.dataset.role;
+
+                const form = document.getElementById('editUserForm');
+                if (!form) return;
+
+                // set action
+                form.action = `${form.dataset.baseUrl}/${id}`;
+
+                // ======================
+                // USER UTAMA
+                // ======================
+                document.getElementById('edit-name').value  = name || '';
+                document.getElementById('edit-email').value = email || '';
+                document.getElementById('edit-role').value  = role || '';
+
+                // ======================
+                // FORM WRAPPER
+                // ======================
+                const formClient   = document.getElementById('form-client');
+                const formKaryawan = document.getElementById('form-karyawan');
+
+                if (formClient)   formClient.style.display = 'none';
+                if (formKaryawan) formKaryawan.style.display = 'none';
+
+                // =================================================
+                // ================= CLIENT ========================
+                // =================================================
+                if (role === 'CLIENT') {
+                    if (formClient) formClient.style.display = 'block';
+
+                    document.getElementById('dd-nama').value               = btn.dataset.ddNama || '';
+                    document.getElementById('dd-phone').value              = btn.dataset.ddPhone || '';
+                    document.getElementById('dd-jk').value                 = btn.dataset.ddJk || '';
+                    document.getElementById('dd-tgl-lahir').value          = btn.dataset.ddTglLahir || '';
+                    document.getElementById('dd-tgl-nikah').value          = btn.dataset.ddTglNikah || '';
+
+                    document.getElementById('dd-nama-pasangan').value      = btn.dataset.ddNamaPasangan || '';
+                    document.getElementById('dd-phone-pasangan').value     = btn.dataset.ddPhonePasangan || '';
+                    document.getElementById('dd-jk-pasangan').value        = btn.dataset.ddJkPasangan || '';
+                    document.getElementById('dd-tgl-lahir-pasangan').value = btn.dataset.ddTglLahirPasangan || '';
+                }
+
+                // =================================================
+                // ================= KARYAWAN ======================
+                // =================================================
+                else {
+                    if (formKaryawan) formKaryawan.style.display = 'block';
+
+                    document.getElementById('ddk-nama').value              = btn.dataset.ddkNama || '';
+                    document.getElementById('ddk-tempat-lahir').value      = btn.dataset.ddkTempatLahir || '';
+                    document.getElementById('ddk-tanggal-lahir').value     = btn.dataset.ddkTanggalLahir || '';
+                    document.getElementById('ddk-jk').value                = btn.dataset.ddkJk || '';
+                    document.getElementById('ddk-status-nikah').value      = btn.dataset.ddkStatusNikah || '';
+                    document.getElementById('ddk-kewarganegaraan').value   = btn.dataset.ddkKewarganegaraan || '';
+                    document.getElementById('ddk-alamat').value            = btn.dataset.ddkAlamat || '';
+                    document.getElementById('ddk-no-hp').value             = btn.dataset.ddkNoHp || '';
+                    document.getElementById('ddk-status-karyawan').value   = btn.dataset.ddkStatusKaryawan || '';
+                    document.getElementById('ddk-tanggal-masuk').value     = btn.dataset.ddkTanggalMasuk || '';
+                    document.getElementById('ddk-tanggal-keluar').value    = btn.dataset.ddkTanggalKeluar || '';
+                }
+
+                showModal(editModal);
+            };
+        });
+
+        document.querySelectorAll('[data-close-modal]').forEach(btn => {
+            btn.onclick = hideModals;
+        });
+
+        backdrop.onclick = hideModals;
+    };
 
     /* ============ MODAL TEMA BAJU (CREATE) ============ */
     const initCatalogueTemaModals = () => {
@@ -1420,30 +1532,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const initJadwalKerjaWeekNavigation = () => {
-    const prevBtn = document.getElementById('prev-week');
-    const nextBtn = document.getElementById('next-week');
+    const initJadwalKerja = () => {
+    const prevBtn   = document.getElementById('prev-week');
+    const nextBtn   = document.getElementById('next-week');
+    const container = document.querySelector('.schedule-container');
 
-        // Kalau bukan di page JadwalKerja, stop
-        if (!prevBtn || !nextBtn) return;
+        if (!prevBtn || !nextBtn || !container) return;
 
-        // Ambil URL sekarang
-        const currentUrl = new URL(window.location.href);
+        // simpan offset minggu di dataset (default 0)
+        let weekOffset = parseInt(container.dataset.weekOffset || '0', 10);
 
-        // Ambil offset minggu (?week=)
-        let week = parseInt(currentUrl.searchParams.get('week') || 0);
+        const loadWeek = (offset) => {
+            const link = document.querySelector(
+                '.sidebar .menu a[data-page="JadwalKerja"]'
+            );
+            if (!link) return;
 
-        prevBtn.addEventListener('click', () => {
-            currentUrl.searchParams.set('page', 'JadwalKerja');
-            currentUrl.searchParams.set('week', week - 1);
-            window.location.href = currentUrl.toString();
-        });
+            const url = new URL(link.getAttribute('href'), window.location.origin);
+            url.searchParams.set('week', offset);
 
-        nextBtn.addEventListener('click', () => {
-            currentUrl.searchParams.set('page', 'JadwalKerja');
-            currentUrl.searchParams.set('week', week + 1);
-            window.location.href = currentUrl.toString();
-        });
+            fetch(url.toString(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+                .then(res => res.text())
+                .then(html => {
+                    const main = document.getElementById('main-content');
+                    main.innerHTML = html;
+                    initPageScripts(); // WAJIB di SPA kamu
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Gagal memuat jadwal kerja');
+                });
+        };
+
+        prevBtn.onclick = () => {
+            weekOffset--;
+            loadWeek(weekOffset);
+        };
+
+        nextBtn.onclick = () => {
+            weekOffset++;
+            loadWeek(weekOffset);
+        };
     };
 
     /* ============ INIT PER PAGE ============ */
@@ -1458,7 +1589,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initJadwalPesanan();
         initBookingCreateModal();
         initBookingEditModal();
-        initJadwalKerjaWeekNavigation();
+        initJadwalKerja();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

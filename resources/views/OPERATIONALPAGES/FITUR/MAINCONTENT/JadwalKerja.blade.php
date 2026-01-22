@@ -22,7 +22,9 @@
     </div>
 </div>
 
-<div class="schedule-container">
+<div class="schedule-container"
+     data-start-week="{{ $startOfWeek->format('Y-m-d') }}"
+     data-week-offset="0">
 
     {{-- HEADER --}}
     <div class="schedule-header">
