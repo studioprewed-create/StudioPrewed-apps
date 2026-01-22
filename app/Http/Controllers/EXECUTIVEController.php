@@ -1264,6 +1264,7 @@ class EXECUTIVEController extends Controller
                 'package'   => 'Catalogue',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
+                'skemakerja'=> 'JadwalKerja',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -2393,7 +2394,9 @@ class EXECUTIVEController extends Controller
                 ->get();
 
                 foreach ($bookings as $booking) {
-                    $booking->skemaKerja()->firstOrCreate([]);
+                    $booking->skemaKerja()->firstOrCreate([
+                        'booking_client_id' => $booking->id,
+                    ]);
                 }
 
                 $bookingsByDate = $bookings->groupBy(fn ($b) =>
@@ -2626,7 +2629,9 @@ class EXECUTIVEController extends Controller
                 ->get();
 
                 foreach ($bookings as $booking) {
-                    $booking->skemaKerja()->firstOrCreate([]);
+                    $booking->skemaKerja()->firstOrCreate([
+                        'booking_client_id' => $booking->id,
+                    ]);
                 }
 
                 $bookingsByDate = $bookings->groupBy(fn ($b) =>
@@ -2900,7 +2905,9 @@ class EXECUTIVEController extends Controller
                     ->get();
 
                     foreach ($bookings as $booking) {
-                        $booking->skemaKerja()->firstOrCreate([]);
+                        $booking->skemaKerja()->firstOrCreate([
+                        'booking_client_id' => $booking->id,
+                    ]);
                     }
 
                     $bookingsByDate = $bookings->groupBy(fn ($b) =>
