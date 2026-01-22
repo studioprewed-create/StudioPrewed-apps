@@ -1538,55 +1538,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtn = document.getElementById('apply-filter');
     const dateInput = document.getElementById('filter-date');
 
-        if (!prevBtn || !nextBtn) return;
+    const container = document.querySelector('.schedule-container');
 
-        // =============================
-        // UTIL
-        // =============================
+        if (!prevBtn || !nextBtn || !container) return;
+
+        // =========================
+        // AMBIL OFFSET DARI URL
+        // =========================
         const getWeekFromUrl = () => {
             const params = new URLSearchParams(window.location.search);
-            return parseInt(params.get('week') || '0', 10);
+            return parseInt(params.get('week') || container.dataset.weekOffset || '0', 10);
         };
 
-        const formatDate = (d) => d.toISOString().split('T')[0];
+        // =========================
+        // HITUNG OFFSET DARI TANGGAL
+        // =========================
+        const getWeekOffsetFromDate = (dateStr) => {
+            const baseDateStr = container.dataset.startWeek;
+            if (!baseDateStr) return 0;
 
-        const getWeekRangeFromDate = (dateStr) => {
-            const date = new Date(dateStr);
-            const day = date.getDay(); // 0 = Minggu
-            const diff = day === 0 ? -6 : 1 - day;
+            const baseDate   = new Date(baseDateStr);
+            const targetDate = new Date(dateStr);
 
-            const monday = new Date(date);
-            monday.setDate(date.getDate() + diff);
+            // reset jam biar akurat
+            baseDate.setHours(0,0,0,0);
+            targetDate.setHours(0,0,0,0);
 
-            const sunday = new Date(monday);
-            sunday.setDate(monday.getDate() + 6);
+            const diffDays = Math.floor(
+                (targetDate - baseDate) / (1000 * 60 * 60 * 24)
+            );
 
-            return {
-                start: formatDate(monday),
-                end: formatDate(sunday)
-            };
+            return Math.floor(diffDays / 7);
         };
 
-        // =============================
-        // LOADER UTAMA
-        // =============================
-        const loadJadwal = ({ week = null, start = null, end = null } = {}) => {
+        // =========================
+        // LOADER UTAMA (TETAP PAKE WEEK)
+        // =========================
+        const loadWeek = (offset) => {
             const link = document.querySelector(
                 '.sidebar .menu a[data-page="JadwalKerja"]'
             );
             if (!link) return;
 
             const url = new URL(link.getAttribute('href'), window.location.origin);
-
-            if (start && end) {
-                url.searchParams.set('start', start);
-                url.searchParams.set('end', end);
-                url.searchParams.delete('week');
-            } else if (week !== null) {
-                url.searchParams.set('week', week);
-                url.searchParams.delete('start');
-                url.searchParams.delete('end');
-            }
+            url.searchParams.set('week', offset);
 
             fetch(url.toString(), {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -1595,30 +1590,28 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(html => {
                 document.getElementById('main-content').innerHTML = html;
                 history.replaceState({ page: 'JadwalKerja' }, '', url);
-                initPageScripts();
+                initPageScripts(); // WAJIB biar event kepasang lagi
             })
             .catch(() => alert('Gagal memuat jadwal kerja'));
         };
 
-        // expose jika dibutuhkan global
-        window.reloadJadwalKerjaWeek = (offset) => {
-            loadJadwal({ week: offset });
-        };
+        // expose global (opsional)
+        window.reloadJadwalKerjaWeek = loadWeek;
 
-        // =============================
-        // PREV / NEXT WEEK
-        // =============================
+        // =========================
+        // PREV / NEXT
+        // =========================
         prevBtn.onclick = () => {
-            loadJadwal({ week: getWeekFromUrl() - 1 });
+            loadWeek(getWeekFromUrl() - 1);
         };
 
         nextBtn.onclick = () => {
-            loadJadwal({ week: getWeekFromUrl() + 1 });
+            loadWeek(getWeekFromUrl() + 1);
         };
 
-        // =============================
+        // =========================
         // FILTER 1 TANGGAL
-        // =============================
+        // =========================
         if (filterBtn && dateInput) {
             filterBtn.onclick = () => {
                 const date = dateInput.value;
@@ -1627,8 +1620,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const range = getWeekRangeFromDate(date);
-                loadJadwal(range);
+                const offset = getWeekOffsetFromDate(date);
+                loadWeek(offset);
             };
         }
     };
