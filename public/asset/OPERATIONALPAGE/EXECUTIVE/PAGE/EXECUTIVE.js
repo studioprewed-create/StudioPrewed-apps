@@ -1533,12 +1533,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initJadwalKerja = () => {
-    const prevBtn   = document.getElementById('prev-week');
-    const nextBtn   = document.getElementById('next-week');
+    const prevBtn = document.getElementById('prev-week');
+    const nextBtn = document.getElementById('next-week');
 
         if (!prevBtn || !nextBtn) return;
 
-        // ambil week dari URL (bukan dari dataset)
         const getWeekFromUrl = () => {
             const params = new URLSearchParams(window.location.search);
             return parseInt(params.get('week') || '0', 10);
@@ -1561,9 +1560,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const main = document.getElementById('main-content');
                 main.innerHTML = html;
 
-                // update URL biar offset KEINGAT
                 history.replaceState({ page: 'JadwalKerja' }, '', url);
-
                 initPageScripts();
             })
             .catch(err => {
@@ -1572,14 +1569,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
 
+        window.reloadJadwalKerjaWeek = loadWeek;
+
         prevBtn.onclick = () => {
-            const current = getWeekFromUrl();
-            loadWeek(current - 1);
+            loadWeek(getWeekFromUrl() - 1);
         };
 
         nextBtn.onclick = () => {
-            const current = getWeekFromUrl();
-            loadWeek(current + 1);
+            loadWeek(getWeekFromUrl() + 1);
         };
     };
 
@@ -1615,10 +1612,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => {
                 const ds = btn.dataset;
 
-                // action
                 form.action = `${form.dataset.baseUrl}/${ds.bookingId}`;
-
-                // hidden
                 document.getElementById('sk-booking-id').value = ds.bookingId;
 
                 open();
@@ -1631,10 +1625,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res.text();
+            })
+            .then(() => {
+                close();
+
+                const params = new URLSearchParams(window.location.search);
+                const currentWeek = parseInt(params.get('week') || '0', 10);
+
+                if (window.reloadJadwalKerjaWeek) {
+                    window.reloadJadwalKerjaWeek(currentWeek);
+                }
+            })
+            .catch(() => {
+                alert('Gagal menyimpan skema kerja');
+            });
+        });
+
         document.getElementById('closeSkema')?.addEventListener('click', close);
         document.getElementById('closeSkema2')?.addEventListener('click', close);
         backdrop?.addEventListener('click', close);
     };
+    
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
         initUserModals();

@@ -135,10 +135,10 @@
                                         @endif
 
                                     </div>
-                                    <button
+                                   <button
                                         class="btn-edit-skema"
                                         data-booking-id="{{ $booking->id }}"
-                                        data-skema-id="{{ $booking->skemaKerja->id ?? '' }}"
+                                        data-date="{{ $booking->photoshoot_date }}"
                                         data-editor="{{ $booking->skemaKerja?->editor_karyawan_id }}"
                                         data-fotografer="{{ $booking->skemaKerja?->photografer_karyawan_id }}"
                                         data-videografer="{{ $booking->skemaKerja?->videografer_karyawan_id }}"
@@ -203,17 +203,14 @@
 </div>
 
 <div class="custom-modal-backdrop" id="skemaBackdrop"></div>
-
     <div class="custom-modal" id="skemaModal" aria-hidden="true">
         <div class="modal-content modal-md">
 
-            <!-- HEADER -->
             <div class="modal-header">
                 <h5>Edit Skema Kerja</h5>
                 <button type="button" class="btn btn-secondary" id="closeSkema">✕</button>
             </div>
 
-            <!-- BODY -->
             <div class="modal-body">
                 <form id="skemaForm" method="POST"
                     data-base-url="{{ url('executive/homepages/update/skemakerja') }}">
@@ -221,6 +218,7 @@
                     @method('PUT')
 
                     <input type="hidden" name="booking_client_id" id="sk-booking-id">
+                    <input type="hidden" name="current_date" id="sk-current-date">
 
                     <div class="grid-2">
                         <div class="form-group">
@@ -274,7 +272,6 @@
                         </div>
                     </div>
 
-                    <!-- FOOTER -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <button type="button" class="btn btn-secondary" id="closeSkema2">Batal</button>
@@ -283,4 +280,4 @@
             </div>
 
         </div>
-</div>
+    </div>
