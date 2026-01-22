@@ -1533,47 +1533,35 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initJadwalKerja = () => {
-    const prevBtn   = document.getElementById('prev-week');
-    const nextBtn   = document.getElementById('next-week');
-    const filterBtn = document.getElementById('apply-filter');
-    const dateInput = document.getElementById('filter-date');
+        const prevBtn   = document.getElementById('prev-week');
+        const nextBtn   = document.getElementById('next-week');
+        const filterBtn = document.getElementById('apply-filter');
+        const dateInput = document.getElementById('filter-date');
 
-    const container = document.querySelector('.schedule-container');
-
-        if (!prevBtn || !nextBtn || !container) return;
-
-        // =========================
-        // AMBIL OFFSET DARI URL
-        // =========================
+        if (!prevBtn || !nextBtn) return;
         const getWeekFromUrl = () => {
             const params = new URLSearchParams(window.location.search);
-            return parseInt(params.get('week') || container.dataset.weekOffset || '0', 10);
+            const w = params.get('week');
+            return w !== null ? parseInt(w, 10) : 0;
         };
-
-        // =========================
-        // HITUNG OFFSET DARI TANGGAL
-        // =========================
+        const startOfWeek = (date) => {
+            const d = new Date(date);
+            const day = d.getDay(); 
+            const diff = day === 0 ? -6 : 1 - day;
+            d.setDate(d.getDate() + diff);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        };
         const getWeekOffsetFromDate = (dateStr) => {
-            const baseDateStr = container.dataset.startWeek;
-            if (!baseDateStr) return 0;
+            const today = new Date();
+            const baseWeek   = startOfWeek(today);
+            const targetWeek = startOfWeek(new Date(dateStr));
 
-            const baseDate   = new Date(baseDateStr);
-            const targetDate = new Date(dateStr);
+            const diffMs   = targetWeek.getTime() - baseWeek.getTime();
+            const diffDays = diffMs / (1000 * 60 * 60 * 24);
 
-            // reset jam biar akurat
-            baseDate.setHours(0,0,0,0);
-            targetDate.setHours(0,0,0,0);
-
-            const diffDays = Math.floor(
-                (targetDate - baseDate) / (1000 * 60 * 60 * 24)
-            );
-
-            return Math.floor(diffDays / 7);
+            return Math.round(diffDays / 7);
         };
-
-        // =========================
-        // LOADER UTAMA (TETAP PAKE WEEK)
-        // =========================
         const loadWeek = (offset) => {
             const link = document.querySelector(
                 '.sidebar .menu a[data-page="JadwalKerja"]'
@@ -1588,30 +1576,32 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(res => res.text())
             .then(html => {
-                document.getElementById('main-content').innerHTML = html;
+                const main = document.getElementById('main-content');
+                if (!main) return;
+
+                main.innerHTML = html;
                 history.replaceState({ page: 'JadwalKerja' }, '', url);
-                initPageScripts(); // WAJIB biar event kepasang lagi
+                if (typeof initPageScripts === 'function') {
+                    initPageScripts();
+                }
             })
-            .catch(() => alert('Gagal memuat jadwal kerja'));
+            .catch(err => {
+                console.error(err);
+                alert('Gagal memuat jadwal kerja');
+            });
         };
 
-        // expose global (opsional)
         window.reloadJadwalKerjaWeek = loadWeek;
-
-        // =========================
-        // PREV / NEXT
-        // =========================
         prevBtn.onclick = () => {
-            loadWeek(getWeekFromUrl() - 1);
+            const currentWeek = getWeekFromUrl();
+            loadWeek(currentWeek - 1);
         };
 
         nextBtn.onclick = () => {
-            loadWeek(getWeekFromUrl() + 1);
+            const currentWeek = getWeekFromUrl();
+            loadWeek(currentWeek + 1);
         };
 
-        // =========================
-        // FILTER 1 TANGGAL
-        // =========================
         if (filterBtn && dateInput) {
             filterBtn.onclick = () => {
                 const date = dateInput.value;
