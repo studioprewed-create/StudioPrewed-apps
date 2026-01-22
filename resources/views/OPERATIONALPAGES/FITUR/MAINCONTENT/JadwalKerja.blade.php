@@ -135,6 +135,18 @@
                                         @endif
 
                                     </div>
+                                    <button
+                                        class="btn-edit-skema"
+                                        data-booking-id="{{ $booking->id }}"
+                                        data-skema-id="{{ $booking->skemaKerja->id ?? '' }}"
+                                        data-editor="{{ $booking->skemaKerja?->editor_karyawan_id }}"
+                                        data-fotografer="{{ $booking->skemaKerja?->photografer_karyawan_id }}"
+                                        data-videografer="{{ $booking->skemaKerja?->videografer_karyawan_id }}"
+                                        data-makeup="{{ $booking->skemaKerja?->makeup_karyawan_id }}"
+                                        data-attire="{{ $booking->skemaKerja?->attire_karyawan_id }}"
+                                    >
+                                        Edit
+                                    </button>
                                 </div>
 
                             @empty
@@ -189,3 +201,69 @@
 <div class="floating-btn">
     <i class="fas fa-plus"></i>
 </div>
+
+<div class="modal-backdrop" id="skemaBackdrop"></div>
+    <div class="modal" id="skemaModal">
+        <form id="skemaForm" method="POST" data-base-url="/executive/skema-kerja">
+            @csrf
+
+            <input type="hidden" name="booking_client_id" id="sk-booking-id">
+
+            <h3>Edit Skema Kerja</h3>
+
+            <div class="form-group">
+                <label>Editor</label>
+                <select name="editor_karyawan_id" id="sk-editor">
+                    <option value="">-</option>
+                    @foreach($karyawanByRole['editor'] as $k)
+                        <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Fotografer</label>
+                <select name="photografer_karyawan_id" id="sk-fotografer">
+                    <option value="">-</option>
+                    @foreach($karyawanByRole['photografer'] as $k)
+                        <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Videografer</label>
+                <select name="videografer_karyawan_id" id="sk-videografer">
+                    <option value="">-</option>
+                    @foreach($karyawanByRole['videografer'] as $k)
+                        <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Makeup</label>
+                <select name="makeup_karyawan_id" id="sk-makeup">
+                    <option value="">-</option>
+                    @foreach($karyawanByRole['makeup'] as $k)
+                        <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Attire</label>
+                <select name="attire_karyawan_id" id="sk-attire">
+                    <option value="">-</option>
+                    @foreach($karyawanByRole['attire'] as $k)
+                        <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" id="closeSkema">Batal</button>
+                <button type="submit">Simpan</button>
+            </div>
+        </form>
+    </div>

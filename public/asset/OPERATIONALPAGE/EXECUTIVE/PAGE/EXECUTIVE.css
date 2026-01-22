@@ -3749,31 +3749,41 @@ body.sp-body {
 
 .staff-time {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 8px;
+    right: 8px;
     font-size: 11px;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 3px 6px;
-    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 3px 8px;
+    border-radius: 12px;
     color: var(--primary-light);
+    white-space: nowrap;
 }
 
 
 .staff-name {
     font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 5px;
-    padding-right: 60px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    padding-right: 70px;
+    color: #fff;
 }
 
 
 .staff-role {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--primary-light);
-    background: rgba(124, 58, 237, 0.1);
-    padding: 3px 8px;
+    background: rgba(124, 58, 237, 0.15);
+    padding: 4px 10px;
     border-radius: 20px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.staff-slot {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 8px;
 }
 
 /* Legend */
@@ -3827,6 +3837,19 @@ body.sp-body {
 .floating-btn:hover {
     transform: scale(1.1) rotate(90deg);
     box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
+}
+
+.btn-edit-skema {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(124,58,237,.2);
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }
 
 

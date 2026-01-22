@@ -27,6 +27,7 @@ use App\Models\Addon;
 use App\Models\BookingAddon;
 use App\Models\DataDiri;
 use App\Models\DataDiriKaryawan;
+use \App\Models\SkemaKerja;
 
 class EXECUTIVEController extends Controller
 {
@@ -1787,6 +1788,28 @@ class EXECUTIVEController extends Controller
                 $booking->phone_gabungan = ($booking->phone_cpp ?: '').' & '.($booking->phone_cpw ?: '');
 
                 $booking->save();
+            }
+            elseif ($section === 'skemakerja') {
+                $booking = BookingClient::findOrFail($id);
+
+                $validated = $request->validate([
+                    'editor_karyawan_id'      => 'nullable|exists:data_diri_karyawans,id',
+                    'photografer_karyawan_id' => 'nullable|exists:data_diri_karyawans,id',
+                    'videografer_karyawan_id' => 'nullable|exists:data_diri_karyawans,id',
+                    'makeup_karyawan_id'      => 'nullable|exists:data_diri_karyawans,id',
+                    'attire_karyawan_id'      => 'nullable|exists:data_diri_karyawans,id',
+                ]);
+
+                SkemaKerja::updateOrCreate(
+                    ['booking_client_id' => $booking->id],
+                    [
+                        'editor_karyawan_id'      => $validated['editor_karyawan_id'] ?? null,
+                        'photografer_karyawan_id' => $validated['photografer_karyawan_id'] ?? null,
+                        'videografer_karyawan_id' => $validated['videografer_karyawan_id'] ?? null,
+                        'makeup_karyawan_id'      => $validated['makeup_karyawan_id'] ?? null,
+                        'attire_karyawan_id'      => $validated['attire_karyawan_id'] ?? null,
+                    ]
+                );
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                         ->with('success', ucfirst($section).' berhasil diperbarui!');

@@ -1583,6 +1583,46 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
+    const initSkemaKerjaModal = () => {
+    const modal     = document.getElementById('skemaModal');
+    const backdrop  = document.getElementById('skemaBackdrop');
+    const form      = document.getElementById('skemaForm');
+
+        if (!modal || !form) return;
+
+        const open = () => {
+            modal.classList.add('show');
+            backdrop.classList.add('show');
+        };
+
+        const close = () => {
+            modal.classList.remove('show');
+            backdrop.classList.remove('show');
+        };
+
+        document.querySelectorAll('.btn-edit-skema').forEach(btn => {
+            btn.onclick = () => {
+                const ds = btn.dataset;
+
+                document.getElementById('sk-booking-id').value = ds.bookingId;
+
+                document.getElementById('sk-editor').value      = ds.editor || '';
+                document.getElementById('sk-fotografer').value  = ds.fotografer || '';
+                document.getElementById('sk-videografer').value = ds.videografer || '';
+                document.getElementById('sk-makeup').value      = ds.makeup || '';
+                document.getElementById('sk-attire').value      = ds.attire || '';
+
+                // 🔥 FIX PENTING
+                form.action = form.dataset.baseUrl;
+
+                open();
+            };
+        });
+
+        document.getElementById('closeSkema')?.addEventListener('click', close);
+        backdrop?.addEventListener('click', close);
+    };
+
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
         initUserModals();
@@ -1596,6 +1636,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initBookingCreateModal();
         initBookingEditModal();
         initJadwalKerja();
+        initSkemaKerjaModal();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */
