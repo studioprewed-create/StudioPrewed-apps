@@ -578,15 +578,14 @@ section#about::before {
 
 /* IMAGE – PORTRAIT */
 .f-card-image {
-    width: 100%;
-    aspect-ratio: 4 / 5;      /* PORTRAIT FIX */
-    object-fit: cover;
     display: block;
+    width: 100%;
+    max-width: 100%;         /* PENTING */
+    height: auto;            /* JANGAN height tetap */
+    aspect-ratio: 4 / 5;     /* PORTRAIT */
     object-fit: cover;
-    flex-shrink: 0;
     border-radius: 14px;
-    margin-bottom: 16px;
-    transition: transform .4s ease;
+    overflow: hidden;
 }
 
 .f-card-text {
