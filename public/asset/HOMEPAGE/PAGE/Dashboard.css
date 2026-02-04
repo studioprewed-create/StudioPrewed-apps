@@ -545,6 +545,12 @@ section#about::before {
     margin-bottom: 8%;
 }
 
+.portrait-card-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+}
+
 /* CARD */
 .f-card {
     background: linear-gradient(180deg,#11181d,#0f1519);
@@ -554,6 +560,12 @@ section#about::before {
     overflow: hidden; /* WAJIB */
     box-shadow: 0 12px 40px rgba(0,0,0,.45);
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.f-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .f-card:hover {
@@ -570,9 +582,16 @@ section#about::before {
     aspect-ratio: 4 / 5;      /* PORTRAIT FIX */
     object-fit: cover;
     display: block;
+    object-fit: cover;
+    flex-shrink: 0;
     border-radius: 14px;
     margin-bottom: 16px;
     transition: transform .4s ease;
+}
+
+.f-card-text {
+    padding-top: 6px;
+    flex-grow: 1;
 }
 
 /* HOVER ZOOM FOTO */
