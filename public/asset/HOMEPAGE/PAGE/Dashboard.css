@@ -563,7 +563,10 @@ section#about::before {
 }
 
 .f-card {
-    height: 100%;
+    position: relative;
+    overflow: hidden;        /* KUNCI UTAMA */
+    padding: 16px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
 }
