@@ -1204,14 +1204,14 @@ class EXECUTIVEController extends Controller
                 $grandTotal   = $packagePrice + $addonsTotal;
 
                 /* =========================
-                SAVE
-                ========================= */
-                $booking = new BookingClient();
-                $booking->fill($v);
+                SAVE>fill($v);
 
                 $booking->package_price = $packagePrice;
                 $booking->addons_total  = $addonsTotal;
                 $booking->grand_total   = $grandTotal;
+                $booking-
+                ========================= */
+                $booking = new BookingClient();
                 $booking->status        = 'confirmed';
 
                 $booking->nama_gabungan  = $v['nama_cpp'].' & '.$v['nama_cpw'];
@@ -2935,16 +2935,12 @@ class EXECUTIVEController extends Controller
                         'page' => $page,
                     ]);
                 }
-
-                // 10. Menu Panel Berkas
                 if ($page === 'MenuPanel.Berkas') {
                     // Isi dengan data yang diperlukan untuk Berkas
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page' => $page,
                     ]);
                 }
-
-                // Default jika halaman tidak ditemukan
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
             }
 
