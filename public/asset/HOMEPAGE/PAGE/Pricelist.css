@@ -52,7 +52,6 @@ h1, h2, h3, h4 {
     letter-spacing: 0.5px;
 }
 
-/* ===== Header ===== */
 #siteHeader {
     position: fixed;
     left: 0;
@@ -138,7 +137,6 @@ nav a.active {
     color: var(--white);
 }
 
-/* Carousel nav (gallery) */
 .carousel-nav .nav-btn {
     position: absolute;
     top: 50%;
@@ -169,7 +167,6 @@ nav a.active {
     right: 0px;
 }
 
-/* ===== Hero Section ===== */
 .hero {
     height: 100vh;
     min-height: 800px;
@@ -181,7 +178,6 @@ nav a.active {
     overflow: hidden;
 }
 
-/* video wrapper for hero */
 .video-wrapper {
     position: absolute;
     top: 50%;
@@ -225,7 +221,6 @@ nav a.active {
     transform: scale(1.2);
 }
 
-/* ===== Gallery Section ===== */
 .gallery-section {
     padding: 0rem 0%;
     background: var(--dark);
