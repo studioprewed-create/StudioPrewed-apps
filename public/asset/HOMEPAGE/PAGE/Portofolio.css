@@ -737,76 +737,6 @@ footer {
     }
 }
 
-/* ===============================
-   TABLET & SMALL DEVICES (≤ 991px)
-================================= */
-@media (max-width: 991px) {
-
-    /* HEADER */
-    #siteHeader {
-        padding: 1rem 5%;
-        flex-direction: row;
-    }
-
-    nav {
-        gap: 1rem;
-    }
-
-    nav a {
-        font-size: 0.85rem;
-    }
-
-    /* HERO */
-    .hero {
-        min-height: 600px;
-        padding: 0 8%;
-        text-align: center;
-    }
-
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero p {
-        max-width: 90%;
-    }
-
-    /* GALLERY */
-    .gallery-section {
-        padding: 3rem 5% 6rem;
-    }
-
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-
-    .gallery-item {
-        aspect-ratio: 3/4;
-    }
-
-    /* FILTER */
-    .gallery-filter {
-        flex-wrap: wrap;
-        border-radius: 20px;
-        padding: 0.5rem;
-    }
-
-    .filter-btn {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.9rem;
-    }
-
-    /* FOOTER */
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .copyright {
-        margin-top: 2rem;
-    }
-}
 
 /* ===============================
    MOBILE (≤ 768px)
@@ -830,16 +760,16 @@ footer {
   .hero {
     padding: 0 5%;
     padding-top: 120px; /* ruang buat header fixed */
-    min-height: 550px;
+    min-height: 100vh;
   }
 
   .hero h1 {
-    font-size: 2rem;
-    line-height: 1.3;
+    font-size: 2.4rem;
   }
 
   .hero p {
     font-size: 0.95rem;
+    margin-bottom: 2rem;
   }
 
   .carousel-controls {
