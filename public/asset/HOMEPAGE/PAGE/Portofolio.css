@@ -670,143 +670,157 @@ footer {
 }
 
 
-@media (max-width: 1100px) {
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+/* ===============================
+   TABLET BESAR (≤ 1100px)
+================================= */
+@media (max-width: 1100px){
+
+  .gallery-grid{
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 900px;
+  }
+
+}
+
+/* ===============================
+   TABLET (≤ 1024px)
+================================= */
+@media (max-width: 1024px){
+
+  .hero{
+    min-height: 700px;
+  }
+
 }
 
 /* ===============================
    MOBILE (≤ 768px)
 ================================= */
-@media (max-width: 768px) {
+@media (max-width: 768px){
 
-  /* ========== HEADER & NAV (SAMA SEPERTI DASHBOARD) ========== */
-  #siteHeader {
+  /* ========== HEADER (SAMA PERSIS DASHBOARD) ========== */
+  #siteHeader{
     padding: 1rem 5%;
     flex-direction: column;
     gap: 1rem;
   }
 
-  nav {
+  nav{
     gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  /* ========== HERO PORTOFOLIO ========== */
-  .hero {
+  /* ========== HERO ========== */
+  .hero{
     padding: 0 5%;
-    padding-top: 120px; /* ruang buat header fixed */
+    padding-top: 120px;
     min-height: 100vh;
   }
 
-  .hero h1 {
+  .hero h1{
     font-size: 2.4rem;
   }
 
-  .hero p {
+  .hero p{
     font-size: 0.95rem;
     margin-bottom: 2rem;
   }
 
-  .carousel-controls {
+  .carousel-controls{
     bottom: 20px;
   }
 
   /* ========== GALLERY ========== */
-  .gallery-grid {
+  .gallery-grid{
     grid-template-columns: 1fr;
   }
 
-  /* ========== SECTION TITLE ========== */
-  .section-header h2 {
-    font-size: 2rem;
-  }
-
-  .dynamic-title h2 {
+  /* ========== TITLE ========== */
+  .section-header h2,
+  .dynamic-title h2{
     font-size: 2rem;
   }
 
   /* ========== MODAL ========== */
-  .modal-content {
+  .modal-content{
     max-width: 95%;
   }
 
-  .close {
+  .close{
     font-size: 30px;
   }
 
   /* ========== FOOTER ========== */
-  footer {
+  footer{
     padding: 3rem 5% 1.5rem;
   }
+
 }
+
 /* ===============================
    SMALL MOBILE (≤ 576px)
 ================================= */
-@media (max-width: 576px) {
+@media (max-width: 576px){
 
-    .brand {
-        font-size: 1.1rem;
-    }
+  .brand{
+    font-size: 1.1rem;
+  }
 
-    .logo-img {
-        width: 38px;
-    }
+  .logo-img{
+    width: 38px;
+  }
 
-    .hero {
-        min-height: 500px;
-    }
+  .hero{
+    min-height: 500px;
+  }
 
-    .hero h1 {
-        font-size: 1.6rem;
-    }
+  .hero h1{
+    font-size: 1.6rem;
+  }
 
-    .hero p {
-        font-size: 0.9rem;
-    }
+  .hero p{
+    font-size: 0.9rem;
+  }
 
-    .filter-btn {
-        font-size: 0.8rem;
-        padding: 0.5rem 0.7rem;
-    }
+  .filter-btn{
+    font-size: 0.8rem;
+    padding: 0.5rem 0.7rem;
+  }
 
-    .gallery-overlay {
-        padding: 1rem;
-    }
+  .gallery-overlay{
+    padding: 1rem;
+  }
 
-    .gallery-overlay h3 {
-        font-size: 1rem;
-    }
+  .gallery-overlay h3{
+    font-size: 1rem;
+  }
 
-    .gallery-overlay p {
-        font-size: 0.8rem;
-    }
+  .gallery-overlay p{
+    font-size: 0.8rem;
+  }
 
-    footer {
-        padding: 3rem 5% 1.5rem;
-    }
 }
 
 /* ===============================
    EXTRA SMALL (≤ 400px)
 ================================= */
-@media (max-width: 400px) {
+@media (max-width: 400px){
 
-    .hero h1 {
-        font-size: 1.4rem;
-    }
+  .hero h1{
+    font-size: 1.4rem;
+  }
 
-    nav a {
-        font-size: 0.75rem;
-    }
+  nav a{
+    font-size: 0.75rem;
+  }
 
-    .filter-btn {
-        font-size: 0.75rem;
-    }
+  .filter-btn{
+    font-size: 0.75rem;
+  }
 
-    .section-header h2 {
-        font-size: 1.6rem;
-    }
+  .section-header h2{
+    font-size: 1.6rem;
+  }
+
 }
