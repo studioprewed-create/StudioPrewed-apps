@@ -333,17 +333,19 @@ transform: scale(1.2);
 
         .middlebar-container {
             background: rgba(255, 255, 255, 0.98);
-            padding: 0px 0px;
-            border-radius: 3px;
+            padding: 0;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
             display: flex;
             align-items: center;
-            gap: 20px;
-            max-width: 700px;
+            justify-content: center;
+
             width: 100%;
+            max-width: 1200px;   /* ⬅️ Samakan dengan hero-content */
+            
             border: 3px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
         }
 
         /* ===== Gallery Section ===== */
@@ -383,9 +385,10 @@ transform: scale(1.2);
         }
         .gallery-filter {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 0.6rem;
-            padding: 0.6rem;
+            padding: 0.8rem;
             background: #ffffff;
             border-radius: 5rem;
             width: 100%;
@@ -730,6 +733,12 @@ footer {
   .carousel-controls{
     bottom: 20px;
   }
+
+  .middlebar-container{
+        border-radius: 16px;
+        max-width: 100%;
+        margin: 0 10px;
+    }
 
   /* ========== GALLERY ========== */
   .gallery-grid{
