@@ -813,8 +813,29 @@ footer {
 ================================= */
 @media (max-width: 768px) {
 
+    /* ===== HEADER PORTOFOLIO FIX ===== */
+    #siteHeader {
+        padding: 1rem 5%;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    nav {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+    }
+
+    /* ===== HERO ===== */
     .hero {
         min-height: 550px;
+        padding-top: 120px;
     }
 
     .hero h1 {
@@ -850,7 +871,6 @@ footer {
         font-size: 30px;
     }
 }
-
 /* ===============================
    SMALL MOBILE (≤ 576px)
 ================================= */
