@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         header.classList.remove('scrolled');
       }
     };
+    onScrollHeader();
     window.addEventListener('scroll', onScrollHeader);
   }
 
