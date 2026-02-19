@@ -58,13 +58,12 @@
                     <i class="fa-solid fa-images"></i> <span>Berkas</span>
                 </a>
             </li>
+            <li class="menu-item {{ request()->routeIs('executive.dataakun') ? 'active' : '' }}">
+                <a href="{{ route('executive.dataakun') }}" data-page="DataAkun">
+                    <i class="fa-solid fa-id-card"></i> <span>Data Akun</span>
+                </a>
+            </li>
             @if(auth()->user()->role === 'DIREKTUR')
-                <li class="menu-item {{ request()->routeIs('executive.dataakun') ? 'active' : '' }}">
-                    <a href="{{ route('executive.dataakun') }}" data-page="DataAkun">
-                        <i class="fa-solid fa-id-card"></i> <span>Data Akun</span>
-                    </a>
-                </li>
-
                 <li class="menu-item {{ request()->routeIs('executive.statistik') ? 'active' : '' }}">
                     <a href="{{ route('executive.statistik') }}" data-page="Statistik">
                         <i class="fa-solid fa-chart-line"></i> <span>Statistik</span>
