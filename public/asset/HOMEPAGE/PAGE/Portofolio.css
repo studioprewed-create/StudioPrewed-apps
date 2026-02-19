@@ -770,15 +770,6 @@ footer {
    SMALL MOBILE (≤ 576px)
 ================================= */
 @media (max-width: 576px){
-
-  .brand{
-    font-size: 1.1rem;
-  }
-
-  .logo-img{
-    width: 38px;
-  }
-
   .hero{
     min-height: 500px;
   }
