@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/galleryattire', [EXECUTIVEController::class, 'galleryattire'])->name('galleryattire');
         Route::get('/dataakun', [EXECUTIVEController::class, 'dataakun'])->name('dataakun');
         Route::get('/statistik', [EXECUTIVEController::class, 'statistik'])->name('statistik');
+        Route::get('/upload', [EXECUTIVEController::class, 'upload'])->name('upload');
         
         Route::prefix('menupanel')->name('menupanel.')->group(function () {
             Route::get('/homepages/dashboard', [EXECUTIVEController::class, 'menuHomeDashboard'])->name('homepages.dashboard');

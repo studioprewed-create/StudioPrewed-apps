@@ -113,6 +113,11 @@
                     <i class="fas fa-calendar-check"></i> <span>Jadwal Pesanan</span>
                 </a>
             </li>
+            <li class="menu-item">
+                <a href="{{ route('executive.upload') }}" data-page="Upload">
+                    <i class="fas fa-upload"></i> <span>Upload</span>
+                </a>
+            </li>
         @endif
 
         <li class="menu-item">

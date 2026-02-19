@@ -37,6 +37,7 @@ class EXECUTIVEController extends Controller
     public function catalogue(Request $request){ return $this->loadPage($request, 'Catalogue'); }
     public function galleryattire(Request $request){ return $this->loadPage($request, 'GalleryAttire'); }
     public function statistik(Request $request){ return $this->loadPage($request, 'Statistik'); }
+    public function upload(Request $request){ return $this->loadPage($request, 'Upload'); }
     public function dataakun(Request $request){ return $this->loadPage($request, 'DataAkun'); }
     public function menuHomeDashboard(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Dashboard'); }
     public function menuHomePortofolio(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Portofolio'); }
