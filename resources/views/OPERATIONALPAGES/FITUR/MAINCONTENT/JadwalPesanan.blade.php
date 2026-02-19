@@ -41,11 +41,13 @@
                 <h5>Studio 2</h5>
                 <div class="slots-grid" id="jpStudio2"></div>
             </div>
-            <div class="jp-studio">
-            <button type="button" class="btn btn-primary" id="btnOpenBooking">
-                + Booking Baru
-            </button>
-            </div>
+            @if(in_array(auth()->user()->role, ['ADMIN', 'DIREKTUR']))
+                <div class="jp-studio">
+                    <button type="button" class="btn btn-primary" id="btnOpenBooking">
+                        + Booking Baru
+                    </button>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -156,22 +158,24 @@
                     >
                         Lihat Detail
                     </button>
-                    <button
-                        type="button"
-                        class="action-btn btn-edit js-open-booking-edit"
-                    >
-                        <i class="fas fa-edit"></i> Edit
-                    </button>
-                    <form action="{{ route('executive.homepages.destroy', ['section' => 'bookingexecutive', 'id' => $booking->id]) }}"
-                            method="POST"
-                            style="display:inline-block"
-                            onsubmit="return confirm('Yakin ingin menghapus booking ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button class="action-btn btn-delete" type="submit">
-                            <i class="fa fa-trash"></i> Hapus
+                    @if(in_array(auth()->user()->role, ['ADMIN', 'DIREKTUR']))
+                        <button
+                            type="button"
+                            class="action-btn btn-edit js-open-booking-edit"
+                        >
+                            <i class="fas fa-edit"></i> Edit
                         </button>
-                    </form>
+                        <form action="{{ route('executive.homepages.destroy', ['section' => 'bookingexecutive', 'id' => $booking->id]) }}"
+                                method="POST"
+                                style="display:inline-block"
+                                onsubmit="return confirm('Yakin ingin menghapus booking ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button class="action-btn btn-delete" type="submit">
+                                <i class="fa fa-trash"></i> Hapus
+                            </button>
+                        </form>
+                    @endif
                 </div>
 
             </div>
