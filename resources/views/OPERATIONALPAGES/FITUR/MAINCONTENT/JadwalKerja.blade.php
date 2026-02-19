@@ -131,18 +131,20 @@
                                         @endif
 
                                     </div>
-                                   <button
-                                        class="btn-edit-skema"
-                                        data-booking-id="{{ $booking->id }}"
-                                        data-date="{{ $booking->photoshoot_date }}"
-                                        data-editor="{{ $booking->skemaKerja?->editor_karyawan_id }}"
-                                        data-fotografer="{{ $booking->skemaKerja?->photografer_karyawan_id }}"
-                                        data-videografer="{{ $booking->skemaKerja?->videografer_karyawan_id }}"
-                                        data-makeup="{{ $booking->skemaKerja?->makeup_karyawan_id }}"
-                                        data-attire="{{ $booking->skemaKerja?->attire_karyawan_id }}"
-                                    >
-                                        Edit
-                                    </button>
+                                    @if(in_array(auth()->user()->role, ['ADMIN', 'DIREKTUR']))
+                                        <button
+                                            class="btn-edit-skema"
+                                            data-booking-id="{{ $booking->id }}"
+                                            data-date="{{ $booking->photoshoot_date }}"
+                                            data-editor="{{ $booking->skemaKerja?->editor_karyawan_id }}"
+                                            data-fotografer="{{ $booking->skemaKerja?->photografer_karyawan_id }}"
+                                            data-videografer="{{ $booking->skemaKerja?->videografer_karyawan_id }}"
+                                            data-makeup="{{ $booking->skemaKerja?->makeup_karyawan_id }}"
+                                            data-attire="{{ $booking->skemaKerja?->attire_karyawan_id }}"
+                                        >
+                                            Edit
+                                        </button>
+                                    @endif
                                 </div>
 
                             @empty
