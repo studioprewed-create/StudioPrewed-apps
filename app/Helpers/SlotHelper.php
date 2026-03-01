@@ -25,11 +25,11 @@ class SlotHelper
       if ($durasiMenit === 60) {
             $prefix     = '00';
             $stepMenit  = 60;
-            $endOfDay   = Carbon::createFromTime(17, 0, 0);
+            $endOfDay   = Carbon::createFromTime(22, 0, 0);
         } elseif ($durasiMenit === 120) {
             $prefix     = '01';
             $stepMenit  = 60; // ⬅️ INI YANG DIUBAH (rolling per 1 jam)
-            $endOfDay   = Carbon::createFromTime(17, 0, 0);
+            $endOfDay   = Carbon::createFromTime(22, 0, 0);
         } else {
             $prefix     = '09';
             $stepMenit  = 60;
