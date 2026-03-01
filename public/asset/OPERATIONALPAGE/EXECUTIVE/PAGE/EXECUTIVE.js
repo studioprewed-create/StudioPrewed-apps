@@ -796,10 +796,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const slotCodeInp = modal.querySelector('[name="slot_code"]');
         const startInp    = modal.querySelector('[name="start_time"]');
         const endInp      = modal.querySelector('[name="end_time"]');
-        const API_SLOTS = '/executive/api/slots';
+        const API_SLOTS = '/api/slots';
         const selTemaNama = modal.querySelector('#tema_nama');
         const selTemaKode = modal.querySelector('#tema_kode');
-        const API_TEMA_BY_NAME = '/executive/api/tema-by-name';
+        const API_TEMA_BY_NAME = '/api/tema-by-name';
         const addonChecks      = modal.querySelectorAll('.addon-check');
         const extraSlotWrap   = modal.querySelector('#extraSlotWrapper');
         const extraSlotList   = modal.querySelector('#extraSlotList');
