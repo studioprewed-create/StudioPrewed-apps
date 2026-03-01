@@ -19,6 +19,13 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/Registrasi', [AuthController::class, 'Registrasi'])->name('Registrasi');
 Route::post('/review/store', [EXECUTIVEController::class, 'storeReview'])->name('review.store')->middleware('auth');
 
+Route::get('/api/slots', [EXECUTIVEController::class, 'apiSlots'])->name('api.slots');
+        Route::get('/api/tema-by-name', [EXECUTIVEController::class, 'getTemaByName'])->name('api.temaByName');
+
+        // Submit booking
+        Route::post('/booking-client', [EXECUTIVEController::class, 'bookingClientStore'])
+            ->name('bookingClient.store');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         $role = auth()->user()->role;
@@ -75,13 +82,6 @@ Route::middleware(['auth'])->group(function () {
             Route::put('updatePorto/{section}/{id}', [EXECUTIVEController::class, 'updatePorto'])->name('updatePorto');
             Route::delete('destroy/{section}/{id}', [EXECUTIVEController::class, 'destroy'])->name('destroy');
         });
-
-        Route::get('/api/slots', [EXECUTIVEController::class, 'apiSlots'])->name('api.slots');
-        Route::get('/api/tema-by-name', [EXECUTIVEController::class, 'getTemaByName'])->name('api.temaByName');
-
-        // Submit booking
-        Route::post('/booking-client', [EXECUTIVEController::class, 'bookingClientStore'])
-            ->name('bookingClient.store');
 
         Route::prefix('users')->name('users.')->group(function () {
             Route::post('/', [EXECUTIVEController::class, 'storeUser'])->name('store');         // create

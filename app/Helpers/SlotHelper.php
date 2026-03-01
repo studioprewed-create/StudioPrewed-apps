@@ -31,9 +31,9 @@ class SlotHelper
             $stepMenit  = 60; // ⬅️ INI YANG DIUBAH (rolling per 1 jam)
             $endOfDay   = Carbon::createFromTime(22, 0, 0);
         } else {
-            $prefix     = '09';
+            $prefix     = '02';
             $stepMenit  = 60;
-            $endOfDay   = Carbon::createFromTime(17, 0, 0);
+            $endOfDay   = Carbon::createFromTime(22, 0, 0);
         }
 
         $slots = [];
