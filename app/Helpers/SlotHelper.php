@@ -22,24 +22,26 @@ class SlotHelper
         // Mulai jam kerja, misal 10:00
         $startOfDay = Carbon::createFromTime(10, 0, 0);
 
-        // Sampai jam berapa? Untuk 60m: 10–15, untuk 120m: 10–16 (sesuai logika lama)
-        if ($durasiMenit === 60) {
-            $prefix    = '00';
-            $totalSlot = 11; // 10–15
+      if ($durasiMenit === 60) {
+            $prefix     = '00';
+            $stepMenit  = 60;
+            $endOfDay   = Carbon::createFromTime(17, 0, 0);
         } elseif ($durasiMenit === 120) {
-            $prefix    = '01';
-            $totalSlot = 5; // 10–16
+            $prefix     = '01';
+            $stepMenit  = 60; // ⬅️ INI YANG DIUBAH (rolling per 1 jam)
+            $endOfDay   = Carbon::createFromTime(17, 0, 0);
         } else {
-            // fallback dinamis: 10:00–17:00
-            $prefix      = '09';
-            $totalMenit  = 11 * 60; // 7 jam
-            $totalSlot   = max(1, intdiv($totalMenit, $durasiMenit));
+            $prefix     = '09';
+            $stepMenit  = 60;
+            $endOfDay   = Carbon::createFromTime(17, 0, 0);
         }
 
         $slots = [];
+        $current = $startOfDay->copy();
+        $i = 1;
 
-        for ($i = 1; $i <= $totalSlot; $i++) {
-            $begin = $startOfDay->copy()->addMinutes(($i - 1) * $durasiMenit);
+        while ($current->copy()->addMinutes($durasiMenit)->lte($endOfDay)) {
+            $begin = $current->copy();
             $end   = $begin->copy()->addMinutes($durasiMenit);
 
             $slot = [
@@ -48,7 +50,7 @@ class SlotHelper
                 'available' => true,
             ];
 
-            // Hitung berapa booking yang overlap dengan slot ini
+            // ===== CEK OVERLAP (biarkan seperti punyamu) =====
             $overlapCount = 0;
 
             $checkPoints = [
@@ -67,7 +69,6 @@ class SlotHelper
                     $bStart = Carbon::createFromFormat('H:i', substr($b['start'], 0, 5));
                     $bEnd   = Carbon::createFromFormat('H:i', substr($b['end'],   0, 5));
 
-                    // booking aktif di titik waktu ini?
                     if ($point->gte($bStart) && $point->lt($bEnd)) {
                         $active++;
                     }
@@ -81,8 +82,11 @@ class SlotHelper
             }
 
             $slots[] = $slot;
+
+            $current->addMinutes($stepMenit); // ⬅️ rolling 1 jam
+            $i++;
         }
 
         return $slots;
-    }
+            }
 }
