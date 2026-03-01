@@ -234,7 +234,7 @@
     {{-- STEP 4 --}}
     <div class="step" data-step="4">
         <div class="summary-card" id="summaryBox"></div>
-        <form id="finalForm" method="POST" action="{{ route('executive.bookingClient.store') }}">
+        <form id="finalForm" method="POST" action="{{ route('bookingClient.store') }}">
             @csrf
             <div id="hiddenBag"></div>
             <button type="button" class="btn" id="submitBtn">Kirim Booking</button>
