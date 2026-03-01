@@ -8,7 +8,13 @@
         <a href="{{ route('Portofolio') }}">Portofolio</a>
         <a href="#bookingWizard">Booking</a>
         <a href="#promoCarousel">Pricelist</a>
-        <a href="{{ route('Account') }}">Account</a>
-        <a href="{{ route('login') }}">Login</a>
+        @auth
+            <a href="{{ route('Account') }}">Account</a>
+            <a href="{{ route('logout') }}">Logout</a>
+        @endauth
+
+        @guest
+            <a href="{{ route('login') }}">Login</a>
+        @endguest
     </nav>
 </header>

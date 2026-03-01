@@ -40,16 +40,16 @@
         );
 
         window.APP_ROUTES = {
-            apiSlots: "{{ route('executive.api.slots') }}",
-            apiTemaByName: "{{ route('executive.api.temaByName') }}",
+            apiSlots: "{{ route('api.slots') }}",
+            apiTemaByName: "{{ route('api.temaByName') }}",
         };
     </script>
 
     <script>
         window.APP_ROUTES = window.APP_ROUTES || {};
-        window.APP_ROUTES.apiSlots      = "{{ route('executive.api.slots') }}";
-        window.APP_ROUTES.apiTemaByName = "{{ route('executive.api.temaByName') }}";
-        window.APP_ROUTES.bookingStore  = "{{ route('executive.bookingClient.store') }}";
+        window.APP_ROUTES.apiSlots      = "{{ route('api.slots') }}";
+        window.APP_ROUTES.apiTemaByName = "{{ route('api.temaByName') }}";
+        window.APP_ROUTES.bookingStore  = "{{ route('bookingClient.store') }}";
     </script>
 
     {{-- Main JS --}}

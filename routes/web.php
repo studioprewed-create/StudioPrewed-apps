@@ -10,8 +10,6 @@ Route::get('/', [EXECUTIVEController::class, 'index'])->name('homepage');
 Route::get('/Portofolio', [EXECUTIVEController::class, 'Portofolio'])->name('Portofolio');
 Route::get('/Pricelist', [EXECUTIVEController::class, 'Pricelist'])->name('Pricelist');
 
-
-
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'verify'])->name('login.verify');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -20,11 +18,8 @@ Route::get('/Registrasi', [AuthController::class, 'Registrasi'])->name('Registra
 Route::post('/review/store', [EXECUTIVEController::class, 'storeReview'])->name('review.store')->middleware('auth');
 
 Route::get('/api/slots', [EXECUTIVEController::class, 'apiSlots'])->name('api.slots');
-        Route::get('/api/tema-by-name', [EXECUTIVEController::class, 'getTemaByName'])->name('api.temaByName');
-
-        // Submit booking
-        Route::post('/booking-client', [EXECUTIVEController::class, 'bookingClientStore'])
-            ->name('bookingClient.store');
+Route::get('/api/tema-by-name', [EXECUTIVEController::class, 'getTemaByName'])->name('api.temaByName');
+Route::post('/booking-client', [EXECUTIVEController::class, 'bookingClientStore'])->name('bookingClient.store');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
