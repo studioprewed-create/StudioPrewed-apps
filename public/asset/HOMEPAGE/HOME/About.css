@@ -182,47 +182,32 @@ section#about::before {
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 
   section#about {
-    padding: 60px 0;
+    padding: 80px 0;
   }
 
   .about-mosaic {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto;
   }
 
-  /* Semua item auto flow */
   .mosaic-main,
   .mosaic-item-1,
   .mosaic-item-2,
   .mosaic-item-3,
-  .mosaic-item-4,
+  .mosaic-item-4 {
+    height: 350px;
+  }
+
   .mosaic-text-1,
-  .mosaic-text-2,
-  .mosaic-side-text {
-    grid-column: auto;
-    grid-row: auto;
-    height: auto;
-  }
-
-  .mosaic-text {
-    padding: 20px;
-  }
-
-  .mosaic-text h3 {
-    font-size: 1.4rem;
+  .mosaic-text-2 {
+    grid-column: 1 / 7;
   }
 
   .about-stats-mosaic {
     grid-template-columns: repeat(2, 1fr);
-    padding: 20px;
-    gap: 16px;
-  }
-
-  .stat-number-mosaic {
-    font-size: 1.9rem;
   }
 
 }
