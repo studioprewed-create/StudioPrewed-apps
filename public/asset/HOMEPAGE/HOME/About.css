@@ -228,11 +228,8 @@ section#about::before {
     font-size: 0.95rem;
   }
 
-  /* ===== STATS TETAP 2 KOLOM ===== */
   .about-stats-mosaic {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    padding: 20px;
   }
 
   .stat-number-mosaic {
@@ -264,7 +261,7 @@ section#about::before {
   }
 
   .about-stats-mosaic {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .stat-number-mosaic {
