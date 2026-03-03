@@ -89,11 +89,8 @@ footer {
   }
 
   .footer-content {
-    gap: 2rem;
-  }
-
-  .footer-col h3 {
-    font-size: 1.2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
   }
 
 }
@@ -107,15 +104,15 @@ footer {
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
-    text-align: center;
+    text-align: left;
   }
 
   .social-links {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .footer-links a {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .copyright {

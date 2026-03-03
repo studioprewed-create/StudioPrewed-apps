@@ -189,10 +189,11 @@ section#about::before {
   }
 
   .about-mosaic {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
+  /* Semua item auto flow */
   .mosaic-main,
   .mosaic-item-1,
   .mosaic-item-2,
@@ -201,27 +202,27 @@ section#about::before {
   .mosaic-text-1,
   .mosaic-text-2,
   .mosaic-side-text {
-    grid-column: 1;
+    grid-column: auto;
     grid-row: auto;
     height: auto;
   }
 
   .mosaic-text {
-    padding: 22px;
+    padding: 20px;
   }
 
   .mosaic-text h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .about-stats-mosaic {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     padding: 20px;
     gap: 16px;
   }
 
   .stat-number-mosaic {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 
 }
