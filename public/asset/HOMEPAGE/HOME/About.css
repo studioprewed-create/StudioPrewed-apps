@@ -160,20 +160,30 @@ section#about::before {
 
   .about-mosaic {
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: auto;
+    gap: 18px;
   }
 
-  .mosaic-main,
+  .mosaic-main {
+    grid-column: 1 / 7;
+    height: 350px;
+  }
+
+  .mosaic-side-text {
+    grid-column: 1 / 7;
+    height: auto;
+  }
+
   .mosaic-item-1,
   .mosaic-item-2,
   .mosaic-item-3,
   .mosaic-item-4 {
-    height: 350px;
+    grid-column: span 3;
+    height: 300px;
   }
 
   .mosaic-text-1,
   .mosaic-text-2 {
-    grid-column: 1 / 7;
+    grid-column: span 6;
   }
 
   .about-stats-mosaic {
@@ -182,48 +192,71 @@ section#about::before {
 
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
 
   section#about {
-    padding: 80px 0;
+    padding: 60px 0;
   }
 
+  /* ===== MOSAIC ATAS JADI 1 KOLOM ===== */
   .about-mosaic {
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 16px;
   }
 
-  .mosaic-main,
-  .mosaic-item-1,
-  .mosaic-item-2,
-  .mosaic-item-3,
-  .mosaic-item-4 {
-    height: 350px;
+  /* Reset semua posisi desktop */
+  .about-mosaic > * {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    height: auto !important;
   }
 
-  .mosaic-text-1,
-  .mosaic-text-2 {
-    grid-column: 1 / 7;
+  .mosaic-main {
+    height: 260px !important;
   }
 
+  .mosaic-text {
+    padding: 20px;
+  }
+
+  .mosaic-text h3 {
+    font-size: 1.35rem;
+  }
+
+  .mosaic-text p {
+    font-size: 0.95rem;
+  }
+
+  /* ===== STATS TETAP 2 KOLOM ===== */
   .about-stats-mosaic {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding: 20px;
+  }
+
+  .stat-number-mosaic {
+    font-size: 1.8rem;
   }
 
 }
 
 @media (max-width: 480px) {
 
-  section#about {
-    padding: 50px 0;
+  .about-mosaic {
+    grid-template-columns: 1fr;
+  }
+
+  .mosaic-main {
+    height: 240px;
   }
 
   .mosaic-text {
-    padding: 18px;
+    padding: 16px;
   }
 
   .mosaic-text h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .mosaic-text p {
@@ -235,7 +268,7 @@ section#about::before {
   }
 
   .stat-number-mosaic {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 
 }
