@@ -4,7 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Prewed | Fotografi Klasik Modern</title>
-    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Base.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Header.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Videoplay.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Marquee.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/About.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Whyus.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Review.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Faq.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Footer.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -21,7 +29,6 @@
         @include('HOMEPAGES.SECTION.Marquee')
         @include('HOMEPAGES.SECTION.Aboutus')
         @include('HOMEPAGES.SECTION.WhyUs')
-        @include('HOMEPAGES.SECTION.TreeProses')
         @include('HOMEPAGES.SECTION.Review')
         @include('HOMEPAGES.SECTION.FAQ')
         @include('HOMEPAGES.SECTION.Footer')

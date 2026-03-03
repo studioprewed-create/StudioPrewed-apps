@@ -1,0 +1,28 @@
+.marquee {
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:#0f0f12;
+    overflow:hidden;
+    white-space:nowrap;
+    color:#c9c4b8;
+}
+
+.marquee .inner {
+    display:inline-block; 
+    padding:10px 0; 
+    animation:mar 24s linear infinite; 
+    font-weight:900; 
+    letter-spacing:.12em; 
+    text-transform:uppercase;
+}
+
+.marquee .pill{
+    display:inline-flex; 
+    align-items:center; 
+    gap:8px; 
+    padding:8px 14px; 
+    margin:0 12px; 
+    border-radius:999px;
+    background:linear-gradient(135deg,rgba(255,138,161,.12),rgba(99,199,255,.12));
+    border:1px solid var(--line); color:#efe9db;
+    }

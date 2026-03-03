@@ -1,0 +1,346 @@
+.testi-container{
+    display:flex;
+    align-items:stretch;
+    gap:32px;
+    padding:40px 24px;
+    max-width:var(--maxw);
+    margin:0 auto;
+    flex-wrap:nowrap;
+}
+
+.testi-left,
+.testi-right{
+    display:flex;
+    min-width:0;
+}
+.testi-left  { flex: 0 1 60%; }
+.testi-right { flex: 0 1 40%; }
+
+.testi-wrap{ flex:1; display:flex; }
+.slider{ flex:1; display:flex; position:relative; overflow:hidden;
+    border-radius:24px; background:#0f0f12; border:1px solid var(--line); box-shadow:var(--shadow);
+}
+.slides{ flex:1; display:flex; transition:transform .35s ease; }
+.t-item{
+    min-width:100%;
+    display:flex; flex-direction:column;
+    padding:28px 28px 92px;
+}
+.t-top{ display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.t-name{ font-weight:900; color:#f7f4ea; }
+.t-quote{ color:#e8e3d7; font-size:1rem; line-height:1.65; margin-top:8px; overflow-wrap:anywhere; }
+
+.t-nav{ position:absolute; right:16px; bottom:16px; display:flex; gap:8px; z-index:2; }
+.t-btn{
+    width:50px; height:50px; display:grid; place-items:center; border-radius:50%;
+    border:1px solid var(--line); background:#141418; color:#efeadd; box-shadow:var(--shadow); cursor:pointer;
+}
+
+.testi-media{ flex:1; display:flex; width:100%; }
+.testi-media-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    height:100%;
+    gap:12px;
+    width:100%;
+}
+
+.testi-media-grid img:nth-child(n+3){ display:none; }
+
+.testi-media-grid img,
+.testi-media > img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:24px;
+    background:#0f0f12;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    display:block;
+    aspect-ratio:auto !important;
+}
+
+.avatar{
+    width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    box-shadow:var(--shadow); overflow:hidden; flex:0 0 46px;
+}
+.avatar img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }
+
+.t-stars{ margin:6px 0 8px; color:#e8c86a; }
+
+
+.reviews-cta,
+.reviews-actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  align-items:center;
+  margin:16px 0 0;
+}
+
+.reviews-cta button,
+.reviews-actions button{
+  appearance:none;
+  border:1px solid var(--line, #2a2a2f);
+  background:#141418;
+  color:#efeadd;
+  padding:12px 18px;
+  border-radius:999px;
+  font-weight:700;
+  letter-spacing:.02em;
+  box-shadow:var(--shadow, 0 6px 20px rgba(0,0,0,.35));
+  cursor:pointer;
+  transition:
+    transform .15s ease,
+    background .3s ease,
+    border-color .3s ease,
+    color .3s ease,
+    box-shadow .3s ease;
+}
+
+.reviews-cta button:hover,
+.reviews-actions button:hover{
+  transform:translateY(-1px);
+  border-color:var(--accent, #e8c86a);
+  box-shadow:0 8px 24px rgba(0,0,0,.45);
+}
+.reviews-cta button:active,
+.reviews-actions button:active{
+  transform:translateY(0);
+}
+.reviews-cta button:focus-visible,
+.reviews-actions button:focus-visible{
+  outline:2px solid var(--accent, #e8c86a);
+  outline-offset:2px;
+}
+
+.reviews-cta button[disabled],
+.reviews-actions button[disabled]{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.reviews-cta button:nth-child(2){
+  background:transparent;
+  color:#cfc9bd;
+  border-color:var(--line, #2a2a2f);
+}
+.reviews-cta button:nth-child(2):hover{
+  background:rgba(255,255,255,.04);
+  color:#efeadd;
+  border-color:var(--accent, #e8c86a);
+}
+
+@media (max-width:640px){
+  .reviews-cta{ flex-direction:column; gap:10px; }
+  .reviews-cta button,
+  .reviews-actions button{
+    width:100%;
+    max-width:420px;
+  }
+}
+
+.reviews-section {
+padding: 2rem 5%;
+background: var(--dark);
+}
+
+.reviews-container {
+max-width: 100%;
+margin: 1rem auto;
+}
+
+.reviews-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin-top: 1rem;
+}
+
+.review-card {
+background: rgba(255, 255, 255, 0.05);
+padding: 2rem;
+border-radius: 10px;
+border: 1px solid var(--medium-gray);
+transition: var(--transition);
+}
+
+.review-card:hover {
+transform: translateY(-5px);
+border-color: var(--accent);
+}
+
+.review-header {
+display: flex;
+align-items: center;
+margin-bottom: 1.5rem;
+}
+
+.reviewer-avatar {
+width: 60px;
+height: 60px;
+border-radius: 50%;
+object-fit: cover;
+margin-right: 1rem;
+border: 2px solid var(--accent);
+}
+
+.reviewer-info h4 {
+margin-bottom: 0.3rem;
+font-size: 1.1rem;
+}
+
+.reviewer-info p {
+color: var(--accent);
+font-size: 0.9rem;
+}
+
+.review-stars {
+color: var(--accent);
+margin-bottom: 1rem;
+}
+
+.review-content {
+color: var(--light-gray);
+line-height: 1.7;
+font-style: italic;
+}
+
+.review-date {
+display: block;
+margin-top: 1rem;
+font-size: 0.85rem;
+color: var(--accent);
+}
+
+.btn-reviews{
+appearance:none;
+border:1px solid var(--line, #2a2a2f);
+background:#141418;
+color:#efeadd;
+padding:.75rem 1rem;
+border-radius:999px;
+font-weight:600;
+cursor:pointer;
+transition:transform .15s ease, border-color .2s ease, background .2s ease;
+box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+.btn-reviews:hover{ transform:translateY(-1px); border-color:var(--brand, #7bd4ff); }
+.btn-reviews:active{ transform:translateY(0); }
+.btn-reviews[hidden]{ display:none !important; }
+
+.btn-reviews.is-ghost{
+background:transparent;
+border-color:var(--line, #2a2a2f);
+color:#cfcac0;
+}
+.btn-reviews.is-ghost:hover{
+background:rgba(255,255,255,.06);
+border-color:var(--brand, #7bd4ff);
+}
+
+@media (max-width: 1024px) {
+
+  .testi-container {
+    gap: 24px;
+    padding: 32px 20px;
+  }
+
+  .testi-left  { flex: 0 1 55%; }
+  .testi-right { flex: 0 1 45%; }
+
+  .t-item {
+    padding: 24px 24px 80px;
+  }
+
+  .t-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .testi-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 28px 16px;
+  }
+
+  .testi-left,
+  .testi-right {
+    flex: 1 1 100%;
+  }
+
+  .t-item {
+    padding: 20px 20px 70px;
+  }
+
+  .t-quote {
+    font-size: 0.95rem;
+  }
+
+  .testi-media-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .t-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .reviews-cta,
+  .reviews-actions {
+    flex-direction: column;
+  }
+
+  .reviews-cta button,
+  .reviews-actions button {
+    width: 100%;
+  }
+
+  .review-card {
+    padding: 1.5rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .t-name {
+    font-size: 0.95rem;
+  }
+
+  .t-quote {
+    font-size: 0.9rem;
+  }
+
+  .avatar {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+  }
+
+  .reviewer-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .reviewer-info h4 {
+    font-size: 1rem;
+  }
+
+  .review-content {
+    font-size: 0.9rem;
+  }
+
+  .btn-reviews {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+}
