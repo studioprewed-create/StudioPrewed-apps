@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Studio Prewed</title>
+    <title>Studio Prewed | Registrasi</title>
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/FITUR/registrasi.css') }}">
 </head>
 <body>

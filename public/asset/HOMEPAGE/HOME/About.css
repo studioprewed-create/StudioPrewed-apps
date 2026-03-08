@@ -198,14 +198,12 @@ section#about::before {
     padding: 60px 0;
   }
 
-  /* ===== MOSAIC ATAS JADI 1 KOLOM ===== */
   .about-mosaic {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 16px;
   }
 
-  /* Reset semua posisi desktop */
   .about-mosaic > * {
     grid-column: auto !important;
     grid-row: auto !important;

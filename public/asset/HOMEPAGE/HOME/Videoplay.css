@@ -212,7 +212,7 @@ transform: scale(1.2);
   .hero {
     min-height: 100vh;
     padding: 0 5%;
-    padding-top: 120px; /* penting untuk header fixed */
+    padding-top: 120px; 
   }
 
   .hero h1 {
