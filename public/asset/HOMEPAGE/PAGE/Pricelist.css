@@ -1050,7 +1050,7 @@ form.form-inline[action*="review"] .btn{
     }
     .pkg-modal__media img {
         max-height: 50vh;
-    }
+}
 }
 @media (max-width: 576px) {
     .pkg-modal__panel {

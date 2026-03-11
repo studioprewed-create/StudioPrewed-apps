@@ -7,8 +7,16 @@
 
     <title>Studio Prewed | Fotrait Timeless | Pricelist</title>
 
-    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.css') }}">
-
+    {{-- <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Base.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Header.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Videoplay.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Promo.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Package.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Packagemodal.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Temabaju.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Booking.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Footer.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&display=swap">
