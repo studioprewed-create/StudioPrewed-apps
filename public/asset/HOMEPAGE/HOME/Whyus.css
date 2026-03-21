@@ -85,7 +85,7 @@
 @media (max-width: 768px) {
 
   .features {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
   }
 
