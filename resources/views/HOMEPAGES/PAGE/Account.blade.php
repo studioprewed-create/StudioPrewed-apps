@@ -6,6 +6,7 @@
     <title>Studio Prewed | Fotrait Timeless | Account</title>
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Base.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Header.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Videoplay.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/ACCOUNT/Account.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Footer.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
