@@ -29,7 +29,6 @@
         @include('HOMEPAGES.SECTION.Marquee')
         @include('HOMEPAGES.SECTION.Aboutus')
         @include('HOMEPAGES.SECTION.WhyUs')
-        @include('HOMEPAGES.SECTION.Review')
         @include('HOMEPAGES.SECTION.FAQ')
         @include('HOMEPAGES.SECTION.Footer')
     </main>
