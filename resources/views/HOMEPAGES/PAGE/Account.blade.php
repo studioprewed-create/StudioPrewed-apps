@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Studio Prewed | Fotrait Timeless | Account</title>
-    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Account.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Base.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Header.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/ACCOUNT/Account.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Footer.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
