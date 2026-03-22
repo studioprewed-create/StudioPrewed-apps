@@ -260,6 +260,7 @@
 
 .modal {
   position: fixed;
+  padding-top: 40px;
   inset: 0;
   display: none;
   align-items: center;
@@ -269,17 +270,22 @@
 
 .modal-card {
     position: relative;
-    width: min(420px, 92%); /* 🔥 lebih kecil & portrait */
+    width: min(420px, 92%);
     max-height: 85vh;
 
-    background: var(--dark-card);
+    background: rgba(20, 20, 20, 0.85); /* 🔥 semi glass */
+    backdrop-filter: blur(10px);
+
     border-radius: 18px;
     overflow: hidden;
 
     display: flex;
     flex-direction: column;
 
-    box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.8),
+        0 0 0 1px rgba(255,255,255,0.05);
+
     z-index: 2;
 }
 
@@ -289,10 +295,9 @@
     flex-direction: column;
 }
 
-/* IMAGE (IKUT RATIO GRID) */
 .modal-image {
     width: 100%;
-    aspect-ratio: 3/4; /* 🔥 SAMA KAYAK GALLERY */
+    aspect-ratio: 3/4;
     background: #000;
 }
 
@@ -346,6 +351,43 @@
     background: rgba(255,255,255,0.2);
 }
 
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  /* 🔥 BLUR UTAMA */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at center,
+    transparent 40%,
+    rgba(0,0,0,0.5) 100%
+  );
+}
+
+.modal-card {
+    animation: modalFade 0.25s ease;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
 
 @media (max-width: 1024px) {
 
