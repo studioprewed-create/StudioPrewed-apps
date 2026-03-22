@@ -565,10 +565,9 @@ select.input {
 }
 
 .akun-container .section-header h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 3rem;
     color: var(--black);
-    padding-left: 45px;
+    padding-left: 40px;
     position: relative;
     display: inline-block;
 }

@@ -15,7 +15,7 @@
         <!-- Profile Section -->
         <div class="akun-container">
             <div class="section-header">
-                <h2>Data Akun</h2>
+                <h2>DATA AKUN</h2>
             </div>
 
             {{-- Pesan flash & error --}}
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="section-header">
-                    <h2>Data Pasangan</h2>
+                    <h2>DATA PASANGAN</h2>
                 </div>
 
                 <div class="info-group">
