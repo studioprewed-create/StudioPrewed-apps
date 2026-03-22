@@ -39,7 +39,7 @@
             $img = $g->image ? asset('public/storage/'.$g->image) : asset('asset/IMGhome/bg1.jpg');
             $cat = $g->category ?: 'prewed';
             @endphp
-            <div class="gallery-item" data-category="{{ $cat }}"  data-img="{{ $img }}"  data-title="{{ e($g->title) }}"data-desc="{{ e($g->description) }}">
+            <div class="gallery-item" data-category="{{ $cat }}"  data-img="{{ $img }}" data-title="{{ e($g->title) }}" data-desc="{{ e($g->description) }}">
                 <img src="{{ $img }}" alt="{{ $g->title ?? 'Gallery Image' }}">
                 <div class="gallery-overlay">
                     <h3>{{ $g->title ?? 'Untitled' }}</h3>

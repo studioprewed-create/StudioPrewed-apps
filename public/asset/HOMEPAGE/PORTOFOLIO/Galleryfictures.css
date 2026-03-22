@@ -181,6 +181,7 @@
 
 .gallery-overlay {
     position: absolute;
+    pointer-events: none;
     top: 0;
     left: 0;
     width: 100%;
@@ -255,6 +256,15 @@
     color: var(--gray);
     max-width: 600px;
     margin: 0 auto;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
 .modal-card {
