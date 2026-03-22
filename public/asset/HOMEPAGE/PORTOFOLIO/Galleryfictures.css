@@ -258,38 +258,103 @@
 }
 
 .modal {
-    display: none;
     position: fixed;
-    z-index: 200;
-    padding-top: 50px;
-    left: 0;
-    top: 0;
+    inset: 0;
+    display: none;
+    z-index: 9999;
+
+    align-items: center;
+    justify-content: center;
+}
+
+/* backdrop */
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+}
+
+/* CARD */
+.modal-card {
+    position: relative;
+    width: min(900px, 92%);
+    max-height: 85vh;
+
+    background: var(--dark-card);
+    border-radius: 18px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.6);
+
+    z-index: 2;
+    animation: fadeIn 0.25s ease;
+}
+
+/* BODY */
+.modal-body {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    height: 100%;
+}
+
+/* IMAGE */
+.modal-image {
+    background: #000;
+}
+
+.modal-image img {
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(6px);
+    object-fit: cover;
 }
 
-.modal-content {
-    margin: auto;
-    display: block;
-    max-width: 90%;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+/* INFO */
+.modal-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    overflow-y: auto;
 }
 
-.close {
+.modal-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+}
+
+.modal-info p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* CLOSE BUTTON */
+.modal-close {
     position: absolute;
-    top: 18px;
-    right: 28px;
-    color: var(--white);
-    font-size: 40px;
+    top: 12px;
+    right: 14px;
+
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+
+    font-size: 20px;
     cursor: pointer;
-    transition: .2s;
+    z-index: 3;
+
+    transition: 0.3s;
 }
 
-.close:hover {
-    opacity: .7;
+.modal-close:hover {
+    background: rgba(255,255,255,0.2);
 }
 
 
@@ -360,6 +425,19 @@
     display: none;
   }
 
+  .modal-card {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-image {
+    height: 250px;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -425,6 +503,18 @@
 
   .middlebar-container::-webkit-scrollbar {
     display: none; 
+  }
+
+  .modal-info {
+    padding: 1rem;
+  }
+
+  .modal-info h3 {
+    font-size: 1.3rem;
+  }
+
+  .modal-info p {
+    font-size: 0.85rem;
   }
 
 }

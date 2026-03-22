@@ -826,42 +826,44 @@ document.addEventListener("DOMContentLoaded", function () {
      GALLERY IMAGE MODAL
      ================================ */
   (function initGalleryModal() {
-    const modal = document.getElementById('imageModal');
-    const expanded = document.getElementById('expandedImage');
+  const modal = document.getElementById('imageModal');
+  const expanded = document.getElementById('expandedImage');
+  const title = document.getElementById('modalTitle');
+  const desc = document.getElementById('modalDesc');
+
     if (!modal || !expanded) return;
 
-    const closeBtn = modal.querySelector('.close');
+    const closeBtn = modal.querySelector('.modal-close');
 
     document.querySelectorAll('.gallery-item').forEach(card => {
       card.addEventListener('click', () => {
-        const src = card.dataset.img || card.querySelector('img')?.src;
-        if (!src) return;
-        expanded.src = src;
-        modal.style.display = 'block';
+
+        expanded.src = card.dataset.img;
+        title.textContent = card.dataset.title || '';
+        desc.textContent = card.dataset.desc || '';
+
+        modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
       });
     });
 
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      });
-    }
+    const closeModal = () => {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    };
 
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-backdrop')) {
+        closeModal();
       }
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
+      if (e.key === 'Escape') closeModal();
     });
+
   })();
     /* ================================
      BOOKING HISTORY MODAL

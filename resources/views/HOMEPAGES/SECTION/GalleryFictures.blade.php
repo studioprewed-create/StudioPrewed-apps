@@ -39,7 +39,7 @@
             $img = $g->image ? asset('public/storage/'.$g->image) : asset('asset/IMGhome/bg1.jpg');
             $cat = $g->category ?: 'prewed';
             @endphp
-            <div class="gallery-item" data-category="{{ $cat }}" data-img="{{ $img }}">
+            <div class="gallery-item" data-category="{{ $cat }}" data-img="{{ $img }}" data-title="{{ $item->title }}" data-desc="{{ $item->description }}">
                 <img src="{{ $img }}" alt="{{ $g->title ?? 'Gallery Image' }}">
                 <div class="gallery-overlay">
                     <h3>{{ $g->title ?? 'Untitled' }}</h3>
@@ -53,6 +53,26 @@
 </section>
 
 <div id="imageModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="expandedImage" alt="Preview">
+
+    <div class="modal-backdrop"></div>
+
+    <div class="modal-card">
+
+        <button class="modal-close">&times;</button>
+
+        <div class="modal-body">
+            
+            <div class="modal-image">
+                <img id="expandedImage" alt="Preview">
+            </div>
+
+            <div class="modal-info">
+                <h3 id="modalTitle">Title</h3>
+                <p id="modalDesc">Description</p>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
