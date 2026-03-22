@@ -12,16 +12,20 @@
             @foreach($portraitServices ?? [] as $svc)
                 @php
                     $img = $svc->image ? asset('public/storage/'.$svc->image) : asset('asset/IMGhome/default.jpg');
-                    $cat = $svc->category ?? 'prewed'; // prewed / family / maternity / ...
+                    $cat = $svc->category ?? 'prewed';
                 @endphp
 
                 <a href="{{ route('Portofolio', ['category' => $cat]) }}"
-                   class="portrait-card-link"
-                   role="listitem">
+                class="portrait-card-link"
+                role="listitem">
+
                     <article class="f-card f-card--portrait" tabindex="0">
-                        <img src="{{ $img }}"
-                             alt="{{ $svc->title }}"
-                             class="f-card-image">
+
+                        <div class="f-card-media">
+                            <img src="{{ $img }}"
+                                alt="{{ $svc->title }}"
+                                class="f-card-image">
+                        </div>
 
                         <div class="f-card-text">
                             <h3>{{ $svc->title }}</h3>
@@ -30,7 +34,6 @@
                             @endif
                         </div>
 
-                        <span class="tilt-glare" aria-hidden="true"></span>
                     </article>
                 </a>
             @endforeach
