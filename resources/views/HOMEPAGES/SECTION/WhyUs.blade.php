@@ -8,34 +8,32 @@
             </p>
         </header>
 
-        <div class="services-grid" role="list">
+        <div class="features" role="list">
             @foreach($portraitServices ?? [] as $svc)
                 @php
                     $img = $svc->image ? asset('public/storage/'.$svc->image) : asset('asset/IMGhome/default.jpg');
-                    $cat = $svc->category ?? 'prewed';
+                    $cat = $svc->category ?? 'prewed'; // prewed / family / maternity / ...
                 @endphp
 
-                <a href="{{ route('Portofolio', ['category' => $cat]) }}" class="service-card">
-                    
-                    <div class="service-image">
-                        <img src="{{ $img }}" alt="{{ $svc->title }}">
-                        <div class="service-overlay"></div>
-                    </div>
+                <a href="{{ route('Portofolio', ['category' => $cat]) }}"
+                   class="portrait-card-link"
+                   role="listitem">
+                    <article class="f-card f-card--portrait" tabindex="0">
+                        <img src="{{ $img }}"
+                             alt="{{ $svc->title }}"
+                             class="f-card-image">
 
-                    <div class="service-content">
-                        <h3>{{ $svc->title }}</h3>
-                        @if($svc->description)
-                            <p>{{ $svc->description }}</p>
-                        @endif
+                        <div class="f-card-text">
+                            <h3>{{ $svc->title }}</h3>
+                            @if($svc->description)
+                                <p>{{ $svc->description }}</p>
+                            @endif
+                        </div>
 
-                        <span class="service-link">
-                            Lihat Portfolio →
-                        </span>
-                    </div>
-
+                        <span class="tilt-glare" aria-hidden="true"></span>
+                    </article>
                 </a>
             @endforeach
-
         </div>
     </div>
 </section>
