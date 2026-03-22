@@ -334,6 +334,21 @@
     font-size: 2rem;
   }
 
+  .floating-middlebar {
+    margin: -20px 0 20px 0;
+  }
+
+  .middlebar-container {
+    max-width: 95%;
+    border-radius: 16px;
+
+    flex-wrap: nowrap; 
+    overflow-x: auto;  
+    justify-content: flex-start;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -386,6 +401,19 @@
 
   .modal-content {
     max-width: 95%;
+  }
+
+  .middlebar-container {
+    max-width: 96%;
+    padding: 0.4rem;
+    gap: 0.4rem;
+
+    overflow-x: auto;
+    scrollbar-width: none; 
+  }
+
+  .middlebar-container::-webkit-scrollbar {
+    display: none; 
   }
 
 }
