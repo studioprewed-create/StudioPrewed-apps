@@ -568,6 +568,7 @@ select.input {
     font-size: 2rem;
     margin-bottom: 0.5rem;
     color: var(--black);
+    padding-left: 45px;
     position: relative;
     display: inline-block;
 }
