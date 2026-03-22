@@ -825,7 +825,8 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ================================
      GALLERY IMAGE MODAL
      ================================ */
-  (function initGalleryModal() {
+ (function initGalleryModal() {
+
   const modal = document.getElementById('imageModal');
   const expanded = document.getElementById('expandedImage');
   const title = document.getElementById('modalTitle');
@@ -835,33 +836,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const closeBtn = modal.querySelector('.modal-close');
 
-    document.querySelectorAll('.gallery-item').forEach(card => {
-      card.addEventListener('click', () => {
+    // 🔥 AMBIL HANYA ITEM DI GALLERY SECTION (ANTI BENTROK)
+    const cards = document.querySelectorAll('.gallery-section .gallery-item');
 
-        expanded.src = card.dataset.img;
-        title.textContent = card.dataset.title || '';
-        desc.textContent = card.dataset.desc || '';
+    cards.forEach(card => {
+      card.addEventListener('click', function (e) {
+
+        // 🔥 PENTING: biar gak bentrok sama JS lain
+        e.stopPropagation();
+
+        const img = this.dataset.img;
+        const t   = this.dataset.title;
+        const d   = this.dataset.desc;
+
+        if (!img) return;
+
+        expanded.src = img;
+        title.textContent = t || '';
+        desc.textContent  = d || '';
 
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
       });
     });
 
-    const closeModal = () => {
+    function closeModal() {
       modal.style.display = 'none';
       document.body.style.overflow = '';
-    };
+    }
 
-    closeBtn.addEventListener('click', closeModal);
+    // tombol X
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
 
-    modal.addEventListener('click', (e) => {
+    // klik backdrop
+    modal.addEventListener('click', function (e) {
       if (e.target.classList.contains('modal-backdrop')) {
         closeModal();
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
+    // ESC keyboard
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
     });
 
   })();
