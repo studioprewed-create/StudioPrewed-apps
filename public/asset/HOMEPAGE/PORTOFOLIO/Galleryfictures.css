@@ -404,13 +404,21 @@
     max-width: 90%;
   }
 
-  .modal-card {
-    width: min(380px, 90%);
-    max-height: 85vh;
+.modal-body {
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto; /* 🔥 INI KUNCINYA */
   }
 
   .modal-image {
-    aspect-ratio: 3/4; /* tetap portrait */
+    aspect-ratio: 3/4;
+    flex-shrink: 0; /* biar gambar gak gepeng */
+  }
+
+  .modal-info {
+    padding: 1rem;
+    overflow-y: auto; /* jaga2 kalau teks panjang */
   }
 
   .modal-info h3 {
@@ -419,8 +427,8 @@
 
   .modal-info p {
     font-size: 0.85rem;
+    line-height: 1.5;
   }
-
 }
 
 @media (max-width: 768px) {
