@@ -389,6 +389,49 @@
     }
 }
 
+@media (min-width: 1025px) {
+
+  .modal-card {
+    width: min(900px, 90%);
+    max-height: 85vh;
+
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; 
+  }
+
+  .modal-body {
+    display: contents; 
+  }
+
+  /* IMAGE */
+  .modal-image {
+    height: 100%;
+    aspect-ratio: unset; 
+  }
+
+  .modal-image img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* INFO */
+  .modal-info {
+    padding: 2rem;
+    overflow-y: auto;
+  }
+
+  .modal-info h3 {
+    font-size: 1.8rem; 
+    margin-bottom: 10px;
+  }
+
+  .modal-info p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+}
+
 @media (max-width: 1024px) {
 
   .gallery-grid {
