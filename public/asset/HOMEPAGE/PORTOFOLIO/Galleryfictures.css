@@ -349,6 +349,17 @@
     gap: 0.5rem;
   }
 
+  .gallery-filter {
+    flex-wrap: nowrap;        
+    overflow-x: auto;         
+    justify-content: flex-start;
+    width: max-content;      
+  }
+
+  .gallery-filter::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
 @media (max-width: 480px) {
