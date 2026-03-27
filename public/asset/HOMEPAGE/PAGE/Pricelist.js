@@ -24,6 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const $  = (sel, ctx = document) => ctx.querySelector(sel);
     const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
+    const wa = document.querySelector(".wa-float");
+    if (!wa) return;
+
+    function showText() {
+        wa.classList.add("show");
+
+        setTimeout(() => {
+            wa.classList.remove("show");
+        }, 4000);
+    }
+
+    setTimeout(showText, 2000);
+    setInterval(showText, 10000);
+
     // ==============================
     //  INLINE EDIT HOMEPAGE ADDON
     // ==============================

@@ -16,20 +16,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const wa = document.querySelector(".wa-float");
+    if (!wa) return;
 
-    function showWA() {
+    function showText() {
         wa.classList.add("show");
 
         setTimeout(() => {
             wa.classList.remove("show");
-        }, 4000); // tampil 4 detik
+        }, 4000);
     }
 
-    // pertama kali delay dikit biar smooth
-    setTimeout(showWA, 2000);
-
-    // ulang tiap 10 detik
-    setInterval(showWA, 10000);
+    setTimeout(showText, 2000);
+    setInterval(showText, 10000);
 
   /* ================================
      HEADER: active link + scroll
