@@ -204,6 +204,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateGallery();
 
+    const galleryCards = document.querySelectorAll('.gallery-card');
+
+    galleryCards.forEach(card => {
+        card.addEventListener('click', function (e) {
+
+            // kalau klik tombol → biarin handler data-open jalan
+            if (e.target.closest('[data-open]')) return;
+
+            const btn = this.querySelector('[data-open]');
+            if (!btn) return;
+
+            const target = btn.getAttribute('data-open');
+            const modal  = document.querySelector(target);
+
+            if (modal) {
+                modal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+    
+
     // ==============================
     //  SERVICE CARD HOVER / TOUCH
     // ==============================
