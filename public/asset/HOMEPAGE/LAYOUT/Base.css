@@ -241,6 +241,14 @@ h1, h2, h3, h4 {
     transform: translateX(0);
 }
 
+.wa-float,
+.wa-float:visited,
+.wa-float:hover,
+.wa-float:active {
+    text-decoration: none;
+    color: inherit;
+}
+
 @media (max-width: 768px) {
     .wa-float {
         right: 16px;
