@@ -10,7 +10,7 @@
                         <div class="gallery-overlay">
                             <h3>Potret</h3>
                             <p>Deskripsi</p>
-                            <p><strong>Harga:</strong> Rp0</p>
+                            <p></p>
                             <button class="btn-detail" disabled>Detail</button>
                         </div>
                     </div>
