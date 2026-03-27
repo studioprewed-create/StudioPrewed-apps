@@ -31,7 +31,7 @@
         @include('HOMEPAGES.SECTION.Promo')
         @include('HOMEPAGES.SECTION.Package')
         @include('HOMEPAGES.SECTION.TemaBaju')
-        @include('HOMEPAGES.SECTION.Booking')
+        {{-- @include('HOMEPAGES.SECTION.Booking') --}}
         @include('HOMEPAGES.SECTION.Footer')
     </main>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
