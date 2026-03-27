@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Promo.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Package.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Packagemodal.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Temabaju.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Temabaju.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/TemabajuGrid.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Booking.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Footer.css') }}">

@@ -34,7 +34,7 @@
     </main>
  <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Dashboard.js') }}"></script>
 
-    <a href="https://wa.me/6281234567890" 
+    <a href="https://wa.me/628195042022" 
     class="wa-float" 
     target="_blank" 
     aria-label="Chat WhatsApp">
