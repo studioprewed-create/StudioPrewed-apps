@@ -15,6 +15,22 @@ document.addEventListener("DOMContentLoaded", function () {
       .openPopup();
   }
 
+  const wa = document.querySelector(".wa-float");
+
+    function showWA() {
+        wa.classList.add("show");
+
+        setTimeout(() => {
+            wa.classList.remove("show");
+        }, 4000); // tampil 4 detik
+    }
+
+    // pertama kali delay dikit biar smooth
+    setTimeout(showWA, 2000);
+
+    // ulang tiap 10 detik
+    setInterval(showWA, 10000);
+
   /* ================================
      HEADER: active link + scroll
      ================================ */
@@ -821,6 +837,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     applyFilter(initialFilter);
   })();
+
+  
 
   /* ================================
      GALLERY IMAGE MODAL

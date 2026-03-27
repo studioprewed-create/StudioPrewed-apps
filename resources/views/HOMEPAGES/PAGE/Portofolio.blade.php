@@ -31,9 +31,9 @@
         class="wa-float"
         target="_blank"
         aria-label="Chat WhatsApp">
-        
-        <i class="fab fa-whatsapp"></i>
+            
         <span class="wa-text">Klik di sini untuk menghubungi kami via WhatsApp</span>
+        <i class="fab fa-whatsapp"></i>
     </a>
 </body>
 </html>
