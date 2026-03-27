@@ -62,11 +62,13 @@
     {{-- Main JS --}}
     <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.js') }}"></script>
 
-    <a href="https://wa.me/628195042022" 
-        class="wa-float" 
-        target="_blank" 
+    <a href="https://wa.me/628195042022"
+        class="wa-float"
+        target="_blank"
         aria-label="Chat WhatsApp">
+        
         <i class="fab fa-whatsapp"></i>
+        <span class="wa-text">Klik di sini untuk menghubungi kami via WhatsApp</span>
     </a>
 </body>
 </html>
