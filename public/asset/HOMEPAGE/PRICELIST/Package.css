@@ -23,11 +23,12 @@
 .package-content {
     display: flex;
     flex-direction: row;
+    align-items: stretch;
 }
 
 .package-image {
     flex: 0 0 50%;
-    height: 220px; 
+    height: auto; 
     overflow: hidden;
     cursor: pointer;
 }
