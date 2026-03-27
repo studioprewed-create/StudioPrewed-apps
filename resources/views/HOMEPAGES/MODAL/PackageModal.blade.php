@@ -78,17 +78,17 @@
               <p>{{ $pkg->deskripsi ?: 'Tidak ada deskripsi.' }}</p>
             </div>
             <div class="pkg-item">
-              <i class="fas fa-sticky-note"></i>
-              <div>
-                <h5>Notes</h5>
-                <p>{{ $pkg->notes ?: '-' }}</p>
-              </div>
-            </div>
-            <div class="pkg-item">
               <i class="fas fa-list-alt"></i>
               <div>
                 <h5>Rules</h5>
                 <p>{{ $pkg->rules ?: '-' }}</p>
+              </div>
+            </div>
+            <div class="pkg-item">
+              <i class="fas fa-sticky-note"></i>
+              <div>
+                <h5>Notes</h5>
+                <p>{{ $pkg->notes ?: '-' }}</p>
               </div>
             </div>
           </div>

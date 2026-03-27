@@ -27,7 +27,7 @@
 
                         <div class="package-price">
                             <div class="price-box">
-                                <span class="price-final">Rp {{ number_format($final, 0, ',', '.') }}</span>
+                                <span class="price-final">Rp {{ number_format(round($final, -4), 0, ',', '.') }}</span>
                                 @if($hasDisc)
                                     <span class="price-original">Rp {{ number_format($pkg->harga, 0, ',', '.') }}</span>
                                 @endif
