@@ -1,0 +1,377 @@
+.tables {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+}
+
+.tables > div {
+  background: radial-gradient(160% 200% at 0% 0%, #262626 0, #141414 45%, #101010 100%);
+  border-radius: 18px;
+  padding: 22px 20px 20px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.h3 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  color: var(--primary);
+}
+
+/* basic table look – dipakai kalau kamu pakai <table> */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 13px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: linear-gradient(90deg, rgba(62,32,7,0.95), rgba(15,15,15,0.98));
+}
+.table th,
+.table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.table th {
+  text-align: left;
+  font-weight: 600;
+  color: #f9fafb;
+  font-size: 12px;
+  letter-spacing: .03em;
+}
+.table tbody tr {
+  background: rgba(0,0,0,0.25);
+}
+.table tbody tr:nth-child(even) {
+  background: rgba(255,255,255,0.01);
+}
+.table tbody tr:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* ===================== CATALOGUE CARDS ===================== */
+
+.mt-8 { margin-top: 8px; }
+.small { font-size: 12px; }
+.muted { color: var(--text-muted); }
+
+.price {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.price-strike {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
+.disc-pill {
+  font-size: 11px;
+  color: var(--success);
+  margin-left: 6px;
+}
+
+/* Grid kartu */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.grid-cards.sm {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+/* Kartu */
+.card-elev {
+  background: rgba(16,16,16,0.96);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.75);
+  border: 1px solid rgba(255,255,255,0.03);
+  position: relative;
+  isolation: isolate;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card-elev:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.05) inset;
+}
+.card-elev::after {
+  content: "";
+  position: absolute;
+  inset: 0 -30%;
+  background:
+    radial-gradient(120px 40px at 10% -10%, rgba(255,255,255,.12), transparent 60%),
+    radial-gradient(140px 60px at 90% 110%, rgba(255,255,255,.08), transparent 60%);
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+.card-elev:hover::after {
+  opacity: 1;
+}
+
+.card-body {
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: flex-start;
+}
+.card-head .title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Rasio gambar + shimmer */
+.ratio-16x10,
+.ratio-3x4 {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg,#0f0f0f,#151515,#0f0f0f);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+.ratio-16x10 { aspect-ratio: 16/10; }
+.ratio-3x4  { aspect-ratio: 3/4;  }
+
+.ratio-16x10 img,
+.ratio-3x4 img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  animation: fadein .25s ease both;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+ 100% { background-position: -200% 0; }
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.grid-cards.sm {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.card-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.price {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary);
+}
+
+.price-strike {
+    font-size: 12px;
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.disc-pill {
+    background: var(--danger);
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    margin-left: 6px;
+}
+
+.meta {
+    font-size: 12px;
+}
+
+.muted {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.role-badge {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.badge-active {
+    background: rgba(72, 187, 120, 0.2);
+    color: var(--success);
+}
+
+.badge-inactive {
+    background: rgba(245, 101, 101, 0.2);
+    color: var(--danger);
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chips span {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: auto;
+}
+
+.ratio-16x10 {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.ratio-3x4 {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+}
+
+.ratio-16x10 img,
+.ratio-3x4 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+
+  .header-actions {
+    flex-wrap: wrap;
+  }
+
+  .grid-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-cards.sm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .page-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .header-actions .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .grid-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-cards.sm {
+    grid-template-columns: 1fr;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+
+  .price {
+    font-size: 13px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .header-actions {
+    flex-direction: column;
+  }
+
+  .header-actions .btn {
+    width: 100%;
+  }
+
+  .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .chips {
+    gap: 4px;
+  }
+
+  .chips span {
+    font-size: 9px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .card-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+}

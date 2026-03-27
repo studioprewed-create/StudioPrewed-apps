@@ -1694,6 +1694,43 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('closeSkema2')?.addEventListener('click', close);
         backdrop?.addEventListener('click', close);
     };
+
+    const initSidebarMobile = () => {
+    const sidebar = document.querySelector('.sidebar');
+    const logo    = document.querySelector('.sidebar .logo');
+    const backdrop = document.getElementById('sidebarBackdrop');
+
+        if (!sidebar || !logo || !backdrop) return;
+
+        const isMobile = () => window.innerWidth <= 768;
+
+        const openSidebar = () => {
+            sidebar.classList.add('is-open');
+            backdrop.classList.add('show');
+        };
+
+        const closeSidebar = () => {
+            sidebar.classList.remove('is-open');
+            backdrop.classList.remove('show');
+        };
+
+        // klik logo
+        logo.addEventListener('click', (e) => {
+            if (!isMobile()) return;
+            e.preventDefault();
+            openSidebar();
+        });
+
+        // klik backdrop
+        backdrop.addEventListener('click', closeSidebar);
+
+        // klik menu → auto close (UX penting)
+        document.querySelectorAll('.sidebar .menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMobile()) closeSidebar();
+            });
+        });
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -1709,6 +1746,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initBookingEditModal();
         initJadwalKerja();
         initSkemaKerjaModal();
+        initSidebarMobile();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

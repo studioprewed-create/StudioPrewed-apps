@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <div class="logo">
+    <div class="logo" id="sidebarToggle">
         <a href="{{ route('executive.dashboard') }}">
             <img src="{{ asset('public/asset/PICTURESET/LOGOSPREGISTRASI.png') }}" alt="Logo Studio Prewed">
         </a>
@@ -127,3 +127,4 @@
         </li>
     </ul>
 </div>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>

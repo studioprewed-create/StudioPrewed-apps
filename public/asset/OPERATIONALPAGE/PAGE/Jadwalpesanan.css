@@ -1,0 +1,713 @@
+.jp-filter-wrap {
+    margin-bottom: 24px;
+}
+
+.jp-scheduler {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 20px;
+}
+
+.jp-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+}
+
+/* ===== CALENDAR ===== */
+.jp-cal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.jp-cal-label {
+    font-weight: 600;
+}
+
+.jp-icon-btn {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.jp-cal-week,
+.jp-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.jp-cal-week div {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 0;
+}
+
+.jp-cal-grid button {
+    border: none;
+    background: none;
+    padding: 10px 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.jp-cal-grid button:hover {
+    background: #e5e7eb;
+}
+
+.jp-cal-grid button.active {
+    background: #2563eb;
+    color: #fff;
+}
+
+/* ===== SLOT ===== */
+.jp-slots-head {
+    margin-bottom: 12px;
+}
+
+.jp-studio {
+    margin-bottom: 16px;
+}
+
+.jp-cal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    gap: 10px;
+}
+
+.jp-cal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    gap: 10px;
+}
+
+.jp-btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.jp-btn-ghost {
+    background: transparent;
+}
+
+.jp-card {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    color: var(--text);
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+}
+
+.slot-item {
+    padding: 8px 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    user-select: none;
+}
+
+.slot-available {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.slot-unavailable {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.slot-available:hover {
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+
+/* Header kalender */
+.jp-cal-label {
+    color: #111827;
+}
+
+/* Hari (Min–Sab) */
+.jp-cal-week div {
+    color: #374151;
+}
+
+/* Tombol tanggal */
+.jp-cal-grid button {
+    color: #111827;
+}
+
+/* Footer kalender */
+.jp-cal-footer span,
+.jp-cal-footer strong {
+    color: #111827;
+}
+
+/* ===== SLOT ===== */
+.jp-slots-head h4 {
+    color: #111827;
+}
+
+.jp-slots-head small {
+    color: #6b7280; /* abu soft */
+}
+
+/* Studio title */
+.jp-studio h5 {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* Slot default (kalau belum ada class) */
+.slot-item {
+    color: #111827;
+}
+
+/* Tombol icon kalender */
+.jp-icon-btn {
+    color: #111827;
+}
+.jp-icon-btn:hover {
+    color: #2563eb;
+}
+
+/* Button "Hari ini" */
+.jp-btn {
+    color: #111827;
+}
+.jp-btn-ghost:hover {
+    background: #f3f4f6;
+}
+
+.booking-modal {
+    display: none;
+    position: absolute;       /* ⬅️ KUNCI */
+    inset: 0;
+    z-index: 50;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.booking-modal.is-open {
+    display: flex;
+}
+
+/* BACKDROP (hanya area main) */
+.booking-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 0;
+}
+
+/* MODAL CONTENT */
+.booking-modal-content {
+    position: relative;
+    z-index: 1;
+
+    background: #ffffff;
+    color: #000000;
+
+    border-radius: 16px;
+    padding: 24px;
+
+    width: 90%;
+    max-width: 920px;
+
+    max-height: 85%;
+    overflow-y: auto;
+
+    box-shadow: 0 30px 70px rgba(0,0,0,.35);
+
+    transform: none;
+    pointer-events: auto;
+}
+
+/* HEADER */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.modal-header h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* BODY */
+.modal-body {
+    color: #000;
+}
+
+/* FOOTER */
+.modal-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* CLOSE BUTTON */
+.booking-modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #000;
+}
+
+/* GRID */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.form-group strong {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: #111;
+}
+
+.form-group div {
+    font-size: 14px;
+    color: #000;
+}
+
+/* FULL WIDTH ROW */
+.form-group[style*="grid-column"] {
+    grid-column: 1 / -1;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    background: #ffffff;
+    border: 1px dashed #e5e7eb;
+    border-radius: 12px;
+
+    padding: 40px 24px;
+    text-align: center;
+
+    color: #374151;
+    font-size: 14px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state::before {
+    content: "📅";
+    font-size: 28px;
+    opacity: .7;
+}
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+
+.order-card {
+    background: linear-gradient(135deg, var(--dark-light), var(--darker));
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.order-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+}
+
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.order-id {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-light);
+}
+
+
+.order-status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+.status-confirmed {
+    background-color: rgba(72, 187, 120, 0.2);
+    color: var(--success);
+}
+
+
+.status-pending {
+    background-color: rgba(236, 201, 75, 0.2);
+    color: var(--warning);
+}
+
+
+.status-completed {
+    background-color: rgba(159, 122, 234, 0.2);
+    color: var(--primary-light);
+}
+
+
+.status-canceled {
+    background-color: rgba(245, 101, 101, 0.2);
+    color: var(--danger);
+}
+
+
+.order-details {
+    margin-bottom: 12px;
+}
+
+
+.detail-group {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+
+.detail-label {
+    width: 100px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+
+.detail-value {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.order-team {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.team-title {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+
+.team-member {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+.member-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: white;
+    flex-shrink: 0;
+}
+
+
+.member-info {
+    overflow: hidden;
+}
+
+
+.member-name {
+    font-size: 11px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.member-role {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+
+.order-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.action-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+
+.action-btn:hover {
+    transform: translateY(-1px);
+}
+
+
+.btn-view {
+    background: rgba(66, 153, 225, 0.2);
+    color: var(--info);
+}
+
+
+.btn-edit {
+    background: rgba(236, 201, 75, 0.2);
+    color: var(--warning);
+}
+
+
+.btn-delete {
+    background: rgba(245, 101, 101, 0.2);
+    color: var(--danger);
+}
+
+
+.btn-whatsapp {
+    background: rgba(37, 211, 102, 0.2);
+    color: #25d366;
+}
+
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    gap: 8px;
+}
+
+
+.pagination-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 12px;
+}
+
+@media (max-width: 1024px) {
+
+  .jp-scheduler {
+    grid-template-columns: 1fr;
+  }
+
+  .jp-card {
+    padding: 14px;
+  }
+
+  .jp-cal-grid button {
+    padding: 8px 0;
+    font-size: 13px;
+  }
+
+  .slots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+
+  .orders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .page-header h1 {
+    font-size: 18px;
+  }
+
+  .jp-cal-label {
+    font-size: 14px;
+  }
+
+  .jp-cal-week div {
+    font-size: 10px;
+  }
+
+  .jp-cal-grid button {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+
+  .jp-pill {
+    font-size: 11px;
+  }
+
+  .jp-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .slots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  }
+
+  .slot-item {
+    font-size: 11px;
+    padding: 6px 4px;
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-card {
+    padding: 14px;
+  }
+
+  .detail-label {
+    width: 90px;
+  }
+
+  .action-btn {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .jp-card {
+    padding: 12px;
+  }
+
+  .jp-cal-head {
+    gap: 6px;
+  }
+
+  .jp-cal-label {
+    font-size: 13px;
+  }
+
+  .jp-icon-btn {
+    font-size: 18px;
+  }
+
+  .jp-cal-grid button {
+    font-size: 11px;
+  }
+
+  .jp-cal-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .jp-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .jp-btn {
+    width: 100%;
+  }
+
+  .slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .order-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+}
