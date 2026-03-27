@@ -28,7 +28,7 @@
                         <div class="gallery-overlay">
                             <h3>{{ $t->nama }}</h3>
                             <p>{{ $t->detail }}</p>
-                            <p><strong>Harga:</strong> Rp{{ number_format($t->harga,0,',','.') }}</p>
+                            {{-- <p><strong>Harga:</strong> Rp{{ number_format($t->harga,0,',','.') }}</p> --}}
 
                             <button type="button" class="btn-detail" data-open="#temaModal-{{ $t->id }}">
                                 Detail
