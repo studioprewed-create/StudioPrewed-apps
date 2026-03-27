@@ -28,7 +28,7 @@
 
 .package-image {
     flex: 0 0 50%;
-    height: auto; 
+    height: 220px; 
     overflow: hidden;
     cursor: pointer;
 }
