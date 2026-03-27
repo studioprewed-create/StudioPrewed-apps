@@ -38,11 +38,11 @@
                             <button type="button" class="btn-detail" data-open="#pkgModal-{{ $pkg->id }}">
                                 Detail
                             </button>
-                            <a href="#bookingWizard"
+                            {{-- <a href="#bookingWizard"
                                 class="btn-primary btn-choose-package"
                                 data-package-id="{{ $pkg->id }}">
                                 Pilih Paket
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
