@@ -32,7 +32,7 @@
         target="_blank"
         aria-label="Chat WhatsApp">
             
-        <span class="wa-text">Klik di sini untuk menghubungi kami via WhatsApp</span>
+        <span class="wa-text">Hubungi Kami</span>
         <i class="fab fa-whatsapp"></i>
     </a>
 </body>
