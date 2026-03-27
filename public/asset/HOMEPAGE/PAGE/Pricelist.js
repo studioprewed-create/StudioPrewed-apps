@@ -202,8 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    updateGallery();
-
     const galleryCards = document.querySelectorAll('.gallery-card');
 
     galleryCards.forEach(card => {
@@ -224,6 +222,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    updateGallery();
+
+    
     
 
     // ==============================
