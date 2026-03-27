@@ -22,7 +22,7 @@
                 <div class="social-links">
                     <a href="https://www.instagram.com/studioprewed/"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.tiktok.com/@studioprewed"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://api.whatsapp.com/send/?phone=6285295251525&text&type=phone_number&app_absent=0"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://api.whatsapp.com/send/?phone=628195042022&text&type=phone_number&app_absent=0"><i class="fab fa-whatsapp"></i></a>
                     <a href="#"><i class="fas fa-envelope"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
