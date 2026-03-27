@@ -13,7 +13,7 @@
                     <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jl. Ir. H. Juanda No.185. lt.2-3 Simpang, Dago, Kecamatan Coblong, Kota Bandung, Jawa Barat 40135</a></li>
                     <li><a href="#"><i class="fas fa-phone"></i> +62-819-504-2022 </a></li>
                     <li><a href="#"><i class="fas fa-envelope"></i> studioprewed@gmail.com</a></li>
-                    <li><a href="#"><i class="fas fa-clock"></i> Senin - Jumat: 09.00 - 18.00</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i> Senin - Minggu: 09.00 - 20.00</a></li>
                 </ul>
             </div>
         
