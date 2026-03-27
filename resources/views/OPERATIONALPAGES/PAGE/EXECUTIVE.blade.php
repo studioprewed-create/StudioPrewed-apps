@@ -6,14 +6,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Studio Prewed - Executive')</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/EXECUTIVE/PAGE/EXECUTIVE.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/LAYOUT/Base.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/EXECUTIVE/PAGE/EXECUTIVE.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/LAYOUT/Base.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Jadwalkerja.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Jadwalpesanan.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Catalogue.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Menupanel.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Dataakun.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Dataakun.css') }}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
