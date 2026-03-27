@@ -52,7 +52,7 @@
           <h3 class="pkg-title" id="pkgModalTitle-{{ $pkg->id }}">{{ strtoupper($pkg->nama_paket) }}</h3>
 
           <div class="pkg-price">
-            <span class="price-final">Rp {{ number_format($final, 0, ',', '.') }}</span>
+            <span class="price-final">Rp {{ number_format(round($final, -4), 0, ',', '.') }}</span>
             @if($hasDisc)
               <span class="price-original">Rp {{ number_format($pkg->harga, 0, ',', '.') }}</span>
             @endif
@@ -63,7 +63,7 @@
               <i class="fas fa-clock"></i>
               <div>
                 <h5>Durasi</h5>
-                <p>{{ (int)$pkg->durasi }} jam</p>
+                <p>{{ (int)$pkg->durasi }} menit</p>
               </div>
             </div>
             <div class="pkg-item">
@@ -72,6 +72,10 @@
                 <h5>Konsep</h5>
                 <p>{{ $pkg->konsep ?: '-' }}</p>
               </div>
+            </div>
+            <div class="pkg-desc">
+              <h5><i class="fas fa-align-left"></i> Deskripsi Paket</h5>
+              <p>{{ $pkg->deskripsi ?: 'Tidak ada deskripsi.' }}</p>
             </div>
             <div class="pkg-item">
               <i class="fas fa-sticky-note"></i>
@@ -87,11 +91,6 @@
                 <p>{{ $pkg->rules ?: '-' }}</p>
               </div>
             </div>
-          </div>
-
-          <div class="pkg-desc">
-            <h5><i class="fas fa-align-left"></i> Deskripsi Paket</h5>
-            <p>{{ $pkg->deskripsi ?: 'Tidak ada deskripsi.' }}</p>
           </div>
         </div>
       </div>
