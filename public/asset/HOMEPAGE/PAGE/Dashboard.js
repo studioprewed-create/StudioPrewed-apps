@@ -56,9 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', onScrollHeader);
   }
 
-  /* ================================
-     HERO CAROUSEL (.carousel-item)
-     ================================ */
   (function initHeroCarousel() {
     const carouselItems = document.querySelectorAll('.carousel-item');
     const carouselControls = document.querySelectorAll('.carousel-control');
@@ -105,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
     startCarousel();
   })();
 
-  
   (function initFaqToggle() {
     const faqItems = document.querySelectorAll('.faq-item');
     if (!faqItems.length) return; // ⬅️ AMAN: hanya keluar dari FAQ
@@ -162,9 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })();
 
-  /* ================================
-     GALLERY CAROUSEL (gallery-track)
-     ================================ */
   (function initGalleryCarousel() {
     const galleryTrack = document.querySelector('.gallery-track');
     const galleryItems = document.querySelectorAll('.gallery-item');
@@ -208,9 +201,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updateGallery();
   })();
 
-  /* ================================
-     SERVICE CARD hover/touch
-     ================================ */
   (function initServiceCards() {
     const serviceCards = document.querySelectorAll('.service-card');
     if (!serviceCards.length) return;
@@ -250,10 +240,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  /* ================================
-     SMOOTH SCROLL (anchor #)
-     + khusus slider testi
-     ================================ */
   (function initSmoothScroll() {
     const headerEl = document.querySelector('header');
 
@@ -293,9 +279,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  /* ================================
-     SCROLL ANIMASI sederhana
-     ================================ */
   (function initScrollAnimations() {
     const animatedEls = document.querySelectorAll(
       '.service-card, .gallery-item, .stat-item, .review-card, .social-card'
@@ -324,9 +307,6 @@ document.addEventListener("DOMContentLoaded", function () {
     animateOnScroll();
   })();
 
-  /* ================================
-     BOOKING BUTTON kecil
-     ================================ */
   (function initBookingButton() {
     const bookingBtn = document.querySelector('.booking-btn');
     if (!bookingBtn) return;
@@ -340,9 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  /* ================================
-     FLOATING MIDDLEBAR
-     ================================ */
   (function initMiddlebarFloat() {
     const middlebar = document.querySelector('.middlebar-container');
     if (!middlebar) return;
@@ -357,9 +334,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(addFloatingEffect, 4000);
   })();
 
-  /* ================================
-     ABOUT STATS COUNTER (.about-stat-box)
-     ================================ */
   (function initAboutStatBoxes() {
     const aboutStatBoxes = document.querySelectorAll('.about-stat-box');
     if (!aboutStatBoxes.length || !('IntersectionObserver' in window)) return;
@@ -401,9 +375,6 @@ document.addEventListener("DOMContentLoaded", function () {
     aboutStatBoxes.forEach(box => aboutObserver.observe(box));
   })();
 
-  /* ================================
-     MODAL DETAIL PAKET (.pkg-modal)
-     ================================ */
   (function initPackageModal() {
     const openers = document.querySelectorAll('[data-open]');
     const backdrops = document.querySelectorAll('.pkg-modal__backdrop');
@@ -448,9 +419,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  /* ================================
-     PROMO CAROUSEL (#promoCarousel)
-     ================================ */
   (function initPromoCarousel() {
     const wrap = document.getElementById('promoCarousel');
     if (!wrap) return;
@@ -484,9 +452,6 @@ document.addEventListener("DOMContentLoaded", function () {
     start();
   })();
 
-  /* ================================
-     TESTIMONIAL SLIDER (#tSlider)
-     ================================ */
   (function initTestimonialSlider() {
     const slider = document.getElementById('tSlider');
     if (!slider) return;
@@ -545,9 +510,6 @@ document.addEventListener("DOMContentLoaded", function () {
     startAuto();
   })();
 
-  /* ================================
-     REVIEWS SECTION (load more)
-     ================================ */
   (function initReviewsSection() {
     const PAGE_SIZE = 20;
 
@@ -610,10 +572,6 @@ document.addEventListener("DOMContentLoaded", function () {
     moreBtn.addEventListener('click', showNextChunk);
   })();
 
-  /* ================================
-     LANDING EFFECTS:
-     lazy img + reveal + tilt + mosaic counter
-     ================================ */
   (function initLandingEffects() {
     const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const pointerFine = matchMedia('(pointer: fine)').matches;
@@ -740,9 +698,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  /* ================================
-     GALLERY FILTER + TITLE
-     ================================ */
   (function initGalleryFilter() {
     const filterTitles = {
       'all':        { title:'All Sessions',       description:'Explore our complete collection of professional photography sessions.' },
@@ -836,11 +791,6 @@ document.addEventListener("DOMContentLoaded", function () {
     applyFilter(initialFilter);
   })();
 
-  
-
-  /* ================================
-     GALLERY IMAGE MODAL
-     ================================ */
  (function initGalleryModal() {
 
   const modal = document.getElementById('imageModal');
@@ -901,9 +851,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   })();
-    /* ================================
-     BOOKING HISTORY MODAL
-     ================================ */
+
   (function initBookingHistoryModal() {
     // tombol "Lihat Detail"
     const openers = document.querySelectorAll('[data-modal-target]');
@@ -953,5 +901,35 @@ document.addEventListener("DOMContentLoaded", function () {
           .forEach(m => closeModal(m));
       }
     });
+  })();
+
+  (function initWAHideOnModal() {
+    const wa = document.querySelector('.wa-float');
+    if (!wa) return;
+
+    function checkModal() {
+        const isOpen =
+            document.querySelector('.pkg-modal.is-open') ||
+            document.querySelector('.booking-modal.active') ||
+            document.querySelector('#imageModal[style*="display: flex"]') ||
+            document.querySelector('#imageModal[style*="display: block"]');
+
+        if (isOpen) {
+            wa.classList.add('hide');
+        } else {
+            wa.classList.remove('hide');
+        }
+    }
+
+      // 🔥 observe perubahan DOM (powerful)
+      const observer = new MutationObserver(checkModal);
+      observer.observe(document.body, {
+          attributes: true,
+          subtree: true,
+          attributeFilter: ['class', 'style']
+      });
+
+      // initial check
+      checkModal();
   })();
 });

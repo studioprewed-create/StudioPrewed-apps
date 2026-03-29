@@ -239,12 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateGallery();
 
-    
-    
-
-    // ==============================
-    //  SERVICE CARD HOVER / TOUCH
-    // ==============================
     document.querySelectorAll('.service-card').forEach(card => {
         const content = card.querySelector('.service-content');
         if (!content) return;
@@ -279,9 +273,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ==============================
-    //  FAQ TOGGLE
-    // ==============================
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const q = item.querySelector('.faq-question');
@@ -294,9 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ==============================
-    //  SMOOTH ANCHOR SCROLL
-    // ==============================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', e => {
             const targetId = anchor.getAttribute('href');
@@ -458,9 +446,6 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     document.head.appendChild(rippleStyle);
 
-    // ==============================
-    //  MODAL DETAIL PACKAGE & TEMA
-    // ==============================
     (function () {
         document.querySelectorAll('[data-open]').forEach(btn => {
             btn.addEventListener('click', e => {
@@ -506,9 +491,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })();
 
-    // ==============================
-    //  PROMO SLIDER
-    // ==============================
     (function () {
         const wrap = document.getElementById('promoCarousel');
         if (!wrap) return;
@@ -562,9 +544,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })();
 
-    // ==============================
-    //  TEMA / BAJU THUMBNAIL SWITCH
-    // ==============================
     document.addEventListener(
         'click',
         function (e) {
@@ -586,9 +565,6 @@ document.addEventListener('DOMContentLoaded', function () {
         { passive: true }
     );
 
-    // ==============================
-    //  MODAL NAV NEXT/PREV TEMA/PAKET
-    // ==============================
     (function () {
         function bindModalNav(attr) {
             document.addEventListener('click', e => {
@@ -613,9 +589,6 @@ document.addEventListener('DOMContentLoaded', function () {
         bindModalNav('data-pkg-nav');
     })();
 
-    // ==============================
-    // PREFILL DATA DIRI (TANPA JSON)
-    // ==============================
     (function prefillDataDiri() {
         const box = document.getElementById('prefillData');
         if (!box) return;
@@ -658,9 +631,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })();
 
-        // =====================================================================
-    //  BOOKING WIZARD – VERSI LENGKAP (slot_main / slot_extra / tema addon)
-    // =====================================================================
+    (function initWAHideOnModal() {
+        const wa = document.querySelector('.wa-float');
+        if (!wa) return;
+
+        function checkModal() {
+            const isOpen =
+                document.querySelector('.pkg-modal.is-open') ||
+                document.querySelector('.booking-modal.active') ||
+                document.querySelector('#imageModal[style*="display: flex"]') ||
+                document.querySelector('#imageModal[style*="display: block"]');
+
+            if (isOpen) {
+                wa.classList.add('hide');
+            } else {
+                wa.classList.remove('hide');
+            }
+        }
+
+        // 🔥 observe perubahan DOM (powerful)
+        const observer = new MutationObserver(checkModal);
+        observer.observe(document.body, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['class', 'style']
+        });
+
+        // initial check
+        checkModal();
+    })();
+
     (function initBookingWizard() {
         const wizard = $('#bookingWizard');
         if (!wizard) return;
