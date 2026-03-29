@@ -127,7 +127,7 @@
 
 .tbm-thumbs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 10px;
 }
 
@@ -181,7 +181,7 @@
   }
 
   .tbm-thumbs {
-    grid-template-columns: repeat(3, 1fr); /* 🔥 lebih lega */
+    grid-template-columns: repeat(5, 1fr); /* 🔥 lebih lega */
   }
 
   .tbm-main img {
@@ -229,8 +229,8 @@
   }
 
   .tbm-thumbs {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
   }
 
   .tbm-thumb img {
@@ -284,8 +284,8 @@
   }
 
   .tbm-thumbs {
-    grid-template-columns: repeat(2, 1fr); /* 🔥 biar gak sempit */
-    gap: 8px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
   }
 
   .tbm-thumb img {
