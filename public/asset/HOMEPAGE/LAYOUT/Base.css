@@ -252,7 +252,7 @@ h1, h2, h3, h4 {
 @media (max-width: 768px) {
     .wa-float {
         right: 16px;
-        bottom: 16px;
+        bottom: 50px;
     }
 
     .wa-float i {
