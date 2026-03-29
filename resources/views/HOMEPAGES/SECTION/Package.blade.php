@@ -10,7 +10,7 @@
             <div class="package-card">
                 <div class="package-content">
                     {{-- Gambar --}}
-                    <div class="package-image" onclick="expandImage('{{ $imgUrl }}')">
+                    <div class="package-image" data-open="#pkgModal-{{ $pkg->id }}">
                         <img src="{{ $imgUrl }}" alt="{{ $pkg->nama_paket }}">
                     </div>
 
