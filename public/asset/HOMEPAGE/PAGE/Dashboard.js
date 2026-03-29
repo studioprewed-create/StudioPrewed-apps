@@ -903,33 +903,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  (function initWAHideOnModal() {
-    const wa = document.querySelector('.wa-float');
-    if (!wa) return;
-
-    function checkModal() {
-        const isOpen =
-            document.querySelector('.pkg-modal.is-open') ||
-            document.querySelector('.booking-modal.active') ||
-            document.querySelector('#imageModal[style*="display: flex"]') ||
-            document.querySelector('#imageModal[style*="display: block"]');
-
-        if (isOpen) {
-            wa.classList.add('hide');
-        } else {
-            wa.classList.remove('hide');
-        }
-    }
-
-      // 🔥 observe perubahan DOM (powerful)
-      const observer = new MutationObserver(checkModal);
-      observer.observe(document.body, {
-          attributes: true,
-          subtree: true,
-          attributeFilter: ['class', 'style']
-      });
-
-      // initial check
-      checkModal();
-  })();
 });
