@@ -16,22 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const wa = document.querySelector(".wa-float");
-    if (!wa) return;
-
-    function showText() {
-        wa.classList.add("show");
-
-        setTimeout(() => {
-            wa.classList.remove("show");
-        }, 4000);
-    }
-
-    setTimeout(showText, 2000);
-    setInterval(showText, 10000);
-
-  /* ================================
-     HEADER: active link + scroll
-     ================================ */
   const header = document.getElementById('siteHeader');
   const navLinks = document.querySelectorAll("nav a");
 
@@ -54,6 +38,23 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     onScrollHeader();
     window.addEventListener('scroll', onScrollHeader);
+  }
+
+  if (wa) {
+    function showText() {
+
+      // 🔥 kalau lagi di-hide (misal modal buka), skip
+      if (wa.classList.contains('hide')) return;
+
+      wa.classList.add("show");
+
+      setTimeout(() => {
+        wa.classList.remove("show");
+      }, 4000);
+    }
+
+    setTimeout(showText, 2000);
+    setInterval(showText, 10000);
   }
 
   (function initHeroCarousel() {
@@ -823,12 +824,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+
+        const wa = document.querySelector('.wa-float');
+        if (wa) wa.classList.add('hide');
       });
     });
 
     function closeModal() {
       modal.style.display = 'none';
       document.body.style.overflow = '';
+
+      const wa = document.querySelector('.wa-float');
+      if (wa) wa.classList.remove('hide');
     }
 
     // tombol X

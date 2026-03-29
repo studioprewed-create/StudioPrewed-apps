@@ -8,6 +8,9 @@ function expandImage(src) {
 
     img.src = src;
     modal.style.display = 'block';
+
+    const wa = document.querySelector('.wa-float');
+    if (wa) wa.classList.add('hide');
 }
 
 document.addEventListener('click', function (e) {
@@ -23,24 +26,25 @@ document.addEventListener('click', function (e) {
 document.addEventListener('DOMContentLoaded', function () {
     const $  = (sel, ctx = document) => ctx.querySelector(sel);
     const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-
     const wa = document.querySelector(".wa-float");
-    if (!wa) return;
 
-    function showText() {
-        wa.classList.add("show");
+    if (wa) {
+        function showText() {
 
-        setTimeout(() => {
+            // 🔥 kalau lagi di-hide (misal modal buka), skip
+            if (wa.classList.contains('hide')) return;
+
+            wa.classList.add("show");
+
+            setTimeout(() => {
             wa.classList.remove("show");
-        }, 4000);
+            }, 4000);
+        }
+
+        setTimeout(showText, 2000);
+        setInterval(showText, 10000);
     }
 
-    setTimeout(showText, 2000);
-    setInterval(showText, 10000);
-
-    // ==============================
-    //  INLINE EDIT HOMEPAGE ADDON
-    // ==============================
     document
         .querySelectorAll('.contenteditable[data-section="addon"]')
         .forEach(el => {
@@ -212,6 +216,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (modal) {
                 modal.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
+
+                const wa = document.querySelector('.wa-float');
+                if (wa) wa.classList.add('hide');
             }
         });
     });
@@ -233,6 +240,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (modal) {
                 modal.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
+
+                const wa = document.querySelector('.wa-float');
+                if (wa) wa.classList.add('hide');
             }
         });
     });
@@ -455,6 +465,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (modal) {
                     modal.classList.add('is-open');
                     document.body.style.overflow = 'hidden';
+
+                    const wa = document.querySelector('.wa-float');
+                    if (wa) wa.classList.add('hide');
                 }
             });
         });
@@ -462,6 +475,9 @@ document.addEventListener('DOMContentLoaded', function () {
         function closeDetail(modal) {
             modal.classList.remove('is-open');
             document.body.style.overflow = '';
+
+            const wa = document.querySelector('.wa-float');
+            if (wa) wa.classList.remove('hide');
         }
 
         document.addEventListener('click', e => {
@@ -581,6 +597,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (nextModal) {
                     nextModal.classList.add('is-open');
                     document.body.style.overflow = 'hidden';
+                    
+                    const wa = document.querySelector('.wa-float');
+                    if (wa) wa.classList.add('hide');
                 }
             });
         }
