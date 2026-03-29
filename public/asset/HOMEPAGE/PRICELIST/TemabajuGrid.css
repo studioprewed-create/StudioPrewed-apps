@@ -103,6 +103,57 @@
     background: #ddd;
 }
 
+.tbm-gallery{ 
+  display:flex; 
+  flex-direction:column; 
+  gap:12px; 
+  width:100%; 
+}
+
+.tbm-main{
+  border:1px solid #2a2a2a; 
+  border-radius:10px; 
+  overflow:hidden; 
+  background:#111;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.tbm-main img {
+  width: 100%;
+  aspect-ratio: 3/4; 
+  object-fit: cover;
+  display: block;
+}
+
+.tbm-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.tbm-thumb {
+  border-radius: 8px;
+  overflow: hidden;
+  outline: 1px solid #2a2a2a;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tbm-thumb:hover{ 
+  transform:translateY(-1px); 
+}
+
+.tbm-thumb.is-active{ 
+  outline:2px solid #fff; 
+}
+
+.tbm-thumb img {
+  width: 100%;
+  aspect-ratio: 3/4; 
+  object-fit: cover;
+  display: block;
+}
+
 /* =========================
    MEDIA QUERY 1024px
 ========================= */
@@ -123,6 +174,14 @@
 
   .gallery-overlay h3 {
     font-size: 1.1rem;
+  }
+
+  .tbm-thumbs {
+    grid-template-columns: repeat(3, 1fr); /* 🔥 lebih lega */
+  }
+
+  .tbm-main img {
+    aspect-ratio: 3/4;
   }
 
 }
@@ -159,6 +218,19 @@
 
   .gallery-overlay p {
     font-size: 0.8rem;
+  }
+
+  .tbm-main img {
+    aspect-ratio: 3/4;
+  }
+
+  .tbm-thumbs {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .tbm-thumb img {
+    aspect-ratio: 3/4; /* 🔥 tetap portrait */
   }
 
 }
@@ -200,6 +272,19 @@
   .btn-detail {
     font-size: 0.8rem;
     padding: 6px 8px;
+  }
+
+   .tbm-main img {
+    aspect-ratio: 3/4;
+  }
+
+  .tbm-thumbs {
+    grid-template-columns: repeat(2, 1fr); /* 🔥 biar gak sempit */
+    gap: 8px;
+  }
+
+  .tbm-thumb img {
+    aspect-ratio: 3/4;
   }
 
 }
