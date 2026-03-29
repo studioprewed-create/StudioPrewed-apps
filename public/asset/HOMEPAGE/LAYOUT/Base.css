@@ -188,7 +188,7 @@ h1, h2, h3, h4 {
 .wa-float {
     position: fixed;
     right: 24px;
-    bottom: 24px;
+    bottom: 50px;
 
     display: flex;
     align-items: center;
