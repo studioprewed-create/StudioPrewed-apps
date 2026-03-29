@@ -230,8 +230,12 @@
     gap: 16px;
   }
 
-  .pkg-modal__media img {
-    max-height: 260px;
+   .pkg-modal__media img {
+    max-height: unset;      
+    aspect-ratio: 3/4;       
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
   .pkg-grid {
@@ -268,8 +272,11 @@
   }
 
   .pkg-modal__media img {
-    max-height: 200px;
-    border-radius: 8px;
+    max-height: unset;        
+    aspect-ratio: 3/4;
+    border-radius: 5px;       
+    width: 100%;
+    height: auto;
   }
 
   .pkg-title {
