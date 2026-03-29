@@ -137,6 +137,9 @@
   outline: 1px solid #2a2a2a;
   cursor: pointer;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tbm-thumb:hover{ 
@@ -150,6 +153,7 @@
 .tbm-thumb img {
   width: 100%;
   aspect-ratio: 3/4; 
+  max-height: 90px;
   object-fit: cover;
   display: block;
 }
@@ -230,7 +234,8 @@
   }
 
   .tbm-thumb img {
-    aspect-ratio: 3/4; /* 🔥 tetap portrait */
+    aspect-ratio: 3/4; 
+    max-height: 80px;
   }
 
 }
@@ -285,6 +290,7 @@
 
   .tbm-thumb img {
     aspect-ratio: 3/4;
+    max-height: 70px;
   }
 
 }
