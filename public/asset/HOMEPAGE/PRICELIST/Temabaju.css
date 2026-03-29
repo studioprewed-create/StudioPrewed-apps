@@ -209,9 +209,6 @@
     font-size: 0.85rem;
   }
 
-  .tbm-thumbs {
-    grid-template-columns: repeat(3,1fr);
-  }
 
 }
 
@@ -251,19 +248,6 @@
 
   .gallery-overlay p {
     font-size: 0.75rem;
-  }
-
-  .tbm-main img {
-    max-height: 40vh;
-  }
-
-  .tbm-thumbs {
-    grid-template-columns: repeat(2,1fr);
-    gap: 8px;
-  }
-
-  .tbm-thumb img {
-    height: 60px;
   }
 
 }
