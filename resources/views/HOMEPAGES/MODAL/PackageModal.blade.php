@@ -85,7 +85,7 @@
               </div>
             </div>
             <div class="pkg-item">
-              <i class="fas fa-sticky-note"></i>
+              <i class="fas fa-file-alt"></i>
               <div>
                 <h5>Syarat & Ketentuan</h5>
                 <ul class="pkg-notes">
