@@ -80,7 +80,7 @@
             <div class="pkg-item">
               <i class="fas fa-list-alt"></i>
               <div>
-                <h5>Rules</h5>
+                <h5>Aturan</h5>
                 <p>{{ $pkg->rules ?: '-' }}</p>
               </div>
             </div>
