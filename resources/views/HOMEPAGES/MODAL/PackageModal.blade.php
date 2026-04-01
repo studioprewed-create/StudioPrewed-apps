@@ -102,7 +102,7 @@
             <div class="pkg-item">
               <i class="fas fa-sticky-note"></i>
               <div>
-                <h5>Notes</h5>
+                <h5>Catatan</h5>
                 <p>{{ $pkg->notes ?: '-' }}</p>
               </div>
             </div>
