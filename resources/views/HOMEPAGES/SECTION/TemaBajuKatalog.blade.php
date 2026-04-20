@@ -9,7 +9,6 @@
 
             @foreach($filters as $nama => $slug)
                 <button class="filter-btn" data-filter="{{ $slug }}">
-                    <i class="fas fa-tag"></i>
                     <span class="label">{{ $nama }}</span>
                 </button>
             @endforeach

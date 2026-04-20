@@ -267,7 +267,7 @@
   }
 
   .tbm-thumbs {
-    grid-template-columns: repeat(5, 1fr); /* 🔥 lebih lega */
+    grid-template-columns: repeat(5, 1fr); 
   }
 
   .tbm-main img {
@@ -308,7 +308,7 @@
   }
 
   .filter-btn::after {
-      display: none; /* ❌ hilangkan underline */
+      display: none; 
   }
 
   .filter-btn:hover {
