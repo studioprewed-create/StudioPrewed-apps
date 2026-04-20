@@ -771,10 +771,13 @@ class EXECUTIVEController extends Controller
                 return $t;
             });
 
-            $filters = $temas->pluck('nama')
-                     ->filter() // buang null
-                     ->unique()
-                     ->values();
+            $filters = $temas
+                ->pluck('nama')
+                ->filter()
+                ->unique()
+                ->mapWithKeys(function ($nama) {
+                    return [$nama => Str::slug($nama)];
+            });
 
 
             return view('HOMEPAGES.PAGE.Katalog', compact('slides','temas','filters'));

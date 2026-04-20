@@ -7,7 +7,7 @@
         <a href="{{ url('/') }}">Home</a>
         <a href="{{ route('Portofolio') }}">Portofolio</a>
         {{-- <a href="{{ route('Pricelist') . '#bookingWizard' }}">Booking</a> --}}
-       <a href="{{ route('Pricelist') }}" class="scroll-link" data-target="packages-container">Pricelist</a>
+        <a href="{{ route('Pricelist') }}" class="scroll-link" data-target="packages-container">Pricelist</a>
         <a href="{{ route('Katalog')}}">Katalog</a>
         @auth
             <a href="{{ route('Account') }}">Account</a>
