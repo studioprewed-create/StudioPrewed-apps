@@ -158,66 +158,68 @@
   display: block;
 }
 
+
 .gallery-filter {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.2rem;
-    padding: 1rem 1.5rem;
-    background: transparent;
-    border-radius: 0;
-}
+    gap: 1.4rem;
 
-/* BUTTON JADI TEXT */
-.filter-btn {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-
-    color: rgba(255,255,255,0.6);
-    transition: all 0.3s ease;
+    padding: 1.2rem 2rem;
 
     position: relative;
 }
 
-/* HAPUS STYLE LAMA */
-.filter-btn i {
-    display: none;
+/* BUTTON */
+.filter-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+
+    color: var(--text-lighter);
+
+    transition: var(--transition);
+    position: relative;
 }
 
-/* LABEL SELALU KELIHATAN */
+/* TEXT */
 .filter-btn .label {
-    max-width: none;
-    opacity: 1;
+    opacity: 0.9;
 }
 
 /* HOVER */
 .filter-btn:hover {
-    color: #ffffff;
+    color: var(--white);
 }
 
 /* ACTIVE */
 .filter-btn.active {
-    color: #ffffff;
+    color: var(--white);
+    font-weight: 600;
 }
 
-/* GARIS BAWAH ANIMASI */
+/* UNDERLINE */
 .filter-btn::after {
     content: "";
     position: absolute;
-    bottom: -6px;
-    left: 0;
+    bottom: -8px;
+    left: 50%;
 
     width: 0%;
     height: 2px;
 
-    background: #ffffff;
-    transition: 0.3s;
+    background: linear-gradient(
+        90deg,
+        var(--teal),
+        var(--teal-2)
+    );
+
+    transition: var(--transition);
+    transform: translateX(-50%);
 }
 
 .filter-btn.active::after,
@@ -273,20 +275,57 @@
   }
 
   .gallery-filter {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    gap: 1rem;
-    padding: 0.8rem 1rem;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+
+      overflow-x: auto;
+      gap: 0.8rem;
+
+      padding: 0.8rem 1rem;
+
+      scroll-snap-type: x mandatory;
   }
 
   .gallery-filter::-webkit-scrollbar {
-    display: none;
+      display: none;
   }
 
   .filter-btn {
-    white-space: nowrap;
-    font-size: 0.95rem;
+      flex: 0 0 auto;
+
+      padding: 8px 14px;
+      border-radius: 999px;
+
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+
+      scroll-snap-align: start;
+
+      transition: var(--transition);
+  }
+
+  .filter-btn::after {
+      display: none; /* ❌ hilangkan underline */
+  }
+
+  .filter-btn:hover {
+      background: var(--medium-gray);
+      color: var(--white);
+  }
+
+  .filter-btn.active {
+      background: linear-gradient(
+          135deg,
+          var(--teal),
+          var(--teal-2)
+      );
+      color: var(--black);
+
+      border: none;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
   }
 
 }
@@ -340,12 +379,59 @@
   }
 
   .gallery-filter {
-    gap: 0.9rem;
-    padding: 0.7rem 0.8rem;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+
+      overflow-x: auto;
+      gap: 0.7rem;
+
+      padding: 0.7rem 0.9rem;
+
+      scroll-snap-type: x mandatory;
+  }
+
+  .gallery-filter::-webkit-scrollbar {
+      display: none;
   }
 
   .filter-btn {
-    font-size: 0.9rem;
+      flex: 0 0 auto;
+
+      padding: 7px 13px;
+      border-radius: 999px;
+
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+
+      font-size: 0.8rem;
+      letter-spacing: 0.3px;
+
+      color: var(--text-secondary);
+
+      scroll-snap-align: start;
+
+      transition: var(--transition);
+  }
+
+  .filter-btn::after {
+      display: none;
+  }
+
+  .filter-btn:hover {
+      background: var(--medium-gray);
+      color: var(--white);
+  }
+
+  .filter-btn.active {
+      background: linear-gradient(
+          135deg,
+          var(--teal),
+          var(--teal-2)
+      );
+      color: var(--black);
+
+      border: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
   }
 
 }
@@ -404,12 +490,13 @@
   }
 
   .gallery-filter {
-    gap: 0.7rem;
-    padding: 0.6rem 0.6rem;
+      gap: 0.6rem;
+      padding: 0.6rem 0.8rem;
   }
 
   .filter-btn {
-    font-size: 0.8rem;
+      font-size: 0.75rem;
+      padding: 6px 12px;
   }
 
 }
