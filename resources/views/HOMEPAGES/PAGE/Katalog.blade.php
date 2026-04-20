@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-    @include('HOMEPAGES.SECTION.Header.HeaderPricelist')
+    @include('HOMEPAGES.SECTION.Header.HeaderCatalog')
     <main>
         @include('HOMEPAGES.SECTION.Videoplay')
         {{-- @include('HOMEPAGES.SECTION.TemaBaju') --}}
