@@ -761,7 +761,7 @@ class EXECUTIVEController extends Controller
             }
             return view('HOMEPAGES.PAGE.Pricelist', compact('slides','promos','packages','temas','addons','dataDiri'));
         }
-    public function katalog()
+    public function Katalog()
         {
             $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
             $temas   = TemaBaju::where('active',1)->orderBy('order')->get();
