@@ -8,7 +8,7 @@
         <a href="{{ route('Portofolio') }}">Portofolio</a>
         {{-- <a href="{{ route('Pricelist') . '#bookingWizard' }}">Booking</a> --}}
         <a href="{{ route('Pricelist') . '#packages-container'}}">Pricelist</a>
-        <a href="{{ route('katalog')}}">Katalog</a>
+        <a href="{{ route('Katalog')}}">Katalog</a>
         @auth
             <a href="{{ route('Account') }}">Account</a>
             <a href="{{ route('logout') }}">Logout</a>
