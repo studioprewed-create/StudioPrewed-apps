@@ -57,6 +57,38 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(showText, 10000);
   }
 
+  (function () {
+
+    const links = document.querySelectorAll('.scroll-link');
+
+      if (!links.length) return;
+
+      links.forEach(link => {
+          link.addEventListener('click', function (e) {
+
+              const targetId = this.dataset.target;
+              const target   = document.getElementById(targetId);
+
+              if (!target) return;
+
+              e.preventDefault();
+
+              // 🔥 optional: offset header biar gak ketutup
+              const header = document.getElementById('siteHeader');
+              const offset = header ? header.offsetHeight : 0;
+
+              const top = target.offsetTop - offset;
+
+              window.scrollTo({
+                  top: top,
+                  behavior: 'smooth'
+              });
+
+          });
+      });
+
+  })();
+
   (function initHeroCarousel() {
     const carouselItems = document.querySelectorAll('.carousel-item');
     const carouselControls = document.querySelectorAll('.carousel-control');
