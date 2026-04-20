@@ -761,6 +761,24 @@ class EXECUTIVEController extends Controller
             }
             return view('HOMEPAGES.PAGE.Pricelist', compact('slides','promos','packages','temas','addons','dataDiri'));
         }
+    public function katalog()
+        {
+            $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
+            $temas   = TemaBaju::where('active',1)->orderBy('order')->get();
+
+            $temas->map(function($t){
+                $t->slug = Str::slug($t->nama);
+                return $t;
+            });
+
+            $filters = $temas->pluck('nama')
+                     ->filter() // buang null
+                     ->unique()
+                     ->values();
+
+
+            return view('HOMEPAGES.PAGE.Katalog', compact('slides','temas','filters'));
+        }
     public function create(Request $request, $section)
         {
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', compact('section'));

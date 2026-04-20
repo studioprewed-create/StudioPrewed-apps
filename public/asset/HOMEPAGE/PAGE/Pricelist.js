@@ -650,6 +650,61 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })();
 
+    (function () {
+
+    const filterWrap = document.querySelector('.gallery-filter');
+    if (!filterWrap) return;
+
+    const buttons = filterWrap.querySelectorAll('.filter-btn');
+    const items   = document.querySelectorAll('.gallery-card');
+
+        let isFiltering = false;
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function () {
+
+                if (isFiltering) return;
+                isFiltering = true;
+
+                // ACTIVE BUTTON
+                buttons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.dataset.filter;
+
+                items.forEach(item => {
+                    const category = item.dataset.category;
+
+                    if (filter === 'all' || category === filter) {
+
+                        // tampilkan lagi
+                        item.classList.remove('hidden');
+
+                        setTimeout(() => {
+                            item.classList.remove('hide');
+                        }, 10);
+
+                    } else {
+
+                        // animasi keluar
+                        item.classList.add('hide');
+
+                        setTimeout(() => {
+                            item.classList.add('hidden');
+                        }, 300); // sesuai CSS transition
+                    }
+                });
+
+                // unlock setelah animasi selesai
+                setTimeout(() => {
+                    isFiltering = false;
+                }, 350);
+
+            });
+        });
+
+    })();
+
     (function initBookingWizard() {
         const wizard = $('#bookingWizard');
         if (!wizard) return;

@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Studio Prewed | Fotrait Timeless | Pricelist</title>
+    <title>Studio Prewed | Fotrait Timeless | Katalog</title>
 
     {{-- <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Base.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Header.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Videoplay.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Promo.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Package.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Packagemodal.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Temabaju.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/TemabajuGrid.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PRICELIST/Booking.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Footer.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +26,8 @@
     @include('HOMEPAGES.SECTION.Header.HeaderPricelist')
     <main>
         @include('HOMEPAGES.SECTION.Videoplay')
-        @include('HOMEPAGES.SECTION.Promo')
-        @include('HOMEPAGES.SECTION.Package')
         {{-- @include('HOMEPAGES.SECTION.TemaBaju') --}}
-        {{-- @include('HOMEPAGES.SECTION.TemaBajuGrid') --}}
+        @include('HOMEPAGES.SECTION.TemaBajuKatalog')
         {{-- @include('HOMEPAGES.SECTION.Booking') --}}
         @include('HOMEPAGES.SECTION.Footer')
     </main>

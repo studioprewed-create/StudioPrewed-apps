@@ -158,6 +158,90 @@
   display: block;
 }
 
+.gallery-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    padding: 1rem 1.5rem;
+    background: transparent;
+    border-radius: 0;
+}
+
+/* BUTTON JADI TEXT */
+.filter-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+
+    color: rgba(255,255,255,0.6);
+    transition: all 0.3s ease;
+
+    position: relative;
+}
+
+/* HAPUS STYLE LAMA */
+.filter-btn i {
+    display: none;
+}
+
+/* LABEL SELALU KELIHATAN */
+.filter-btn .label {
+    max-width: none;
+    opacity: 1;
+}
+
+/* HOVER */
+.filter-btn:hover {
+    color: #ffffff;
+}
+
+/* ACTIVE */
+.filter-btn.active {
+    color: #ffffff;
+}
+
+/* GARIS BAWAH ANIMASI */
+.filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+
+    width: 0%;
+    height: 2px;
+
+    background: #ffffff;
+    transition: 0.3s;
+}
+
+.filter-btn.active::after,
+.filter-btn:hover::after {
+    width: 100%;
+}
+
+.gallery-card {
+    transition: all 0.4s ease;
+}
+
+/* hidden state */
+.gallery-card.hide {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+/* benar-benar hilang dari grid */
+.gallery-card.hidden {
+    display: none;
+}
+
+
 /* =========================
    MEDIA QUERY 1024px
 ========================= */
@@ -186,6 +270,23 @@
 
   .tbm-main img {
     aspect-ratio: 3/4;
+  }
+
+  .gallery-filter {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .gallery-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+    font-size: 0.95rem;
   }
 
 }
@@ -236,6 +337,15 @@
   .tbm-thumb img {
     aspect-ratio: 3/4; 
     max-height: 80px;
+  }
+
+  .gallery-filter {
+    gap: 0.9rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .filter-btn {
+    font-size: 0.9rem;
   }
 
 }
@@ -291,6 +401,15 @@
   .tbm-thumb img {
     aspect-ratio: 3/4;
     max-height: 70px;
+  }
+
+  .gallery-filter {
+    gap: 0.7rem;
+    padding: 0.6rem 0.6rem;
+  }
+
+  .filter-btn {
+    font-size: 0.8rem;
   }
 
 }

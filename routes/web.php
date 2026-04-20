@@ -9,6 +9,7 @@ use App\Helpers\SlotHelper;
 Route::get('/', [EXECUTIVEController::class, 'index'])->name('homepage');
 Route::get('/Portofolio', [EXECUTIVEController::class, 'Portofolio'])->name('Portofolio');
 Route::get('/Pricelist', [EXECUTIVEController::class, 'Pricelist'])->name('Pricelist');
+Route::get('/katalog', [EXECUTIVEController::class, 'katalog'])->name('katalog');
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'verify'])->name('login.verify');
