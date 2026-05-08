@@ -34,6 +34,7 @@
         @include('HOMEPAGES.SECTION.Marquee')
         @include('HOMEPAGES.SECTION.Aboutus')
         @include('HOMEPAGES.SECTION.WhyUs')
+        @include('HOMEPAGES.SECTION.Survey')
         @include('HOMEPAGES.SECTION.FAQ')
         @include('HOMEPAGES.SECTION.Footer')
     </main>
