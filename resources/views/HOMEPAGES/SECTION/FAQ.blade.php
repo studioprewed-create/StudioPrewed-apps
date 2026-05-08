@@ -9,7 +9,7 @@
 </section>
 
 <section class="faq-section" id="faq">
-    <div class="faq-container">
+    <div class="container">
         <div class="faq-list">
             @foreach($faqs as $faq)
                 <div class="faq-item">
