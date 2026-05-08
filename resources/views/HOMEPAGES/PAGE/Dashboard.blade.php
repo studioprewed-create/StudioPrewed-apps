@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Marquee.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/About.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Whyus.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/survey.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Review.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/HOME/Faq.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Footer.css') }}">
