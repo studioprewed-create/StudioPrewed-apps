@@ -28,6 +28,7 @@ use App\Models\BookingAddon;
 use App\Models\DataDiri;
 use App\Models\DataDiriKaryawan;
 use \App\Models\SkemaKerja;
+use \App\Models\Survey;
 
 class EXECUTIVEController extends Controller
 {
@@ -625,6 +626,30 @@ class EXECUTIVEController extends Controller
 
             return redirect()->route('homepage')->with('success', 'Berhasil ditambahkan!');
         }
+    public function Survey()
+        {
+            return view('HOMEPAGES.FITUR.Survey');
+        }
+
+    public function SurveyStore(Request $request)
+        {
+            $validated = $request->validate([
+                'favorite_services'    => 'nullable|array',
+                'favorite_services.*'  => 'string',
+
+                'recommendation_score' => 'required|integer|min:1|max:10',
+
+                'feedback'             => 'nullable|string',
+            ]);
+
+            Survey::create([
+                'favorite_services'    => $validated['favorite_services'] ?? [],
+                'recommendation_score' => $validated['recommendation_score'],
+                'feedback'             => $validated['feedback'] ?? null,
+            ]);
+
+            return back()->with('success', 'Terima kasih sudah mengisi survey.');
+        }
     public function index()
         {
             $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
@@ -782,7 +807,7 @@ class EXECUTIVEController extends Controller
 
             return view('HOMEPAGES.PAGE.Katalog', compact('slides','temas','filters'));
         }
-    
+
     public function create(Request $request, $section)
         {
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', compact('section'));

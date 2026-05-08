@@ -1,3 +1,4 @@
+<a href="{{ route('Survey') }}" class="survey-btn">Isi Survey</a>
 <section class="services-section" id="services" aria-labelledby="why-title">
     <div class="container why-wrap">
         <header class="head" data-reveal>

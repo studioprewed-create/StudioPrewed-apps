@@ -119,6 +119,28 @@ section#services.services-section {
 .faq-item + .faq-item {
     margin-top: .25rem;
 }
+.survey-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:14px 28px;
+
+    background:var(--teal-2);
+    color:var(--black);
+
+    border-radius:14px;
+
+    font-weight:700;
+    text-decoration:none;
+
+    transition:.3s ease;
+}
+
+.survey-btn:hover{
+    transform:translateY(-2px);
+    opacity:.9;
+}
 
 /* ============================
    RESPONSIVE

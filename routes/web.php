@@ -11,6 +11,7 @@ Route::get('/Portofolio', [EXECUTIVEController::class, 'Portofolio'])->name('Por
 Route::get('/Pricelist', [EXECUTIVEController::class, 'Pricelist'])->name('Pricelist');
 Route::get('/Katalog', [EXECUTIVEController::class, 'Katalog'])->name('Katalog');
 Route::get('/Survey', [EXECUTIVEController::class, 'Survey'])->name('Survey');
+Route::post('/Survey/store', [EXECUTIVEController::class, 'SurveyStore'])->name('SurveyStore');
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'verify'])->name('login.verify');
