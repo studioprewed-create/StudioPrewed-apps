@@ -92,22 +92,30 @@ body {
    INPUT — SAMA DENGAN REGISTER
    ======================================== */
 .login-box input {
-    width: 100%;
-    padding: 11px 14px;
-    margin: 10px 0;
+    display:block;
 
-    border-radius: 999px;
-    border: 1px solid rgba(75, 59, 45, 0.9);
-    background: radial-gradient(circle at top, #18120d, #0f0b09);
+    width:100%;
+    max-width:100%;
 
-    color: #f9f9f9;
-    font-size: 0.9rem;
+    box-sizing:border-box;
+
+    padding:12px 16px;
+    margin:10px auto;
+
+    border-radius:999px;
+    border:1px solid rgba(75, 59, 45, 0.9);
+
+    background:
+        radial-gradient(circle at top, #18120d, #0f0b09);
+
+    color:#f9f9f9;
+    font-size:0.9rem;
 
     box-shadow:
         0 0 0 1px rgba(0,0,0,0.7),
         inset 0 1px 0 rgba(255,255,255,0.04);
 
-    outline: none;
+    outline:none;
 
     transition:
         border-color 0.18s ease,
@@ -135,21 +143,31 @@ body {
    BUTTON LOGIN — MIRIP BUTTON REGISTER
    ======================================== */
 .btn-login {
-    width: 100%;
-    padding: 12px;
-    margin-top: 14px;
+    display:block;
 
-    border-radius: 999px;
-    border: none;
-    cursor: pointer;
+    width:100%;
+    max-width:100%;
 
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    box-sizing:border-box;
 
-    background: linear-gradient(135deg, #b0844a, #8b5e34);
-    color: #0b0704;
+    padding:12px 16px;
+    margin-top:14px;
+
+    border-radius:999px;
+    border:none;
+
+    cursor:pointer;
+
+    font-weight:600;
+    font-size:0.9rem;
+
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+
+    background:
+        linear-gradient(135deg, #b0844a, #8b5e34);
+
+    color:#0b0704;
 
     box-shadow:
         0 12px 30px rgba(0,0,0,0.9),
