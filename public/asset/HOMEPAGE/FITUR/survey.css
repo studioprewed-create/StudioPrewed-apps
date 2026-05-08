@@ -174,22 +174,214 @@ textarea:focus{
     color:#8ff0a4;
 }
 
-@media(max-width:768px){
+@media (max-width: 1024px) {
 
     .survey-page{
-        padding:100px 0 60px;
+        padding:80px 0 70px;
+    }
+
+    .survey-wrap{
+        max-width:90%;
+    }
+
+    .survey-header{
+        padding:24px;
+    }
+
+    .survey-title h1{
+        font-size:1.5rem;
+    }
+
+    .survey-body{
+        padding:30px;
+    }
+
+    .survey-question h3{
+        font-size:1rem;
+    }
+
+    .rating-group{
+        grid-template-columns:repeat(5,1fr);
+        gap:12px;
+    }
+
+    .rating-item{
+        padding:16px 8px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .survey-page{
+        padding:70px 0 60px;
+    }
+
+    .survey-wrap{
+        max-width:95%;
+    }
+
+    .survey-card{
+        border-radius:16px;
+    }
+
+    .survey-header{
+        padding:22px;
+        gap:14px;
+        align-items:flex-start;
+    }
+
+    .survey-header img{
+        width:52px;
+        height:52px;
+    }
+
+    .survey-title h1{
+        font-size:1.3rem;
+        line-height:1.4;
+    }
+
+    .survey-title p{
+        font-size:.9rem;
     }
 
     .survey-body{
         padding:24px;
     }
 
+    .survey-question{
+        margin-bottom:36px;
+    }
+
+    .survey-question h3{
+        font-size:.98rem;
+        line-height:1.6;
+    }
+
+    .survey-question p{
+        font-size:.85rem;
+    }
+
+    .checkbox-group{
+        gap:12px;
+    }
+
+    .checkbox-item{
+        padding:14px 16px;
+        font-size:.92rem;
+    }
+
     .rating-group{
         grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .rating-item{
+        padding:16px 10px;
+    }
+
+    textarea{
+        min-height:160px;
+        padding:16px;
+        font-size:.92rem;
+    }
+
+    .survey-submit{
+        padding:16px;
+        font-size:.95rem;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .survey-page{
+        padding:60px 0 50px;
+    }
+
+    .survey-wrap{
+        max-width:100%;
+    }
+
+    .survey-card{
+        border-radius:14px;
     }
 
     .survey-header{
-        align-items:flex-start;
+        padding:18px;
+        gap:12px;
+    }
+
+    .survey-header img{
+        width:46px;
+        height:46px;
+    }
+
+    .survey-title h1{
+        font-size:1.1rem;
+    }
+
+    .survey-title p{
+        font-size:.82rem;
+        line-height:1.5;
+    }
+
+    .survey-body{
+        padding:18px;
+    }
+
+    .survey-question{
+        margin-bottom:30px;
+    }
+
+    .survey-question h3{
+        font-size:.92rem;
+        line-height:1.7;
+    }
+
+    .survey-question p{
+        font-size:.8rem;
+        margin-bottom:14px;
+    }
+
+    .checkbox-group{
+        gap:10px;
+    }
+
+    .checkbox-item{
+        padding:13px 14px;
+        border-radius:12px;
+        font-size:.85rem;
+    }
+
+    .rating-group{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .rating-item{
+        padding:14px 8px;
+        border-radius:12px;
+        font-size:.9rem;
+    }
+
+    textarea{
+        min-height:140px;
+        padding:14px;
+        border-radius:14px;
+        font-size:.85rem;
+    }
+
+    .survey-submit{
+        padding:15px;
+        border-radius:14px;
+        font-size:.9rem;
+    }
+
+    .survey-alert{
+        padding:14px;
+        font-size:.85rem;
+        border-radius:12px;
     }
 
 }
