@@ -1,0 +1,195 @@
+.survey-page{
+    padding:120px 0 80px;
+}
+
+.survey-wrap{
+    max-width:850px;
+    margin:auto;
+}
+
+.survey-card{
+    background:var(--dark);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.survey-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:28px;
+    border-bottom:1px solid var(--border);
+}
+
+.survey-header img{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+    filter: brightness(0) invert(1);
+}
+
+.survey-title h1{
+    font-size:1.7rem;
+    margin-bottom:4px;
+}
+
+.survey-title p{
+    color:var(--muted);
+}
+
+.survey-body{
+    padding:35px;
+}
+
+.survey-question{
+    margin-bottom:45px;
+}
+
+.survey-question h3{
+    font-size:1.08rem;
+    margin-bottom:10px;
+    line-height:1.6;
+}
+
+.survey-question p{
+    color:var(--muted);
+    font-size:.92rem;
+    margin-bottom:18px;
+}
+
+.checkbox-group{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.checkbox-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:15px 18px;
+
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    transition:var(--transition);
+    cursor:pointer;
+}
+
+.checkbox-item:hover{
+    border-color:var(--teal-2);
+    background:rgba(255,255,255,.03);
+}
+
+input[type="checkbox"],
+input[type="radio"]{
+    accent-color:var(--teal-2);
+    width:18px;
+    height:18px;
+}
+
+.rating-group{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+}
+
+.rating-item{
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    padding:18px 10px;
+
+    text-align:center;
+    cursor:pointer;
+
+    transition:var(--transition);
+}
+
+.rating-item:hover{
+    border-color:var(--teal-2);
+    background:rgba(255,255,255,.03);
+}
+
+.rating-item input{
+    margin-bottom:10px;
+}
+
+textarea{
+    width:100%;
+    min-height:180px;
+
+    background:var(--dark-card);
+    color:var(--white);
+
+    border:1px solid var(--border);
+    border-radius:16px;
+
+    padding:18px;
+
+    resize:none;
+}
+
+textarea:focus{
+    outline:none;
+    border-color:var(--teal-2);
+}
+
+.survey-submit{
+    width:100%;
+
+    border:none;
+    border-radius:16px;
+
+    padding:18px;
+
+    background:var(--teal-2);
+    color:var(--black);
+
+    font-weight:700;
+    font-size:1rem;
+
+    cursor:pointer;
+    transition:var(--transition);
+}
+
+.survey-submit:hover{
+    transform:translateY(-2px);
+    opacity:.95;
+}
+
+.survey-alert{
+    margin-bottom:20px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#16351f;
+    border:1px solid #2f8f46;
+
+    color:#8ff0a4;
+}
+
+@media(max-width:768px){
+
+    .survey-page{
+        padding:100px 0 60px;
+    }
+
+    .survey-body{
+        padding:24px;
+    }
+
+    .rating-group{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .survey-header{
+        align-items:flex-start;
+    }
+
+}
