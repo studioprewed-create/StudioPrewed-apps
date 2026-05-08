@@ -1,5 +1,5 @@
 .survey-cta{
-    padding:80px 0 20px;
+    padding:50px 0 50px;
 }
 
 .survey-cta-box{
@@ -118,7 +118,7 @@
 @media(max-width:768px){
 
     .survey-cta{
-        padding:60px 0 10px;
+        padding:30px 0 30px;
     }
 
     .survey-cta-box{
