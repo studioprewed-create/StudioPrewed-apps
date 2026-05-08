@@ -648,7 +648,7 @@ class EXECUTIVEController extends Controller
                 'feedback'             => $validated['feedback'] ?? null,
             ]);
 
-            return back()->with('success', 'Terima kasih sudah mengisi survey.');
+        return redirect()->route('homepage')->with('success', 'Terima kasih sudah mengisi survey.');
         }
     public function index()
         {
