@@ -255,6 +255,38 @@ h1, h2, h3, h4 {
     pointer-events: none;
 }
 
+.global-success-alert{
+    position:fixed;
+
+    top:30px;
+    right:30px;
+
+    background:#16351f;
+    border:1px solid #2f8f46;
+    color:#8ff0a4;
+
+    padding:16px 22px;
+
+    border-radius:14px;
+
+    z-index:99999;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+    animation:fadeSlide .4s ease;
+}
+
+@keyframes fadeSlide{
+    from{
+        opacity:0;
+        transform:translateY(-15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
 @media (max-width: 768px) {
     .wa-float {
         right: 16px;

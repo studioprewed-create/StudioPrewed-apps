@@ -57,6 +57,26 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(showText, 10000);
   }
 
+  (function initSuccessAlert() {
+
+    const alertBox = document.getElementById('successAlert');
+
+    if (!alertBox) return;
+
+    setTimeout(() => {
+
+      alertBox.style.transition = 'all .4s ease';
+      alertBox.style.opacity = '0';
+      alertBox.style.transform = 'translateY(-10px)';
+
+      setTimeout(() => {
+        alertBox.remove();
+      }, 400);
+
+    }, 4000);
+
+  })();
+
   (function () {
 
     const links = document.querySelectorAll('.scroll-link');

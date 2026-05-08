@@ -23,6 +23,11 @@
   </style>
 </head>
 <body>
+    @if(session('success'))
+        <div class="global-success-alert" id="successAlert">
+            {{ session('success') }}
+        </div>
+    @endif
     @include('HOMEPAGES.SECTION.Header.Header')
     <main>
         @include('HOMEPAGES.SECTION.Videoplay')
