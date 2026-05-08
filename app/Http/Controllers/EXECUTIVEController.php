@@ -782,6 +782,7 @@ class EXECUTIVEController extends Controller
 
             return view('HOMEPAGES.PAGE.Katalog', compact('slides','temas','filters'));
         }
+    
     public function create(Request $request, $section)
         {
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', compact('section'));
