@@ -148,7 +148,7 @@
                                         'Videografer',
                                         'MUA',
                                         'Admin Studio',
-                                        'Tim Attire Studio',
+                                        'Attire ( Busana )',
                                         'Tim Fitting',
                                         'Admin Attire'
                                     ];

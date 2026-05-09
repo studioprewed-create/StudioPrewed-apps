@@ -2485,7 +2485,7 @@ class EXECUTIVEController extends Controller
                     'Videografer',
                     'MUA',
                     'Admin Studio',
-                    'Tim Attire Studio',
+                    'Attire ( Busana )',
                     'Tim Fitting',
                     'Admin Attire'
                 ];
@@ -2944,7 +2944,7 @@ class EXECUTIVEController extends Controller
                     'Videografer',
                     'MUA',
                     'Admin Studio',
-                    'Tim Attire Studio',
+                    'Attire ( Busana )',
                     'Tim Fitting',
                     'Admin Attire'
                 ];
@@ -3452,7 +3452,7 @@ class EXECUTIVEController extends Controller
                         'Videografer',
                         'MUA',
                         'Admin Studio',
-                        'Tim Attire Studio',
+                        'Attire ( Busana )',
                         'Tim Fitting',
                         'Admin Attire'
                     ];
