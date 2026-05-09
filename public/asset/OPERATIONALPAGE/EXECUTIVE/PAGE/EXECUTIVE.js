@@ -1731,6 +1731,41 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     };
+
+    const initStatistikSurvey = () => {
+    const beforeBtn = document.getElementById('showBeforeBtn');
+    const afterBtn  = document.getElementById('showAfterBtn');
+    const beforeSection = document.getElementById('beforeSection');
+    const afterSection  = document.getElementById('afterSection');
+
+        if (
+            !beforeBtn ||
+            !afterBtn ||
+            !beforeSection ||
+            !afterSection
+        ) return;
+
+        beforeBtn.addEventListener('click', () => {
+
+            beforeSection.classList.remove('hidden');
+            afterSection.classList.add('hidden');
+
+            beforeBtn.classList.add('active');
+            afterBtn.classList.remove('active');
+
+        });
+
+        afterBtn.addEventListener('click', () => {
+
+            afterSection.classList.remove('hidden');
+            beforeSection.classList.add('hidden');
+
+            afterBtn.classList.add('active');
+            beforeBtn.classList.remove('active');
+
+        });
+
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -1747,6 +1782,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initJadwalKerja();
         initSkemaKerjaModal();
         initSidebarMobile();
+        initStatistikSurvey();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

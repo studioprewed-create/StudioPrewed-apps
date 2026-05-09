@@ -2478,6 +2478,144 @@ class EXECUTIVEController extends Controller
                     'karyawanByRole' => $karyawanByRole,
                 ]);
             }
+            if ($page === 'StatistikContent.StatistikSurvey') {
+
+                $services = [
+                    'Fotografer',
+                    'Videografer',
+                    'MUA',
+                    'Admin Studio',
+                    'Tim Attire Studio',
+                    'Tim Fitting',
+                    'Admin Attire'
+                ];
+
+                $allDataRaw = Survey::latest()->get();
+                $allData = $allDataRaw->unique(function ($item) {
+
+                    return strtolower(trim($item->customer_name))
+                        . '_'
+                        . $item->photo_date
+                        . '_'
+                        . $item->recommendation_score;
+
+                });
+
+                $duplicateCount = $allDataRaw->count() - $allData->count();
+                $favoriteBefore = [];
+
+                foreach ($services as $service) {
+                    $favoriteBefore[$service] = 0;
+                }
+
+                foreach ($allDataRaw as $survey) {
+
+                    if (is_array($survey->favorite_services)) {
+
+                        foreach ($survey->favorite_services as $service) {
+
+                            if (isset($favoriteBefore[$service])) {
+                                $favoriteBefore[$service]++;
+                            }
+
+                        }
+
+                    }
+
+                }
+                $favoriteAfter = [];
+
+                foreach ($services as $service) {
+                    $favoriteAfter[$service] = 0;
+                }
+
+                foreach ($allData as $survey) {
+
+                    if (is_array($survey->favorite_services)) {
+
+                        foreach ($survey->favorite_services as $service) {
+
+                            if (isset($favoriteAfter[$service])) {
+                                $favoriteAfter[$service]++;
+                            }
+
+                        }
+
+                    }
+
+                }
+                $scoreDistributionBefore = [];
+                $scoreDistributionAfter = [];
+
+                for ($i = 1; $i <= 10; $i++) {
+
+                    $scoreDistributionBefore[$i] = $allDataRaw
+                        ->where('recommendation_score', $i)
+                        ->count();
+
+                    $scoreDistributionAfter[$i] = $allData
+                        ->where('recommendation_score', $i)
+                        ->count();
+
+                }
+
+                $statsBefore = [
+
+                    'total' => $allDataRaw->count(),
+
+                    'duplikat' => $duplicateCount,
+
+                    'nama_kosong' => $allDataRaw
+                        ->whereNull('customer_name')
+                        ->count(),
+
+                    'tanggal_kosong' => $allDataRaw
+                        ->whereNull('photo_date')
+                        ->count(),
+
+                    'feedback_kosong' => $allDataRaw
+                        ->whereNull('feedback')
+                        ->count(),
+
+                    'favorite_kosong' => $allDataRaw
+                        ->filter(fn($item) => empty($item->favorite_services))
+                        ->count(),
+
+                    'rata_score' => round(
+                        $allDataRaw->avg('recommendation_score'),
+                        2
+                    ),
+
+                ];
+
+                $statsAfter = [
+
+                    'total' => $allData->count(),
+                    'duplikat' => 0,
+                    'nama_kosong' => 0,
+                    'tanggal_kosong' => 0,
+                    'feedback_kosong' => 0,
+                    'favorite_kosong' => 0,
+                    'rata_score' => round(
+                        $allData->avg('recommendation_score'),
+                        2
+                    ),
+
+                ];
+
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'services' => $services,
+                    'favoriteBefore' => $favoriteBefore,
+                    'favoriteAfter' => $favoriteAfter,
+                    'scoreDistributionBefore' => $scoreDistributionBefore,
+                    'scoreDistributionAfter' => $scoreDistributionAfter,
+                    'statsBefore' => $statsBefore,
+                    'statsAfter' => $statsAfter,
+                    'surveys' => $allDataRaw,
+
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -2709,6 +2847,135 @@ class EXECUTIVEController extends Controller
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
                     compact('startOfWeek', 'bookingsByDate', 'karyawanByRole')
+                );
+            }
+            if ($page === 'StatistikContent.StatistikSurvey') {
+
+                $services = [
+                    'Fotografer',
+                    'Videografer',
+                    'MUA',
+                    'Admin Studio',
+                    'Tim Attire Studio',
+                    'Tim Fitting',
+                    'Admin Attire'
+                ];
+
+                $allDataRaw = Survey::latest()->get();
+                $allData = $allDataRaw->unique(function ($item) {
+
+                    return strtolower(trim($item->customer_name))
+                        . '_'
+                        . $item->photo_date
+                        . '_'
+                        . $item->recommendation_score;
+
+                });
+                $duplicateCount = $allDataRaw->count() - $allData->count();
+                $favoriteBefore = [];
+                foreach ($services as $service) {
+                    $favoriteBefore[$service] = 0;
+                }
+
+                foreach ($allDataRaw as $survey) {
+
+                    if (is_array($survey->favorite_services)) {
+
+                        foreach ($survey->favorite_services as $service) {
+
+                            if (isset($favoriteBefore[$service])) {
+                                $favoriteBefore[$service]++;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                $favoriteAfter = [];
+                foreach ($services as $service) {
+                    $favoriteAfter[$service] = 0;
+                }
+                foreach ($allData as $survey) {
+
+                    if (is_array($survey->favorite_services)) {
+
+                        foreach ($survey->favorite_services as $service) {
+
+                            if (isset($favoriteAfter[$service])) {
+                                $favoriteAfter[$service]++;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                $scoreDistributionBefore = [];
+                $scoreDistributionAfter = [];
+                for ($i = 1; $i <= 10; $i++) {
+
+                    $scoreDistributionBefore[$i] = $allDataRaw
+                        ->where('recommendation_score', $i)
+                        ->count();
+
+                    $scoreDistributionAfter[$i] = $allData
+                        ->where('recommendation_score', $i)
+                        ->count();
+
+                }
+                $statsBefore = [
+
+                    'total' => $allDataRaw->count(),
+                    'duplikat' => $duplicateCount,
+                    'nama_kosong' => $allDataRaw
+                        ->whereNull('customer_name')
+                        ->count(),
+                    'tanggal_kosong' => $allDataRaw
+                        ->whereNull('photo_date')
+                        ->count(),
+                    'feedback_kosong' => $allDataRaw
+                        ->whereNull('feedback')
+                        ->count(),
+                    'favorite_kosong' => $allDataRaw
+                        ->filter(fn($item) => empty($item->favorite_services))
+                        ->count(),
+                    'rata_score' => round(
+                        $allDataRaw->avg('recommendation_score'),
+                        2
+                    ),
+
+                ];
+
+                $statsAfter = [
+
+                    'total' => $allData->count(),
+                    'duplikat' => 0,
+                    'nama_kosong' => 0,
+                    'tanggal_kosong' => 0,
+                    'feedback_kosong' => 0,
+                    'favorite_kosong' => 0,
+                    'rata_score' => round(
+                        $allData->avg('recommendation_score'),
+                        2
+                    ),
+
+                ];
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact(
+                        'services',
+                        'favoriteBefore',
+                        'favoriteAfter',
+                        'scoreDistributionBefore',
+                        'scoreDistributionAfter',
+                        'statsBefore',
+                        'statsAfter',
+                        'surveys'
+                    )
                 );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -2999,6 +3266,135 @@ class EXECUTIVEController extends Controller
                     // Isi dengan data yang diperlukan untuk Berkas
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page' => $page,
+                    ]);
+                }
+                if ($page === 'StatistikContent.StatistikSurvey') {
+
+                    $services = [
+                        'Fotografer',
+                        'Videografer',
+                        'MUA',
+                        'Admin Studio',
+                        'Tim Attire Studio',
+                        'Tim Fitting',
+                        'Admin Attire'
+                    ];
+
+                    $allDataRaw = Survey::latest()->get();
+                    $allData = $allDataRaw->unique(function ($item) {
+                        return strtolower(trim($item->customer_name))
+                            . '_'
+                            . $item->photo_date
+                            . '_'
+                            . $item->recommendation_score;
+
+                    });
+
+                    $duplicateCount = $allDataRaw->count() - $allData->count();
+                    $favoriteBefore = [];
+                    foreach ($services as $service) {
+                        $favoriteBefore[$service] = 0;
+                    }
+                    foreach ($allDataRaw as $survey) {
+
+                        if (is_array($survey->favorite_services)) {
+
+                            foreach ($survey->favorite_services as $service) {
+
+                                if (isset($favoriteBefore[$service])) {
+                                    $favoriteBefore[$service]++;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    $favoriteAfter = [];
+                    foreach ($services as $service) {
+                        $favoriteAfter[$service] = 0;
+                    }
+
+                    foreach ($allData as $survey) {
+                        if (is_array($survey->favorite_services)) {
+
+                            foreach ($survey->favorite_services as $service) {
+
+                                if (isset($favoriteAfter[$service])) {
+                                    $favoriteAfter[$service]++;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    $scoreDistributionBefore = [];
+                    $scoreDistributionAfter = [];
+
+                    for ($i = 1; $i <= 10; $i++) {
+
+                        $scoreDistributionBefore[$i] = $allDataRaw
+                            ->where('recommendation_score', $i)
+                            ->count();
+
+                        $scoreDistributionAfter[$i] = $allData
+                            ->where('recommendation_score', $i)
+                            ->count();
+
+                    }
+
+                    $statsBefore = [
+                        'total' => $allDataRaw->count(),
+                        'duplikat' => $duplicateCount,
+                        'nama_kosong' => $allDataRaw
+                            ->whereNull('customer_name')
+                            ->count(),
+                        'tanggal_kosong' => $allDataRaw
+                            ->whereNull('photo_date')
+                            ->count(),
+                        'feedback_kosong' => $allDataRaw
+                            ->whereNull('feedback')
+                            ->count(),
+                        'favorite_kosong' => $allDataRaw
+                            ->filter(fn($item) => empty($item->favorite_services))
+                            ->count(),
+                        'rata_score' => round(
+                            $allDataRaw->avg('recommendation_score'),
+                            2
+                        ),
+
+                    ];
+
+                    $statsAfter = [
+
+                        'total' => $allData->count(),
+                        'duplikat' => 0,
+                        'nama_kosong' => 0,
+                        'tanggal_kosong' => 0,
+                        'feedback_kosong' => 0,
+                        'favorite_kosong' => 0,
+                        'rata_score' => round(
+                            $allData->avg('recommendation_score'),
+                            2
+                        ),
+
+                    ];
+
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+
+                        'page' => $page,
+                        'services' => $services,
+                        'favoriteBefore' => $favoriteBefore,
+                        'favoriteAfter' => $favoriteAfter,
+                        'scoreDistributionBefore' => $scoreDistributionBefore,
+                        'scoreDistributionAfter' => $scoreDistributionAfter,
+                        'statsBefore' => $statsBefore,
+                        'statsAfter' => $statsAfter,
+                        'surveys' => $allDataRaw,
+
                     ]);
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
