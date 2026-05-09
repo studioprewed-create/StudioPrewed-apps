@@ -16,7 +16,7 @@
 
         {{-- Statistik Survey --}}
         <div class="col-xl-4 col-md-6">
-            <a href="{{ route('statistiksurvey') }}" class="text-decoration-none">
+            <a href="{{ route('executive.statistiksurvey') }}" class="text-decoration-none">
                 <div class="stat-card survey-card">
 
                     <div class="card-top">
@@ -48,7 +48,7 @@
 
         {{-- Statistik Review --}}
         <div class="col-xl-4 col-md-6">
-            <a href="{{ route('statistikreview') }}" class="text-decoration-none">
+            <a href="{{ route('executive.statistikreview') }}" class="text-decoration-none">
                 <div class="stat-card review-card">
 
                     <div class="card-top">
@@ -80,7 +80,7 @@
 
         {{-- Statistik Pengeluaran --}}
         <div class="col-xl-4 col-md-6">
-            <a href="{{ route('statistikpengeluaran') }}" class="text-decoration-none">
+            <a href="{{ route('executive.statistikpengeluaran') }}" class="text-decoration-none">
                 <div class="stat-card expense-card">
 
                     <div class="card-top">
@@ -113,7 +113,7 @@
 
         {{-- Statistik Pendapatan --}}
         <div class="col-xl-4 col-md-6">
-            <a href="{{ route('statistikpendapatan') }}" class="text-decoration-none">
+            <a href="{{ route('executive.statistikpendapatan') }}" class="text-decoration-none">
                 <div class="stat-card income-card">
 
                     <div class="card-top">
@@ -146,7 +146,7 @@
 
         {{-- Statistik Kinerja --}}
         <div class="col-xl-4 col-md-6">
-            <a href="{{ route('statistikkinerja') }}" class="text-decoration-none">
+            <a href="{{ route('executive.statistikkinerja') }}" class="text-decoration-none">
                 <div class="stat-card performance-card">
 
                     <div class="card-top">
@@ -179,7 +179,7 @@
 
         {{-- Statistik Katalog --}}
         <div class="col-xl-4 col-md-6">
-            <a href="{{ route('statistikkatalog') }}" class="text-decoration-none">
+            <a href="{{ route('executive.statistikkatalog') }}" class="text-decoration-none">
                 <div class="stat-card catalog-card">
 
                     <div class="card-top">
