@@ -2502,6 +2502,13 @@ class EXECUTIVEController extends Controller
                 });
 
                 $duplicateCount = $allDataRaw->count() - $allData->count();
+                $dataPageBefore = $allDataRaw
+                    ->sortByDesc('created_at')
+                    ->take(20);
+
+                $dataPageAfter = $allData
+                    ->sortByDesc('created_at')
+                    ->take(20);
                 $favoriteBefore = [];
 
                 foreach ($services as $service) {
@@ -2613,6 +2620,8 @@ class EXECUTIVEController extends Controller
                     'statsBefore' => $statsBefore,
                     'statsAfter' => $statsAfter,
                     'surveys' => $allDataRaw,
+                    'dataPageBefore' => $dataPageBefore,
+                    'dataPageAfter' => $dataPageAfter,
 
                 ]);
             }
@@ -2872,6 +2881,14 @@ class EXECUTIVEController extends Controller
 
                 });
                 $duplicateCount = $allDataRaw->count() - $allData->count();
+                $dataPageBefore = $allDataRaw
+                    ->sortByDesc('created_at')
+                    ->take(20);
+
+                $dataPageAfter = $allData
+                    ->sortByDesc('created_at')
+                    ->take(20);
+
                 $favoriteBefore = [];
                 foreach ($services as $service) {
                     $favoriteBefore[$service] = 0;
@@ -2974,7 +2991,9 @@ class EXECUTIVEController extends Controller
                         'scoreDistributionAfter',
                         'statsBefore',
                         'statsAfter',
-                        'surveys'
+                        'surveys',
+                        'dataPageBefore',
+                        'dataPageAfter'
                     )
                 );
             }
@@ -3291,6 +3310,14 @@ class EXECUTIVEController extends Controller
                     });
 
                     $duplicateCount = $allDataRaw->count() - $allData->count();
+                    $dataPageBefore = $allDataRaw
+                    ->sortByDesc('created_at')
+                    ->take(20);
+
+                    $dataPageAfter = $allData
+                        ->sortByDesc('created_at')
+                        ->take(20);
+
                     $favoriteBefore = [];
                     foreach ($services as $service) {
                         $favoriteBefore[$service] = 0;
@@ -3394,6 +3421,8 @@ class EXECUTIVEController extends Controller
                         'statsBefore' => $statsBefore,
                         'statsAfter' => $statsAfter,
                         'surveys' => $allDataRaw,
+                        'dataPageBefore' => $dataPageBefore,
+                        'dataPageAfter' => $dataPageAfter,
 
                     ]);
                 }

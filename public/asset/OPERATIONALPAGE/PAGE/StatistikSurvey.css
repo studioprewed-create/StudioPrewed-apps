@@ -215,6 +215,130 @@
     display:none;
 }
 
+.stats-table-wrap{
+    width:100%;
+    overflow:auto;
+}
+
+.stats-table{
+    width:100%;
+    min-width:1200px;
+    border-collapse:collapse;
+}
+
+.stats-table thead{
+    background:rgba(255,255,255,.03);
+}
+
+.stats-table th{
+    padding:16px;
+
+    text-align:left;
+
+    color:var(--primary);
+
+    font-size:13px;
+    font-weight:600;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.stats-table td{
+    padding:16px;
+
+    color:var(--text);
+
+    font-size:13px;
+
+    border-bottom:1px solid rgba(255,255,255,.04);
+
+    vertical-align:top;
+}
+
+.stats-table tbody tr{
+    transition:.25s;
+}
+
+.stats-table tbody tr:hover{
+    background:rgba(255,255,255,.02);
+}
+
+.customer-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.customer-avatar{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(
+        135deg,
+        var(--sp-primary),
+        var(--sp-pink)
+    );
+
+    color:#fff;
+    font-weight:700;
+    font-size:13px;
+}
+
+.service-badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.service-badge{
+    padding:6px 10px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    font-size:11px;
+
+    white-space:nowrap;
+}
+
+.score-badge{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(
+        135deg,
+        var(--sp-pink),
+        var(--sp-primary)
+    );
+
+    color:#fff;
+    font-weight:700;
+}
+
+.score-badge.after{
+    background:linear-gradient(
+        135deg,
+        var(--success),
+        #34d399
+    );
+}
+
+
 /* =========================================
    RESPONSIVE
 ========================================= */
@@ -229,7 +353,21 @@
         grid-template-columns:repeat(3,1fr);
     }
 
+    .stats-table{
+        min-width:1000px;
+    }
+
+    .stats-card-mini h2{
+        font-size:26px;
+    }
+
+    .service-item{
+        grid-template-columns:180px 1fr 40px;
+    }
+
 }
+
+/* ========================================= */
 
 @media (max-width:768px){
 
@@ -240,14 +378,28 @@
     .stats-header{
         flex-direction:column;
         align-items:flex-start;
+        gap:14px;
     }
 
     .stats-header h1{
         font-size:24px;
     }
 
+    .stats-badge{
+        width:100%;
+        justify-content:center;
+    }
+
     .stats-grid-card{
         grid-template-columns:1fr;
+    }
+
+    .stats-card-mini{
+        padding:20px;
+    }
+
+    .stats-card-mini h2{
+        font-size:24px;
     }
 
     .service-item{
@@ -255,11 +407,48 @@
         gap:10px;
     }
 
+    .service-bar-wrap{
+        height:10px;
+    }
+
     .score-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
+    .stats-box{
+        padding:20px;
+    }
+
+    .stats-table{
+        min-width:900px;
+    }
+
+    .stats-table th,
+    .stats-table td{
+        padding:14px;
+        font-size:12px;
+    }
+
+    .customer-avatar{
+        width:34px;
+        height:34px;
+        font-size:12px;
+    }
+
+    .service-badge{
+        font-size:10px;
+        padding:5px 8px;
+    }
+
+    .score-badge{
+        width:34px;
+        height:34px;
+        font-size:12px;
+    }
+
 }
+
+/* ========================================= */
 
 @media (max-width:480px){
 
@@ -271,8 +460,30 @@
         font-size:20px;
     }
 
+    .stats-header p{
+        font-size:13px;
+    }
+
     .stats-box{
         padding:18px;
+        border-radius:16px;
+    }
+
+    .stats-grid-card{
+        gap:14px;
+    }
+
+    .stats-card-mini{
+        padding:18px;
+        border-radius:16px;
+    }
+
+    .stats-card-mini span{
+        font-size:12px;
+    }
+
+    .stats-card-mini h2{
+        font-size:22px;
     }
 
     .score-grid{
@@ -281,10 +492,55 @@
 
     .toggle-btn{
         width:100%;
+        padding:12px;
+        font-size:13px;
     }
 
     .stats-toggle{
         flex-direction:column;
+    }
+
+    .box-header h3{
+        font-size:17px;
+    }
+
+    .service-info span{
+        font-size:12px;
+    }
+
+    .service-item strong{
+        font-size:12px;
+    }
+
+    .stats-table{
+        min-width:850px;
+    }
+
+    .stats-table th,
+    .stats-table td{
+        padding:12px;
+        font-size:11px;
+    }
+
+    .customer-info{
+        gap:10px;
+    }
+
+    .customer-avatar{
+        width:30px;
+        height:30px;
+        font-size:11px;
+    }
+
+    .service-badge{
+        font-size:9px;
+        padding:4px 7px;
+    }
+
+    .score-badge{
+        width:30px;
+        height:30px;
+        font-size:11px;
     }
 
 }
