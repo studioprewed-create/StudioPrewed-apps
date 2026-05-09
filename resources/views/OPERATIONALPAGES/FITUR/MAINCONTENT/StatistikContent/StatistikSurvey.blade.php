@@ -36,6 +36,56 @@
 
                 </div>
 
+                <div class="filter-group">
+
+                    <select name="created_month">
+
+                        <option value="">
+                            Bulan Submit
+                        </option>
+
+                        @for($m = 1; $m <= 12; $m++)
+
+                            <option
+                                value="{{ $m }}"
+                                {{ request('created_month') == $m ? 'selected' : '' }}
+                            >
+
+                                {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+
+                            </option>
+
+                        @endfor
+
+                    </select>
+
+                </div>
+
+                <div class="filter-group">
+
+                    <select name="photo_month">
+
+                        <option value="">
+                            Bulan Foto
+                        </option>
+
+                        @for($m = 1; $m <= 12; $m++)
+
+                            <option
+                                value="{{ $m }}"
+                                {{ request('photo_month') == $m ? 'selected' : '' }}
+                            >
+
+                                {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+
+                            </option>
+
+                        @endfor
+
+                    </select>
+
+                </div>
+
                 {{-- SCORE --}}
                 <div class="filter-group">
 

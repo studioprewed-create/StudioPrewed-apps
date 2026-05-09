@@ -344,7 +344,7 @@
 
 .filter-grid{
     display:grid;
-    grid-template-columns:2fr 1fr 1fr auto;
+    grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;
     gap:14px;
 }
 
@@ -462,6 +462,10 @@
     }
 
     .score-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .filter-grid{
         grid-template-columns:repeat(3,1fr);
     }
 

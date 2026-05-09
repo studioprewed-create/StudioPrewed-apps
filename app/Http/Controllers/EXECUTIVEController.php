@@ -2492,6 +2492,8 @@ class EXECUTIVEController extends Controller
                 $search = $request->input('search');
                 $scoreFilter = $request->input('score');
                 $serviceFilter = $request->input('service');
+                $createdMonth = $request->input('created_month');
+                $photoMonth = $request->input('photo_month');
                 $perPage = 20;
                 $query = Survey::query();
                 if (!empty($search)) {
@@ -2517,6 +2519,24 @@ class EXECUTIVEController extends Controller
                     $query->whereJsonContains(
                         'favorite_services',
                         $serviceFilter
+                    );
+
+                }
+
+                if (!empty($createdMonth)) {
+
+                    $query->whereMonth(
+                        'created_at',
+                        $createdMonth
+                    );
+
+                }
+
+                if (!empty($photoMonth)) {
+
+                    $query->whereMonth(
+                        'photo_date',
+                        $photoMonth
                     );
 
                 }
@@ -2679,6 +2699,8 @@ class EXECUTIVEController extends Controller
                     'search' => $search,
                     'scoreFilter' => $scoreFilter,
                     'serviceFilter' => $serviceFilter,
+                    'createdMonth' => $createdMonth,
+                    'photoMonth' => $photoMonth,
 
                 ]);
             }
@@ -2930,6 +2952,8 @@ class EXECUTIVEController extends Controller
                 $search = $request->input('search');
                 $scoreFilter = $request->input('score');
                 $serviceFilter = $request->input('service');
+                $createdMonth = $request->input('created_month');
+                $photoMonth = $request->input('photo_month');
                 $perPage = 20;
                 $query = Survey::query();
                 if (!empty($search)) {
@@ -2955,6 +2979,24 @@ class EXECUTIVEController extends Controller
                     $query->whereJsonContains(
                         'favorite_services',
                         $serviceFilter
+                    );
+
+                }
+
+                if (!empty($createdMonth)) {
+
+                    $query->whereMonth(
+                        'created_at',
+                        $createdMonth
+                    );
+
+                }
+
+                if (!empty($photoMonth)) {
+
+                    $query->whereMonth(
+                        'photo_date',
+                        $photoMonth
                     );
 
                 }
@@ -3107,7 +3149,9 @@ class EXECUTIVEController extends Controller
                         'dataPageAfter',
                         'search',
                         'scoreFilter',
-                        'serviceFilter'
+                        'serviceFilter',
+                        'createdMonth',
+                        'photoMonth'
                     )
                 );
             }
@@ -3416,6 +3460,8 @@ class EXECUTIVEController extends Controller
                     $search = $request->input('search');
                     $scoreFilter = $request->input('score');
                     $serviceFilter = $request->input('service');
+                    $createdMonth = $request->input('created_month');
+                    $photoMonth = $request->input('photo_month');
                     $perPage = 20;
                     $query = Survey::query();
                     if (!empty($search)) {
@@ -3441,6 +3487,23 @@ class EXECUTIVEController extends Controller
                         $query->whereJsonContains(
                             'favorite_services',
                             $serviceFilter
+                        );
+
+                    }
+
+                    if (!empty($createdMonth)) {
+
+                        $query->whereMonth(
+                            'created_at',
+                            $createdMonth
+                        );
+
+                    }
+                    if (!empty($photoMonth)) {
+
+                        $query->whereMonth(
+                            'photo_date',
+                            $photoMonth
                         );
 
                     }
@@ -3594,6 +3657,8 @@ class EXECUTIVEController extends Controller
                         'search' => $search,
                         'scoreFilter' => $scoreFilter,
                         'serviceFilter' => $serviceFilter,
+                        'createdMonth' => $createdMonth,
+                        'photoMonth' => $photoMonth,
 
                     ]);
                 }
