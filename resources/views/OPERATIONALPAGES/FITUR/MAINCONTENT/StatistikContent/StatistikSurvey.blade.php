@@ -197,6 +197,31 @@
 
         </div>
 
+        {{-- SCORE DISTRIBUTION --}}
+        <div class="stats-box">
+
+            <div class="box-header">
+                <h3>Distribusi Recommendation Score</h3>
+            </div>
+
+            <div class="score-grid">
+
+                @foreach($scoreDistributionBefore as $score => $count)
+
+                    <div class="score-card">
+
+                        <span>Score {{ $score }}</span>
+
+                        <h2>{{ $count }}</h2>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
         {{-- FAVORITE SERVICES --}}
         <div class="stats-box">
 
@@ -224,31 +249,6 @@
                         </div>
 
                         <strong>{{ $total }}</strong>
-
-                    </div>
-
-                @endforeach
-
-            </div>
-
-        </div>
-
-        {{-- SCORE DISTRIBUTION --}}
-        <div class="stats-box">
-
-            <div class="box-header">
-                <h3>Distribusi Recommendation Score</h3>
-            </div>
-
-            <div class="score-grid">
-
-                @foreach($scoreDistributionBefore as $score => $count)
-
-                    <div class="score-card">
-
-                        <span>Score {{ $score }}</span>
-
-                        <h2>{{ $count }}</h2>
 
                     </div>
 
@@ -500,6 +500,30 @@
 
         </div>
 
+        <div class="stats-box">
+
+            <div class="box-header">
+                <h3>Distribusi Recommendation Score</h3>
+            </div>
+
+            <div class="score-grid">
+
+                @foreach($scoreDistributionAfter as $score => $count)
+
+                    <div class="score-card">
+
+                        <span>Score {{ $score }}</span>
+
+                        <h2>{{ $count }}</h2>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
         {{-- FAVORITE SERVICES --}}
         <div class="stats-box">
 
@@ -535,31 +559,7 @@
             </div>
 
         </div>
-
-        {{-- SCORE --}}
-        <div class="stats-box">
-
-            <div class="box-header">
-                <h3>Distribusi Recommendation Score</h3>
-            </div>
-
-            <div class="score-grid">
-
-                @foreach($scoreDistributionAfter as $score => $count)
-
-                    <div class="score-card">
-
-                        <span>Score {{ $score }}</span>
-
-                        <h2>{{ $count }}</h2>
-
-                    </div>
-
-                @endforeach
-
-            </div>
-
-        </div>
+        
 
         <div class="stats-box">
 
