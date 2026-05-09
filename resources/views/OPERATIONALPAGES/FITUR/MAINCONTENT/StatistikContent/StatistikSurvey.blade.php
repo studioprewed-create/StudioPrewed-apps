@@ -353,145 +353,145 @@
 
         </div>
 
-    </div>
+        <div class="stats-box">
 
-    <div class="stats-box">
+        <div class="box-header">
 
-    <div class="box-header">
+            <h3>Data Setelah Cleaning</h3>
 
-        <h3>Data Setelah Cleaning</h3>
+            <p>
+                20 data terbaru setelah filter duplikat
+            </p>
 
-        <p>
-            20 data terbaru setelah filter duplikat
-        </p>
+        </div>
 
-    </div>
+        <div class="stats-table-wrap">
 
-    <div class="stats-table-wrap">
+            <table class="stats-table">
 
-        <table class="stats-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>No</th>
-                    <th>Customer</th>
-                    <th>Tanggal Foto</th>
-                    <th>Favorite Services</th>
-                    <th>Score</th>
-                    <th>Feedback</th>
-                    <th>Created</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                @forelse($dataPageAfter as $index => $item)
+                <thead>
 
                     <tr>
 
-                        <td>
-                            {{ $index + 1 }}
-                        </td>
-
-                        <td>
-
-                            <div class="customer-info">
-
-                                <div class="customer-avatar">
-
-                                    {{ strtoupper(substr($item->customer_name ?? 'U', 0, 1)) }}
-
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        {{ $item->customer_name ?? 'Unknown' }}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            {{ $item->photo_date?->format('d M Y') ?? '-' }}
-
-                        </td>
-
-                        <td>
-
-                            <div class="service-badges">
-
-                                @if(!empty($item->favorite_services))
-
-                                    @foreach($item->favorite_services as $service)
-
-                                        <span class="service-badge">
-
-                                            {{ $service }}
-
-                                        </span>
-
-                                    @endforeach
-
-                                @else
-
-                                    -
-
-                                @endif
-
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            <span class="score-badge after">
-
-                                {{ $item->recommendation_score }}
-
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            {{ Str::limit($item->feedback, 40) ?? '-' }}
-
-                        </td>
-
-                        <td>
-
-                            {{ $item->created_at->format('d M Y H:i') }}
-
-                        </td>
+                        <th>No</th>
+                        <th>Customer</th>
+                        <th>Tanggal Foto</th>
+                        <th>Favorite Services</th>
+                        <th>Score</th>
+                        <th>Feedback</th>
+                        <th>Created</th>
 
                     </tr>
 
-                @empty
+                </thead>
 
-                    <tr>
+                <tbody>
 
-                        <td colspan="7">
+                    @forelse($dataPageAfter as $index => $item)
 
-                            Belum ada data survey
+                        <tr>
 
-                        </td>
+                            <td>
+                                {{ $index + 1 }}
+                            </td>
 
-                    </tr>
+                            <td>
 
-                @endforelse
+                                <div class="customer-info">
 
-            </tbody>
+                                    <div class="customer-avatar">
 
-        </table>
+                                        {{ strtoupper(substr($item->customer_name ?? 'U', 0, 1)) }}
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            {{ $item->customer_name ?? 'Unknown' }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+
+                                {{ $item->photo_date?->format('d M Y') ?? '-' }}
+
+                            </td>
+
+                            <td>
+
+                                <div class="service-badges">
+
+                                    @if(!empty($item->favorite_services))
+
+                                        @foreach($item->favorite_services as $service)
+
+                                            <span class="service-badge">
+
+                                                {{ $service }}
+
+                                            </span>
+
+                                        @endforeach
+
+                                    @else
+
+                                        -
+
+                                    @endif
+
+                                </div>
+
+                            </td>
+
+                            <td>
+
+                                <span class="score-badge after">
+
+                                    {{ $item->recommendation_score }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                {{ Str::limit($item->feedback, 40) ?? '-' }}
+
+                            </td>
+
+                            <td>
+
+                                {{ $item->created_at->format('d M Y H:i') }}
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td colspan="7">
+
+                                Belum ada data survey
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
