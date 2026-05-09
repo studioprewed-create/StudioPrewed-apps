@@ -95,12 +95,45 @@
                             </div>
 
                         </div>
-
-                        {{-- QUESTION 1 --}}
                         <div class="survey-question">
 
                             <h3>
-                                1. Dari semua layanan kami, mana yang paling kamu suka pelayanannya?
+                                1. Seberapa besar kemungkinan kamu merekomendasikan Studio Prewed ke teman, kerabat, atau keluarga?
+                            </h3>
+
+                            <p>
+                                (Skala 1–10)
+                            </p>
+
+                            <div class="rating-group">
+
+                                @for($i = 1; $i <= 10; $i++)
+
+                                    <label class="rating-item">
+
+                                        <input
+                                            type="radio"
+                                            name="recommendation_score"
+                                            value="{{ $i }}"
+                                            required
+                                        >
+
+                                        <div>
+                                            {{ $i }}
+                                        </div>
+
+                                    </label>
+
+                                @endfor
+
+                            </div>
+
+                        </div>
+                        
+                        <div class="survey-question">
+
+                            <h3>
+                                2. Dari semua layanan kami, mana yang paling kamu suka pelayanannya?
                             </h3>
 
                             <p>
@@ -143,43 +176,6 @@
 
                         </div>
 
-                        {{-- QUESTION 2 --}}
-                        <div class="survey-question">
-
-                            <h3>
-                                2. Seberapa besar kemungkinan kamu merekomendasikan Studio Prewed ke teman, kerabat, atau keluarga?
-                            </h3>
-
-                            <p>
-                                (Skala 1–10)
-                            </p>
-
-                            <div class="rating-group">
-
-                                @for($i = 1; $i <= 10; $i++)
-
-                                    <label class="rating-item">
-
-                                        <input
-                                            type="radio"
-                                            name="recommendation_score"
-                                            value="{{ $i }}"
-                                            required
-                                        >
-
-                                        <div>
-                                            {{ $i }}
-                                        </div>
-
-                                    </label>
-
-                                @endfor
-
-                            </div>
-
-                        </div>
-
-                        {{-- QUESTION 3 --}}
                         <div class="survey-question">
 
                             <h3>
