@@ -1,215 +1,162 @@
-<div class="container-fluid py-4">
+<div class="page-header">
+    <div>
+        <h1>Dashboard Statistik</h1>
+        <div class="subtitle">
+            Monitoring seluruh statistik sistem studio prewed
+        </div>
+    </div>
+</div>
 
-    {{-- Header --}}
-    <div class="mb-4">
-        <h2 class="fw-bold text-dark mb-1">
-            Dashboard Statistik
-        </h2>
+<div class="stats-grid">
 
-        <p class="text-muted mb-0">
-            Monitoring seluruh data statistik sistem secara visual dan terstruktur.
+    {{-- Statistik Survey --}}
+    <a href="{{ route('executive.statistiksurvey') }}" class="stats-card survey">
+        <div class="stats-top">
+            <div class="stats-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+
+            <div class="stats-text">
+                <h3>Statistik Survey</h3>
+                <span>Analisis survey pelanggan</span>
+            </div>
+        </div>
+
+        <p>
+            Menampilkan data kepuasan pelanggan,
+            layanan favorit, rekomendasi customer,
+            dan grafik hasil survey.
         </p>
-    </div>
 
-    {{-- Card Statistik --}}
-    <div class="row g-4">
+        <div class="stats-footer">
+            <span>Buka Statistik</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </a>
 
-        {{-- Statistik Survey --}}
-        <div class="col-xl-4 col-md-6">
-            <a href="{{ route('executive.statistiksurvey') }}" class="text-decoration-none">
-                <div class="stat-card survey-card">
+    {{-- Statistik Review --}}
+    <a href="{{ route('executive.statistikreview') }}" class="stats-card review">
+        <div class="stats-top">
+            <div class="stats-icon">
+                <i class="fas fa-comments"></i>
+            </div>
 
-                    <div class="card-top">
-                        <div class="icon-wrap">
-                            <i class="bi bi-bar-chart-line-fill"></i>
-                        </div>
-
-                        <div>
-                            <h4>Statistik Survey</h4>
-                            <span>Data hasil survey pelanggan</span>
-                        </div>
-                    </div>
-
-                    <div class="card-detail">
-                        <p>
-                            Menampilkan statistik kepuasan pelanggan, rekomendasi,
-                            layanan favorit, grafik survey, dan analisis data customer.
-                        </p>
-                    </div>
-
-                    <div class="card-footer-custom">
-                        <span>Lihat Statistik</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </div>
-
-                </div>
-            </a>
+            <div class="stats-text">
+                <h3>Statistik Review</h3>
+                <span>Feedback dan rating</span>
+            </div>
         </div>
 
-        {{-- Statistik Review --}}
-        <div class="col-xl-4 col-md-6">
-            <a href="{{ route('executive.statistikreview') }}" class="text-decoration-none">
-                <div class="stat-card review-card">
+        <p>
+            Analisis review customer,
+            rating pelayanan,
+            dan performa kualitas studio.
+        </p>
 
-                    <div class="card-top">
-                        <div class="icon-wrap">
-                            <i class="bi bi-chat-left-text-fill"></i>
-                        </div>
+        <div class="stats-footer">
+            <span>Buka Statistik</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </a>
 
-                        <div>
-                            <h4>Statistik Review</h4>
-                            <span>Review dan penilaian customer</span>
-                        </div>
-                    </div>
+    {{-- Statistik Pengeluaran --}}
+    <a href="{{ route('executive.statistikpengeluaran') }}" class="stats-card expense">
+        <div class="stats-top">
+            <div class="stats-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
 
-                    <div class="card-detail">
-                        <p>
-                            Analisis review pelanggan, rating layanan,
-                            komentar customer, dan performa kualitas pelayanan.
-                        </p>
-                    </div>
-
-                    <div class="card-footer-custom">
-                        <span>Lihat Statistik</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </div>
-
-                </div>
-            </a>
+            <div class="stats-text">
+                <h3>Statistik Pengeluaran</h3>
+                <span>Biaya operasional studio</span>
+            </div>
         </div>
 
-        {{-- Statistik Pengeluaran --}}
-        <div class="col-xl-4 col-md-6">
-            <a href="{{ route('executive.statistikpengeluaran') }}" class="text-decoration-none">
-                <div class="stat-card expense-card">
+        <p>
+            Monitoring pengeluaran,
+            operasional harian,
+            dan biaya produksi studio.
+        </p>
 
-                    <div class="card-top">
-                        <div class="icon-wrap">
-                            <i class="bi bi-cash-stack"></i>
-                        </div>
+        <div class="stats-footer">
+            <span>Buka Statistik</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </a>
 
-                        <div>
-                            <h4>Statistik Pengeluaran</h4>
-                            <span>Data biaya operasional</span>
-                        </div>
-                    </div>
+    {{-- Statistik Pendapatan --}}
+    <a href="{{ route('executive.statistikpendapatan') }}" class="stats-card income">
+        <div class="stats-top">
+            <div class="stats-icon">
+                <i class="fas fa-coins"></i>
+            </div>
 
-                    <div class="card-detail">
-                        <p>
-                            Monitoring pengeluaran operasional,
-                            biaya produksi, transaksi keluar,
-                            dan analisis pengeluaran bisnis.
-                        </p>
-                    </div>
-
-                    <div class="card-footer-custom">
-                        <span>Lihat Statistik</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </div>
-
-                </div>
-            </a>
+            <div class="stats-text">
+                <h3>Statistik Pendapatan</h3>
+                <span>Pemasukan dan profit</span>
+            </div>
         </div>
 
-        {{-- Statistik Pendapatan --}}
-        <div class="col-xl-4 col-md-6">
-            <a href="{{ route('executive.statistikpendapatan') }}" class="text-decoration-none">
-                <div class="stat-card income-card">
+        <p>
+            Statistik pemasukan studio,
+            profit bisnis,
+            dan performa penjualan layanan.
+        </p>
 
-                    <div class="card-top">
-                        <div class="icon-wrap">
-                            <i class="bi bi-wallet2"></i>
-                        </div>
+        <div class="stats-footer">
+            <span>Buka Statistik</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </a>
 
-                        <div>
-                            <h4>Statistik Pendapatan</h4>
-                            <span>Pemasukan dan profit bisnis</span>
-                        </div>
-                    </div>
+    {{-- Statistik Kinerja --}}
+    <a href="{{ route('executive.statistikkinerja') }}" class="stats-card performance">
+        <div class="stats-top">
+            <div class="stats-icon">
+                <i class="fas fa-user-check"></i>
+            </div>
 
-                    <div class="card-detail">
-                        <p>
-                            Menampilkan total pendapatan,
-                            grafik pemasukan, keuntungan bisnis,
-                            dan performa penjualan.
-                        </p>
-                    </div>
-
-                    <div class="card-footer-custom">
-                        <span>Lihat Statistik</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </div>
-
-                </div>
-            </a>
+            <div class="stats-text">
+                <h3>Statistik Kinerja</h3>
+                <span>Performa pegawai</span>
+            </div>
         </div>
 
-        {{-- Statistik Kinerja --}}
-        <div class="col-xl-4 col-md-6">
-            <a href="{{ route('executive.statistikkinerja') }}" class="text-decoration-none">
-                <div class="stat-card performance-card">
+        <p>
+            Monitoring produktivitas,
+            efektivitas kerja,
+            dan performa tim studio.
+        </p>
 
-                    <div class="card-top">
-                        <div class="icon-wrap">
-                            <i class="bi bi-graph-up-arrow"></i>
-                        </div>
+        <div class="stats-footer">
+            <span>Buka Statistik</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </a>
 
-                        <div>
-                            <h4>Statistik Kinerja</h4>
-                            <span>Performa pegawai dan sistem</span>
-                        </div>
-                    </div>
+    {{-- Statistik Katalog --}}
+    <a href="{{ route('executive.statistikkatalog') }}" class="stats-card catalog">
+        <div class="stats-top">
+            <div class="stats-icon">
+                <i class="fas fa-images"></i>
+            </div>
 
-                    <div class="card-detail">
-                        <p>
-                            Analisis performa pegawai,
-                            produktivitas kerja, efektivitas sistem,
-                            dan pencapaian operasional.
-                        </p>
-                    </div>
-
-                    <div class="card-footer-custom">
-                        <span>Lihat Statistik</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </div>
-
-                </div>
-            </a>
+            <div class="stats-text">
+                <h3>Statistik Katalog</h3>
+                <span>Data paket dan layanan</span>
+            </div>
         </div>
 
-        {{-- Statistik Katalog --}}
-        <div class="col-xl-4 col-md-6">
-            <a href="{{ route('executive.statistikkatalog') }}" class="text-decoration-none">
-                <div class="stat-card catalog-card">
+        <p>
+            Menampilkan performa katalog,
+            paket favorit,
+            dan aktivitas customer.
+        </p>
 
-                    <div class="card-top">
-                        <div class="icon-wrap">
-                            <i class="bi bi-images"></i>
-                        </div>
-
-                        <div>
-                            <h4>Statistik Katalog</h4>
-                            <span>Data katalog dan layanan</span>
-                        </div>
-                    </div>
-
-                    <div class="card-detail">
-                        <p>
-                            Menampilkan performa katalog,
-                            layanan populer, paket favorit,
-                            dan aktivitas customer pada katalog.
-                        </p>
-                    </div>
-
-                    <div class="card-footer-custom">
-                        <span>Lihat Statistik</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </div>
-
-                </div>
-            </a>
+        <div class="stats-footer">
+            <span>Buka Statistik</span>
+            <i class="fas fa-arrow-right"></i>
         </div>
-
-    </div>
+    </a>
 
 </div>
