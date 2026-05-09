@@ -1765,6 +1765,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
 
+        const filterForm = document.getElementById('surveyFilterForm');
+
+        if (filterForm) {
+
+        const selects = filterForm.querySelectorAll('select');
+
+            selects.forEach(select => {
+
+                select.addEventListener('change', () => {
+
+                    filterForm.submit();
+
+                });
+
+            });
+
+        }
+
     };
     
     /* ============ INIT PER PAGE ============ */

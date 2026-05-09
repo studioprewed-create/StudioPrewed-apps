@@ -2489,8 +2489,40 @@ class EXECUTIVEController extends Controller
                     'Tim Fitting',
                     'Admin Attire'
                 ];
+                $search = $request->input('search');
+                $scoreFilter = $request->input('score');
+                $serviceFilter = $request->input('service');
+                $perPage = 20;
+                $query = Survey::query();
+                if (!empty($search)) {
 
-                $allDataRaw = Survey::latest()->get();
+                    $query->where(
+                        'customer_name',
+                        'like',
+                        "%{$search}%"
+                    );
+
+                }
+                if (!empty($scoreFilter)) {
+
+                    $query->where(
+                        'recommendation_score',
+                        $scoreFilter
+                    );
+
+                }
+
+                if (!empty($serviceFilter)) {
+
+                    $query->whereJsonContains(
+                        'favorite_services',
+                        $serviceFilter
+                    );
+
+                }
+
+                $query->latest();
+                $allDataRaw = $query->get();
                 $allData = $allDataRaw->unique(function ($item) {
 
                     return strtolower(trim($item->customer_name))
@@ -2502,13 +2534,35 @@ class EXECUTIVEController extends Controller
                 });
 
                 $duplicateCount = $allDataRaw->count() - $allData->count();
-                $dataPageBefore = $allDataRaw
+                $dataPageBefore = $query
+                    ->paginate($perPage)
+                    ->withQueryString();
+                $afterCollection = $allData
                     ->sortByDesc('created_at')
-                    ->take(20);
+                    ->values();
 
-                $dataPageAfter = $allData
-                    ->sortByDesc('created_at')
-                    ->take(20);
+                $currentPageAfter = request()->get(
+                    'after_page',
+                    1
+                );
+
+                $currentItemsAfter = $afterCollection->slice(
+                    ($currentPageAfter - 1) * $perPage,
+                    $perPage
+                )->values();
+
+                $dataPageAfter = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $currentItemsAfter,
+                    $afterCollection->count(),
+                    $perPage,
+                    $currentPageAfter,
+                    [
+                        'path' => request()->url(),
+                        'query' => request()->query(),
+                        'pageName' => 'after_page',
+                    ]
+                );
+
                 $favoriteBefore = [];
 
                 foreach ($services as $service) {
@@ -2622,6 +2676,9 @@ class EXECUTIVEController extends Controller
                     'surveys' => $allDataRaw,
                     'dataPageBefore' => $dataPageBefore,
                     'dataPageAfter' => $dataPageAfter,
+                    'search' => $search,
+                    'scoreFilter' => $scoreFilter,
+                    'serviceFilter' => $serviceFilter,
 
                 ]);
             }
@@ -2870,7 +2927,40 @@ class EXECUTIVEController extends Controller
                     'Admin Attire'
                 ];
 
-                $allDataRaw = Survey::latest()->get();
+                $search = $request->input('search');
+                $scoreFilter = $request->input('score');
+                $serviceFilter = $request->input('service');
+                $perPage = 20;
+                $query = Survey::query();
+                if (!empty($search)) {
+
+                    $query->where(
+                        'customer_name',
+                        'like',
+                        "%{$search}%"
+                    );
+
+                }
+                if (!empty($scoreFilter)) {
+
+                    $query->where(
+                        'recommendation_score',
+                        $scoreFilter
+                    );
+
+                }
+
+                if (!empty($serviceFilter)) {
+
+                    $query->whereJsonContains(
+                        'favorite_services',
+                        $serviceFilter
+                    );
+
+                }
+
+                $query->latest();
+                $allDataRaw = $query->get();
                 $allData = $allDataRaw->unique(function ($item) {
 
                     return strtolower(trim($item->customer_name))
@@ -2881,13 +2971,34 @@ class EXECUTIVEController extends Controller
 
                 });
                 $duplicateCount = $allDataRaw->count() - $allData->count();
-                $dataPageBefore = $allDataRaw
+                                $dataPageBefore = $query
+                    ->paginate($perPage)
+                    ->withQueryString();
+                $afterCollection = $allData
                     ->sortByDesc('created_at')
-                    ->take(20);
+                    ->values();
 
-                $dataPageAfter = $allData
-                    ->sortByDesc('created_at')
-                    ->take(20);
+                $currentPageAfter = request()->get(
+                    'after_page',
+                    1
+                );
+
+                $currentItemsAfter = $afterCollection->slice(
+                    ($currentPageAfter - 1) * $perPage,
+                    $perPage
+                )->values();
+
+                $dataPageAfter = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $currentItemsAfter,
+                    $afterCollection->count(),
+                    $perPage,
+                    $currentPageAfter,
+                    [
+                        'path' => request()->url(),
+                        'query' => request()->query(),
+                        'pageName' => 'after_page',
+                    ]
+                );
 
                 $favoriteBefore = [];
                 foreach ($services as $service) {
@@ -2993,7 +3104,10 @@ class EXECUTIVEController extends Controller
                         'statsAfter',
                         'surveys',
                         'dataPageBefore',
-                        'dataPageAfter'
+                        'dataPageAfter',
+                        'search',
+                        'scoreFilter',
+                        'serviceFilter'
                     )
                 );
             }
@@ -3299,7 +3413,40 @@ class EXECUTIVEController extends Controller
                         'Admin Attire'
                     ];
 
-                    $allDataRaw = Survey::latest()->get();
+                    $search = $request->input('search');
+                    $scoreFilter = $request->input('score');
+                    $serviceFilter = $request->input('service');
+                    $perPage = 20;
+                    $query = Survey::query();
+                    if (!empty($search)) {
+
+                        $query->where(
+                            'customer_name',
+                            'like',
+                            "%{$search}%"
+                        );
+
+                    }
+                    if (!empty($scoreFilter)) {
+
+                        $query->where(
+                            'recommendation_score',
+                            $scoreFilter
+                        );
+
+                    }
+
+                    if (!empty($serviceFilter)) {
+
+                        $query->whereJsonContains(
+                            'favorite_services',
+                            $serviceFilter
+                        );
+
+                    }
+
+                    $query->latest();
+                    $allDataRaw = $query->get();
                     $allData = $allDataRaw->unique(function ($item) {
                         return strtolower(trim($item->customer_name))
                             . '_'
@@ -3310,13 +3457,34 @@ class EXECUTIVEController extends Controller
                     });
 
                     $duplicateCount = $allDataRaw->count() - $allData->count();
-                    $dataPageBefore = $allDataRaw
-                    ->sortByDesc('created_at')
-                    ->take(20);
-
-                    $dataPageAfter = $allData
+                    $dataPageBefore = $query
+                    ->paginate($perPage)
+                    ->withQueryString();
+                    $afterCollection = $allData
                         ->sortByDesc('created_at')
-                        ->take(20);
+                        ->values();
+
+                    $currentPageAfter = request()->get(
+                        'after_page',
+                        1
+                    );
+
+                    $currentItemsAfter = $afterCollection->slice(
+                        ($currentPageAfter - 1) * $perPage,
+                        $perPage
+                    )->values();
+
+                    $dataPageAfter = new \Illuminate\Pagination\LengthAwarePaginator(
+                        $currentItemsAfter,
+                        $afterCollection->count(),
+                        $perPage,
+                        $currentPageAfter,
+                        [
+                            'path' => request()->url(),
+                            'query' => request()->query(),
+                            'pageName' => 'after_page',
+                        ]
+                    );
 
                     $favoriteBefore = [];
                     foreach ($services as $service) {
@@ -3423,6 +3591,9 @@ class EXECUTIVEController extends Controller
                         'surveys' => $allDataRaw,
                         'dataPageBefore' => $dataPageBefore,
                         'dataPageAfter' => $dataPageAfter,
+                        'search' => $search,
+                        'scoreFilter' => $scoreFilter,
+                        'serviceFilter' => $serviceFilter,
 
                     ]);
                 }

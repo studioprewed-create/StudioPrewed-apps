@@ -18,6 +18,94 @@
 
     </div>
 
+    <div class="stats-filter">
+
+        <form id="surveyFilterForm">
+
+            <div class="filter-grid">
+
+                {{-- SEARCH --}}
+                <div class="filter-group">
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Cari customer..."
+                        value="{{ request('search') }}"
+                    >
+
+                </div>
+
+                {{-- SCORE --}}
+                <div class="filter-group">
+
+                    <select name="score">
+
+                        <option value="">
+                            Semua Score
+                        </option>
+
+                        @for($i = 1; $i <= 10; $i++)
+
+                            <option
+                                value="{{ $i }}"
+                                {{ request('score') == $i ? 'selected' : '' }}
+                            >
+
+                                Score {{ $i }}
+
+                            </option>
+
+                        @endfor
+
+                    </select>
+
+                </div>
+
+                {{-- SERVICE --}}
+                <div class="filter-group">
+
+                    <select name="service">
+
+                        <option value="">
+                            Semua Service
+                        </option>
+
+                        @foreach($services as $service)
+
+                            <option
+                                value="{{ $service }}"
+                                {{ request('service') == $service ? 'selected' : '' }}
+                            >
+
+                                {{ $service }}
+
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+                {{-- BUTTON --}}
+                <button
+                    type="submit"
+                    class="filter-btn"
+                >
+
+                    <i class="fas fa-search"></i>
+
+                    Filter
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
     {{-- TOGGLE --}}
     <div class="stats-toggle">
 
@@ -262,6 +350,76 @@
 
         </div>
 
+        @if($dataPageBefore->hasPages())
+
+            <div class="pagination-wrap">
+
+                <div class="custom-pagination">
+
+                    {{-- PREV --}}
+                    @if($dataPageBefore->onFirstPage())
+
+                        <span class="page-btn disabled">
+
+                            <i class="fas fa-chevron-left"></i>
+
+                        </span>
+
+                    @else
+
+                        <a
+                            href="{{ $dataPageBefore->previousPageUrl() }}"
+                            class="page-btn"
+                        >
+
+                            <i class="fas fa-chevron-left"></i>
+
+                        </a>
+
+                    @endif
+
+                    {{-- PAGE --}}
+                    @foreach($dataPageBefore->getUrlRange(1, $dataPageBefore->lastPage()) as $page => $url)
+
+                        <a
+                            href="{{ $url }}"
+                            class="page-btn {{ $page == $dataPageBefore->currentPage() ? 'active' : '' }}"
+                        >
+
+                            {{ $page }}
+
+                        </a>
+
+                    @endforeach
+
+                    {{-- NEXT --}}
+                    @if($dataPageBefore->hasMorePages())
+
+                        <a
+                            href="{{ $dataPageBefore->nextPageUrl() }}"
+                            class="page-btn"
+                        >
+
+                            <i class="fas fa-chevron-right"></i>
+
+                        </a>
+
+                    @else
+
+                        <span class="page-btn disabled">
+
+                            <i class="fas fa-chevron-right"></i>
+
+                        </span>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+        @endif
+
     </div>
 
     {{-- AFTER --}}
@@ -355,144 +513,215 @@
 
         <div class="stats-box">
 
-        <div class="box-header">
+            <div class="box-header">
 
-            <h3>Data Setelah Cleaning</h3>
+                <h3>Data Setelah Cleaning</h3>
 
-            <p>
-                20 data terbaru setelah filter duplikat
-            </p>
+                <p>
+                    20 data terbaru setelah filter duplikat
+                </p>
 
-        </div>
+            </div>
 
-        <div class="stats-table-wrap">
+            <div class="stats-table-wrap">
 
-            <table class="stats-table">
+                <table class="stats-table">
 
-                <thead>
-
-                    <tr>
-
-                        <th>No</th>
-                        <th>Customer</th>
-                        <th>Tanggal Foto</th>
-                        <th>Favorite Services</th>
-                        <th>Score</th>
-                        <th>Feedback</th>
-                        <th>Created</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @forelse($dataPageAfter as $index => $item)
+                    <thead>
 
                         <tr>
 
-                            <td>
-                                {{ $index + 1 }}
-                            </td>
-
-                            <td>
-
-                                <div class="customer-info">
-
-                                    <div class="customer-avatar">
-
-                                        {{ strtoupper(substr($item->customer_name ?? 'U', 0, 1)) }}
-
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            {{ $item->customer_name ?? 'Unknown' }}
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-                            <td>
-
-                                {{ $item->photo_date?->format('d M Y') ?? '-' }}
-
-                            </td>
-
-                            <td>
-
-                                <div class="service-badges">
-
-                                    @if(!empty($item->favorite_services))
-
-                                        @foreach($item->favorite_services as $service)
-
-                                            <span class="service-badge">
-
-                                                {{ $service }}
-
-                                            </span>
-
-                                        @endforeach
-
-                                    @else
-
-                                        -
-
-                                    @endif
-
-                                </div>
-
-                            </td>
-
-                            <td>
-
-                                <span class="score-badge after">
-
-                                    {{ $item->recommendation_score }}
-
-                                </span>
-
-                            </td>
-
-                            <td>
-
-                                {{ Str::limit($item->feedback, 40) ?? '-' }}
-
-                            </td>
-
-                            <td>
-
-                                {{ $item->created_at->format('d M Y H:i') }}
-
-                            </td>
+                            <th>No</th>
+                            <th>Customer</th>
+                            <th>Tanggal Foto</th>
+                            <th>Favorite Services</th>
+                            <th>Score</th>
+                            <th>Feedback</th>
+                            <th>Created</th>
 
                         </tr>
 
-                    @empty
+                    </thead>
 
-                        <tr>
+                    <tbody>
 
-                            <td colspan="7">
+                        @forelse($dataPageAfter as $index => $item)
 
-                                Belum ada data survey
+                            <tr>
 
-                            </td>
+                                <td>
+                                    {{ $index + 1 }}
+                                </td>
 
-                        </tr>
+                                <td>
 
-                    @endforelse
+                                    <div class="customer-info">
 
-                </tbody>
+                                        <div class="customer-avatar">
 
-            </table>
+                                            {{ strtoupper(substr($item->customer_name ?? 'U', 0, 1)) }}
+
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                {{ $item->customer_name ?? 'Unknown' }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    {{ $item->photo_date?->format('d M Y') ?? '-' }}
+
+                                </td>
+
+                                <td>
+
+                                    <div class="service-badges">
+
+                                        @if(!empty($item->favorite_services))
+
+                                            @foreach($item->favorite_services as $service)
+
+                                                <span class="service-badge">
+
+                                                    {{ $service }}
+
+                                                </span>
+
+                                            @endforeach
+
+                                        @else
+
+                                            -
+
+                                        @endif
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    <span class="score-badge after">
+
+                                        {{ $item->recommendation_score }}
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    {{ Str::limit($item->feedback, 40) ?? '-' }}
+
+                                </td>
+
+                                <td>
+
+                                    {{ $item->created_at->format('d M Y H:i') }}
+
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+
+                                <td colspan="7">
+
+                                    Belum ada data survey
+
+                                </td>
+
+                            </tr>
+
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
+        @if($dataPageAfter->hasPages())
+
+            <div class="pagination-wrap">
+
+                <div class="custom-pagination">
+
+                    {{-- PREV --}}
+                    @if($dataPageAfter->onFirstPage())
+
+                        <span class="page-btn disabled">
+
+                            <i class="fas fa-chevron-left"></i>
+
+                        </span>
+
+                    @else
+
+                        <a
+                            href="{{ $dataPageAfter->previousPageUrl() }}"
+                            class="page-btn"
+                        >
+
+                            <i class="fas fa-chevron-left"></i>
+
+                        </a>
+
+                    @endif
+
+                    {{-- PAGE --}}
+                    @foreach($dataPageAfter->getUrlRange(1, $dataPageAfter->lastPage()) as $page => $url)
+
+                        <a
+                            href="{{ $url }}"
+                            class="page-btn {{ $page == $dataPageAfter->currentPage() ? 'active' : '' }}"
+                        >
+
+                            {{ $page }}
+
+                        </a>
+
+                    @endforeach
+
+                    {{-- NEXT --}}
+                    @if($dataPageAfter->hasMorePages())
+
+                        <a
+                            href="{{ $dataPageAfter->nextPageUrl() }}"
+                            class="page-btn"
+                        >
+
+                            <i class="fas fa-chevron-right"></i>
+
+                        </a>
+
+                    @else
+
+                        <span class="page-btn disabled">
+
+                            <i class="fas fa-chevron-right"></i>
+
+                        </span>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+        @endif
+        
     </div>
-
 </div>
