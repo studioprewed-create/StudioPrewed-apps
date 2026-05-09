@@ -38,6 +38,12 @@ class EXECUTIVEController extends Controller
     public function catalogue(Request $request){ return $this->loadPage($request, 'Catalogue'); }
     public function galleryattire(Request $request){ return $this->loadPage($request, 'GalleryAttire'); }
     public function statistik(Request $request){ return $this->loadPage($request, 'Statistik'); }
+    public function statistiksurvey(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikSurvey'); }
+    public function statistikreview(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikReview'); }
+    public function statistikpengeluaran(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikPengeluaran'); }
+    public function statistikpendapatan(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikPendapatan'); }
+    public function statistikkinerja(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikKinerja'); }
+    public function statistikkatalog(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikKatalog'); }
     public function upload(Request $request){ return $this->loadPage($request, 'Upload'); }
     public function dataakun(Request $request){ return $this->loadPage($request, 'DataAkun'); }
     public function menuHomeDashboard(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Dashboard'); }

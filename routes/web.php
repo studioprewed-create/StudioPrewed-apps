@@ -57,6 +57,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/galleryattire', [EXECUTIVEController::class, 'galleryattire'])->name('galleryattire');
         Route::get('/dataakun', [EXECUTIVEController::class, 'dataakun'])->name('dataakun');
         Route::get('/statistik', [EXECUTIVEController::class, 'statistik'])->name('statistik');
+        Route::get('/statistiksurvey', [EXECUTIVEController::class, 'statistiksurvey'])->name('statistiksurvey');
+        Route::get('/statistikreview', [EXECUTIVEController::class, 'statistikreview'])->name('statistikreview');
+        Route::get('/statistikpengeluaran', [EXECUTIVEController::class, 'statistikpengeluaran'])->name('statistikpengeluaran');
+        Route::get('/statistikpendapatan', [EXECUTIVEController::class, 'statistikpendapatan'])->name('statistikpendapatan');
+        Route::get('/statistikkinerja', [EXECUTIVEController::class, 'statistikkinerja'])->name('statistikkinerja');
+        Route::get('/statistikkatalog', [EXECUTIVEController::class, 'statistikkatalog'])->name('statistikkatalog');
         Route::get('/upload', [EXECUTIVEController::class, 'upload'])->name('upload');
         
         Route::prefix('menupanel')->name('menupanel.')->group(function () {
