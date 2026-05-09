@@ -168,7 +168,7 @@
 
                             <div
                                 class="service-bar"
-                                style="width: {{ ($total / max($favoriteBefore)) * 100 }}%"
+                                style="width:{{max($favoriteBefore) > 0? ($total / max($favoriteBefore)) * 100: 0}}%"
                             ></div>
 
                         </div>
@@ -471,7 +471,7 @@
 
                             <div
                                 class="service-bar after"
-                                style="width: {{ ($total / max($favoriteAfter)) * 100 }}%"
+                                style="width:{{max($favoriteAfter) > 0? ($total / max($favoriteAfter)) * 100: 0}}%"
                             ></div>
 
                         </div>
@@ -722,6 +722,6 @@
             </div>
 
         @endif
-        
+
     </div>
 </div>
