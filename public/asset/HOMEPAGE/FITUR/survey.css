@@ -174,6 +174,58 @@ textarea:focus{
     color:#8ff0a4;
 }
 
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:18px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.input-group label{
+    font-size:.92rem;
+    font-weight:500;
+    color:var(--white);
+}
+
+.input-group input{
+    width:100%;
+
+    padding:16px 18px;
+
+    background:var(--dark-card);
+    color:var(--white);
+
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    font-size:.95rem;
+
+    transition:var(--transition);
+}
+
+.input-group input::placeholder{
+    color:var(--muted);
+}
+
+.input-group input:focus{
+    outline:none;
+    border-color:var(--teal-2);
+
+    background:rgba(255,255,255,.03);
+}
+
+.input-group input[type="date"]::-webkit-calendar-picker-indicator{
+    filter:invert(1);
+    opacity:.85;
+    cursor:pointer;
+}
+
 @media (max-width: 1024px) {
 
     .survey-page{
@@ -291,6 +343,16 @@ textarea:focus{
         font-size:.95rem;
     }
 
+    .form-grid{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+
+    .input-group input{
+        padding:15px 16px;
+        font-size:.92rem;
+    }
+
 }
 
 @media (max-width: 480px) {
@@ -382,6 +444,20 @@ textarea:focus{
         padding:14px;
         font-size:.85rem;
         border-radius:12px;
+    }
+
+    .form-grid{
+        gap:12px;
+    }
+
+    .input-group label{
+        font-size:.85rem;
+    }
+
+    .input-group input{
+        padding:14px;
+        border-radius:12px;
+        font-size:.85rem;
     }
 
 }

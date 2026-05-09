@@ -640,21 +640,27 @@ class EXECUTIVEController extends Controller
     public function SurveyStore(Request $request)
         {
             $validated = $request->validate([
-                'favorite_services'    => 'nullable|array',
-                'favorite_services.*'  => 'string',
 
+                'customer_name' => 'nullable|string|max:255',
+                'photo_date' => 'nullable|date',
+                'favorite_services' => 'nullable|array',
+                'favorite_services.*' => 'string',
                 'recommendation_score' => 'required|integer|min:1|max:10',
-
-                'feedback'             => 'nullable|string',
+                'feedback' => 'nullable|string',
             ]);
 
             Survey::create([
-                'favorite_services'    => $validated['favorite_services'] ?? [],
+
+                'customer_name' => $validated['customer_name'] ?? null,
+                'photo_date' => $validated['photo_date'] ?? null,
+                'favorite_services' => $validated['favorite_services'] ?? [],
                 'recommendation_score' => $validated['recommendation_score'],
-                'feedback'             => $validated['feedback'] ?? null,
+                'feedback' => $validated['feedback'] ?? null,
             ]);
 
-        return redirect()->route('homepage')->with('success', 'Terima kasih sudah mengisi survey.');
+            return redirect()
+                ->route('homepage')
+                ->with('success', 'Terima kasih sudah mengisi survey.');
         }
     public function index()
         {

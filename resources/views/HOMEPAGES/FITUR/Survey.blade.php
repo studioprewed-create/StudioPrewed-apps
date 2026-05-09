@@ -6,8 +6,10 @@
     <title>Survey Kepuasan Pelanggan</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Base.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/FITUR/survey.css') }}">
+
 </head>
 <body>
 
@@ -28,7 +30,7 @@
                 {{-- HEADER --}}
                 <div class="survey-header">
 
-                    <img 
+                    <img
                         src="{{ asset('public/asset/PICTURESET/LOGOSPDASHBOARD.png') }}"
                         alt="Logo"
                         class="logo-img"
@@ -57,6 +59,42 @@
 
                     <form action="{{ route('SurveyStore') }}" method="POST">
                         @csrf
+
+                        {{-- CUSTOMER --}}
+                        <div class="survey-question">
+
+                            <h3>
+                                Informasi Customer
+                            </h3>
+
+                            <div class="form-grid">
+
+                                <div class="input-group">
+                                    <label>
+                                        Nama Customer
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="customer_name"
+                                        placeholder="Masukkan nama customer"
+                                    >
+                                </div>
+
+                                <div class="input-group">
+                                    <label>
+                                        Tanggal Foto
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        name="photo_date"
+                                    >
+                                </div>
+
+                            </div>
+
+                        </div>
 
                         {{-- QUESTION 1 --}}
                         <div class="survey-question">
