@@ -19,6 +19,23 @@ use Carbon\Carbon;
 
             </div>
 
+            <form
+                action="{{ route('executive.homepages.store', 'googlereview') }}"
+                method="POST">
+
+                @csrf
+
+                <button
+                    type="submit"
+                    class="filter-btn"
+                >
+
+                    Refresh Google Review
+
+                </button>
+
+            </form>
+
             <div class="google-review-score">
 
                 <div class="score-number">

@@ -29,6 +29,8 @@ use App\Models\DataDiri;
 use App\Models\DataDiriKaryawan;
 use \App\Models\SkemaKerja;
 use \App\Models\Survey;
+use App\Models\GoogleReview;
+use Carbon\Carbon;
 
 class CRUDBACKController extends Controller
 {
@@ -63,7 +65,8 @@ class CRUDBACKController extends Controller
                 'user'      => 'DataAkun',
                 'package'   => 'Catalogue',
                 'temabaju'  => 'Catalogue',
-                'bookingexecutive' => 'JadwalPesanan',    
+                'bookingexecutive' => 'JadwalPesanan',
+                'googlereview' => 'StatistikContent.StatistikReview',    
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -504,6 +507,74 @@ class CRUDBACKController extends Controller
                 $booking->kode_pesanan = 'SP' . now()->format('YmdHis') . Str::upper(Str::random(4));
 
                 $booking->save();
+            }
+            elseif ($section === 'googlereview') {
+
+                $json = file_get_contents(
+                    storage_path('app/reviews.json')
+                );
+
+                $json = mb_convert_encoding(
+                    $json,
+                    'UTF-8',
+                    'UTF-8'
+                );
+
+                $reviews = json_decode($json, true);
+
+                if (!$reviews) {
+
+                    return back()->withErrors(
+                        'JSON review tidak valid'
+                    );
+                }
+
+                foreach ($reviews as $review) {
+
+                    GoogleReview::updateOrCreate(
+
+                        [
+                            'review_id' => $review['reviewId']
+                        ],
+
+                        [
+
+                            'author_name' =>
+                                $review['name']
+                                ?? 'Anonymous',
+
+                            'rating' =>
+                                $review['stars']
+                                ?? 0,
+
+                            'review_text' =>
+                                $review['text']
+                                ?? '',
+
+                            'profile_photo' =>
+                                $review['reviewerPhotoUrl']
+                                ?? null,
+
+                            'review_images' => json_encode(
+                                $review['reviewImageUrls'] ?? []
+                            ),
+
+                            'likes_count' =>
+                                $review['likesCount']
+                                ?? 0,
+
+                            'review_date' => isset(
+                                $review['publishedAtDate']
+                            )
+
+                                ? Carbon::parse(
+                                    $review['publishedAtDate']
+                                )->format('Y-m-d H:i:s')
+
+                                : null,
+                        ]
+                    );
+                }
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                 ->with('success', ucfirst($section).' berhasil ditambahkan!');
