@@ -38,7 +38,7 @@ class FRONTPAGEController extends Controller
             return view('HOMEPAGES.FITUR.Survey');
         }
 
-    public function index()
+    public function index(Request $request)
         {
             $slides  = HeroSlide::where('active',1)->orderBy('order')->get();
             $marquees = Marquee::where('active',1)->orderBy('order')->get();
