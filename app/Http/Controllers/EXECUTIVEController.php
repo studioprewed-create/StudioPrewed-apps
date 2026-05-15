@@ -29,6 +29,7 @@ use App\Models\DataDiri;
 use App\Models\DataDiriKaryawan;
 use \App\Models\SkemaKerja;
 use \App\Models\Survey;
+use App\Models\GoogleReview;
 
 class EXECUTIVEController extends Controller
 {
@@ -1202,6 +1203,47 @@ class EXECUTIVEController extends Controller
 
                 ]);
             }
+            if ($page === 'StatistikContent.StatistikReview') {
+                $sort = $request->sort;
+
+                $googleReviews = GoogleReview::query();
+
+                if ($sort == '5star') {
+
+                    $googleReviews
+                        ->where('rating', 5)
+                        ->orderBy('review_date', 'desc');
+
+                } elseif ($sort == '4star') {
+
+                    $googleReviews
+                        ->where('rating', 4)
+                        ->orderBy('review_date', 'desc');
+
+                } elseif ($sort == 'oldest') {
+
+                    $googleReviews
+                        ->orderBy('review_date', 'asc');
+
+                } else {
+
+                    $googleReviews
+                        ->orderBy('review_date', 'desc');
+                }
+
+                $googleReviews = $googleReviews
+                    ->take(300)
+                    ->get();
+
+                return view(
+                    'OPERATIONALPAGES.PAGE.EXECUTIVE',
+                    [
+                        'page' => $page,
+                        'googleReviews' => $googleReviews,
+                        'sort' => $sort,
+                    ]
+                );
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -1651,6 +1693,53 @@ class EXECUTIVEController extends Controller
                         'createdMonth',
                         'photoMonth'
                     )
+                );
+            }
+            if ($page === 'StatistikContent.StatistikReview') {
+                $googleReviews = GoogleReview::latest(
+                    'review_date'
+                )->get();
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact('googleReviews')
+                );
+            }
+            if ($page === 'StatistikContent.StatistikReview') {
+                $sort = $request->sort;
+
+                $googleReviews = GoogleReview::query();
+
+                if ($sort == '5star') {
+
+                    $googleReviews
+                        ->where('rating', 5)
+                        ->orderBy('review_date', 'desc');
+
+                } elseif ($sort == '4star') {
+
+                    $googleReviews
+                        ->where('rating', 4)
+                        ->orderBy('review_date', 'desc');
+
+                } elseif ($sort == 'oldest') {
+
+                    $googleReviews
+                        ->orderBy('review_date', 'asc');
+
+                } else {
+
+                    $googleReviews
+                        ->orderBy('review_date', 'desc');
+                }
+
+                $googleReviews = $googleReviews
+                    ->take(300)
+                    ->get();
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact('googleReviews', 'sort')
                 );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -2159,6 +2248,48 @@ class EXECUTIVEController extends Controller
                         'photoMonth' => $photoMonth,
 
                     ]);
+                }
+                if ($page === 'StatistikContent.StatistikReview') {
+
+                    $sort = $request->sort;
+
+                    $googleReviews = GoogleReview::query();
+
+                    if ($sort == '5star') {
+
+                        $googleReviews
+                            ->where('rating', 5)
+                            ->orderBy('review_date', 'desc');
+
+                    } elseif ($sort == '4star') {
+
+                        $googleReviews
+                            ->where('rating', 4)
+                            ->orderBy('review_date', 'desc');
+
+                    } elseif ($sort == 'oldest') {
+
+                        $googleReviews
+                            ->orderBy('review_date', 'asc');
+
+                    } else {
+
+                        $googleReviews
+                            ->orderBy('review_date', 'desc');
+                    }
+
+                    $googleReviews = $googleReviews
+                        ->take(300)
+                        ->get();
+
+                    return view(
+                        'OPERATIONALPAGES.PAGE.EXECUTIVE',
+                        [
+                            'page' => $page,
+                            'googleReviews' => $googleReviews,
+                            'sort' => $sort,
+                        ]
+                    );
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
             }
