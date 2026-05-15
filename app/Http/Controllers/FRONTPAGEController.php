@@ -29,6 +29,7 @@ use App\Models\DataDiri;
 use App\Models\DataDiriKaryawan;
 use \App\Models\SkemaKerja;
 use \App\Models\Survey;
+use App\Models\GoogleReview;
 
 class FRONTPAGEController extends Controller
 {
@@ -49,8 +50,15 @@ class FRONTPAGEController extends Controller
             $heroes  = HeroContent::where('active',1)->orderBy('order')->get();
             $faqs    = Faq::where('active',1)->orderBy('order')->get();
             $portraitServices = Service::active()->orderBy('order')->get();
+            $sort = $request->sort;
+            $googleReviews = GoogleReview::query();
 
-            return view('HOMEPAGES.PAGE.Dashboard', compact('slides', 'marquees','aboutus','model1', 'model2', 'model3', 'reviews','heroes','faqs','portraitServices'));
+            if ($sort == '5star') {$reviews->where('rating', 5)->orderBy('review_date', 'desc');
+            } elseif ($sort == '4star') {$reviews->where('rating', 4)->orderBy('review_date', 'desc');
+            } elseif ($sort == 'oldest') {$reviews->orderBy('review_date', 'asc');
+            } else {$reviews->orderBy('review_date', 'desc');}
+            $googleReviews = $googleReviews->take(300)->get();
+            return view('HOMEPAGES.PAGE.Dashboard', compact('slides', 'marquees','aboutus','model1', 'model2', 'model3', 'reviews','heroes','faqs','portraitServices','googleReviews', 'sort'));
         }
     public function Portofolio(Request $request)
         {
