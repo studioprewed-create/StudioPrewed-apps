@@ -2,23 +2,27 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EXECUTIVEController;
+use App\Http\Controllers\FRONTPAGEController;
+use App\Http\Controllers\CRUDHOMEController;
+use App\Http\Controllers\CRUDBACKController;
+use App\Http\Controllers\BookingHOMEController;
 use App\Helpers\SlotHelper;
 
 
 
-Route::get('/', [EXECUTIVEController::class, 'index'])->name('homepage');
-Route::get('/Portofolio', [EXECUTIVEController::class, 'Portofolio'])->name('Portofolio');
-Route::get('/Pricelist', [EXECUTIVEController::class, 'Pricelist'])->name('Pricelist');
-Route::get('/Katalog', [EXECUTIVEController::class, 'Katalog'])->name('Katalog');
-Route::get('/Survey', [EXECUTIVEController::class, 'Survey'])->name('Survey');
-Route::post('/Survey/store', [EXECUTIVEController::class, 'SurveyStore'])->name('SurveyStore');
+Route::get('/', [FRONTPAGEController::class, 'index'])->name('homepage');
+Route::get('/Portofolio', [FRONTPAGEController::class, 'Portofolio'])->name('Portofolio');
+Route::get('/Pricelist', [FRONTPAGEController::class, 'Pricelist'])->name('Pricelist');
+Route::get('/Katalog', [FRONTPAGEController::class, 'Katalog'])->name('Katalog');
+Route::get('/Survey', [FRONTPAGEController::class, 'Survey'])->name('Survey');
+Route::post('/Survey/store', [CRUDHOMEController::class, 'SurveyStore'])->name('SurveyStore');
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'verify'])->name('login.verify');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/Registrasi', [AuthController::class, 'Registrasi'])->name('Registrasi');
-Route::post('/review/store', [EXECUTIVEController::class, 'storeReview'])->name('review.store')->middleware('auth');
+Route::post('/review/store', [CRUDHOMEController::class, 'storeReview'])->name('review.store')->middleware('auth');
 
 Route::get('/api/slots', [EXECUTIVEController::class, 'apiSlots'])->name('api.slots');
 Route::get('/api/tema-by-name', [EXECUTIVEController::class, 'getTemaByName'])->name('api.temaByName');
@@ -43,9 +47,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['auth', 'role:CLIENT'])->group(function () {
-        Route::post('/account', [EXECUTIVEController::class, 'storeAccount'])->name('Account.store');
-        Route::put('/account/{id}', [EXECUTIVEController::class, 'updateAccount'])->name('Account.update');
-        Route::delete('/account/{id}', [EXECUTIVEController::class, 'destroyAccount'])->name('Account.destroy');
+        Route::post('/account', [CRUDHOMEController::class, 'storeAccount'])->name('Account.store');
+        Route::put('/account/{id}', [CRUDHOMEController::class, 'updateAccount'])->name('Account.update');
+        Route::delete('/account/{id}', [CRUDHOMEController::class, 'destroyAccount'])->name('Account.destroy');
     });
 
 
@@ -77,14 +81,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{page}', [EXECUTIVEController::class, 'loadDirect'])->where('page', '[A-Za-z0-9\.\-]+')->name('page');
 
         Route::prefix('homepages')->name('homepages.')->group(function () {
-            Route::get('create/{section}', [EXECUTIVEController::class, 'create'])->name('create');
-            Route::post('store/{section}', [EXECUTIVEController::class, 'store'])->name('store');
-            Route::post('storePoerto/{section}', [EXECUTIVEController::class, 'storePorto'])->name('storePorto');
-            Route::get('edit/{section}/{id}', [EXECUTIVEController::class, 'edit'])->name('edit');
-            Route::get('editPorto/{section}/{id}', [EXECUTIVEController::class, 'editPorto'])->name('editPorto');
-            Route::put('update/{section}/{id}', [EXECUTIVEController::class, 'update'])->name('update');
-            Route::put('updatePorto/{section}/{id}', [EXECUTIVEController::class, 'updatePorto'])->name('updatePorto');
-            Route::delete('destroy/{section}/{id}', [EXECUTIVEController::class, 'destroy'])->name('destroy');
+            Route::get('create/{section}', [CRUDBACKController::class, 'create'])->name('create');
+            Route::post('store/{section}', [CRUDBACKController::class, 'store'])->name('store');
+            Route::post('storePoerto/{section}', [CRUDBACKController::class, 'storePorto'])->name('storePorto');
+            Route::get('edit/{section}/{id}', [CRUDBACKController::class, 'edit'])->name('edit');
+            Route::get('editPorto/{section}/{id}', [CRUDBACKController::class, 'editPorto'])->name('editPorto');
+            Route::put('update/{section}/{id}', [CRUDBACKController::class, 'update'])->name('update');
+            Route::put('updatePorto/{section}/{id}', [CRUDBACKController::class, 'updatePorto'])->name('updatePorto');
+            Route::delete('destroy/{section}/{id}', [CRUDBACKController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('users')->name('users.')->group(function () {
