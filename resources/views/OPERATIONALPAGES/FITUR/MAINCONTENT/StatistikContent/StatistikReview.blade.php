@@ -10,17 +10,19 @@ use Carbon\Carbon;
         <div class="google-review-heading">
 
             <div>
+
                 <h2>Google Reviews</h2>
 
                 <p>
                     Review asli dari pelanggan kami
                 </p>
+
             </div>
 
             <div class="google-review-score">
 
                 <div class="score-number">
-                    {{ number_format($reviews->avg('rating'), 1) }}
+                    {{ number_format($googleReviews->avg('rating'), 1) }}
                 </div>
 
                 <div>
@@ -30,7 +32,7 @@ use Carbon\Carbon;
                     </div>
 
                     <small>
-                        {{ $reviews->count() }} reviews
+                        {{ $googleReviews->count() }} reviews
                     </small>
 
                 </div>
@@ -43,29 +45,37 @@ use Carbon\Carbon;
 
             <a href="?sort=newest"
             class="{{ $sort == 'newest' || !$sort ? 'active' : '' }}">
+
                 Terbaru
+
             </a>
 
             <a href="?sort=5star"
             class="{{ $sort == '5star' ? 'active' : '' }}">
+
                 ⭐ 5
+
             </a>
 
             <a href="?sort=4star"
             class="{{ $sort == '4star' ? 'active' : '' }}">
+
                 ⭐ 4
+
             </a>
 
             <a href="?sort=oldest"
             class="{{ $sort == 'oldest' ? 'active' : '' }}">
+
                 Terlama
+
             </a>
 
         </div>
 
         <div class="google-review-grid">
 
-            @foreach($reviews as $review)
+            @foreach($googleReviews as $review)
 
                 <div class="google-review-card">
 
@@ -86,7 +96,17 @@ use Carbon\Carbon;
                                 </h4>
 
                                 <span>
-                                    {{ Carbon::parse($review->review_date)->diffForHumans() }}
+
+                                    @if($review->review_date)
+
+                                        {{ Carbon::parse($review->review_date)->diffForHumans() }}
+
+                                    @else
+
+                                        Tidak diketahui
+
+                                    @endif
+
                                 </span>
 
                             </div>
