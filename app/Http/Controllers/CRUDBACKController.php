@@ -32,6 +32,18 @@ use \App\Models\Survey;
 
 class CRUDBACKController extends Controller
 {
+    private function nextOrder(string $modelClass): int
+        {
+            $max = $modelClass::max('order');
+            return is_null($max) ? 0 : ((int)$max + 1);
+        }
+
+    private function cleanOrder($raw, string $modelClass, $fallback = null): int
+        {
+            if (is_numeric($raw)) return (int)$raw;
+            if (is_numeric($fallback)) return (int)$fallback;
+            return $this->nextOrder($modelClass);
+        }
     public function create(Request $request, $section)
         {
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', compact('section'));
