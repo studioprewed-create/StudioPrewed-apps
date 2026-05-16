@@ -5,18 +5,22 @@
 @endphp
 
 <div class="container">
-        <span class="eyebrow">
-            STUDIO PREWED
-        </span>
+    <div class="google-review-heading">
+        <div>
+            <span class="eyebrow">
+                STUDIO PREWED
+            </span>
 
-        <h2>
-            APA SAJA TENTANG 
-            <span>KAMI</span>
-        </h2>
+            <h2>
+                APA SAJA TENTANG 
+                <span>KAMI</span>
+            </h2>
 
-        <p>
-            Kami menghadirkan sesi prewedding dengan konsep elegan, hangat, dan penuh cerita, untuk mengabadikan setiap momen spesial sebelum hari bahagia Anda tiba.
-        </p>
+            <p>
+                Kami menghadirkan sesi prewedding dengan konsep elegan, hangat, dan penuh cerita, untuk mengabadikan setiap momen spesial sebelum hari bahagia Anda tiba.
+            </p>
+        </div>
+    </div>
     <div class="about-mosaic">
         @if($model1->isNotEmpty())
             @foreach($model1 as $item)
