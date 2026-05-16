@@ -1353,6 +1353,10 @@ document.addEventListener("DOMContentLoaded", function () {
               'active'
           );
 
+          if(dropdown){
+              dropdown.classList.remove('active');
+          }
+
           currentFilter =
               filterBtn.dataset.filter;
 
