@@ -50,15 +50,19 @@ class FRONTPAGEController extends Controller
             $heroes  = HeroContent::where('active',1)->orderBy('order')->get();
             $faqs    = Faq::where('active',1)->orderBy('order')->get();
             $portraitServices = Service::active()->orderBy('order')->get();
-            // $sort = $request->sort;
-            // $googleReviews = GoogleReview::query();
+            $googleReviews = GoogleReview::query()->orderByRaw("
+                CASE
+                    WHEN review_images IS NOT NULL
+                    AND review_images != ''
+                    THEN 0
+                    ELSE 1
+                END
+            ")
 
-            // if ($sort == '5star') {$reviews->where('rating', 5)->orderBy('review_date', 'desc');
-            // } elseif ($sort == '4star') {$reviews->where('rating', 4)->orderBy('review_date', 'desc');
-            // } elseif ($sort == 'oldest') {$reviews->orderBy('review_date', 'asc');
-            // } else {$reviews->orderBy('review_date', 'desc');}
-            // $googleReviews = $googleReviews->take(300)->get();
-            return view('HOMEPAGES.PAGE.Dashboard', compact('slides', 'marquees','aboutus','model1', 'model2', 'model3', 'reviews','heroes','faqs','portraitServices'));
+            ->orderByDesc('rating')
+            ->orderByDesc('review_date')
+            ->get();
+            return view('HOMEPAGES.PAGE.Dashboard', compact('slides', 'marquees','aboutus','model1', 'model2', 'model3', 'reviews','heroes','faqs','portraitServices','googleReviews'));
         }
     public function Portofolio(Request $request)
         {

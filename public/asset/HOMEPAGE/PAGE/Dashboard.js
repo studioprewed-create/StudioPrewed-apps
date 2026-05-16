@@ -962,4 +962,117 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
+  (function initGoogleReviews() {
+
+    const grid = document.getElementById('googleReviewGrid');
+    const sort = document.getElementById('googleReviewSort');
+    const loadMore = document.getElementById('googleReviewLoadMore');
+
+      if (!grid || !sort || !loadMore) return;
+
+      const PAGE_SIZE = 10;
+
+      let currentPage = 1;
+
+      let cards = Array.from(
+          grid.querySelectorAll('.google-review-card')
+      );
+
+      function sortCards(type){
+
+          cards.sort((a,b)=>{
+
+              const ratingA = parseInt(a.dataset.rating);
+              const ratingB = parseInt(b.dataset.rating);
+
+              const dateA = new Date(a.dataset.date);
+              const dateB = new Date(b.dataset.date);
+
+              const photoA = parseInt(a.dataset.photo);
+              const photoB = parseInt(b.dataset.photo);
+
+              switch(type){
+
+                  case 'highest':
+                      return ratingB - ratingA;
+
+                  case 'lowest':
+                      return ratingA - ratingB;
+
+                  case 'photo':
+
+                      if(photoA !== photoB){
+                          return photoB - photoA;
+                      }
+
+                      return ratingB - ratingA;
+
+                  case 'newest':
+                  default:
+
+                      // PRIORITAS:
+                      // 1. foto
+                      // 2. 5 star
+                      // 3. terbaru
+
+                      if(photoA !== photoB){
+                          return photoB - photoA;
+                      }
+
+                      if(ratingA !== ratingB){
+                          return ratingB - ratingA;
+                      }
+
+                      return dateB - dateA;
+              }
+
+          });
+
+          cards.forEach(card => grid.appendChild(card));
+      }
+
+      function renderPagination(){
+
+          cards.forEach((card,index)=>{
+
+              if(index < currentPage * PAGE_SIZE){
+                  card.style.display = 'block';
+              }else{
+                  card.style.display = 'none';
+              }
+
+          });
+
+          if(currentPage * PAGE_SIZE >= cards.length){
+              loadMore.style.display = 'none';
+          }else{
+              loadMore.style.display = 'inline-flex';
+          }
+
+      }
+
+      sort.addEventListener('change', function(){
+
+          currentPage = 1;
+
+          sortCards(this.value);
+
+          renderPagination();
+
+      });
+
+      loadMore.addEventListener('click', function(){
+
+          currentPage++;
+
+          renderPagination();
+
+      });
+
+      sortCards('newest');
+
+      renderPagination();
+
+  })();
+
 });
