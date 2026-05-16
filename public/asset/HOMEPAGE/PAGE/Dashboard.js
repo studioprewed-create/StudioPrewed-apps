@@ -964,51 +964,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
   (function initGoogleReviews() {
 
-      const section = document.getElementById(
-          'googleReviewSection'
-      );
+      const grid =
+          document.getElementById(
+              'googleReviewGrid'
+          );
 
-      if(!section) return;
+      if(!grid) return;
 
-      const grid = document.getElementById(
-          'googleReviewGrid'
-      );
+      const pagination =
+          document.getElementById(
+              'googleReviewPagination'
+          );
 
-      const pagination = document.getElementById(
-          'googleReviewPagination'
-      );
+      const filterWrap =
+          document.getElementById(
+              'googleReviewFilter'
+          );
 
-      const filterBtns = document.querySelectorAll(
-          '.google-review-filter a'
-      );
+      const modal =
+          document.getElementById(
+              'googleReviewModal'
+          );
 
-      const modal = document.getElementById(
-          'googleReviewModal'
-      );
+      const modalClose =
+          document.getElementById(
+              'googleReviewClose'
+          );
 
-      const modalClose = document.getElementById(
-          'googleReviewClose'
-      );
+      const modalAuthor =
+          document.getElementById(
+              'modalAuthor'
+          );
 
-      const modalAuthor = document.getElementById(
-          'modalAuthor'
-      );
+      const modalText =
+          document.getElementById(
+              'modalText'
+          );
 
-      const modalText = document.getElementById(
-          'modalText'
-      );
+      const modalDate =
+          document.getElementById(
+              'modalDate'
+          );
 
-      const modalDate = document.getElementById(
-          'modalDate'
-      );
+      const modalStars =
+          document.getElementById(
+              'modalStars'
+          );
 
-      const modalStars = document.getElementById(
-          'modalStars'
-      );
+      const modalAvatar =
+          document.getElementById(
+              'modalAvatar'
+          );
 
-      const modalAvatar = document.getElementById(
-          'modalAvatar'
-      );
+      const dropdown =
+          document.querySelector(
+              '.google-filter-dropdown'
+          );
+
+      const dropdownBtn =
+          document.getElementById(
+              'googleStarDropdownBtn'
+          );
 
       const PAGE_SIZE = 8;
 
@@ -1017,12 +1033,54 @@ document.addEventListener("DOMContentLoaded", function () {
       let currentFilter = 'all';
 
       let cards = Array.from(
-          grid.querySelectorAll('.google-review-card')
+          grid.querySelectorAll(
+              '.google-review-card'
+          )
       );
 
-      /* =========================================================
+      /* =====================================================
+        SORT
+      ===================================================== */
+
+      cards.sort((a,b)=>{
+
+          const photoA =
+              parseInt(a.dataset.photo);
+
+          const photoB =
+              parseInt(b.dataset.photo);
+
+          const ratingA =
+              parseInt(a.dataset.rating);
+
+          const ratingB =
+              parseInt(b.dataset.rating);
+
+          const dateA =
+              new Date(a.dataset.date);
+
+          const dateB =
+              new Date(b.dataset.date);
+
+          if(photoA !== photoB){
+              return photoB - photoA;
+          }
+
+          if(ratingA !== ratingB){
+              return ratingB - ratingA;
+          }
+
+          return dateB - dateA;
+
+      });
+
+      cards.forEach(card=>{
+          grid.appendChild(card);
+      });
+
+      /* =====================================================
         FILTER
-      ========================================================= */
+      ===================================================== */
 
       function getFilteredCards(){
 
@@ -1037,10 +1095,13 @@ document.addEventListener("DOMContentLoaded", function () {
               switch(currentFilter){
 
                   case '5':
-                      return rating === 5;
-
                   case '4':
-                      return rating === 4;
+                  case '3':
+                  case '2':
+                  case '1':
+
+                      return rating ===
+                          parseInt(currentFilter);
 
                   case 'photo':
                       return photo === 1;
@@ -1054,58 +1115,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       }
 
-      /* =========================================================
-        SORT
-      ========================================================= */
-
-      function sortNewest(){
-
-          cards.sort((a,b)=>{
-
-              const photoA =
-                  parseInt(a.dataset.photo);
-
-              const photoB =
-                  parseInt(b.dataset.photo);
-
-              const ratingA =
-                  parseInt(a.dataset.rating);
-
-              const ratingB =
-                  parseInt(b.dataset.rating);
-
-              const dateA =
-                  new Date(a.dataset.date);
-
-              const dateB =
-                  new Date(b.dataset.date);
-
-              // PRIORITAS FOTO
-              if(photoA !== photoB){
-                  return photoB - photoA;
-              }
-
-              // PRIORITAS RATING
-              if(ratingA !== ratingB){
-                  return ratingB - ratingA;
-              }
-
-              // PRIORITAS TERBARU
-              return dateB - dateA;
-
-          });
-
-          cards.forEach(card=>{
-              grid.appendChild(card);
-          });
-
-      }
-
-      sortNewest();
-
-      /* =========================================================
-        RENDER CARDS
-      ========================================================= */
+      /* =====================================================
+        RENDER
+      ===================================================== */
 
       function renderCards(){
 
@@ -1128,37 +1140,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
                   card.style.display = '';
 
-                  requestAnimationFrame(()=>{
-
-                      card.classList.remove('hide');
-
-                  });
-
               });
 
           renderPagination(filtered.length);
 
       }
 
-      /* =========================================================
-        SCROLL TO PAGINATION
-      ========================================================= */
+      /* =====================================================
+        SCROLL TO GRID
+      ===================================================== */
 
-      function scrollToPagination(){
+      function scrollToGrid(){
 
-          pagination.scrollIntoView({
+          grid.scrollIntoView({
 
               behavior:'smooth',
 
-              block:'center'
+              block:'start'
 
           });
 
       }
 
-      /* =========================================================
+      /* =====================================================
+        SCROLL TO FILTER
+      ===================================================== */
+
+      function scrollToFilter(){
+
+          filterWrap.scrollIntoView({
+
+              behavior:'smooth',
+
+              block:'start'
+
+          });
+
+      }
+
+      /* =====================================================
         PAGINATION
-      ========================================================= */
+      ===================================================== */
 
       function renderPagination(totalItems){
 
@@ -1192,9 +1214,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           }
 
-          /* =====================================================
-            PREV
-          ===================================================== */
+          /* PREV */
 
           const prevBtn =
               document.createElement('button');
@@ -1216,15 +1236,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
               renderCards();
 
-              scrollToPagination();
-
           });
 
           pagination.appendChild(prevBtn);
 
-          /* =====================================================
-            PAGE NUMBER
-          ===================================================== */
+          /* NUMBER */
 
           for(let i=startPage;i<=endPage;i++){
 
@@ -1246,7 +1262,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                   renderCards();
 
-                  scrollToPagination();
+                  scrollToGrid();
 
               });
 
@@ -1254,9 +1270,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           }
 
-          /* =====================================================
-            NEXT
-          ===================================================== */
+          /* NEXT */
 
           const nextBtn =
               document.createElement('button');
@@ -1278,46 +1292,85 @@ document.addEventListener("DOMContentLoaded", function () {
 
               renderCards();
 
-              scrollToPagination();
-
           });
 
           pagination.appendChild(nextBtn);
 
       }
 
-      /* =========================================================
-        FILTER EVENT
-      ========================================================= */
+      /* =====================================================
+        FILTER CLICK
+      ===================================================== */
 
-      filterBtns.forEach(btn=>{
+      document.addEventListener('click',function(e){
 
-          btn.addEventListener('click',function(e){
+          const filterBtn =
+              e.target.closest(
+                  '[data-filter]'
+              );
 
-              e.preventDefault();
+          if(!filterBtn) return;
 
-              filterBtns.forEach(b=>{
-                  b.classList.remove('active');
+          e.preventDefault();
+
+          document
+              .querySelectorAll(
+                  '.google-review-filter a'
+              )
+              .forEach(btn=>{
+
+                  btn.classList.remove(
+                      'active'
+                  );
+
               });
 
-              this.classList.add('active');
+          filterBtn.classList.add(
+              'active'
+          );
 
-              currentFilter =
-                  this.dataset.filter;
+          currentFilter =
+              filterBtn.dataset.filter;
 
-              currentPage = 1;
+          currentPage = 1;
 
-              renderCards();
+          renderCards();
 
-              scrollToPagination();
-
-          });
+          scrollToFilter();
 
       });
 
-      /* =========================================================
-        MODAL OPEN
-      ========================================================= */
+      /* =====================================================
+        DROPDOWN
+      ===================================================== */
+
+      dropdownBtn.addEventListener('click',function(e){
+
+          e.preventDefault();
+
+          dropdown.classList.toggle(
+              'active'
+          );
+
+      });
+
+      document.addEventListener('click',function(e){
+
+          if(
+              !e.target.closest(
+                  '.google-filter-dropdown'
+              )
+          ){
+              dropdown.classList.remove(
+                  'active'
+              );
+          }
+
+      });
+
+      /* =====================================================
+        MODAL
+      ===================================================== */
 
       document.addEventListener('click',function(e){
 
@@ -1373,17 +1426,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
           modal.classList.add('active');
 
-          document.body.style.overflow = 'hidden';
+          document.body.style.overflow =
+              'hidden';
 
       });
 
-      /* =========================================================
+      /* =====================================================
         CLOSE MODAL
-      ========================================================= */
+      ===================================================== */
 
       function closeGoogleModal(){
 
-          modal.classList.remove('active');
+          modal.classList.remove(
+              'active'
+          );
 
           document.body.style.overflow = '';
 
@@ -1414,9 +1470,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       });
 
-      /* =========================================================
+      /* =====================================================
         INIT
-      ========================================================= */
+      ===================================================== */
 
       renderCards();
 

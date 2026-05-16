@@ -55,26 +55,71 @@
          FILTER
     ========================================================= --}}
 
-    <div class="google-review-filter">
+    <div class="google-review-filter" id="googleReviewFilter">
 
-        <a href="#" class="active" data-filter="all">
+        {{-- SEMUA --}}
+        <a
+            href="#"
+            class="active"
+            data-filter="all">
+
             Semua
+
         </a>
 
-        <a href="#" data-filter="5">
-            ⭐ 5 Bintang
-        </a>
+        {{-- DROPDOWN BINTANG --}}
+        <div class="google-filter-dropdown">
 
-        <a href="#" data-filter="4">
-            ⭐ 4 Bintang
-        </a>
+            <button
+                class="google-filter-dropdown-btn"
+                id="googleStarDropdownBtn">
 
+                ⭐ Rating
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </button>
+
+            <div
+                class="google-filter-dropdown-menu"
+                id="googleStarDropdownMenu">
+
+                <a href="#" data-filter="5">
+                    ⭐ 5 Bintang
+                </a>
+
+                <a href="#" data-filter="4">
+                    ⭐ 4 Bintang
+                </a>
+
+                <a href="#" data-filter="3">
+                    ⭐ 3 Bintang
+                </a>
+
+                <a href="#" data-filter="2">
+                    ⭐ 2 Bintang
+                </a>
+
+                <a href="#" data-filter="1">
+                    ⭐ 1 Bintang
+                </a>
+
+            </div>
+
+        </div>
+
+        {{-- FOTO --}}
         <a href="#" data-filter="photo">
+
             📷 Dengan Foto
+
         </a>
 
+        {{-- TERBARU --}}
         <a href="#" data-filter="newest">
+
             🕒 Terbaru
+
         </a>
 
     </div>
