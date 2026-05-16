@@ -1152,31 +1152,55 @@ document.addEventListener("DOMContentLoaded", function () {
 
       function scrollToGrid(){
 
-          grid.scrollIntoView({
+        const header =
+            document.getElementById('siteHeader');
 
-              behavior:'smooth',
+        const headerHeight =
+            header ? header.offsetHeight : 0;
 
-              block:'start'
+        const top =
+            grid.getBoundingClientRect().top
+            + window.pageYOffset
+            - headerHeight
+            - 24;
 
-          });
+        window.scrollTo({
 
-      }
+            top,
 
-      /* =====================================================
-        SCROLL TO FILTER
-      ===================================================== */
+            behavior:'smooth'
 
-      function scrollToFilter(){
+        });
 
-          filterWrap.scrollIntoView({
+    }
 
-              behavior:'smooth',
+    /* =====================================================
+      SCROLL TO FILTER
+    ===================================================== */
 
-              block:'start'
+    function scrollToFilter(){
 
-          });
+        const header =
+            document.getElementById('siteHeader');
 
-      }
+        const headerHeight =
+            header ? header.offsetHeight : 0;
+
+        const top =
+            filterWrap.getBoundingClientRect().top
+            + window.pageYOffset
+            - headerHeight
+            - 24;
+
+        window.scrollTo({
+
+            top,
+
+            behavior:'smooth'
+
+        });
+
+    }
 
       /* =====================================================
         PAGINATION
