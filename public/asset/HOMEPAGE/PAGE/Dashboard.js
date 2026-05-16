@@ -966,9 +966,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const grid = document.getElementById('googleReviewGrid');
     const sort = document.getElementById('googleReviewSort');
-    const loadMore = document.getElementById('googleReviewLoadMore');
+    const pagination = document.getElementById('googleReviewPagination');
 
-      if (!grid || !sort || !loadMore) return;
+      if (!grid || !sort || !pagination) return;
 
       const PAGE_SIZE = 10;
 
@@ -1011,8 +1011,8 @@ document.addEventListener("DOMContentLoaded", function () {
                   default:
 
                       // PRIORITAS:
-                      // 1. foto
-                      // 2. 5 star
+                      // 1. punya foto
+                      // 2. rating tinggi
                       // 3. terbaru
 
                       if(photoA !== photoB){
@@ -1031,11 +1031,14 @@ document.addEventListener("DOMContentLoaded", function () {
           cards.forEach(card => grid.appendChild(card));
       }
 
-      function renderPagination(){
+      function renderCards(){
+
+          const start = (currentPage - 1) * PAGE_SIZE;
+          const end   = start + PAGE_SIZE;
 
           cards.forEach((card,index)=>{
 
-              if(index < currentPage * PAGE_SIZE){
+              if(index >= start && index < end){
                   card.style.display = 'block';
               }else{
                   card.style.display = 'none';
@@ -1043,10 +1046,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
           });
 
-          if(currentPage * PAGE_SIZE >= cards.length){
-              loadMore.style.display = 'none';
-          }else{
-              loadMore.style.display = 'inline-flex';
+      }
+
+      function renderPagination(){
+
+          pagination.innerHTML = '';
+
+          const totalPages = Math.ceil(cards.length / PAGE_SIZE);
+
+          for(let i = 1; i <= totalPages; i++){
+
+              const btn = document.createElement('button');
+
+              btn.className = 'google-page-btn';
+
+              if(i === currentPage){
+                  btn.classList.add('active');
+              }
+
+              btn.textContent = i;
+
+              btn.addEventListener('click', ()=>{
+
+                  currentPage = i;
+
+                  renderCards();
+
+                  renderPagination();
+
+                  window.scrollTo({
+                      top:
+                          grid.offsetTop - 120,
+                      behavior:'smooth'
+                  });
+
+              });
+
+              pagination.appendChild(btn);
+
           }
 
       }
@@ -1057,19 +1094,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
           sortCards(this.value);
 
-          renderPagination();
-
-      });
-
-      loadMore.addEventListener('click', function(){
-
-          currentPage++;
+          renderCards();
 
           renderPagination();
 
       });
 
       sortCards('newest');
+
+      renderCards();
 
       renderPagination();
 

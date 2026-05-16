@@ -201,12 +201,9 @@
         </div>
 
         {{-- PAGINATION --}}
-        <div class="google-review-pagination">
-
-            <button id="googleReviewLoadMore">
-                Tampilkan Lebih Banyak
-            </button>
-
+        <div
+            class="google-review-pagination"
+            id="googleReviewPagination">
         </div>
 
     </div>
