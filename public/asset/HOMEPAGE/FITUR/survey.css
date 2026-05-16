@@ -7,6 +7,10 @@
     margin:auto;
 }
 
+.survey-cta{
+    margin-top:32px;
+}
+
 .survey-card{
     background:var(--dark);
     border:1px solid var(--border);
