@@ -22,7 +22,6 @@ section#about::before {
 .about-mosaic {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(5, auto);
     gap: 14px;
     margin-top: 24px;
 }
