@@ -1068,6 +1068,27 @@
 
 @media(max-width:1200px){
 
+    .google-review-heading{
+        gap:24px;
+        align-items:flex-start;
+    }
+
+    .google-review-heading h2{
+        font-size:clamp(34px,4vw,50px);
+    }
+
+    .google-review-heading p{
+        max-width:100%;
+    }
+
+    .google-review-score{
+        padding:18px 22px;
+    }
+
+    .score-number{
+        font-size:3.5rem;
+    }
+
     .google-summary-box{
         gap:30px;
     }
@@ -1078,10 +1099,59 @@
 
 }
 
+/* =========================================================
+   TABLET
+========================================================= */
+
 @media(max-width:1024px){
 
     .google-review-section{
         padding:100px 0;
+    }
+
+    .google-review-heading{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:22px;
+
+        margin-bottom:34px;
+    }
+
+    .google-review-heading h2{
+        font-size:clamp(32px,5vw,46px);
+    }
+
+    .google-review-heading p{
+
+        font-size:.9rem;
+
+        line-height:1.8;
+    }
+
+    .google-review-score{
+
+        width:100%;
+
+        justify-content:space-between;
+
+        padding:18px 22px;
+
+        border-radius:20px;
+    }
+
+    .score-number{
+        font-size:3.2rem;
+    }
+
+    .score-stars{
+        font-size:.82rem;
+    }
+
+    .score-text{
+        font-size:.78rem;
     }
 
     .google-summary-box{
@@ -1098,16 +1168,96 @@
     }
 
     .google-review-grid{
+
         grid-template-columns:repeat(3,1fr);
+
         gap:16px;
     }
 
+    .google-review-card{
+        padding:16px;
+    }
+
+    .google-review-filter{
+        gap:10px;
+    }
+
+    .google-review-filter a,
+    .google-filter-dropdown-btn{
+
+        font-size:.82rem;
+
+        padding:11px 16px;
+    }
+
+    .google-filter-dropdown-menu{
+        min-width:200px;
+    }
+
+    .google-review-modal-content{
+        padding:34px 28px;
+    }
+
 }
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:768px){
 
     .google-review-section{
         padding:80px 0;
+    }
+
+    .google-review-heading{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:18px;
+
+        margin-bottom:28px;
+    }
+
+    .google-review-heading h2{
+
+        font-size:clamp(28px,7vw,40px);
+
+        line-height:1.1;
+    }
+
+    .google-review-heading p{
+
+        font-size:.88rem;
+
+        line-height:1.75;
+    }
+
+    .google-review-score{
+
+        width:100%;
+
+        justify-content:flex-start;
+
+        gap:16px;
+
+        padding:16px 18px;
+
+        border-radius:18px;
+    }
+
+    .score-number{
+        font-size:3rem;
+    }
+
+    .score-stars{
+        font-size:.8rem;
+    }
+
+    .score-text{
+        font-size:.76rem;
     }
 
     .google-summary-box{
@@ -1121,33 +1271,148 @@
         font-size:4rem;
     }
 
+    .google-review-filter{
+
+        gap:10px;
+
+        margin-top:28px;
+    }
+
+    .google-review-filter a,
+    .google-filter-dropdown-btn{
+
+        padding:10px 15px;
+
+        border-radius:12px;
+
+        font-size:.8rem;
+    }
+
+    .google-filter-dropdown{
+        width:100%;
+    }
+
+    .google-filter-dropdown-btn{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .google-filter-dropdown-menu{
+
+        width:100%;
+
+        min-width:100%;
+    }
+
     .google-review-grid{
+
         grid-template-columns:repeat(2,1fr);
+
         gap:14px;
     }
 
     .google-review-card{
+
         padding:16px;
+
+        border-radius:18px;
+    }
+
+    .google-review-top{
+        margin-bottom:12px;
+    }
+
+    .google-review-user{
+        gap:10px;
+    }
+
+    .google-review-user img,
+    .google-review-avatar{
+
+        width:40px;
+        height:40px;
+
+        min-width:40px;
+    }
+
+    .google-review-user h4{
+        font-size:.78rem;
+    }
+
+    .google-review-user span{
+        font-size:.65rem;
+    }
+
+    .google-review-icon{
+
+        width:32px;
+        height:32px;
+
+        min-width:32px;
+
+        font-size:.82rem;
+    }
+
+    .google-review-stars{
+        margin-bottom:8px;
+    }
+
+    .google-review-stars i{
+        font-size:.68rem;
+    }
+
+    .google-review-text{
+
+        font-size:.74rem;
+
+        min-height:78px;
+    }
+
+    .google-review-more{
+        font-size:.72rem;
+    }
+
+    .google-review-images{
+        margin-top:14px;
+    }
+
+    .google-review-images img{
+
+        width:56px;
+        height:56px;
+    }
+
+    .google-page-btn{
+
+        width:40px;
+        height:40px;
+
+        border-radius:12px;
+
+        font-size:.82rem;
     }
 
     .google-review-modal-content{
         padding:30px 24px;
     }
 
-    .google-review-heading{
-
-        flex-direction:column;
-
-        align-items:flex-start;
+    .google-review-modal-user{
+        gap:14px;
     }
 
-    .google-review-score{
+    .google-review-modal-avatar{
 
-        width:100%;
+        width:54px;
+        height:54px;
+
+        font-size:1rem;
     }
 
-    .score-number{
-        font-size:3.4rem;
+    .google-review-modal-text{
+
+        font-size:.92rem;
+
+        line-height:1.9;
     }
 
     .google-image-nav{
@@ -1178,10 +1443,51 @@
 
 }
 
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
 @media(max-width:480px){
 
     .google-review-section{
         padding:70px 0;
+    }
+
+    .google-review-heading{
+        gap:16px;
+    }
+
+    .google-review-heading h2{
+
+        font-size:clamp(24px,8vw,34px);
+    }
+
+    .google-review-heading p{
+
+        font-size:.82rem;
+
+        line-height:1.7;
+    }
+
+    .google-review-score{
+
+        padding:14px 16px;
+
+        border-radius:16px;
+
+        gap:14px;
+    }
+
+    .score-number{
+        font-size:2.6rem;
+    }
+
+    .score-stars{
+        font-size:.74rem;
+    }
+
+    .score-text{
+        font-size:.72rem;
     }
 
     .google-summary-box{
@@ -1195,17 +1501,133 @@
         font-size:3.2rem;
     }
 
-    .google-review-grid{
-        grid-template-columns:1fr;
-    }
-
     .google-review-filter{
+
         flex-direction:column;
+
         align-items:stretch;
     }
 
-    .google-review-filter a{
+    .google-review-filter a,
+    .google-filter-dropdown-btn{
+
         width:100%;
+
+        justify-content:center;
+    }
+
+    .google-filter-dropdown-menu{
+        width:100%;
+    }
+
+    .google-review-grid{
+
+        grid-template-columns:1fr;
+
+        gap:14px;
+    }
+
+    .google-review-card{
+        padding:15px;
+    }
+
+    .google-review-user img,
+    .google-review-avatar{
+
+        width:38px;
+        height:38px;
+
+        min-width:38px;
+    }
+
+    .google-review-user h4{
+        font-size:.76rem;
+    }
+
+    .google-review-user span{
+        font-size:.62rem;
+    }
+
+    .google-review-icon{
+
+        width:30px;
+        height:30px;
+
+        min-width:30px;
+
+        border-radius:8px;
+    }
+
+    .google-review-text{
+
+        font-size:.72rem;
+
+        line-height:1.75;
+
+        min-height:auto;
+    }
+
+    .google-review-images img{
+
+        width:52px;
+        height:52px;
+
+        border-radius:8px;
+    }
+
+    .google-review-pagination{
+        gap:8px;
+    }
+
+    .google-page-btn{
+
+        width:38px;
+        height:38px;
+
+        border-radius:10px;
+
+        font-size:.76rem;
+    }
+
+    .google-review-modal-content{
+
+        padding:24px 18px;
+
+        border-radius:20px;
+    }
+
+    .google-review-modal-close{
+
+        width:38px;
+        height:38px;
+
+        top:14px;
+        right:14px;
+    }
+
+    .google-review-modal-avatar{
+
+        width:48px;
+        height:48px;
+
+        font-size:.92rem;
+    }
+
+    .google-review-modal-text{
+
+        font-size:.84rem;
+    }
+
+    .google-image-nav{
+
+        width:42px;
+        height:42px;
+    }
+
+    .google-image-close{
+
+        width:40px;
+        height:40px;
     }
 
 }
