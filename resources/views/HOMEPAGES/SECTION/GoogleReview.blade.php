@@ -1,6 +1,4 @@
 <section class="google-review-section" id="googleReviewSection">
-
-```
 <div class="container google-review-container">
 
     @php
@@ -280,6 +278,5 @@ MODAL
     </div>
 
 </div>
-```
 
 </div>

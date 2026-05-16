@@ -1,6 +1,105 @@
+.google-review-heading{
+
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+
+    gap:30px;
+
+    margin-bottom:40px;
+}
+
+.google-review-heading h2{
+
+    font-family:'Cormorant Garamond', serif;
+
+    font-size:clamp(36px,5vw,58px);
+
+    line-height:1.05;
+
+    font-weight:600;
+
+    color:var(--white);
+
+    margin-top:10px;
+}
+
+.google-review-heading h2 span{
+    color:var(--teal-2);
+}
+
+.google-review-heading p{
+
+    margin-top:14px;
+
+    max-width:620px;
+
+    color:var(--muted);
+
+    line-height:1.9;
+
+    font-size:.95rem;
+}
+
 /* =========================================================
-   GOOGLE REVIEW
+   SCORE BOX
 ========================================================= */
+
+.google-review-score{
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+
+    gap:20px;
+
+    padding:20px 26px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(17,24,29,.96),
+            rgba(0,0,0,.96)
+        );
+
+    border:1px solid rgba(212,172,90,.14);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.25);
+}
+
+.score-number{
+
+    font-size:4rem;
+
+    line-height:1;
+
+    font-weight:700;
+
+    color:var(--white);
+}
+
+.score-stars{
+
+    display:flex;
+    gap:4px;
+
+    color:var(--teal-2);
+
+    font-size:.9rem;
+
+    margin-bottom:6px;
+}
+
+.score-text{
+
+    color:var(--muted);
+
+    font-size:.85rem;
+}
 
 .google-review-section{
     padding:120px 0;
@@ -665,6 +764,15 @@
     font-size:1rem;
 }
 
+.google-page-btn:disabled{
+
+    opacity:.4;
+
+    cursor:not-allowed;
+
+    transform:none !important;
+}
+
 /* =========================================================
    RESPONSIVE
 ========================================================= */
@@ -735,6 +843,22 @@
 
     .google-review-modal-content{
         padding:30px 24px;
+    }
+
+    .google-review-heading{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .google-review-score{
+
+        width:100%;
+    }
+
+    .score-number{
+        font-size:3.4rem;
     }
 
 }

@@ -1125,24 +1125,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
         pagination.innerHTML = '';
 
-        const totalPages = Math.ceil(
-            totalItems / PAGE_SIZE
-        );
+        const totalPages =
+            Math.ceil(totalItems / PAGE_SIZE);
 
         if(totalPages <= 1) return;
 
-        // PREV
-        if(currentPage > 1){
+        const maxVisible = 5;
 
-            const prevBtn =
-                document.createElement('button');
+        let startPage =
+            Math.max(
+                1,
+                currentPage - 2
+            );
 
-            prevBtn.className = 'google-page-btn';
+        let endPage =
+            startPage + maxVisible - 1;
 
-            prevBtn.innerHTML =
-                '<i class="fa-solid fa-chevron-left"></i>';
+        if(endPage > totalPages){
 
-            prevBtn.addEventListener('click',()=>{
+            endPage = totalPages;
+
+            startPage =
+                Math.max(
+                    1,
+                    endPage - maxVisible + 1
+                );
+        }
+
+        /* =====================================================
+          PREV
+        ===================================================== */
+
+        const prevBtn =
+            document.createElement('button');
+
+        prevBtn.className = 'google-page-btn';
+
+        prevBtn.innerHTML =
+            '<i class="fa-solid fa-chevron-left"></i>';
+
+        prevBtn.disabled = currentPage === 1;
+
+        prevBtn.addEventListener('click',()=>{
+
+            if(currentPage > 1){
 
                 currentPage--;
 
@@ -1150,14 +1176,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 scrollToReview();
 
-            });
+            }
 
-            pagination.appendChild(prevBtn);
+        });
 
-        }
+        pagination.appendChild(prevBtn);
 
-        // NUMBER
-        for(let i=1;i<=totalPages;i++){
+        /* =====================================================
+          NUMBER
+        ===================================================== */
+
+        for(let i=startPage;i<=endPage;i++){
 
             const btn =
                 document.createElement('button');
@@ -1184,18 +1213,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        // NEXT
-        if(currentPage < totalPages){
+        /* =====================================================
+          NEXT
+        ===================================================== */
 
-            const nextBtn =
-                document.createElement('button');
+        const nextBtn =
+            document.createElement('button');
 
-            nextBtn.className = 'google-page-btn';
+        nextBtn.className = 'google-page-btn';
 
-            nextBtn.innerHTML =
-                '<i class="fa-solid fa-chevron-right"></i>';
+        nextBtn.innerHTML =
+            '<i class="fa-solid fa-chevron-right"></i>';
 
-            nextBtn.addEventListener('click',()=>{
+        nextBtn.disabled =
+            currentPage === totalPages;
+
+        nextBtn.addEventListener('click',()=>{
+
+            if(currentPage < totalPages){
 
                 currentPage++;
 
@@ -1203,11 +1238,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 scrollToReview();
 
-            });
+            }
 
-            pagination.appendChild(nextBtn);
+        });
 
-        }
+        pagination.appendChild(nextBtn);
 
     }
 
