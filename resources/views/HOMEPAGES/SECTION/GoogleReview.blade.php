@@ -284,50 +284,51 @@ MODAL
 
 <div class="google-review-modal" id="googleReviewModal">
 
-<div class="google-review-modal-backdrop"></div>
+    <div class="google-review-modal-backdrop"></div>
 
-<div class="google-review-modal-content">
+    <div class="google-review-modal-content">
 
-    <button
-        class="google-review-modal-close"
-        id="googleReviewClose">
+        <button
+            class="google-review-modal-close"
+            id="googleReviewClose">
 
-        <i class="fa-solid fa-xmark"></i>
+            <i class="fa-solid fa-xmark"></i>
 
-    </button>
+        </button>
 
-    <div class="google-review-modal-user">
-
-        <div
-            class="google-review-modal-avatar"
-            id="modalAvatar">
-            A
-        </div>
-
-        <div>
-
-            <h3 id="modalAuthor"></h3>
+        <div class="google-review-modal-user">
 
             <div
-                class="google-review-stars"
-                id="modalStars">
+                class="google-review-modal-avatar"
+                id="modalAvatar">
+                A
             </div>
 
-            <span id="modalDate"></span>
+            <div>
+
+                <h3 id="modalAuthor"></h3>
+
+                <div
+                    class="google-review-stars"
+                    id="modalStars">
+                </div>
+
+                <span id="modalDate"></span>
+
+            </div>
 
         </div>
 
-    </div>
+        <div
+            class="google-review-modal-text"
+            id="modalText">
+        </div>
 
-    <div
-        class="google-review-modal-text"
-        id="modalText">
     </div>
 
 </div>
 
-<div class="google-image-modal"
-    id="googleImageModal">
+<div class="google-image-modal" id="googleImageModal">
 
     {{-- BACKDROP --}}
     <div
@@ -366,7 +367,5 @@ MODAL
         src=""
         alt="review image"
         id="googleImagePreview">
-
-</div>
 
 </div>
