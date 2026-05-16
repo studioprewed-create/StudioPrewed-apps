@@ -570,6 +570,10 @@
     gap:10px;
 
     flex-wrap:wrap;
+
+    position:relative;
+
+    z-index:5;
 }
 
 .google-page-btn{
@@ -592,7 +596,11 @@
 
     cursor:pointer;
 
-    transition:var(--transition);
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        color .3s ease,
+        box-shadow .3s ease;
 
     font-weight:600;
 
@@ -601,15 +609,24 @@
     justify-content:center;
 
     font-size:.88rem;
+
+    outline:none;
+
+    -webkit-tap-highlight-color:transparent;
+
+    flex-shrink:0;
 }
 
+/* HOVER */
 .google-page-btn:hover{
 
-    transform:translateY(-2px);
-
     border-color:rgba(212,172,90,.4);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.25);
 }
 
+/* ACTIVE */
 .google-page-btn.active{
 
     background:
@@ -625,6 +642,21 @@
 
     box-shadow:
         0 10px 30px rgba(212,172,90,.18);
+}
+
+/* DISABLED */
+.google-page-btn:disabled{
+
+    opacity:.4;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+}
+
+/* FOCUS */
+.google-page-btn:focus{
+    outline:none;
 }
 
 /* =========================================================

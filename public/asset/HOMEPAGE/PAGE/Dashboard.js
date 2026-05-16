@@ -1252,14 +1252,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function scrollToReview(){
 
-        section.scrollIntoView({
+      requestAnimationFrame(()=>{
 
-            behavior:'smooth',
-            block:'start'
+          const top =
+              grid.offsetTop - 140;
 
-        });
+          window.scrollTo({
 
-    }
+              top,
+
+              behavior:'smooth'
+
+          });
+
+      });
+
+  }
 
     /* =========================================================
       FILTER EVENT
