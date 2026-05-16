@@ -247,6 +247,10 @@
                             <img
                                 src="{{ asset($img) }}"
                                 alt="review image"
+
+                                class="google-review-image-item"
+
+                                data-image="{{ asset($img) }}"
                             >
 
                         @endforeach
@@ -280,7 +284,6 @@ MODAL
 
 <div class="google-review-modal" id="googleReviewModal">
 
-```
 <div class="google-review-modal-backdrop"></div>
 
 <div class="google-review-modal-content">
@@ -320,6 +323,49 @@ MODAL
         class="google-review-modal-text"
         id="modalText">
     </div>
+
+</div>
+
+<div class="google-image-modal"
+    id="googleImageModal">
+
+    {{-- BACKDROP --}}
+    <div
+        class="google-image-backdrop">
+    </div>
+
+    {{-- CLOSE --}}
+    <button
+        class="google-image-close"
+        id="googleImageClose">
+
+        <i class="fa-solid fa-xmark"></i>
+
+    </button>
+
+    {{-- PREV --}}
+    <button
+        class="google-image-nav prev"
+        id="googleImagePrev">
+
+        <i class="fa-solid fa-chevron-left"></i>
+
+    </button>
+
+    {{-- NEXT --}}
+    <button
+        class="google-image-nav next"
+        id="googleImageNext">
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+    </button>
+
+    {{-- IMAGE --}}
+    <img
+        src=""
+        alt="review image"
+        id="googleImagePreview">
 
 </div>
 

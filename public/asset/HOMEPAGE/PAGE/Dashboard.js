@@ -1470,6 +1470,190 @@ document.addEventListener("DOMContentLoaded", function () {
 
       });
 
+      const imageModal =
+          document.getElementById(
+              'googleImageModal'
+          );
+
+      const imagePreview =
+          document.getElementById(
+              'googleImagePreview'
+          );
+
+      const imageClose =
+          document.getElementById(
+              'googleImageClose'
+          );
+
+      const imagePrev =
+          document.getElementById(
+              'googleImagePrev'
+          );
+
+      const imageNext =
+          document.getElementById(
+              'googleImageNext'
+          );
+
+      let currentImages = [];
+
+      let currentImageIndex = 0;
+
+      /* =====================================================
+        OPEN IMAGE
+      ===================================================== */
+
+      document.addEventListener('click',function(e){
+
+          const image =
+              e.target.closest(
+                  '.google-review-image-item'
+              );
+
+          if(!image) return;
+
+          const parent =
+              image.closest(
+                  '.google-review-images'
+              );
+
+          currentImages =
+              Array.from(
+                  parent.querySelectorAll(
+                      '.google-review-image-item'
+                  )
+              );
+
+          currentImageIndex =
+              currentImages.indexOf(image);
+
+          updateModalImage();
+
+          imageModal.classList.add(
+              'active'
+          );
+
+          document.body.style.overflow =
+              'hidden';
+
+      });
+
+      /* =====================================================
+        UPDATE IMAGE
+      ===================================================== */
+
+      function updateModalImage(){
+
+          const current =
+              currentImages[currentImageIndex];
+
+          imagePreview.src =
+              current.dataset.image;
+
+      }
+
+      /* =====================================================
+        NEXT
+      ===================================================== */
+
+      imageNext.addEventListener('click',()=>{
+
+          currentImageIndex++;
+
+          if(
+              currentImageIndex >=
+              currentImages.length
+          ){
+              currentImageIndex = 0;
+          }
+
+          updateModalImage();
+
+      });
+
+      /* =====================================================
+        PREV
+      ===================================================== */
+
+      imagePrev.addEventListener('click',()=>{
+
+          currentImageIndex--;
+
+          if(currentImageIndex < 0){
+
+              currentImageIndex =
+                  currentImages.length - 1;
+
+          }
+
+          updateModalImage();
+
+      });
+
+      /* =====================================================
+        CLOSE
+      ===================================================== */
+
+      function closeImageModal(){
+
+          imageModal.classList.remove(
+              'active'
+          );
+
+          document.body.style.overflow =
+              '';
+
+      }
+
+      imageClose.addEventListener(
+          'click',
+          closeImageModal
+      );
+
+      imageModal.addEventListener(
+          'click',
+          function(e){
+
+              if(
+                  e.target.classList.contains(
+                      'google-image-backdrop'
+                  )
+              ){
+                  closeImageModal();
+              }
+
+          }
+      );
+
+      /* =====================================================
+        KEYBOARD
+      ===================================================== */
+
+      document.addEventListener(
+          'keydown',
+          function(e){
+
+              if(
+                  !imageModal.classList.contains(
+                      'active'
+                  )
+              ) return;
+
+              if(e.key === 'ArrowRight'){
+                  imageNext.click();
+              }
+
+              if(e.key === 'ArrowLeft'){
+                  imagePrev.click();
+              }
+
+              if(e.key === 'Escape'){
+                  closeImageModal();
+              }
+
+          }
+      );
+
       /* =====================================================
         INIT
       ===================================================== */
