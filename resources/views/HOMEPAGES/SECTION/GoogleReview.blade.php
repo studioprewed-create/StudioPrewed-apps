@@ -1,167 +1,138 @@
 <section class="google-review-section" id="googleReviewSection">
 
-    <div class="container">
+```
+<div class="container google-review-container">
 
-        <div class="head" data-reveal>
+    @php
+        $average = number_format($googleReviews->avg('rating'), 1);
+        $total = $googleReviews->count();
+    @endphp
+
+    {{-- =========================================================
+         HEADING
+    ========================================================= --}}
+
+    <div class="google-review-heading">
+
+        <div>
+
             <span class="eyebrow">
                 GOOGLE REVIEW
             </span>
 
             <h2>
                 APA KATA
-                <span class="hl">MEREKA</span>
+                <span>MEREKA</span>
             </h2>
 
             <p>
                 Pengalaman nyata dari client yang telah menggunakan layanan kami.
             </p>
+
         </div>
 
-        @php
-            $average = number_format($googleReviews->avg('rating'), 1);
-            $total   = $googleReviews->count();
-        @endphp
+        <div class="google-review-score">
 
-        {{-- SUMMARY --}}
-        <div class="google-summary-box">
+            <div class="score-number">
+                {{ $average }}
+            </div>
 
-            <div class="google-summary-left">
+            <div>
 
-                <div class="google-rating-value">
-                    {{ $average }}
+                <div class="score-stars">
+                    ★★★★★
                 </div>
 
-                <div class="google-stars">
-                    @for($i=1; $i<=5; $i++)
-                        <i class="fa-solid fa-star"></i>
-                    @endfor
-                </div>
-
-                <div class="google-total-review">
+                <div class="score-text">
                     {{ $total }} Reviews
                 </div>
 
             </div>
 
-            <div class="google-summary-right">
+        </div>
 
-                @for($star = 5; $star >=1; $star--)
+    </div>
 
-                    @php
-                        $count = $googleReviews->where('rating', $star)->count();
-                        $percent = $total ? ($count / $total) * 100 : 0;
-                    @endphp
+    {{-- =========================================================
+         FILTER
+    ========================================================= --}}
 
-                    <div class="google-progress-item">
+    <div class="google-review-filter">
 
-                        <span>{{ $star }}</span>
+        <a href="#" class="active" data-filter="all">
+            Semua
+        </a>
 
-                        <div class="google-progress-bar">
-                            <div
-                                class="google-progress-fill"
-                                style="width:{{ $percent }}%">
+        <a href="#" data-filter="5">
+            ⭐ 5 Bintang
+        </a>
+
+        <a href="#" data-filter="4">
+            ⭐ 4 Bintang
+        </a>
+
+        <a href="#" data-filter="photo">
+            📷 Dengan Foto
+        </a>
+
+        <a href="#" data-filter="newest">
+            🕒 Terbaru
+        </a>
+
+    </div>
+
+    {{-- =========================================================
+         GRID
+    ========================================================= --}}
+
+    <div class="google-review-grid" id="googleReviewGrid">
+
+        @foreach($googleReviews as $review)
+
+            @php
+                $images = [];
+
+                if(!empty($review->review_images)){
+                    $images = json_decode($review->review_images, true) ?? [];
+                }
+            @endphp
+
+            <div
+                class="google-review-card"
+
+                data-rating="{{ $review->rating }}"
+                data-photo="{{ count($images) ? 1 : 0 }}"
+                data-date="{{ $review->review_date }}"
+            >
+
+                {{-- =========================================================
+                     TOP
+                ========================================================= --}}
+
+                <div class="google-review-top">
+
+                    <div class="google-review-user">
+
+                        @if($review->profile_photo)
+
+                            <img
+                                src="{{ asset($review->profile_photo) }}"
+                                alt="{{ $review->author_name }}"
+                            >
+
+                        @else
+
+                            <div class="google-review-avatar">
+                                {{ strtoupper(substr($review->author_name,0,1)) }}
                             </div>
-                        </div>
 
-                        <small>{{ $count }}</small>
+                        @endif
 
-                    </div>
-
-                @endfor
-
-            </div>
-
-        </div>
-
-        {{-- FILTER --}}
-        <div class="google-review-filter">
-
-            <div class="google-review-count">
-                Semua Review
-            </div>
-
-            <select id="googleReviewSort">
-
-                <option value="newest">
-                    Terbaru
-                </option>
-
-                <option value="highest">
-                    Rating Tertinggi
-                </option>
-
-                <option value="lowest">
-                    Rating Terendah
-                </option>
-
-                <option value="photo">
-                    Dengan Foto
-                </option>
-
-            </select>
-
-        </div>
-
-        {{-- LIST --}}
-        <div class="google-review-grid" id="googleReviewGrid">
-
-            @foreach($googleReviews as $review)
-
-                @php
-                    $images = [];
-
-                    if(!empty($review->review_images)){
-                        $images = json_decode($review->review_images, true) ?? [];
-                    }
-                @endphp
-
-                <div
-                    class="google-review-card"
-                    data-rating="{{ $review->rating }}"
-                    data-date="{{ $review->review_date }}"
-                    data-photo="{{ count($images) > 0 ? 1 : 0 }}"
-                >
-
-                    <div class="google-review-top">
-
-                        <div class="google-review-profile">
-
-                            @if($review->profile_photo)
-
-                                <img
-                                    src="{{ asset($review->profile_photo) }}"
-                                    alt="{{ $review->author_name }}"
-                                >
-
-                            @else
-
-                                <div class="google-review-avatar">
-                                    {{ strtoupper(substr($review->author_name,0,1)) }}
-                                </div>
-
-                            @endif
-
-                        </div>
-
-                        <div class="google-review-user">
+                        <div>
 
                             <h4>
                                 {{ $review->author_name }}
                             </h4>
-
-                            <div class="google-review-stars">
-
-                                @for($i=1;$i<=5;$i++)
-
-                                    @if($i <= $review->rating)
-                                        <i class="fa-solid fa-star"></i>
-                                    @else
-                                        <i class="fa-regular fa-star"></i>
-                                    @endif
-
-                                @endfor
-
-                            </div>
 
                             <span>
                                 {{ \Carbon\Carbon::parse($review->review_date)->translatedFormat('d F Y') }}
@@ -171,41 +142,144 @@
 
                     </div>
 
-                    <div class="google-review-content">
-
-                        {{ $review->review_text }}
-
+                    <div class="google-review-icon">
+                        <i class="fa-brands fa-google"></i>
                     </div>
-
-                    @if(count($images))
-
-                        <div class="google-review-images">
-
-                            @foreach($images as $img)
-
-                                <img
-                                    src="{{ asset($img) }}"
-                                    alt="review image"
-                                >
-
-                            @endforeach
-
-                        </div>
-
-                    @endif
 
                 </div>
 
-            @endforeach
+                {{-- =========================================================
+                     STARS
+                ========================================================= --}}
 
+                <div class="google-review-stars">
+
+                    @for($i=1;$i<=5;$i++)
+
+                        @if($i <= $review->rating)
+                            <i class="fa-solid fa-star"></i>
+                        @else
+                            <i class="fa-regular fa-star"></i>
+                        @endif
+
+                    @endfor
+
+                </div>
+
+                {{-- =========================================================
+                     TEXT
+                ========================================================= --}}
+
+                <div class="google-review-text">
+
+                    {{ $review->review_text }}
+
+                </div>
+
+                {{-- =========================================================
+                     BUTTON MORE
+                ========================================================= --}}
+
+                <button
+                    class="google-review-more"
+
+                    data-author="{{ $review->author_name }}"
+                    data-rating="{{ $review->rating }}"
+                    data-date="{{ \Carbon\Carbon::parse($review->review_date)->translatedFormat('d F Y') }}"
+                    data-text="{{ $review->review_text }}"
+                >
+                    Read More
+                </button>
+
+                {{-- =========================================================
+                     IMAGES
+                ========================================================= --}}
+
+                @if(count($images))
+
+                    <div class="google-review-images">
+
+                        @foreach($images as $img)
+
+                            <img
+                                src="{{ asset($img) }}"
+                                alt="review image"
+                            >
+
+                        @endforeach
+
+                    </div>
+
+                @endif
+
+            </div>
+
+        @endforeach
+
+    </div>
+
+    {{-- =========================================================
+         PAGINATION
+    ========================================================= --}}
+
+    <div
+        class="google-review-pagination"
+        id="googleReviewPagination">
+    </div>
+
+</div>
+```
+
+</section>
+
+{{-- =========================================================
+MODAL
+========================================================= --}}
+
+<div class="google-review-modal" id="googleReviewModal">
+
+```
+<div class="google-review-modal-backdrop"></div>
+
+<div class="google-review-modal-content">
+
+    <button
+        class="google-review-modal-close"
+        id="googleReviewClose">
+
+        <i class="fa-solid fa-xmark"></i>
+
+    </button>
+
+    <div class="google-review-modal-user">
+
+        <div
+            class="google-review-modal-avatar"
+            id="modalAvatar">
+            A
         </div>
 
-        {{-- PAGINATION --}}
-        <div
-            class="google-review-pagination"
-            id="googleReviewPagination">
+        <div>
+
+            <h3 id="modalAuthor"></h3>
+
+            <div
+                class="google-review-stars"
+                id="modalStars">
+            </div>
+
+            <span id="modalDate"></span>
+
         </div>
 
     </div>
 
-</section>
+    <div
+        class="google-review-modal-text"
+        id="modalText">
+    </div>
+
+</div>
+```
+
+</div>
