@@ -5,8 +5,6 @@
 @endphp
 
 <div class="container">
-    <div class="google-review-heading">
-
     <div>
 
         <span class="eyebrow">
@@ -23,6 +21,7 @@
         </p>
 
     </div>
+    <div class="google-review-heading">
     <div class="about-mosaic">
         @if($model1->isNotEmpty())
             @foreach($model1 as $item)
