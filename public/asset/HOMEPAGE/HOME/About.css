@@ -124,7 +124,7 @@ section#about::before {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 14px;
-    margin-top: 10px;
+    margin-top: 0px;
     padding: 20px;
     background: linear-gradient(180deg, #12181d, #0f1418);
     border: 1px solid var(--line);
