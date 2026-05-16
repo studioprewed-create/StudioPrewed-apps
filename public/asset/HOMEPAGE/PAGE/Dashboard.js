@@ -964,428 +964,461 @@ document.addEventListener("DOMContentLoaded", function () {
 
   (function initGoogleReviews() {
 
-    const section = document.getElementById('googleReviewSection');
+      const section = document.getElementById(
+          'googleReviewSection'
+      );
 
-    if(!section) return;
+      if(!section) return;
 
-    const grid = document.getElementById('googleReviewGrid');
+      const grid = document.getElementById(
+          'googleReviewGrid'
+      );
 
-    const pagination = document.getElementById(
-        'googleReviewPagination'
-    );
+      const pagination = document.getElementById(
+          'googleReviewPagination'
+      );
 
-    const filterBtns = document.querySelectorAll(
-        '.google-review-filter a'
-    );
+      const filterBtns = document.querySelectorAll(
+          '.google-review-filter a'
+      );
 
-    const modal = document.getElementById(
-        'googleReviewModal'
-    );
+      const modal = document.getElementById(
+          'googleReviewModal'
+      );
 
-    const modalClose = document.getElementById(
-        'googleReviewClose'
-    );
+      const modalClose = document.getElementById(
+          'googleReviewClose'
+      );
 
-    const modalAuthor = document.getElementById(
-        'modalAuthor'
-    );
+      const modalAuthor = document.getElementById(
+          'modalAuthor'
+      );
 
-    const modalText = document.getElementById(
-        'modalText'
-    );
+      const modalText = document.getElementById(
+          'modalText'
+      );
 
-    const modalDate = document.getElementById(
-        'modalDate'
-    );
+      const modalDate = document.getElementById(
+          'modalDate'
+      );
 
-    const modalStars = document.getElementById(
-        'modalStars'
-    );
+      const modalStars = document.getElementById(
+          'modalStars'
+      );
 
-    const modalAvatar = document.getElementById(
-        'modalAvatar'
-    );
+      const modalAvatar = document.getElementById(
+          'modalAvatar'
+      );
 
-    const PAGE_SIZE = 8;
+      const PAGE_SIZE = 8;
 
-    let currentPage = 1;
+      let currentPage = 1;
 
-    let currentFilter = 'all';
+      let currentFilter = 'all';
 
-    let cards = Array.from(
-        grid.querySelectorAll('.google-review-card')
-    );
+      let cards = Array.from(
+          grid.querySelectorAll('.google-review-card')
+      );
 
-    /* =========================================================
-      FILTER
-    ========================================================= */
+      /* =========================================================
+        FILTER
+      ========================================================= */
 
-    function getFilteredCards(){
+      function getFilteredCards(){
 
-        return cards.filter(card=>{
+          return cards.filter(card=>{
 
-            const rating = parseInt(card.dataset.rating);
-            const photo  = parseInt(card.dataset.photo);
+              const rating =
+                  parseInt(card.dataset.rating);
 
-            switch(currentFilter){
+              const photo =
+                  parseInt(card.dataset.photo);
 
-                case '5':
-                    return rating === 5;
+              switch(currentFilter){
 
-                case '4':
-                    return rating === 4;
+                  case '5':
+                      return rating === 5;
 
-                case 'photo':
-                    return photo === 1;
+                  case '4':
+                      return rating === 4;
 
-                default:
-                    return true;
-            }
+                  case 'photo':
+                      return photo === 1;
 
-        });
+                  default:
+                      return true;
 
-    }
+              }
 
-    /* =========================================================
-      SORT NEWEST
-    ========================================================= */
+          });
 
-    function sortNewest(){
+      }
 
-        cards.sort((a,b)=>{
+      /* =========================================================
+        SORT
+      ========================================================= */
 
-            const photoA = parseInt(a.dataset.photo);
-            const photoB = parseInt(b.dataset.photo);
+      function sortNewest(){
 
-            const ratingA = parseInt(a.dataset.rating);
-            const ratingB = parseInt(b.dataset.rating);
+          cards.sort((a,b)=>{
 
-            const dateA = new Date(a.dataset.date);
-            const dateB = new Date(b.dataset.date);
+              const photoA =
+                  parseInt(a.dataset.photo);
 
-            // PRIORITAS FOTO
-            if(photoA !== photoB){
-                return photoB - photoA;
-            }
+              const photoB =
+                  parseInt(b.dataset.photo);
 
-            // PRIORITAS RATING
-            if(ratingA !== ratingB){
-                return ratingB - ratingA;
-            }
+              const ratingA =
+                  parseInt(a.dataset.rating);
 
-            // PRIORITAS TERBARU
-            return dateB - dateA;
+              const ratingB =
+                  parseInt(b.dataset.rating);
 
-        });
+              const dateA =
+                  new Date(a.dataset.date);
 
-        cards.forEach(card=>{
-            grid.appendChild(card);
-        });
+              const dateB =
+                  new Date(b.dataset.date);
 
-    }
+              // PRIORITAS FOTO
+              if(photoA !== photoB){
+                  return photoB - photoA;
+              }
 
-    sortNewest();
+              // PRIORITAS RATING
+              if(ratingA !== ratingB){
+                  return ratingB - ratingA;
+              }
 
-    /* =========================================================
-      RENDER
-    ========================================================= */
+              // PRIORITAS TERBARU
+              return dateB - dateA;
 
-    function renderCards(){
+          });
 
-        const filtered = getFilteredCards();
+          cards.forEach(card=>{
+              grid.appendChild(card);
+          });
 
-        cards.forEach(card=>{
-            card.style.display = 'none';
-        });
+      }
 
-        const start = (currentPage - 1) * PAGE_SIZE;
-        const end = start + PAGE_SIZE;
+      sortNewest();
 
-        filtered
-            .slice(start,end)
-            .forEach(card=>{
+      /* =========================================================
+        RENDER CARDS
+      ========================================================= */
 
-                card.style.display = '';
+      function renderCards(){
 
-                requestAnimationFrame(()=>{
-                    card.classList.remove('hide');
-                });
+          const filtered =
+              getFilteredCards();
 
-            });
+          cards.forEach(card=>{
+              card.style.display = 'none';
+          });
 
-        renderPagination(filtered.length);
+          const start =
+              (currentPage - 1) * PAGE_SIZE;
 
-    }
+          const end =
+              start + PAGE_SIZE;
 
-    /* =========================================================
-      PAGINATION
-    ========================================================= */
+          filtered
+              .slice(start,end)
+              .forEach(card=>{
 
-    function renderPagination(totalItems){
+                  card.style.display = '';
 
-        pagination.innerHTML = '';
+                  requestAnimationFrame(()=>{
 
-        const totalPages =
-            Math.ceil(totalItems / PAGE_SIZE);
+                      card.classList.remove('hide');
 
-        if(totalPages <= 1) return;
+                  });
 
-        const maxVisible = 5;
+              });
 
-        let startPage =
-            Math.max(
-                1,
-                currentPage - 2
-            );
+          renderPagination(filtered.length);
 
-        let endPage =
-            startPage + maxVisible - 1;
+      }
 
-        if(endPage > totalPages){
+      /* =========================================================
+        SCROLL TO PAGINATION
+      ========================================================= */
 
-            endPage = totalPages;
+      function scrollToPagination(){
 
-            startPage =
-                Math.max(
-                    1,
-                    endPage - maxVisible + 1
-                );
-        }
+          pagination.scrollIntoView({
 
-        /* =====================================================
-          PREV
-        ===================================================== */
+              behavior:'smooth',
 
-        const prevBtn =
-            document.createElement('button');
+              block:'center'
 
-        prevBtn.className = 'google-page-btn';
+          });
 
-        prevBtn.innerHTML =
-            '<i class="fa-solid fa-chevron-left"></i>';
+      }
 
-        prevBtn.disabled = currentPage === 1;
+      /* =========================================================
+        PAGINATION
+      ========================================================= */
 
-        prevBtn.addEventListener('click',()=>{
+      function renderPagination(totalItems){
 
-            if(currentPage > 1){
+          pagination.innerHTML = '';
 
-                currentPage--;
+          const totalPages =
+              Math.ceil(totalItems / PAGE_SIZE);
 
-                renderCards();
+          if(totalPages <= 1) return;
 
-                scrollToReview();
+          const maxVisible = 5;
 
-            }
+          let startPage =
+              Math.max(
+                  1,
+                  currentPage - 2
+              );
 
-        });
+          let endPage =
+              startPage + maxVisible - 1;
 
-        pagination.appendChild(prevBtn);
+          if(endPage > totalPages){
 
-        /* =====================================================
-          NUMBER
-        ===================================================== */
+              endPage = totalPages;
 
-        for(let i=startPage;i<=endPage;i++){
+              startPage =
+                  Math.max(
+                      1,
+                      endPage - maxVisible + 1
+                  );
 
-            const btn =
-                document.createElement('button');
+          }
 
-            btn.className = 'google-page-btn';
+          /* =====================================================
+            PREV
+          ===================================================== */
 
-            if(i === currentPage){
-                btn.classList.add('active');
-            }
+          const prevBtn =
+              document.createElement('button');
 
-            btn.textContent = i;
+          prevBtn.className =
+              'google-page-btn';
 
-            btn.addEventListener('click',()=>{
+          prevBtn.innerHTML =
+              '<i class="fa-solid fa-chevron-left"></i>';
 
-                currentPage = i;
+          prevBtn.disabled =
+              currentPage === 1;
 
-                renderCards();
+          prevBtn.addEventListener('click',()=>{
 
-                scrollToReview();
+              if(currentPage <= 1) return;
 
-            });
+              currentPage--;
 
-            pagination.appendChild(btn);
+              renderCards();
 
-        }
+              scrollToPagination();
 
-        /* =====================================================
-          NEXT
-        ===================================================== */
+          });
 
-        const nextBtn =
-            document.createElement('button');
+          pagination.appendChild(prevBtn);
 
-        nextBtn.className = 'google-page-btn';
+          /* =====================================================
+            PAGE NUMBER
+          ===================================================== */
 
-        nextBtn.innerHTML =
-            '<i class="fa-solid fa-chevron-right"></i>';
+          for(let i=startPage;i<=endPage;i++){
 
-        nextBtn.disabled =
-            currentPage === totalPages;
+              const btn =
+                  document.createElement('button');
 
-        nextBtn.addEventListener('click',()=>{
+              btn.className =
+                  'google-page-btn';
 
-            if(currentPage < totalPages){
+              if(i === currentPage){
+                  btn.classList.add('active');
+              }
 
-                currentPage++;
+              btn.textContent = i;
 
-                renderCards();
+              btn.addEventListener('click',()=>{
 
-                scrollToReview();
+                  currentPage = i;
 
-            }
+                  renderCards();
 
-        });
+                  scrollToPagination();
 
-        pagination.appendChild(nextBtn);
+              });
 
-    }
+              pagination.appendChild(btn);
 
-    /* =========================================================
-      SCROLL STAY
-    ========================================================= */
+          }
 
-    function scrollToReview(){
+          /* =====================================================
+            NEXT
+          ===================================================== */
 
-      requestAnimationFrame(()=>{
+          const nextBtn =
+              document.createElement('button');
 
-          const top =
-              grid.offsetTop - 140;
+          nextBtn.className =
+              'google-page-btn';
 
-          window.scrollTo({
+          nextBtn.innerHTML =
+              '<i class="fa-solid fa-chevron-right"></i>';
 
-              top,
+          nextBtn.disabled =
+              currentPage === totalPages;
 
-              behavior:'smooth'
+          nextBtn.addEventListener('click',()=>{
+
+              if(currentPage >= totalPages) return;
+
+              currentPage++;
+
+              renderCards();
+
+              scrollToPagination();
+
+          });
+
+          pagination.appendChild(nextBtn);
+
+      }
+
+      /* =========================================================
+        FILTER EVENT
+      ========================================================= */
+
+      filterBtns.forEach(btn=>{
+
+          btn.addEventListener('click',function(e){
+
+              e.preventDefault();
+
+              filterBtns.forEach(b=>{
+                  b.classList.remove('active');
+              });
+
+              this.classList.add('active');
+
+              currentFilter =
+                  this.dataset.filter;
+
+              currentPage = 1;
+
+              renderCards();
+
+              scrollToPagination();
 
           });
 
       });
 
-  }
+      /* =========================================================
+        MODAL OPEN
+      ========================================================= */
 
-    /* =========================================================
-      FILTER EVENT
-    ========================================================= */
+      document.addEventListener('click',function(e){
 
-    filterBtns.forEach(btn=>{
+          const btn =
+              e.target.closest(
+                  '.google-review-more'
+              );
 
-        btn.addEventListener('click',function(e){
+          if(!btn) return;
 
-            e.preventDefault();
+          const author =
+              btn.dataset.author;
 
-            filterBtns.forEach(b=>{
-                b.classList.remove('active');
-            });
+          const text =
+              btn.dataset.text;
 
-            this.classList.add('active');
+          const date =
+              btn.dataset.date;
 
-            currentFilter =
-                this.dataset.filter;
+          const rating =
+              parseInt(btn.dataset.rating);
 
-            currentPage = 1;
+          modalAuthor.textContent = author;
 
-            renderCards();
+          modalText.textContent = text;
 
-        });
+          modalDate.textContent = date;
 
-    });
+          modalAvatar.textContent =
+              author.charAt(0).toUpperCase();
 
-    /* =========================================================
-      MODAL
-    ========================================================= */
+          let stars = '';
 
-    document.addEventListener('click',function(e){
+          for(let i=1;i<=5;i++){
 
-        const btn = e.target.closest(
-            '.google-review-more'
-        );
+              if(i <= rating){
 
-        if(!btn) return;
+                  stars += `
+                      <i class="fa-solid fa-star"></i>
+                  `;
 
-        const author = btn.dataset.author;
-        const text   = btn.dataset.text;
-        const date   = btn.dataset.date;
-        const rating = parseInt(btn.dataset.rating);
+              }else{
 
-        modalAuthor.textContent = author;
-        modalText.textContent = text;
-        modalDate.textContent = date;
+                  stars += `
+                      <i class="fa-regular fa-star"></i>
+                  `;
 
-        modalAvatar.textContent =
-            author.charAt(0).toUpperCase();
+              }
 
-        let stars = '';
+          }
 
-        for(let i=1;i<=5;i++){
+          modalStars.innerHTML = stars;
 
-            if(i <= rating){
+          modal.classList.add('active');
 
-                stars += `
-                    <i class="fa-solid fa-star"></i>
-                `;
+          document.body.style.overflow = 'hidden';
 
-            }else{
+      });
 
-                stars += `
-                    <i class="fa-regular fa-star"></i>
-                `;
+      /* =========================================================
+        CLOSE MODAL
+      ========================================================= */
 
-            }
+      function closeGoogleModal(){
 
-        }
+          modal.classList.remove('active');
 
-        modalStars.innerHTML = stars;
+          document.body.style.overflow = '';
 
-        modal.classList.add('active');
+      }
 
-        document.body.style.overflow = 'hidden';
+      modalClose.addEventListener(
+          'click',
+          closeGoogleModal
+      );
 
-    });
+      modal.addEventListener('click',function(e){
 
-    /* =========================================================
-      CLOSE MODAL
-    ========================================================= */
+          if(
+              e.target.classList.contains(
+                  'google-review-modal-backdrop'
+              )
+          ){
+              closeGoogleModal();
+          }
 
-    function closeGoogleModal(){
+      });
 
-        modal.classList.remove('active');
+      document.addEventListener('keydown',function(e){
 
-        document.body.style.overflow = '';
+          if(e.key === 'Escape'){
+              closeGoogleModal();
+          }
 
-    }
+      });
 
-    modalClose.addEventListener(
-        'click',
-        closeGoogleModal
-    );
+      /* =========================================================
+        INIT
+      ========================================================= */
 
-    modal.addEventListener('click',function(e){
-
-        if(
-            e.target.classList.contains(
-                'google-review-modal-backdrop'
-            )
-        ){
-            closeGoogleModal();
-        }
-
-    });
-
-    document.addEventListener('keydown',function(e){
-
-        if(e.key === 'Escape'){
-            closeGoogleModal();
-        }
-
-    });
-
-    renderCards();
+      renderCards();
 
   })();
 
