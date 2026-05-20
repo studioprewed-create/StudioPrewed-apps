@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const header = document.getElementById('siteHeader');
   const navLinks = document.querySelectorAll("nav a");
 
+  const sectionFloat = document.querySelector(".section-float");
+
   if (navLinks.length) {
     navLinks.forEach(link => {
       link.addEventListener("click", function () {
@@ -55,6 +57,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(showText, 2000);
     setInterval(showText, 10000);
+  }
+
+  if (sectionFloat) {
+
+      function showSectionText() {
+
+          if (
+              sectionFloat.classList.contains(
+                  'hide'
+              )
+          ) return;
+
+          sectionFloat.classList.add(
+              "show"
+          );
+
+          setTimeout(() => {
+
+              sectionFloat.classList.remove(
+                  "show"
+              );
+
+          }, 4000);
+
+      }
+
+      setTimeout(showSectionText, 2500);
+
+      setInterval(showSectionText, 12000);
+
   }
 
   (function initSuccessAlert() {

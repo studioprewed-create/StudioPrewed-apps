@@ -33,13 +33,6 @@
     @include('HOMEPAGES.SECTION.Header.Header')
     <main>
         @include('HOMEPAGES.SECTION.Videoplay')
-        <a href="#aboutSection"
-            class="section-float"
-            aria-label="Ke About">
-
-            <i class="fas fa-arrow-down"></i>
-
-        </a>
         @include('HOMEPAGES.SECTION.Marquee')
         @include('HOMEPAGES.SECTION.Aboutus')
         {{-- @include('HOMEPAGES.SECTION.WhyUs') --}}
@@ -49,6 +42,18 @@
         @include('HOMEPAGES.SECTION.Footer')
     </main>
  <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Dashboard.js') }}"></script>
+
+    <a href="#aboutSection"
+        class="section-float"
+        aria-label="Scroll Ke Bawah">
+
+        <span class="section-text">
+            Explore Home
+        </span>
+
+        <i class="fas fa-arrow-down"></i>
+
+    </a>
 
     <a href="https://wa.me/628195042022"
         class="wa-float"
