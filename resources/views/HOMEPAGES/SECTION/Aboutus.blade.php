@@ -4,7 +4,7 @@
     $model3 = $aboutus->where('model_type','model3')->sortBy('order');
 @endphp
 
-<div class="container">
+<div class="container" id="aboutSection" >
     <div class="google-review-heading">
         <div>
             <span class="eyebrow">

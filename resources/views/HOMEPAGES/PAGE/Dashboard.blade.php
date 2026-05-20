@@ -33,6 +33,13 @@
     @include('HOMEPAGES.SECTION.Header.Header')
     <main>
         @include('HOMEPAGES.SECTION.Videoplay')
+        <a href="#aboutSection"
+            class="section-float"
+            aria-label="Ke About">
+
+            <i class="fas fa-arrow-down"></i>
+
+        </a>
         @include('HOMEPAGES.SECTION.Marquee')
         @include('HOMEPAGES.SECTION.Aboutus')
         {{-- @include('HOMEPAGES.SECTION.WhyUs') --}}
