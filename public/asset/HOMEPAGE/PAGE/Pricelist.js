@@ -9,39 +9,30 @@ function enableModalBackClose(
 
     if (!modal) return;
 
-    // cegah duplicate history
-    if (!history.state?.modalOpen) {
+    // SELALU push state baru
+    history.pushState(
+        {
+            modalId: modal.id
+        },
+        ''
+    );
 
-        history.pushState(
-            { modalOpen: true },
-            ''
-        );
-    }
+    function handleBack(e) {
 
-    function handleBack() {
+        const state = e.state;
 
+        // kalau modal ini masih open
         const isOpen =
 
-            modal.classList.contains(
-                'is-open'
-            ) ||
+            modal.classList.contains('is-open') ||
 
-            modal.classList.contains(
-                'active'
-            ) ||
+            modal.classList.contains('active') ||
 
-            modal.classList.contains(
-                'show'
-            ) ||
-
-            modal.style.display === 'block' ||
-
-            modal.style.display === 'flex';
+            modal.classList.contains('show');
 
         if (isOpen) {
 
             closeCallback();
-
         }
 
         window.removeEventListener(
@@ -102,6 +93,11 @@ function closeDetail(modal) {
     modal.classList.remove('show');
 
     modal.style.display = 'none';
+
+    modal.setAttribute(
+        'aria-hidden',
+        'true'
+    );
 
     document.body.style.overflow = '';
 
