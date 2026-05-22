@@ -958,6 +958,42 @@ document.addEventListener("DOMContentLoaded", function () {
     applyFilter(initialFilter);
   })();
 
+  function enableModalBackClose(modal, closeCallback) {
+
+      if (!modal) return;
+
+      if (!history.state?.modalOpen) {
+
+        history.pushState(
+            { modalOpen: true },
+            ''
+        );
+
+    }
+
+      function handleBack() {
+
+          if (
+              modal.classList.contains('active') ||
+              modal.style.display === 'flex'
+          ) {
+
+              closeCallback();
+
+          }
+
+          window.removeEventListener(
+              'popstate',
+              handleBack
+          );
+      }
+
+      window.addEventListener(
+          'popstate',
+          handleBack
+      );
+  }
+
  (function initGalleryModal() {
 
   const modal = document.getElementById('imageModal');
@@ -990,6 +1026,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+
+        enableModalBackClose(
+            modal,
+            closeModal
+        );
 
         const wa = document.querySelector('.wa-float');
         if (wa) wa.classList.add('hide');
@@ -1586,6 +1627,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
           document.body.style.overflow =
               'hidden';
+          
+          enableModalBackClose(
+              modal,
+              closeGoogleModal
+          );
 
       });
 
@@ -1693,6 +1739,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
           document.body.style.overflow =
               'hidden';
+
+          enableModalBackClose(
+              imageModal,
+              closeImageModal
+          );
 
       });
 

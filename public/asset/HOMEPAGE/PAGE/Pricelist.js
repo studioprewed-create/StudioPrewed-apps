@@ -1,6 +1,44 @@
 // =======================================
 //  IMAGE ZOOM UNTUK PACKAGE CARDS
 // =======================================
+
+function enableModalBackClose(modal, closeCallback) {
+
+      if (!modal) return;
+
+      if (!history.state?.modalOpen) {
+
+        history.pushState(
+            { modalOpen: true },
+            ''
+        );
+
+    }
+
+      function handleBack() {
+
+          if (
+              modal.classList.contains('active') ||
+              modal.style.display === 'flex'
+          ) {
+
+              closeCallback();
+
+          }
+
+          window.removeEventListener(
+              'popstate',
+              handleBack
+          );
+      }
+
+      window.addEventListener(
+          'popstate',
+          handleBack
+      );
+  }
+
+
 function expandImage(src) {
     const modal = document.getElementById('imageModal');
     const img   = document.getElementById('expandedImage');
@@ -174,29 +212,27 @@ document.addEventListener('DOMContentLoaded', function () {
         );
     }
 
-    document
-        .querySelectorAll('.contenteditable[data-section="addon"]')
-        .forEach(el => {
-            el.addEventListener('blur', () => {
-                const id    = el.dataset.id;
-                const field = el.dataset.field;
-                const value = el.innerText.trim();
+    document.querySelectorAll('.contenteditable[data-section="addon"]').forEach(el => {
+        el.addEventListener('blur', () => {
+            const id    = el.dataset.id;
+            const field = el.dataset.field;
+            const value = el.innerText.trim();
 
-                if (!id || !field) return;
+            if (!id || !field) return;
 
-                fetch(`/executive/homepages/inline-update/addon/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ [field]: value }),
-                }).catch(() => {
-                    // kalau gagal diam saja dulu, bisa ditambah toast kalau mau
-                });
+            fetch(`/executive/homepages/inline-update/addon/${id}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ [field]: value }),
+            }).catch(() => {
+                // kalau gagal diam saja dulu, bisa ditambah toast kalau mau
             });
         });
+    });
 
     // ==============================
     //  LEAFLET MAP
@@ -323,9 +359,6 @@ document.addEventListener('DOMContentLoaded', function () {
         startCarousel();
     }
 
-    // ==============================
-    //  GALLERY CENTER CAROUSEL
-    // ==============================
     const galleryTrack   = document.querySelector('.gallery-track');
     const galleryItems   = document.querySelectorAll('.gallery-item');
     const galleryPrevBtn = document.querySelector('.nav-btn.prev');
@@ -378,6 +411,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
 
+                enableModalBackClose(
+                    modal,
+                    () => closeDetail(modal)
+                );
+
                 const wa = document.querySelector('.wa-float');
                 if (wa) wa.classList.add('hide');
 
@@ -407,6 +445,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (modal) {
                 modal.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
+
+                enableModalBackClose(
+                    modal,
+                    () => closeDetail(modal)
+                );
 
                 const wa = document.querySelector('.wa-float');
                 if (wa) wa.classList.add('hide');
@@ -639,6 +682,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     modal.classList.add('is-open');
                     document.body.style.overflow = 'hidden';
 
+                    enableModalBackClose(
+                        modal,
+                        () => closeDetail(modal)
+                    );
+
                     const wa = document.querySelector('.wa-float');
                     if (wa) wa.classList.add('hide');
 
@@ -779,6 +827,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (nextModal) {
                     nextModal.classList.add('is-open');
                     document.body.style.overflow = 'hidden';
+
+                    enableModalBackClose(
+                        nextModal,
+                        () => closeDetail(nextModal)
+                    );
                     
                     const wa = document.querySelector('.wa-float');
                     if (wa) wa.classList.add('hide');
