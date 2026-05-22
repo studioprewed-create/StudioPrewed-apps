@@ -10,7 +10,11 @@ function expandImage(src) {
     modal.style.display = 'block';
 
     const wa = document.querySelector('.wa-float');
+    const sectionFloat = document.querySelector('.section-float');
     if (wa) wa.classList.add('hide');
+    if (sectionFloat) {
+        sectionFloat.classList.add('hide');
+    }
 }
 
 document.addEventListener('click', function (e) {
@@ -624,6 +628,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const wa = document.querySelector('.wa-float');
             if (wa) wa.classList.remove('hide');
+
+            if (sectionFloat)sectionFloat.classList.remove('hide');
         }
 
         document.addEventListener('click', e => {
