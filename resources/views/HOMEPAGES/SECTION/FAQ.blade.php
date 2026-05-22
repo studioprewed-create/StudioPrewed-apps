@@ -23,7 +23,6 @@
         </div>
 
         <section class="faq-section" id="faq">
-            <div class="container">
                 <div class="faq-list">
                     @foreach($faqs as $faq)
                         <div class="faq-item">
@@ -37,7 +36,6 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
         </section>
     </div>
 </section>
