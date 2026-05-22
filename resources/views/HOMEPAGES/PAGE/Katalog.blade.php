@@ -56,6 +56,7 @@
 
     {{-- Main JS --}}
     <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.js') }}"></script>
+    <script src="{{ asset('public/asset/HOMEPAGE/JSHOME/Theme.js') }}"></script>
 
     <a href="#Tema-Baju"
         class="section-float"
@@ -72,6 +73,14 @@
         <i class="fas fa-arrow-down"></i>
 
     </a>
+
+    <button id="themeToggle"
+        class="theme-toggle"
+        aria-label="Toggle Theme">
+
+        <i class="fas fa-moon"></i>
+
+    </button>
 
     <a href="https://wa.me/628195042022"
         class="wa-float"

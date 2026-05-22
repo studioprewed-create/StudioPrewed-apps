@@ -73,6 +73,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+
+    transition:
+    background .4s ease,
+    color .4s ease;
 }
 
 h1, h2, h3, h4 {
@@ -508,6 +512,97 @@ h1, h2, h3, h4 {
         transform:translateY(0);
     }
 }
+
+/* =========================================
+   THEME TOGGLE
+========================================= */
+
+.theme-toggle{
+
+    position:fixed;
+
+    bottom:170px;
+
+    right:20px;
+
+    width:55px;
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--dark-card);
+
+    color:var(--white);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:99999;
+
+    font-size:20px;
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+}
+
+.theme-toggle:hover{
+
+    transform:translateY(-3px) scale(1.05);
+
+}
+
+/* =========================================
+   LIGHT MODE VARIABLE OVERRIDE
+========================================= */
+
+body.light-mode{
+
+    --black: #ffffff;
+    --white: #111111;
+
+    --dark: #f5f5f5;
+    --dark-gray: #ebebeb;
+    --medium-gray: #dddddd;
+
+    --light-gray: #555555;
+
+    --off-white: #111111;
+    --cream: #f5f5f5;
+
+    --primary: #1a1a1a;
+    --primary-dark: #000000;
+
+    --secondary: #444444;
+
+    --dark-bg: #ffffff;
+    --dark-surface: #f5f5f5;
+    --dark-card: #ffffff;
+
+    --text: #111111;
+    --text-light: #444444;
+    --text-lighter: #666666;
+
+    --border: #d6d6d6;
+
+    --bg:#ffffff;
+    --panel:#f5f5f5;
+    --card:#ffffff;
+
+    --line:#dddddd;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
 
 @media (max-width: 768px) {
     .wa-float {
