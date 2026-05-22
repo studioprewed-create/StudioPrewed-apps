@@ -12,9 +12,8 @@ function expandImage(src) {
     const wa = document.querySelector('.wa-float');
     const sectionFloat = document.querySelector('.section-float');
     if (wa) wa.classList.add('hide');
-    if (sectionFloat) {
+    if (sectionFloat)
         sectionFloat.classList.add('hide');
-    }
 }
 
 document.addEventListener('click', function (e) {
