@@ -993,6 +993,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const wa = document.querySelector('.wa-float');
         if (wa) wa.classList.add('hide');
+
+        const sectionFloat =
+            document.querySelector('.section-float');
+
+        if (sectionFloat) {
+            sectionFloat.classList.remove('show');
+            sectionFloat.classList.add('hide');
+        }
       });
     });
 
@@ -1002,6 +1010,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const wa = document.querySelector('.wa-float');
       if (wa) wa.classList.remove('hide');
+
+      const sectionFloat =
+          document.querySelector('.section-float');
+
+      if (sectionFloat) {
+          sectionFloat.classList.remove('hide');
+      }
+      
     }
 
     // tombol X
