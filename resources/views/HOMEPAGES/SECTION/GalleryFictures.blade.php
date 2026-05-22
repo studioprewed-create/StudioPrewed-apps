@@ -1,4 +1,4 @@
-<div class="floating-middlebar">
+<div class="floating-middlebar" id="Portofolio">
     <div class="middlebar-container">
       <div class="gallery-filter">
         <button class="filter-btn {{ empty($selectedCategory) ? 'active' : '' }}" data-filter="all">

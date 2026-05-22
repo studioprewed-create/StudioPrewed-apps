@@ -61,17 +61,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (sectionFloat) {
 
+    const icon = sectionFloat.querySelector("i");
+    const text = sectionFloat.querySelector(".section-text");
+
+    const downTarget =
+        sectionFloat.dataset.downTarget;
+
+    const upTarget =
+        sectionFloat.dataset.upTarget;
+
+    const downText =
+        sectionFloat.dataset.downText ||
+        "Explore";
+
+    const upText =
+        sectionFloat.dataset.upText ||
+        "Back To Top";
+
+    const targetSection =
+        document.querySelector(downTarget);
+
+      /* =========================
+        FLOAT ANIMATION
+      ========================= */
+
       function showSectionText() {
 
           if (
-              sectionFloat.classList.contains(
-                  'hide'
-              )
+              sectionFloat.classList.contains('hide')
           ) return;
 
-          sectionFloat.classList.add(
-              "show"
-          );
+          sectionFloat.classList.add("show");
 
           setTimeout(() => {
 
@@ -80,13 +100,75 @@ document.addEventListener("DOMContentLoaded", function () {
               );
 
           }, 4000);
-
       }
 
       setTimeout(showSectionText, 2500);
 
       setInterval(showSectionText, 12000);
 
+      /* =========================
+        UPDATE BUTTON
+      ========================= */
+
+      function updateSectionFloat() {
+
+          if (!targetSection) return;
+
+          const triggerPoint =
+              targetSection.offsetTop - 100;
+
+          if (window.scrollY >= triggerPoint) {
+
+              sectionFloat.setAttribute(
+                  "href",
+                  upTarget
+              );
+
+              sectionFloat.setAttribute(
+                  "aria-label",
+                  upText
+              );
+
+              text.textContent = upText;
+
+              icon.classList.remove(
+                  "fa-arrow-down"
+              );
+
+              icon.classList.add(
+                  "fa-arrow-up"
+              );
+
+          } else {
+
+              sectionFloat.setAttribute(
+                  "href",
+                  downTarget
+              );
+
+              sectionFloat.setAttribute(
+                  "aria-label",
+                  downText
+              );
+
+              text.textContent = downText;
+
+              icon.classList.remove(
+                  "fa-arrow-up"
+              );
+
+              icon.classList.add(
+                  "fa-arrow-down"
+              );
+          }
+      }
+
+      updateSectionFloat();
+
+      window.addEventListener(
+          "scroll",
+          updateSectionFloat
+      );
   }
 
   (function initSuccessAlert() {

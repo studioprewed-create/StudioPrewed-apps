@@ -553,20 +553,19 @@ h1, h2, h3, h4 {
 
     .section-float{
         left:18px;
-        bottom:24px;
+        bottom:40px;
     }
 
     .section-float i{
-        width:52px;
-        height:52px;
-
-        font-size:19px;
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
     }
 
     .section-text{
-        font-size:12px;
-
-        padding:9px 12px;
+        font-size: 12px;
+        padding: 8px 10px;
+        max-width: 140px;
     }
 
 }

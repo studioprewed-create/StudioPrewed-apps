@@ -59,7 +59,11 @@
 
     <a href="#Tema-Baju"
         class="section-float"
-        aria-label="Scroll Ke Bawah">
+        data-down-target="#aboutSection"
+        data-down-text="Explore Home"
+        data-up-target="#siteHeader"
+        data-up-text="Back To Top"
+        aria-label="Scroll Navigation">
 
         <span class="section-text">
             Explore Katalog
