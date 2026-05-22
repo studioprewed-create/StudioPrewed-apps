@@ -9,31 +9,48 @@ function enableModalBackClose(
 
     if (!modal) return;
 
-    // SELALU push state baru
+    // =================================
+    // CEGAH LISTENER NUMPUK
+    // =================================
+
+    if (modal._backHandlerAttached) {
+        return;
+    }
+
+    modal._backHandlerAttached = true;
+
+    // =================================
+    // PUSH HISTORY SEKALI
+    // =================================
+
     history.pushState(
         {
+            modalOpen: true,
             modalId: modal.id
         },
         ''
     );
 
-    function handleBack(e) {
+    function handleBack() {
 
-        const state = e.state;
-
-        // kalau modal ini masih open
         const isOpen =
 
             modal.classList.contains('is-open') ||
 
             modal.classList.contains('active') ||
 
-            modal.classList.contains('show');
+            modal.style.display === 'block' ||
+
+            modal.style.display === 'flex';
 
         if (isOpen) {
 
             closeCallback();
+
         }
+
+        // reset supaya bisa dibuka lagi
+        modal._backHandlerAttached = false;
 
         window.removeEventListener(
             'popstate',
@@ -45,6 +62,9 @@ function enableModalBackClose(
         'popstate',
         handleBack
     );
+
+    // simpan biar bisa dihapus manual kalau perlu
+    modal._backHandler = handleBack;
 }
 
 
@@ -81,38 +101,6 @@ document.addEventListener('click', function (e) {
             sectionFloat.classList.remove('hide');
     }
 });
-
-function closeDetail(modal) {
-
-    if (!modal) return;
-
-    modal.classList.remove('is-open');
-
-    modal.classList.remove('active');
-
-    modal.classList.remove('show');
-
-    modal.style.display = 'none';
-
-    modal.setAttribute(
-        'aria-hidden',
-        'true'
-    );
-
-    document.body.style.overflow = '';
-
-    const wa =
-        document.querySelector('.wa-float');
-
-    const sectionFloat =
-        document.querySelector('.section-float');
-
-    if (wa)
-        wa.classList.remove('hide');
-
-    if (sectionFloat)
-        sectionFloat.classList.remove('hide');
-}
 
 // =======================================
 //  DOM READY
@@ -739,6 +727,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
+
+        function closeDetail(modal) {
+            modal.classList.remove('is-open');
+            document.body.style.overflow = '';
+
+            const wa = document.querySelector('.wa-float');
+            const sectionFloat = document.querySelector('.section-float');
+            if (wa) wa.classList.remove('hide');
+
+            if (sectionFloat)sectionFloat.classList.remove('hide');
+        }
 
         document.addEventListener('click', e => {
             if (e.target.matches('[data-close-detail]')) {
