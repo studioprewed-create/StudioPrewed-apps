@@ -2,41 +2,47 @@
 //  IMAGE ZOOM UNTUK PACKAGE CARDS
 // =======================================
 
-function enableModalBackClose(modal, closeCallback) {
+function enableModalBackClose(
+    modal,
+    closeCallback
+) {
 
-      if (!modal) return;
+    if (!modal) return;
 
-      if (!history.state?.modalOpen) {
+    history.pushState(
+        { modalOpen: true },
+        ''
+    );
 
-        history.pushState(
-            { modalOpen: true },
-            ''
+    function handleBack() {
+
+        const isOpen =
+
+            modal.classList.contains('is-open') ||
+
+            modal.classList.contains('active') ||
+
+            modal.style.display === 'block' ||
+
+            modal.style.display === 'flex';
+
+        if (isOpen) {
+
+            closeCallback();
+
+        }
+
+        window.removeEventListener(
+            'popstate',
+            handleBack
         );
-
     }
 
-      function handleBack() {
-
-          if (
-              modal.classList.contains('active') ||
-              modal.style.display === 'flex'
-          ) {
-
-              closeCallback();
-
-          }
-
-          window.removeEventListener(
-              'popstate',
-              handleBack
-          );
-      }
-
-      window.addEventListener(
-          'popstate',
-          handleBack
-      );
-  }
+    window.addEventListener(
+        'popstate',
+        handleBack
+    );
+}
 
 
 function expandImage(src) {
