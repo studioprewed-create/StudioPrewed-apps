@@ -20,6 +20,18 @@ document.addEventListener('click', function (e) {
     if (e.target.matches('[data-close-img]') || e.target.id === 'imageModal') {
         const modal = document.getElementById('imageModal');
         if (modal) modal.style.display = 'none';
+
+        const wa =
+        document.querySelector('.wa-float');
+
+        const sectionFloat =
+            document.querySelector('.section-float');
+
+        if (wa)
+            wa.classList.remove('hide');
+
+        if (sectionFloat)
+            sectionFloat.classList.remove('hide');
     }
 });
 
@@ -368,6 +380,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const wa = document.querySelector('.wa-float');
                 if (wa) wa.classList.add('hide');
+
+                const sectionFloat =
+                    document.querySelector('.section-float');
+
+                if (sectionFloat)
+                    sectionFloat.classList.add('hide');
             }
         });
     });
