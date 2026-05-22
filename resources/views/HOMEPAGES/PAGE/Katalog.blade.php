@@ -57,6 +57,18 @@
     {{-- Main JS --}}
     <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.js') }}"></script>
 
+    <a href="#Tema-Baju"
+        class="section-float"
+        aria-label="Scroll Ke Bawah">
+
+        <span class="section-text">
+            Explore Katalog
+        </span>
+
+        <i class="fas fa-arrow-down"></i>
+
+    </a>
+
     <a href="https://wa.me/628195042022"
         class="wa-float"
         target="_blank"

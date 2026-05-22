@@ -27,6 +27,18 @@
     </main>
 <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Dashboard.js') }}"></script>
 
+    <a href="#gallery"
+        class="section-float"
+        aria-label="Scroll Ke Bawah">
+
+        <span class="section-text">
+            Explore Portofolio
+        </span>
+
+        <i class="fas fa-arrow-down"></i>
+
+    </a>
+
     <a href="https://wa.me/628195042022"
         class="wa-float"
         target="_blank"

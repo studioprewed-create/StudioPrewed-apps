@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const $  = (sel, ctx = document) => ctx.querySelector(sel);
     const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
     const wa = document.querySelector(".wa-float");
+    const sectionFloat = document.querySelector(".section-float");
+
 
     if (wa) {
         function showText() {
@@ -43,6 +45,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTimeout(showText, 2000);
         setInterval(showText, 10000);
+    }
+
+    if (sectionFloat) {
+
+        function showSectionText() {
+
+            if (
+                sectionFloat.classList.contains(
+                    'hide'
+                )
+            ) return;
+
+            sectionFloat.classList.add(
+                "show"
+            );
+
+            setTimeout(() => {
+
+                sectionFloat.classList.remove(
+                    "show"
+                );
+
+            }, 4000);
+
+        }
+
+        setTimeout(showSectionText, 2500);
+
+        setInterval(showSectionText, 12000);
+
     }
 
     document
