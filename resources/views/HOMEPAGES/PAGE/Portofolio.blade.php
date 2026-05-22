@@ -30,7 +30,7 @@
     <a href="#Portofolio"
         class="section-float"
         data-down-target="#Portofolio"
-        data-down-text="Explore Home"
+        data-down-text="Explore Portofolio"
         data-up-target="#home"
         data-up-text="Back To Top"
         aria-label="Scroll Navigation">

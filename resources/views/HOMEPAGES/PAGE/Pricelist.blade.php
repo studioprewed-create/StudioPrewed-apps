@@ -65,7 +65,7 @@
     <a href="#packages-container"
         class="section-float"
         data-down-target="#packages-container"
-        data-down-text="Explore Home"
+        data-down-text="Explore Pricelist"
         data-up-target="#home"
         data-up-text="Back To Top"
         aria-label="Scroll Navigation">

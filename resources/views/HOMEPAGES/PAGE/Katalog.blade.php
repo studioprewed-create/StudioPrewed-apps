@@ -60,7 +60,7 @@
     <a href="#Tema-Baju"
         class="section-float"
         data-down-target="#Tema-Baju"
-        data-down-text="Explore Home"
+        data-down-text="Explore Katalog"
         data-up-target="#home"
         data-up-text="Back To Top"
         aria-label="Scroll Navigation">
