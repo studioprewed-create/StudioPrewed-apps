@@ -47,7 +47,7 @@
         class="section-float"
         data-down-target="#aboutSection"
         data-down-text="Explore Home"
-        data-up-target="#siteHeader"
+        data-up-target="#home"
         data-up-text="Back To Top"
         aria-label="Scroll Navigation">
 

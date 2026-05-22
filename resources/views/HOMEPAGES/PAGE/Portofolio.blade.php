@@ -29,9 +29,9 @@
 
     <a href="#Portofolio"
         class="section-float"
-        data-down-target="#aboutSection"
+        data-down-target="#Portofolio"
         data-down-text="Explore Home"
-        data-up-target="#siteHeader"
+        data-up-target="#home"
         data-up-text="Back To Top"
         aria-label="Scroll Navigation">
 
