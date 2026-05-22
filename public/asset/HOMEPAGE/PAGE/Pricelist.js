@@ -91,6 +91,33 @@ document.addEventListener('click', function (e) {
     }
 });
 
+function closeDetail(modal) {
+
+    if (!modal) return;
+
+    modal.classList.remove('is-open');
+
+    modal.classList.remove('active');
+
+    modal.classList.remove('show');
+
+    modal.style.display = 'none';
+
+    document.body.style.overflow = '';
+
+    const wa =
+        document.querySelector('.wa-float');
+
+    const sectionFloat =
+        document.querySelector('.section-float');
+
+    if (wa)
+        wa.classList.remove('hide');
+
+    if (sectionFloat)
+        sectionFloat.classList.remove('hide');
+}
+
 // =======================================
 //  DOM READY
 // =======================================
@@ -716,17 +743,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
-
-        function closeDetail(modal) {
-            modal.classList.remove('is-open');
-            document.body.style.overflow = '';
-
-            const wa = document.querySelector('.wa-float');
-            const sectionFloat = document.querySelector('.section-float');
-            if (wa) wa.classList.remove('hide');
-
-            if (sectionFloat)sectionFloat.classList.remove('hide');
-        }
 
         document.addEventListener('click', e => {
             if (e.target.matches('[data-close-detail]')) {
