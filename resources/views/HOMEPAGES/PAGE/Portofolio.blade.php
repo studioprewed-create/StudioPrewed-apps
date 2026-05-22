@@ -44,13 +44,13 @@
 
     </a>
 
-    <button id="themeToggle"
+    {{-- <button id="themeToggle"
         class="theme-toggle"
         aria-label="Toggle Theme">
 
         <i class="fas fa-moon"></i>
 
-    </button>
+    </button> --}}
 
     <a href="https://wa.me/628195042022"
         class="wa-float"
