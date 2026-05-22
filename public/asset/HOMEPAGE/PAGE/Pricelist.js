@@ -9,18 +9,30 @@ function enableModalBackClose(
 
     if (!modal) return;
 
-    history.pushState(
-        { modalOpen: true },
-        ''
-    );
+    // cegah duplicate history
+    if (!history.state?.modalOpen) {
+
+        history.pushState(
+            { modalOpen: true },
+            ''
+        );
+    }
 
     function handleBack() {
 
         const isOpen =
 
-            modal.classList.contains('is-open') ||
+            modal.classList.contains(
+                'is-open'
+            ) ||
 
-            modal.classList.contains('active') ||
+            modal.classList.contains(
+                'active'
+            ) ||
+
+            modal.classList.contains(
+                'show'
+            ) ||
 
             modal.style.display === 'block' ||
 
