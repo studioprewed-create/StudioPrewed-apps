@@ -1,11 +1,11 @@
-<section class="google-review-section" id="googleReviewSection">
+<section class="google-review-section" id="aboutSection">
     @php
         $model1 = $aboutus->where('model_type','model1')->sortBy('order');
         $model2 = $aboutus->where('model_type','model2')->sortBy('order');
         $model3 = $aboutus->where('model_type','model3')->sortBy('order');
     @endphp
 
-    <div class="container" id="aboutSection" >
+    <div class="container">
         <div class="google-review-heading">
             <div>
                 <span class="eyebrow">
