@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         } elseif ($role === 'STUDIO') {
             return view('OPERATIONALPAGES.PAGE.STUDIOHOME');
         } elseif ($role === 'CONTENT_CREATOR') {
-            return view('OPERATIONALPAGES.PAGE.STUDIOHOME');
+            return view('OPERATIONALPAGES.PAGE.CONTENTHOME');
         } elseif ($role === 'CLIENT') {
             return app(EXECUTIVEController::class)->index();
         } else {
