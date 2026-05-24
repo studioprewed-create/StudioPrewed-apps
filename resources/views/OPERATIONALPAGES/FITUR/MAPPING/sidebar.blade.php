@@ -6,7 +6,7 @@
     </div>
 
     <ul class="menu">
-        @if(in_array(auth()->user()->role, ['ADMIN', 'DIREKTUR']))
+        @if(in_array(auth()->user()->role, ['ADMIN', 'DIREKTUR', 'CREATIVE_DIRECTOR', 'MANAGER']))
             <li class="menu-item {{ request()->routeIs('executive.dashboard') ? 'active' : '' }}">
                 <a href="{{ route('executive.dashboard') }}" data-page="Dashboard">
                     <i class="fas fa-home"></i> <span>Dashboard</span>
