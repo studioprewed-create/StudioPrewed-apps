@@ -76,6 +76,8 @@
                                     @elseif($user->role === 'ADMIN_ATTIRE') role-admin_attire
                                     @elseif($user->role === 'STYLISH') role-stylish
                                     @elseif($user->role === 'FITTER') role-fitter
+                                    @elseif($user->role === 'BRAND_PARTNERSHIP') role-brand_partnership
+                                    @elseif($user->role === 'STUDIO') role-studio
                                     @endif">
                                     {{ $user->role }}
                                 </span>
@@ -238,6 +240,11 @@
                                 <option value="FITTER">FITTER</option>
                             </optgroup>
 
+                            <optgroup label="Partnership">
+                                <option value="BRAND_PARTNERSHIP">BRAND_PARTNERSHIP</option>
+                                <option value="STUDIO">STUDIO</option>  
+                            </optgroup>
+
                             <optgroup label="Client">
                                 <option value="CLIENT">CLIENT</option>
                             </optgroup>
@@ -312,6 +319,11 @@
                                 <option value="ADMIN_ATTIRE">ADMIN_ATTIRE</option>
                                 <option value="STYLISH">STYLISH</option>
                                 <option value="FITTER">FITTER</option>
+                            </optgroup>
+
+                            <optgroup label="Partnership">
+                                <option value="BRAND_PARTNERSHIP">BRAND_PARTNERSHIP</option>
+                                <option value="STUDIO">STUDIO</option>  
                             </optgroup>
 
                             <optgroup label="Client">

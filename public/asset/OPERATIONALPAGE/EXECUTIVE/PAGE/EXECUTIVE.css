@@ -749,6 +749,18 @@ body {
   border-color: rgba(34,197,94,.35);
 }
 
+.role-brand_partnership {
+  background: rgba(14,165,233,.15);
+  color: #0ea5e9;
+  border-color: rgba(14,165,233,.35);
+}
+
+.role-studio {
+  background: rgba(249,115,22,.15);
+  color: #f97316;
+  border-color: rgba(249,115,22,.35);
+}
+
 /* Chips meta */
 .chips {
   display: flex;
