@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
             return view('OPERATIONALPAGES.PAGE.BRANDPARTNERSHIPHOME');
         } elseif ($role === 'STUDIO') {
             return view('OPERATIONALPAGES.PAGE.STUDIOHOME');
+        } elseif ($role === 'CONTENT_CREATOR') {
+            return view('OPERATIONALPAGES.PAGE.STUDIOHOME');
         } elseif ($role === 'CLIENT') {
             return app(EXECUTIVEController::class)->index();
         } else {

@@ -65,7 +65,7 @@
                                     @if($user->role === 'ADMIN') role-admin
                                     @elseif($user->role === 'DIREKTUR') role-direktur
                                     @elseif($user->role === 'CREATIVE_DIRECTOR') role-creative-director
-                                    @elseif($user->role === 'ATTIRE') role-attire
+                                    @elseif($user->role === 'CONTENT_CREATOR') role-content_creator
                                     @elseif($user->role === 'EDITOR') role-editor
                                     @elseif($user->role === 'PHOTOGRAFER') role-photografer
                                     @elseif($user->role === 'VIDEOGRAFER') role-videografer
@@ -226,7 +226,6 @@
                             </optgroup>
 
                             <optgroup label="Teamtive">
-                                <option value="ATTIRE">ATTIRE</option>
                                 <option value="EDITOR">EDITOR</option>
                                 <option value="PHOTOGRAFER">PHOTOGRAFER</option>
                                 <option value="VIDEOGRAFER">VIDEOGRAFER</option>
@@ -235,6 +234,7 @@
 
                             <optgroup label="Creative">
                                 <option value="MARKETING">MARKETING</option>
+                                <option value="CONTENT_CREATOR">CONTENT_CREATOR</option>
                                 <option value="ADMIN_ATTIRE">ADMIN_ATTIRE</option>
                                 <option value="STYLISH">STYLISH</option>
                                 <option value="FITTER">FITTER</option>
@@ -307,7 +307,6 @@
                             </optgroup>
 
                             <optgroup label="Teamtive">
-                                <option value="ATTIRE">ATTIRE</option>
                                 <option value="EDITOR">EDITOR</option>
                                 <option value="PHOTOGRAFER">PHOTOGRAFER</option>
                                 <option value="VIDEOGRAFER">VIDEOGRAFER</option>
@@ -316,6 +315,7 @@
 
                             <optgroup label="Creative">
                                 <option value="MARKETING">MARKETING</option>
+                                <option value="CONTENT_CREATOR">CONTENT_CREATOR</option>
                                 <option value="ADMIN_ATTIRE">ADMIN_ATTIRE</option>
                                 <option value="STYLISH">STYLISH</option>
                                 <option value="FITTER">FITTER</option>
