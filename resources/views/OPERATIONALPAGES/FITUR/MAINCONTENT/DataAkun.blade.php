@@ -489,6 +489,7 @@
                                 <option value="Kontrak">Kontrak</option>
                                 <option value="Magang">Magang</option>
                                 <option value="Freelance">Freelance</option>
+                                <option value="Tetap">Owner</option>
                             </select>
                         </div>
 
