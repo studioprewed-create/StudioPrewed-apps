@@ -64,13 +64,18 @@
                                 <span class="role-badge
                                     @if($user->role === 'ADMIN') role-admin
                                     @elseif($user->role === 'DIREKTUR') role-direktur
-                                    @elseif($user->role === 'ADMIN_EDITOR') role-admin_editor
+                                    @elseif($user->role === 'CREATIVE_DIRECTOR') role-creative-director
                                     @elseif($user->role === 'ATTIRE') role-attire
                                     @elseif($user->role === 'EDITOR') role-editor
                                     @elseif($user->role === 'PHOTOGRAFER') role-photografer
                                     @elseif($user->role === 'VIDEOGRAFER') role-videografer
                                     @elseif($user->role === 'MAKE_UP') role-make_up
                                     @elseif($user->role === 'CLIENT') role-client
+                                    @elseif($user->role === 'MANAGER') role-manager
+                                    @elseif($user->role === 'MARKETING') role-marketing
+                                    @elseif($user->role === 'ADMIN_ATTIRE') role-admin_attire
+                                    @elseif($user->role === 'STYLISH') role-stylish
+                                    @elseif($user->role === 'FITTER') role-fitter
                                     @endif">
                                     {{ $user->role }}
                                 </span>
@@ -214,7 +219,8 @@
                             <optgroup label="Executive">
                                 <option value="DIREKTUR">DIREKTUR</option>
                                 <option value="ADMIN">ADMIN</option>
-                                <option value="ADMIN_EDITOR">ADMIN_EDITOR</option>
+                                <option value="MANAGER">MANAGER</option>
+                                <option value="CREATIVE_DIRECTOR">CREATIVE_DIRECTOR</option>
                             </optgroup>
 
                             <optgroup label="Teamtive">
@@ -223,6 +229,13 @@
                                 <option value="PHOTOGRAFER">PHOTOGRAFER</option>
                                 <option value="VIDEOGRAFER">VIDEOGRAFER</option>
                                 <option value="MAKE_UP">MAKE_UP</option>
+                            </optgroup>
+
+                            <optgroup label="Creative">
+                                <option value="MARKETING">MARKETING</option>
+                                <option value="ADMIN_ATTIRE">ADMIN_ATTIRE</option>
+                                <option value="STYLISH">STYLISH</option>
+                                <option value="FITTER">FITTER</option>
                             </optgroup>
 
                             <optgroup label="Client">
@@ -282,8 +295,10 @@
                             <optgroup label="Executive">
                                 <option value="DIREKTUR">DIREKTUR</option>
                                 <option value="ADMIN">ADMIN</option>
-                                <option value="ADMIN_EDITOR">ADMIN_EDITOR</option>
+                                <option value="MANAGER">MANAGER</option>
+                                <option value="CREATIVE_DIRECTOR">CREATIVE_DIRECTOR</option>
                             </optgroup>
+
                             <optgroup label="Teamtive">
                                 <option value="ATTIRE">ATTIRE</option>
                                 <option value="EDITOR">EDITOR</option>
@@ -291,6 +306,14 @@
                                 <option value="VIDEOGRAFER">VIDEOGRAFER</option>
                                 <option value="MAKE_UP">MAKE_UP</option>
                             </optgroup>
+
+                            <optgroup label="Creative">
+                                <option value="MARKETING">MARKETING</option>
+                                <option value="ADMIN_ATTIRE">ADMIN_ATTIRE</option>
+                                <option value="STYLISH">STYLISH</option>
+                                <option value="FITTER">FITTER</option>
+                            </optgroup>
+
                             <optgroup label="Client">
                                 <option value="CLIENT">CLIENT</option>
                             </optgroup>

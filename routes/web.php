@@ -32,8 +32,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         $role = auth()->user()->role;
 
-        if (in_array($role, ['ADMIN', 'DIREKTUR'])) {
+        if (in_array($role, ['ADMIN', 'DIREKTUR', 'CREATIVE_DIRECTOR', 'MANAGER'])) {
             return redirect()->route('executive.dashboard');
+        } elseif ($role === 'MARKETING') {
+            return view('OPERATIONALPAGES.PAGE.MARKETINGHOME');
+        } elseif ($role === 'ADMIN_ATTIRE') {
+            return view('OPERATIONALPAGES.PAGE.ADMINATTIREHOME');
+        } elseif ($role === 'STYLISH') {
+            return view('OPERATIONALPAGES.PAGE.STYLISHHOME');
+        } elseif ($role === 'FITTER') {
+            return view('OPERATIONALPAGES.PAGE.FITTERHOME');
         } elseif ($role === 'CLIENT') {
             return app(EXECUTIVEController::class)->index();
         } else {
