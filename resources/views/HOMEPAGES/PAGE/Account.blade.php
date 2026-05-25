@@ -25,6 +25,6 @@
         @include('HOMEPAGES.SECTION.AccountClient')
         @include('HOMEPAGES.SECTION.Footer')
     </main>
-<script src="{{ asset('public/asset/HOMEPAGE/PAGE/Dashboard.js') }}"></script>
+<script type="module" src="{{ asset('public/asset/HOMEPAGE/JSHOME/app.js') }}"></script>
 </body>
 </html>

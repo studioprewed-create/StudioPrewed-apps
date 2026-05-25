@@ -55,7 +55,7 @@
     </script>
 
     {{-- Main JS --}}
-    <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.js') }}"></script>
+    <script type="module" src="{{ asset('public/asset/HOMEPAGE/JSHOME/app.js') }}"></script>
     <script src="{{ asset('public/asset/HOMEPAGE/JSHOME/Theme.js') }}"></script>
 
     <a href="#Tema-Baju"

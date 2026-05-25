@@ -5,13 +5,17 @@ import {
     initSuccessAlert,
     initScrollAnimations,
     initLandingEffects,
-    enableModalBackClose
+    enableModalBackClose,
+    initRippleEffect
 } from './JSBASE/Base.js';
 
 import {
     initGalleryModal,
     initBookingHistoryModal,
-    initPackageModal
+    initPackageModal,
+    initThumbSwitcher,
+    initGalleryCardModal,
+    expandImage
 } from './JSCOMPONENT/Modal.js';
 
 import {
@@ -35,6 +39,22 @@ import {
     initReviewsSection
 } from './JSSECTION/Home.js';
 
+import {
+    initPrefillDataDiri
+} from './JSSECTION/Account.js';
+
+import {
+    initBookingWizard,
+    initAddonInlineEdit
+} from './JSSECTION/Booking.js';
+
+import {
+    initModalNavigation
+} from './JSCOMPONENT/Navigasi.js';
+
+import {
+    initBookingTrigger
+} from './JSSECTION/Package.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -45,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initLandingEffects();
     enableModalBackClose();
+    initRippleEffect();
 
     initGoogleReviews();
 
@@ -64,5 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initGalleryModal();
     initBookingHistoryModal();
     initPackageModal();
+    initThumbSwitcher();
+    initGalleryCardModal();
+
+    initModalNavigation();
+
+    initBookingTrigger();
+
+    initPrefillDataDiri();
+
+    initBookingWizard();
+    initAddonInlineEdit();
 
 });
