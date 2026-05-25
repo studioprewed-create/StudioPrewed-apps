@@ -41,7 +41,7 @@
         @include('HOMEPAGES.SECTION.FAQ')
         @include('HOMEPAGES.SECTION.Footer')
     </main>
- <script src="{{ asset('public/asset/HOMEPAGE/PAGE/Dashboard.js') }}"></script>
+ <script src="{{ asset('public/asset/HOMEPAGE/JSHOME/app.js') }}"></script>
  <script src="{{ asset('public/asset/HOMEPAGE/JSHOME/Theme.js') }}"></script>
 
     <a href="#aboutSection"
