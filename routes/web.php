@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
         } elseif ($role === 'CONTENT_CREATOR') {
             return view('OPERATIONALPAGES.PAGE.CONTENTHOME');
         } elseif ($role === 'CLIENT') {
-            return app(EXECUTIVEController::class)->index();
+            return app(FRONTPAGEController::class)->index();
         } else {
             return view('OPERATIONALPAGES.PAGE.TEAMTIVE');
         }
