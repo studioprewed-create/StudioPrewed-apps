@@ -467,3 +467,38 @@ export function initRippleEffect() {
     `;
     document.head.appendChild(rippleStyle);
 }
+
+export function initNavbarScroll() {
+
+    const btn = document.querySelector(
+        '.scroll-to-pricelist'
+    );
+
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+
+        if (
+            window.location.pathname !== '/pricelist'
+        ) {
+
+            window.location.href =
+                '/pricelist#packages-container';
+
+            return;
+        }
+
+        const target = document.getElementById(
+            'packages-container'
+        );
+
+        if (!target) return;
+
+        target.scrollIntoView({
+            behavior: 'smooth'
+        });
+
+    });
+
+}
+

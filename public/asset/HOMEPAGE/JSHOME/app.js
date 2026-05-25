@@ -6,7 +6,8 @@ import {
     initScrollAnimations,
     initLandingEffects,
     enableModalBackClose,
-    initRippleEffect
+    initRippleEffect,
+    initNavbarScroll
 } from './JSBASE/Base.js';
 
 import {
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLandingEffects();
     enableModalBackClose();
     initRippleEffect();
+    initNavbarScroll();
 
     initGoogleReviews();
 
