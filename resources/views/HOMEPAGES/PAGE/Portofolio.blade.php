@@ -25,7 +25,7 @@
         @include('HOMEPAGES.SECTION.GalleryFictures')
         @include('HOMEPAGES.SECTION.Footer')
     </main>
-<script src="{{ asset('public/asset/HOMEPAGE/JSHOME/app.js') }}"></script>
+<script type="module" src="{{ asset('public/asset/HOMEPAGE/JSHOME/app.js') }}"></script>
 <script src="{{ asset('public/asset/HOMEPAGE/JSHOME/Theme.js') }}"></script>
 
     <a href="#Portofolio"
