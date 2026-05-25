@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::middleware(['auth'])->group(function () {
-        Route::get('/account', [EXECUTIVEController::class, 'Account'])
+        Route::get('/account', [FRONTPAGEController::class, 'Account'])
             ->name('Account');
     });
 
