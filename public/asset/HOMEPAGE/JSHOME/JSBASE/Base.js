@@ -504,36 +504,48 @@ export function initNavbarScroll() {
 
 export function hideFloatingUI() {
 
-    const floatingEls =
-        document.querySelectorAll(
-            '.wa-float, .section-float'
-        );
+    const wa =
+        document.querySelector('.wa-float');
 
-    if (!floatingEls.length) return;
+    const sectionFloat =
+        document.querySelector('.section-float');
 
-    floatingEls.forEach(el => {
+    if (wa) {
 
-        el.classList.add('hide');
-        el.classList.remove('show');
+        wa.classList.remove('show');
+        wa.classList.add('hide');
 
-    });
+    }
+
+    if (sectionFloat) {
+
+        sectionFloat.classList.remove('show');
+        sectionFloat.classList.add('hide');
+
+    }
+
 
 }
 
 export function showFloatingUI() {
 
-    const floatingEls =
-        document.querySelectorAll(
-            '.wa-float, .section-float'
-        );
+    const wa =
+        document.querySelector('.wa-float');
 
-    if (!floatingEls.length) return;
+    const sectionFloat =
+        document.querySelector('.section-float');
 
-    floatingEls.forEach(el => {
+    if (wa) {
 
-        el.classList.remove('hide');
+        wa.classList.remove('hide');
 
-    });
+    }
+
+    if (sectionFloat) {
+
+        sectionFloat.classList.remove('hide');
+
+    }
 
 }
 
