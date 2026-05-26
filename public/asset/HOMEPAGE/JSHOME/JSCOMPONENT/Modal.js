@@ -184,93 +184,123 @@ export function expandImage(src) {
     hideFloatingUI();
 }
 
-export function initGalleryCardModal() {
+export function initGalleryModal() {
 
-    const galleryTrack =
-        document.querySelector('.gallery-track');
+    const modal = document.getElementById('imageModal');
+    const expanded = document.getElementById('expandedImage');
+    const title = document.getElementById('modalTitle');
 
-    const galleryItems =
-        document.querySelectorAll('.gallery-item');
+    const desc =
+        document.getElementById(
+            'modalDesc'
+        );
 
-    if (!galleryTrack || !galleryItems.length) {
-        return;
-    }
+    if (!modal || !expanded) return;
 
-    let currentCenter = 2;
+    const closeBtn =
+        modal.querySelector(
+            '.modal-close'
+        );
 
-    function updateGallery() {
+    const cards =
+        document.querySelectorAll(
+            '.gallery-section .gallery-item'
+        );
 
-        galleryItems.forEach((item, index) => {
+    cards.forEach(card => {
 
-            item.classList.toggle(
-                'center',
-                index === currentCenter
-            );
+        card.addEventListener(
+            'click',
+            function (e) {
 
-        });
+                e.stopPropagation();
 
-        const centerItem =
-            galleryItems[currentCenter];
+                const img =
+                    this.dataset.img;
 
-        if (centerItem) {
+                const t =
+                    this.dataset.title;
 
-            galleryTrack.scrollLeft =
-                centerItem.offsetLeft -
-                galleryTrack.offsetWidth / 2 +
-                centerItem.offsetWidth / 2;
+                const d =
+                    this.dataset.desc;
 
-        }
-    }
+                if (!img) return;
 
-    galleryItems.forEach((item, index) => {
+                expanded.src = img;
 
-        item.addEventListener('click', e => {
+                title.textContent =
+                    t || '';
 
-            if (
-                e.target.closest('[data-open]')
-            ) return;
+                desc.textContent =
+                    d || '';
 
-            if (currentCenter !== index) {
+                modal.classList.add(
+                    'active'
+                );
 
-                currentCenter = index;
+                document.body.style.overflow =
+                    'hidden';
 
-                updateGallery();
+                enableModalBackClose(
+                    modal,
+                    closeModal
+                );
 
-                return;
             }
-
-            const sel =
-                item.getAttribute('data-modal');
-
-            const modal = sel
-                ? document.querySelector(sel)
-                : null;
-
-            if (!modal) return;
-
-            modal.classList.add('is-open');
-
-            document.body.style.overflow =
-                'hidden';
-
-            enableModalBackClose(
-                modal,
-                () => closeDetail(modal)
-            );
-
-            hideFloatingUI();
-
-        });
+        );
 
     });
 
-    function closeDetail(modal) {
+    function closeModal() {
 
-        modal.classList.remove('is-open');
+        modal.classList.remove(
+            'active'
+        );
 
-        document.body.style.overflow = '';
+        document.body.style.overflow =
+            '';
 
-       showFloatingUI();
     }
+
+    if (closeBtn) {
+
+        closeBtn.addEventListener(
+            'click',
+            closeModal
+        );
+
+    }
+
+    modal.addEventListener(
+        'click',
+        function (e) {
+
+            if (
+                e.target.classList.contains(
+                    'modal-backdrop'
+                )
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+    document.addEventListener(
+        'keydown',
+        function (e) {
+
+            if (
+                e.key === 'Escape'
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
 
 }
