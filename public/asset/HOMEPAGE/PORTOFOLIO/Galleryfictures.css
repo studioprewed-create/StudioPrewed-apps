@@ -262,25 +262,10 @@
   position: fixed;
   padding-top: 40px;
   inset: 0;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  transition:
-    opacity .25s ease,
-    visibility .25s ease;
-
   z-index: 9999;
-}
-
-.modal.active {
-    opacity: 1;
-    visibility: visible;
-
-    pointer-events: auto;
 }
 
 .modal-card {
