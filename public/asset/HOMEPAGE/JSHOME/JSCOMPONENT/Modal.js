@@ -36,16 +36,8 @@ export function initGalleryModal() {
             closeModal
         );
 
-        const wa = document.querySelector('.wa-float');
-        if (wa) wa.classList.add('hide');
+        hideFloatingUI();
 
-        const sectionFloat =
-            document.querySelector('.section-float');
-
-        if (sectionFloat) {
-            sectionFloat.classList.remove('show');
-            sectionFloat.classList.add('hide');
-        }
         });
     });
 
@@ -53,15 +45,7 @@ export function initGalleryModal() {
         modal.style.display = 'none';
         document.body.style.overflow = '';
 
-        const wa = document.querySelector('.wa-float');
-        if (wa) wa.classList.remove('hide');
-
-        const sectionFloat =
-            document.querySelector('.section-float');
-
-        if (sectionFloat) {
-            sectionFloat.classList.remove('hide');
-        }
+        showFloatingUI();
         
     }
 
@@ -178,17 +162,7 @@ export function initThumbSwitcher() {
         const modal = document.getElementById('imageModal');
         if (modal) modal.style.display = 'none';
 
-        const wa =
-        document.querySelector('.wa-float');
-
-        const sectionFloat =
-            document.querySelector('.section-float');
-
-        if (wa)
-            wa.classList.remove('hide');
-
-        if (sectionFloat)
-            sectionFloat.classList.remove('hide');
+        showFloatingUI();
     }
   });
 }
@@ -207,19 +181,7 @@ export function expandImage(src) {
 
     modal.style.display = 'block';
 
-    const wa =
-        document.querySelector('.wa-float');
-
-    const sectionFloat =
-        document.querySelector('.section-float');
-
-    if (wa) {
-        wa.classList.add('hide');
-    }
-
-    if (sectionFloat) {
-        sectionFloat.classList.add('hide');
-    }
+    hideFloatingUI();
 }
 
 export function initGalleryCardModal() {
@@ -296,19 +258,7 @@ export function initGalleryCardModal() {
                 () => closeDetail(modal)
             );
 
-            const wa =
-                document.querySelector('.wa-float');
-
-            if (wa) {
-                wa.classList.add('hide');
-            }
-
-            const sectionFloat =
-                document.querySelector('.section-float');
-
-            if (sectionFloat) {
-                sectionFloat.classList.add('hide');
-            }
+            hideFloatingUI();
 
         });
 
@@ -320,19 +270,7 @@ export function initGalleryCardModal() {
 
         document.body.style.overflow = '';
 
-        const wa =
-            document.querySelector('.wa-float');
-
-        const sectionFloat =
-            document.querySelector('.section-float');
-
-        if (wa) {
-            wa.classList.remove('hide');
-        }
-
-        if (sectionFloat) {
-            sectionFloat.classList.remove('hide');
-        }
+       showFloatingUI();
     }
 
 }

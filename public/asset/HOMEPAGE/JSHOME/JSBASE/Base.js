@@ -502,3 +502,38 @@ export function initNavbarScroll() {
 
 }
 
+export function hideFloatingUI() {
+
+    const floatingEls =
+        document.querySelectorAll(
+            '.wa-float, .section-float'
+        );
+
+    if (!floatingEls.length) return;
+
+    floatingEls.forEach(el => {
+
+        el.classList.add('hide');
+        el.classList.remove('show');
+
+    });
+
+}
+
+export function showFloatingUI() {
+
+    const floatingEls =
+        document.querySelectorAll(
+            '.wa-float, .section-float'
+        );
+
+    if (!floatingEls.length) return;
+
+    floatingEls.forEach(el => {
+
+        el.classList.remove('hide');
+
+    });
+
+}
+
