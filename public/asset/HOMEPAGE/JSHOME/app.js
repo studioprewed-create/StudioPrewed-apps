@@ -7,9 +7,7 @@ import {
     initLandingEffects,
     enableModalBackClose,
     initRippleEffect,
-    initNavbarScroll,
-    hideFloatingUI,
-    showFloatingUI
+    initNavbarScroll
 } from './JSBASE/Base.js';
 
 import {
@@ -70,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     enableModalBackClose();
     initRippleEffect();
     initNavbarScroll();
-    hideFloatingUI();
-    showFloatingUI();
 
     initGoogleReviews();
 

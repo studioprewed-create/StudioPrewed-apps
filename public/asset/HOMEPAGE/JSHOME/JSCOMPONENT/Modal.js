@@ -36,8 +36,16 @@ export function initGalleryModal() {
             closeModal
         );
 
-        hideFloatingUI();
+        const wa = document.querySelector('.wa-float');
+        if (wa) wa.classList.add('hide');
 
+        const sectionFloat =
+            document.querySelector('.section-float');
+
+        if (sectionFloat) {
+            sectionFloat.classList.remove('show');
+            sectionFloat.classList.add('hide');
+        }
         });
     });
 
@@ -45,7 +53,15 @@ export function initGalleryModal() {
         modal.style.display = 'none';
         document.body.style.overflow = '';
 
-        showFloatingUI();
+        const wa = document.querySelector('.wa-float');
+        if (wa) wa.classList.remove('hide');
+
+        const sectionFloat =
+            document.querySelector('.section-float');
+
+        if (sectionFloat) {
+            sectionFloat.classList.remove('hide');
+        }
         
     }
 
@@ -162,7 +178,17 @@ export function initThumbSwitcher() {
         const modal = document.getElementById('imageModal');
         if (modal) modal.style.display = 'none';
 
-        showFloatingUI();
+        const wa =
+        document.querySelector('.wa-float');
+
+        const sectionFloat =
+            document.querySelector('.section-float');
+
+        if (wa)
+            wa.classList.remove('hide');
+
+        if (sectionFloat)
+            sectionFloat.classList.remove('hide');
     }
   });
 }
@@ -181,7 +207,19 @@ export function expandImage(src) {
 
     modal.style.display = 'block';
 
-    hideFloatingUI();
+    const wa =
+        document.querySelector('.wa-float');
+
+    const sectionFloat =
+        document.querySelector('.section-float');
+
+    if (wa) {
+        wa.classList.add('hide');
+    }
+
+    if (sectionFloat) {
+        sectionFloat.classList.add('hide');
+    }
 }
 
 export function initGalleryCardModal() {
@@ -258,7 +296,19 @@ export function initGalleryCardModal() {
                 () => closeDetail(modal)
             );
 
-            hideFloatingUI();
+            const wa =
+                document.querySelector('.wa-float');
+
+            if (wa) {
+                wa.classList.add('hide');
+            }
+
+            const sectionFloat =
+                document.querySelector('.section-float');
+
+            if (sectionFloat) {
+                sectionFloat.classList.add('hide');
+            }
 
         });
 
@@ -270,7 +320,19 @@ export function initGalleryCardModal() {
 
         document.body.style.overflow = '';
 
-       showFloatingUI();
+        const wa =
+            document.querySelector('.wa-float');
+
+        const sectionFloat =
+            document.querySelector('.section-float');
+
+        if (wa) {
+            wa.classList.remove('hide');
+        }
+
+        if (sectionFloat) {
+            sectionFloat.classList.remove('hide');
+        }
     }
 
 }
