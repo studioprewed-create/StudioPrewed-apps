@@ -1,85 +1,185 @@
 export function initGalleryModal() {
 
-    const modal = document.getElementById('imageModal');
-    const expanded = document.getElementById('expandedImage');
-    const title = document.getElementById('modalTitle');
-    const desc = document.getElementById('modalDesc');
+    const modal =
+        document.getElementById('imageModal');
+
+    const expanded =
+        document.getElementById('expandedImage');
+
+    const title =
+        document.getElementById('modalTitle');
+
+    const desc =
+        document.getElementById('modalDesc');
 
     if (!modal || !expanded) return;
 
-    const closeBtn = modal.querySelector('.modal-close');
+    const closeBtn =
+        modal.querySelector('.modal-close');
 
-    // 🔥 AMBIL HANYA ITEM DI GALLERY SECTION (ANTI BENTROK)
-    const cards = document.querySelectorAll('.gallery-section .gallery-item');
+    // 🔥 KHUSUS GALLERY SECTION
+    const cards =
+        document.querySelectorAll(
+            '.gallery-section .gallery-item'
+        );
+
+    // 🔥 FLOATING UI
+    const wa =
+        document.querySelector('.wa-float');
+
+    const sectionFloat =
+        document.querySelector('.section-float');
+
+    /* =========================
+       FLOATING CONTROL
+    ========================= */
+
+    function hideFloatingUI() {
+
+        if (wa) {
+
+            wa.classList.remove('show');
+
+            wa.classList.add('hide');
+
+        }
+
+        if (sectionFloat) {
+
+            sectionFloat.classList.remove('show');
+
+            sectionFloat.classList.add('hide');
+
+        }
+
+    }
+
+    function showFloatingUI() {
+
+        if (wa) {
+
+            wa.classList.remove('hide');
+
+        }
+
+        if (sectionFloat) {
+
+            sectionFloat.classList.remove('hide');
+
+        }
+
+    }
+
+    /* =========================
+       OPEN MODAL
+    ========================= */
 
     cards.forEach(card => {
-        card.addEventListener('click', function (e) {
 
-        // 🔥 PENTING: biar gak bentrok sama JS lain
-        e.stopPropagation();
+        card.addEventListener(
+            'click',
+            function (e) {
 
-        const img = this.dataset.img;
-        const t   = this.dataset.title;
-        const d   = this.dataset.desc;
+                e.stopPropagation();
 
-        if (!img) return;
+                const img =
+                    this.dataset.img;
 
-        expanded.src = img;
-        title.textContent = t || '';
-        desc.textContent  = d || '';
+                const t =
+                    this.dataset.title;
 
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+                const d =
+                    this.dataset.desc;
 
-        enableModalBackClose(
-            modal,
+                if (!img) return;
+
+                expanded.src = img;
+
+                title.textContent = t || '';
+
+                desc.textContent = d || '';
+
+                modal.style.display = 'flex';
+
+                document.body.style.overflow =
+                    'hidden';
+
+                hideFloatingUI();
+
+                enableModalBackClose(
+                    modal,
+                    closeModal
+                );
+
+            }
+        );
+
+    });
+
+    /* =========================
+       CLOSE MODAL
+    ========================= */
+
+    function closeModal() {
+
+        modal.style.display = 'none';
+
+        document.body.style.overflow = '';
+
+        showFloatingUI();
+
+    }
+
+    /* =========================
+       CLOSE BUTTON
+    ========================= */
+
+    if (closeBtn) {
+
+        closeBtn.addEventListener(
+            'click',
             closeModal
         );
 
-        const wa = document.querySelector('.wa-float');
-        if (wa) wa.classList.add('hide');
-
-        const sectionFloat =
-            document.querySelector('.section-float');
-
-        if (sectionFloat) {
-            sectionFloat.classList.remove('show');
-            sectionFloat.classList.add('hide');
-        }
-        });
-    });
-
-    function closeModal() {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-
-        const wa = document.querySelector('.wa-float');
-        if (wa) wa.classList.remove('hide');
-
-        const sectionFloat =
-            document.querySelector('.section-float');
-
-        if (sectionFloat) {
-            sectionFloat.classList.remove('hide');
-        }
-        
     }
 
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
+    /* =========================
+       BACKDROP CLOSE
+    ========================= */
 
-    modal.addEventListener('click', function (e) {
-        if (e.target.classList.contains('modal-backdrop')) {
-        closeModal();
-        }
-    });
+    modal.addEventListener(
+        'click',
+        function (e) {
 
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-        closeModal();
+            if (
+                e.target.classList.contains(
+                    'modal-backdrop'
+                )
+            ) {
+
+                closeModal();
+
+            }
+
         }
-    });
+    );
+
+    /* =========================
+       ESC CLOSE
+    ========================= */
+
+    document.addEventListener(
+        'keydown',
+        function (e) {
+
+            if (e.key === 'Escape') {
+
+                closeModal();
+
+            }
+
+        }
+    );
 
 }
 
