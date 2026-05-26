@@ -254,9 +254,10 @@ h1, h2, h3, h4 {
 }
 
 .wa-float.hide {
-    opacity: 0;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
     transform: translateY(20px);
-    pointer-events: none;
 }
 
 .global-success-alert{
@@ -464,13 +465,11 @@ h1, h2, h3, h4 {
 
 }
 
-/* HIDE */
 .section-float.hide{
-    opacity:0;
-
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
     transform:translateY(20px);
-
-    pointer-events:none;
 }
 
 /* RESET */
@@ -511,6 +510,11 @@ h1, h2, h3, h4 {
         opacity:1;
         transform:translateY(0);
     }
+}
+
+.wa-float,
+.section-float{
+    visibility: visible;
 }
 
 /* =========================================
