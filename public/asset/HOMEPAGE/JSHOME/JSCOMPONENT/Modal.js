@@ -184,123 +184,93 @@ export function expandImage(src) {
     hideFloatingUI();
 }
 
-export function initGalleryModal() {
+export function initGalleryCardModal() {
 
-    const modal = document.getElementById('imageModal');
-    const expanded = document.getElementById('expandedImage');
-    const title = document.getElementById('modalTitle');
+    const galleryTrack =
+        document.querySelector('.gallery-track');
 
-    const desc =
-        document.getElementById(
-            'modalDesc'
-        );
+    const galleryItems =
+        document.querySelectorAll('.gallery-item');
 
-    if (!modal || !expanded) return;
+    if (!galleryTrack || !galleryItems.length) {
+        return;
+    }
 
-    const closeBtn =
-        modal.querySelector(
-            '.modal-close'
-        );
+    let currentCenter = 2;
 
-    const cards =
-        document.querySelectorAll(
-            '.gallery-section .gallery-item'
-        );
+    function updateGallery() {
 
-    cards.forEach(card => {
+        galleryItems.forEach((item, index) => {
 
-        card.addEventListener(
-            'click',
-            function (e) {
+            item.classList.toggle(
+                'center',
+                index === currentCenter
+            );
 
-                e.stopPropagation();
+        });
 
-                const img =
-                    this.dataset.img;
+        const centerItem =
+            galleryItems[currentCenter];
 
-                const t =
-                    this.dataset.title;
+        if (centerItem) {
 
-                const d =
-                    this.dataset.desc;
+            galleryTrack.scrollLeft =
+                centerItem.offsetLeft -
+                galleryTrack.offsetWidth / 2 +
+                centerItem.offsetWidth / 2;
 
-                if (!img) return;
+        }
+    }
 
-                expanded.src = img;
+    galleryItems.forEach((item, index) => {
 
-                title.textContent =
-                    t || '';
+        item.addEventListener('click', e => {
 
-                desc.textContent =
-                    d || '';
+            if (
+                e.target.closest('[data-open]')
+            ) return;
 
-                modal.classList.add(
-                    'active'
-                );
+            if (currentCenter !== index) {
 
-                document.body.style.overflow =
-                    'hidden';
+                currentCenter = index;
 
-                enableModalBackClose(
-                    modal,
-                    closeModal
-                );
+                updateGallery();
 
+                return;
             }
-        );
+
+            const sel =
+                item.getAttribute('data-modal');
+
+            const modal = sel
+                ? document.querySelector(sel)
+                : null;
+
+            if (!modal) return;
+
+            modal.classList.add('is-open');
+
+            document.body.style.overflow =
+                'hidden';
+
+            enableModalBackClose(
+                modal,
+                () => closeDetail(modal)
+            );
+
+            hideFloatingUI();
+
+        });
 
     });
 
-    function closeModal() {
+    function closeDetail(modal) {
 
-        modal.classList.remove(
-            'active'
-        );
+        modal.classList.remove('is-open');
 
-        document.body.style.overflow =
-            '';
+        document.body.style.overflow = '';
 
+       showFloatingUI();
     }
-
-    if (closeBtn) {
-
-        closeBtn.addEventListener(
-            'click',
-            closeModal
-        );
-
-    }
-
-    modal.addEventListener(
-        'click',
-        function (e) {
-
-            if (
-                e.target.classList.contains(
-                    'modal-backdrop'
-                )
-            ) {
-
-                closeModal();
-
-            }
-
-        }
-    );
-
-    document.addEventListener(
-        'keydown',
-        function (e) {
-
-            if (
-                e.key === 'Escape'
-            ) {
-
-                closeModal();
-
-            }
-
-        }
-    );
 
 }
