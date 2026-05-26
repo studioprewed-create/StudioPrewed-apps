@@ -93,112 +93,55 @@ export function initGalleryFilter() {
 
 export function initGalleryModal() {
 
-    const modal =
-        document.getElementById('imageModal');
-
-    const expanded =
-        document.getElementById('expandedImage');
-
-    const title =
-        document.getElementById('modalTitle');
-
-    const desc =
-        document.getElementById('modalDesc');
+    const modal = document.getElementById('imageModal');
+    const expanded = document.getElementById('expandedImage');
+    const title = document.getElementById('modalTitle');
+    const desc = document.getElementById('modalDesc');
 
     if (!modal || !expanded) return;
-
-    const closeBtn =
-        modal.querySelector('.modal-close');
-
-    // 🔥 KHUSUS GALLERY SECTION
-    const cards =
-        document.querySelectorAll(
-            '.gallery-section .gallery-item'
-        );
-
-    // 🔥 FLOATING UI
-    const wa =
-        document.querySelector('.wa-float');
-
-    const sectionFloat =
-        document.querySelector('.section-float');
-
-    /* =========================
-       FLOATING CONTROL
-    ========================= */
-
+    const closeBtn = modal.querySelector('.modal-close');
+    const cards = document.querySelectorAll('.gallery-section .gallery-item');
+    const wa = document.querySelector('.wa-float');
+    const sectionFloat = document.querySelector('.section-float');
     function hideFloatingUI() {
-
         if (wa) {
-
             wa.classList.remove('show');
-
             wa.classList.add('hide');
-
         }
-
         if (sectionFloat) {
-
             sectionFloat.classList.remove('show');
-
             sectionFloat.classList.add('hide');
-
         }
-
     }
 
     function showFloatingUI() {
-
         if (wa) {
-
             wa.classList.remove('hide');
-
         }
-
         if (sectionFloat) {
-
             sectionFloat.classList.remove('hide');
-
         }
-
     }
 
-    /* =========================
-       OPEN MODAL
-    ========================= */
-
     cards.forEach(card => {
-
         card.addEventListener(
             'click',
             function (e) {
-
                 e.stopPropagation();
-
-                const img =
-                    this.dataset.img;
-
-                const t =
-                    this.dataset.title;
-
-                const d =
-                    this.dataset.desc;
+                const img = this.dataset.img;
+                const t = this.dataset.title;
+                const d = this.dataset.desc;
 
                 if (!img) return;
 
                 expanded.src = img;
-
                 title.textContent = t || '';
-
                 desc.textContent = d || '';
-
                 modal.style.display = 'flex';
-
                 document.body.style.overflow =
                     'hidden';
 
                 hideFloatingUI();
-
                 enableModalBackClose(
                     modal,
                     closeModal
@@ -209,36 +152,20 @@ export function initGalleryModal() {
 
     });
 
-    /* =========================
-       CLOSE MODAL
-    ========================= */
-
     function closeModal() {
-
         modal.style.display = 'none';
-
         document.body.style.overflow = '';
-
         showFloatingUI();
 
     }
 
-    /* =========================
-       CLOSE BUTTON
-    ========================= */
-
     if (closeBtn) {
-
         closeBtn.addEventListener(
             'click',
             closeModal
         );
 
     }
-
-    /* =========================
-       BACKDROP CLOSE
-    ========================= */
 
     modal.addEventListener(
         'click',
@@ -249,29 +176,17 @@ export function initGalleryModal() {
                     'modal-backdrop'
                 )
             ) {
-
                 closeModal();
-
             }
-
         }
     );
-
-    /* =========================
-       ESC CLOSE
-    ========================= */
 
     document.addEventListener(
         'keydown',
         function (e) {
-
             if (e.key === 'Escape') {
-
                 closeModal();
-
             }
-
         }
     );
-
 }
