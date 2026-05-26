@@ -11,7 +11,6 @@ import {
 } from './JSBASE/Base.js';
 
 import {
-    initGalleryModal,
     initBookingHistoryModal,
     initPackageModal,
     initThumbSwitcher,
@@ -24,7 +23,8 @@ import {
 } from './JSSECTION/GoogleReview.js';
 
 import {
-    initGalleryFilter
+    initGalleryFilter,
+    initGalleryModal
 } from './JSSECTION/portofolio.js';
 
 import {
