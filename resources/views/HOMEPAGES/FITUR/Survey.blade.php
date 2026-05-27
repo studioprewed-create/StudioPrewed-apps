@@ -43,11 +43,11 @@
                         </span>
 
                         <h1>
-                            Survey Kepuasan Pelanggan
+                            Terima kasih sudah mempercayakan cerita kalian kepada kami
                         </h1>
 
                         <p>
-                            Bantu kami menjadi lebih baik lagi ✨
+                            Kami ingin pengalaman setiap couple terus jadi lebih baik ✨
                         </p>
 
                     </div>
