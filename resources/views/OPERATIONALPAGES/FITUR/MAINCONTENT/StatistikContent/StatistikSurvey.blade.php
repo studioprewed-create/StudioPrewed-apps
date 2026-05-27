@@ -138,6 +138,31 @@
 
                 </div>
 
+                <div class="filter-group">
+
+                    <select name="future_service">
+
+                        <option value="">
+                            Semua Future Service
+                        </option>
+
+                        @foreach($futureServices as $future)
+
+                            <option
+                                value="{{ $future }}"
+                                {{ request('future_service') == $future ? 'selected' : '' }}
+                            >
+
+                                {{ $future }}
+
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                </div>
+
                 {{-- BUTTON --}}
                 <button
                     type="submit"
@@ -244,6 +269,41 @@
                             <div
                                 class="service-bar"
                                 style="width:{{max($favoriteBefore) > 0? ($total / max($favoriteBefore)) * 100: 0}}%"
+                            ></div>
+
+                        </div>
+
+                        <strong>{{ $total }}</strong>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
+        <div class="stats-box">
+
+            <div class="box-header">
+                <h3>Future Services</h3>
+            </div>
+
+            <div class="future-list">
+
+                @foreach($futureBefore as $future => $total)
+
+                    <div class="service-item">
+
+                        <div class="service-info">
+                            <span>{{ $future }}</span>
+                        </div>
+
+                        <div class="service-bar-wrap">
+
+                            <div
+                                class="service-bar"
+                                style="width:{{ max($futureBefore) > 0 ? ($total / max($futureBefore)) * 100 : 0 }}%"
                             ></div>
 
                         </div>
@@ -546,6 +606,41 @@
                             <div
                                 class="service-bar after"
                                 style="width:{{max($favoriteAfter) > 0? ($total / max($favoriteAfter)) * 100: 0}}%"
+                            ></div>
+
+                        </div>
+
+                        <strong>{{ $total }}</strong>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
+        <div class="stats-box">
+
+            <div class="box-header">
+                <h3>Future Services</h3>
+            </div>
+
+            <div class="future-list">
+
+                @foreach($futureAfter as $future => $total)
+
+                    <div class="service-item">
+
+                        <div class="service-info">
+                            <span>{{ $future }}</span>
+                        </div>
+
+                        <div class="service-bar-wrap">
+
+                            <div
+                                class="service-bar after"
+                                style="width:{{ max($futureAfter) > 0 ? ($total / max($futureAfter)) * 100 : 0 }}%"
                             ></div>
 
                         </div>

@@ -988,9 +988,18 @@ class EXECUTIVEController extends Controller
                     'Tim Fitting',
                     'Admin Attire'
                 ];
+
+                $futureServices = [
+                    'Post Wedding',
+                    'Maternity',
+                    'Family Portrait',
+                    'Anniversary Session'
+                ];
+
                 $search = $request->input('search');
                 $scoreFilter = $request->input('score');
                 $serviceFilter = $request->input('service');
+                $futureFilter = $request->input('future_service');
                 $createdMonth = $request->input('created_month');
                 $photoMonth = $request->input('photo_month');
                 $perPage = 20;
@@ -1018,6 +1027,15 @@ class EXECUTIVEController extends Controller
                     $query->whereJsonContains(
                         'favorite_services',
                         $serviceFilter
+                    );
+
+                }
+
+                if (!empty($futureFilter)) {
+
+                    $query->whereJsonContains(
+                        'future_services',
+                        $futureFilter
                     );
 
                 }
@@ -1124,6 +1142,38 @@ class EXECUTIVEController extends Controller
                     }
 
                 }
+
+                $futureBefore = [];
+                foreach ($futureServices as $service) {
+                    $futureBefore[$service] = 0;
+                }
+
+                foreach ($allDataRaw as $survey) {
+                    if (is_array($survey->future_services)) {
+                        foreach ($survey->future_services as $service) {
+                            if (isset($futureBefore[$service])) {
+                                $futureBefore[$service]++;
+                            }
+                        }
+                    }
+                }
+
+                $futureAfter = [];
+
+                foreach ($futureServices as $service) {
+                    $futureAfter[$service] = 0;
+                }
+
+                foreach ($allData as $survey) {
+                    if (is_array($survey->future_services)) {
+                        foreach ($survey->future_services as $service) {
+                            if (isset($futureAfter[$service])) {
+                                $futureAfter[$service]++;
+                            }
+                        }
+                    }
+                }
+
                 $scoreDistributionBefore = [];
                 $scoreDistributionAfter = [];
 
@@ -1188,6 +1238,9 @@ class EXECUTIVEController extends Controller
                     'services' => $services,
                     'favoriteBefore' => $favoriteBefore,
                     'favoriteAfter' => $favoriteAfter,
+                    'futureServices' => $futureServices,
+                    'futureBefore' => $futureBefore,
+                    'futureAfter' => $futureAfter,
                     'scoreDistributionBefore' => $scoreDistributionBefore,
                     'scoreDistributionAfter' => $scoreDistributionAfter,
                     'statsBefore' => $statsBefore,
@@ -1489,9 +1542,17 @@ class EXECUTIVEController extends Controller
                     'Admin Attire'
                 ];
 
+                $futureServices = [
+                    'Post Wedding',
+                    'Maternity',
+                    'Family Portrait',
+                    'Anniversary Session'
+                ];
+
                 $search = $request->input('search');
                 $scoreFilter = $request->input('score');
                 $serviceFilter = $request->input('service');
+                $futureFilter = $request->input('future_service');
                 $createdMonth = $request->input('created_month');
                 $photoMonth = $request->input('photo_month');
                 $perPage = 20;
@@ -1519,6 +1580,15 @@ class EXECUTIVEController extends Controller
                     $query->whereJsonContains(
                         'favorite_services',
                         $serviceFilter
+                    );
+
+                }
+
+                if (!empty($futureFilter)) {
+
+                    $query->whereJsonContains(
+                        'future_services',
+                        $futureFilter
                     );
 
                 }
@@ -1623,6 +1693,38 @@ class EXECUTIVEController extends Controller
 
                 }
 
+                $futureBefore = [];
+
+                foreach ($futureServices as $service) {
+                    $futureBefore[$service] = 0;
+                }
+
+                foreach ($allDataRaw as $survey) {
+                    if (is_array($survey->future_services)) {
+                        foreach ($survey->future_services as $service) {
+                            if (isset($futureBefore[$service])) {
+                                $futureBefore[$service]++;
+                            }
+                        }
+                    }
+                }
+
+                $futureAfter = [];
+
+                foreach ($futureServices as $service) {
+                    $futureAfter[$service] = 0;
+                }
+
+                foreach ($allData as $survey) {
+                    if (is_array($survey->future_services)) {
+                        foreach ($survey->future_services as $service) {
+                            if (isset($futureAfter[$service])) {
+                                $futureAfter[$service]++;
+                            }
+                        }
+                    }
+                }
+
                 $scoreDistributionBefore = [];
                 $scoreDistributionAfter = [];
                 for ($i = 1; $i <= 10; $i++) {
@@ -1680,6 +1782,9 @@ class EXECUTIVEController extends Controller
                         'services',
                         'favoriteBefore',
                         'favoriteAfter',
+                        'futureServices',
+                        'futureBefore',
+                        'futureAfter',
                         'scoreDistributionBefore',
                         'scoreDistributionAfter',
                         'statsBefore',
@@ -2044,9 +2149,17 @@ class EXECUTIVEController extends Controller
                         'Admin Attire'
                     ];
 
+                    $futureServices = [
+                        'Post Wedding',
+                        'Maternity',
+                        'Family Portrait',
+                        'Anniversary Session'
+                    ];
+
                     $search = $request->input('search');
                     $scoreFilter = $request->input('score');
                     $serviceFilter = $request->input('service');
+                    $futureFilter = $request->input('future_service');
                     $createdMonth = $request->input('created_month');
                     $photoMonth = $request->input('photo_month');
                     $perPage = 20;
@@ -2074,6 +2187,15 @@ class EXECUTIVEController extends Controller
                         $query->whereJsonContains(
                             'favorite_services',
                             $serviceFilter
+                        );
+
+                    }
+
+                    if (!empty($futureFilter)) {
+
+                        $query->whereJsonContains(
+                            'future_services',
+                            $futureFilter
                         );
 
                     }
@@ -2176,6 +2298,36 @@ class EXECUTIVEController extends Controller
 
                     }
 
+                    $futureBefore = [];
+                    foreach ($futureServices as $service) {
+                        $futureBefore[$service] = 0;
+                    }
+
+                    foreach ($allDataRaw as $survey) {
+                        if (is_array($survey->future_services)) {
+                            foreach ($survey->future_services as $service) {
+                                if (isset($futureBefore[$service])) {
+                                    $futureBefore[$service]++;
+                                }
+                            }
+                        }
+                    }
+
+                    $futureAfter = [];
+                    foreach ($futureServices as $service) {
+                        $futureAfter[$service] = 0;
+                    }
+
+                    foreach ($allData as $survey) {
+                        if (is_array($survey->future_services)) {
+                            foreach ($survey->future_services as $service) {
+                                if (isset($futureAfter[$service])) {
+                                    $futureAfter[$service]++;
+                                }
+                            }
+                        }
+                    }
+
                     $scoreDistributionBefore = [];
                     $scoreDistributionAfter = [];
 
@@ -2234,6 +2386,9 @@ class EXECUTIVEController extends Controller
                         'services' => $services,
                         'favoriteBefore' => $favoriteBefore,
                         'favoriteAfter' => $favoriteAfter,
+                        'futureServices' => $futureServices,
+                        'futureBefore' => $futureBefore,
+                        'futureAfter' => $futureAfter,
                         'scoreDistributionBefore' => $scoreDistributionBefore,
                         'scoreDistributionAfter' => $scoreDistributionAfter,
                         'statsBefore' => $statsBefore,
