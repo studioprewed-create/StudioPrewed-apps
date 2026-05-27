@@ -133,7 +133,7 @@
                         <div class="survey-question">
 
                             <h3>
-                                2. Dari semua layanan kami, mana yang paling kamu suka pelayanannya?
+                                2. Apa yang paling membantu dari layanan kami?
                             </h3>
 
                             <p>
@@ -176,10 +176,12 @@
 
                         </div>
 
+                        
+
                         <div class="survey-question">
 
                             <h3>
-                                3. Ada hal yang kurang berkenan atau yang bisa kami tingkatkan ke depannya?
+                                4. Selama pengalaman bersama kami, adakah hal yang terasa kurang nyaman atau bisa kami buat lebih baik lagi?
                             </h3>
 
                             <textarea
