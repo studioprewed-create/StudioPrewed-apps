@@ -31,6 +31,7 @@ use \App\Models\SkemaKerja;
 use \App\Models\Survey;
 use App\Models\GoogleReview;
 use Carbon\Carbon;
+use App\Models\BrandCategory;
 
 class CRUDBACKController extends Controller
 {
