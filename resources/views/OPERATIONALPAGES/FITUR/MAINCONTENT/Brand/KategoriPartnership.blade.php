@@ -37,7 +37,8 @@
                 <th>ID</th>
                 <th>Nama</th>
                 <th>Description</th>
-                <th width="200">Action</th>
+                <th width="200">Action Edit</th>
+                <th width="200">Action Delete</th>
             </tr>
         </thead>
 
@@ -66,6 +67,8 @@
                             Edit
                         </button>
 
+                    </td>
+                    <td>
                         <form
                             action="{{ route('executive.homepages.destroy', ['section' => 'brand-category', 'id' => $category->id]) }}"
                             method="POST"
@@ -80,8 +83,8 @@
                                 Hapus
                             </button>
                         </form>
-
                     </td>
+
 
                 </tr>
             @empty
@@ -97,6 +100,8 @@
         </tbody>
     </table>
 </div>
+
+<div id="modal-backdrop" class="custom-modal-backdrop"></div>
 
 <div id="modal-brand-category-create" class="custom-modal">
 
@@ -165,8 +170,6 @@
     </div>
 
 </div>
-
-<div id="modal-backdrop" class="custom-modal-backdrop"></div>
 
 <div id="modal-brand-category-edit" class="custom-modal">
 
