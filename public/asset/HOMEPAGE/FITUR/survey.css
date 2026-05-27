@@ -40,7 +40,7 @@
 }
 
 .survey-title p{
-    color:var(--muted);
+    color:var(--teal-2);
 }
 
 .survey-body{
@@ -58,7 +58,7 @@
 }
 
 .survey-question p{
-    color:var(--muted);
+    color:var(--teal-2);
     font-size:.92rem;
     margin-bottom:18px;
 }

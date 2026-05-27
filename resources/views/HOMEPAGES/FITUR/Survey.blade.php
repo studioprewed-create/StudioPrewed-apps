@@ -102,7 +102,7 @@
                             </h3>
 
                             <p>
-                                (Skala 1–10)
+                                (Rating 1–10)
                             </p>
 
                             <div class="rating-group">
