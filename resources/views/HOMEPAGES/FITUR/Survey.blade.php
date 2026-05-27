@@ -194,17 +194,22 @@
 
                                     ];
                                 @endphp
-                                @foreach($futureServices as $service)
+                                @foreach($futureServices as $futureService)
+
                                     <label class="checkbox-item">
+
                                         <input
                                             type="checkbox"
                                             name="future_services[]"
-                                            value="{{ $service }}"
+                                            value="{{ $futureService }}"
                                         >
+
                                         <span>
-                                            {{ $service }}
+                                            {{ $futureService }}
                                         </span>
+
                                     </label>
+
                                 @endforeach
                             </div>
                         </div>
