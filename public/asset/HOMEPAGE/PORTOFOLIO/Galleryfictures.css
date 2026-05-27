@@ -378,6 +378,114 @@
     animation: modalFade 0.25s ease;
 }
 
+.porto-nav{
+    position:absolute;
+
+    top:50%;
+    transform:translateY(-50%);
+
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(15,15,15,.72);
+
+    backdrop-filter:blur(12px);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    z-index:20;
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        opacity .3s ease;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+}
+
+.porto-nav:hover{
+    background:rgba(255,255,255,.14);
+
+    transform:
+        translateY(-50%)
+        scale(1.06);
+}
+
+.porto-prev{
+    left:18px;
+}
+
+.porto-next{
+    right:18px;
+}
+
+.porto-nav i{
+    font-size:16px;
+    pointer-events:none;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width:768px){
+
+    .porto-nav{
+        width:46px;
+        height:46px;
+    }
+
+    .porto-prev{
+        left:12px;
+    }
+
+    .porto-next{
+        right:12px;
+    }
+
+    .porto-nav i{
+        font-size:14px;
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:480px){
+
+    .porto-nav{
+        width:42px;
+        height:42px;
+
+        background:rgba(10,10,10,.78);
+    }
+
+    .porto-prev{
+        left:10px;
+    }
+
+    .porto-next{
+        right:10px;
+    }
+
+    .porto-nav i{
+        font-size:13px;
+    }
+
+}
+
 @keyframes modalFade {
     from {
         opacity: 0;

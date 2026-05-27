@@ -93,79 +93,242 @@ export function initGalleryFilter() {
 
 export function initGalleryModal() {
 
-    const modal = document.getElementById('imageModal');
-    const expanded = document.getElementById('expandedImage');
-    const title = document.getElementById('modalTitle');
-    const desc = document.getElementById('modalDesc');
+    const modal =
+        document.getElementById('imageModal');
+
+    const expanded =
+        document.getElementById('expandedImage');
+
+    const title =
+        document.getElementById('modalTitle');
+
+    const desc =
+        document.getElementById('modalDesc');
 
     if (!modal || !expanded) return;
-    const closeBtn = modal.querySelector('.modal-close');
-    const cards = document.querySelectorAll('.gallery-section .gallery-item');
-    const wa = document.querySelector('.wa-float');
-    const sectionFloat = document.querySelector('.section-float');
+
+    const closeBtn =
+        modal.querySelector('.modal-close');
+
+    const prevBtn =
+        modal.querySelector('.porto-prev');
+
+    const nextBtn =
+        modal.querySelector('.porto-next');
+
+    const cards =
+        document.querySelectorAll(
+            '.gallery-section .gallery-item'
+        );
+
+    const wa =
+        document.querySelector('.wa-float');
+
+    const sectionFloat =
+        document.querySelector('.section-float');
+
+    let currentIndex = 0;
+
+    /* =========================
+        FLOATING UI
+    ========================= */
+
     function hideFloatingUI() {
+
         if (wa) {
+
             wa.classList.remove('show');
             wa.classList.add('hide');
+
         }
+
         if (sectionFloat) {
-            sectionFloat.classList.remove('show');
-            sectionFloat.classList.add('hide');
+
+            sectionFloat.classList.remove(
+                'show'
+            );
+
+            sectionFloat.classList.add(
+                'hide'
+            );
+
         }
+
     }
 
     function showFloatingUI() {
+
         if (wa) {
+
             wa.classList.remove('hide');
+
         }
+
         if (sectionFloat) {
-            sectionFloat.classList.remove('hide');
+
+            sectionFloat.classList.remove(
+                'hide'
+            );
+
         }
+
     }
 
-    cards.forEach(card => {
+    /* =========================
+        UPDATE MODAL
+    ========================= */
+
+    function updateModal(index) {
+
+        const card = cards[index];
+
+        if (!card) return;
+
+        expanded.src =
+            card.dataset.img || '';
+
+        title.textContent =
+            card.dataset.title || '';
+
+        desc.textContent =
+            card.dataset.desc || '';
+
+        currentIndex = index;
+
+    }
+
+    /* =========================
+        OPEN MODAL
+    ========================= */
+
+    function openModal(index) {
+
+        updateModal(index);
+
+        modal.style.display = 'flex';
+
+        document.body.style.overflow =
+            'hidden';
+
+        hideFloatingUI();
+
+        enableModalBackClose(
+            modal,
+            closeModal
+        );
+
+    }
+
+    /* =========================
+        CLOSE MODAL
+    ========================= */
+
+    function closeModal() {
+
+        modal.style.display = 'none';
+
+        document.body.style.overflow = '';
+
+        showFloatingUI();
+
+    }
+
+    /* =========================
+        NEXT
+    ========================= */
+
+    function showNext() {
+
+        let nextIndex =
+            currentIndex + 1;
+
+        if (nextIndex >= cards.length) {
+
+            nextIndex = 0;
+
+        }
+
+        updateModal(nextIndex);
+
+    }
+
+    /* =========================
+        PREV
+    ========================= */
+
+    function showPrev() {
+
+        let prevIndex =
+            currentIndex - 1;
+
+        if (prevIndex < 0) {
+
+            prevIndex =
+                cards.length - 1;
+
+        }
+
+        updateModal(prevIndex);
+
+    }
+
+    /* =========================
+        OPEN FROM CARD
+    ========================= */
+
+    cards.forEach((card, index) => {
+
         card.addEventListener(
             'click',
             function (e) {
+
                 e.stopPropagation();
-                const img = this.dataset.img;
-                const t = this.dataset.title;
-                const d = this.dataset.desc;
 
-                if (!img) return;
-
-                expanded.src = img;
-                title.textContent = t || '';
-                desc.textContent = d || '';
-                modal.style.display = 'flex';
-                document.body.style.overflow =
-                    'hidden';
-
-                hideFloatingUI();
-                enableModalBackClose(
-                    modal,
-                    closeModal
-                );
+                openModal(index);
 
             }
         );
 
     });
 
-    function closeModal() {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-        showFloatingUI();
+    /* =========================
+        BUTTON NAVIGATION
+    ========================= */
+
+    if (nextBtn) {
+
+        nextBtn.addEventListener(
+            'click',
+            showNext
+        );
 
     }
 
+    if (prevBtn) {
+
+        prevBtn.addEventListener(
+            'click',
+            showPrev
+        );
+
+    }
+
+    /* =========================
+        CLOSE BUTTON
+    ========================= */
+
     if (closeBtn) {
+
         closeBtn.addEventListener(
             'click',
             closeModal
         );
 
     }
+
+    /* =========================
+        BACKDROP CLOSE
+    ========================= */
 
     modal.addEventListener(
         'click',
@@ -176,17 +339,46 @@ export function initGalleryModal() {
                     'modal-backdrop'
                 )
             ) {
+
                 closeModal();
+
             }
+
         }
     );
+
+    /* =========================
+        KEYBOARD
+    ========================= */
 
     document.addEventListener(
         'keydown',
         function (e) {
+
+            if (
+                modal.style.display !==
+                'flex'
+            ) return;
+
             if (e.key === 'Escape') {
+
                 closeModal();
+
             }
+
+            if (e.key === 'ArrowRight') {
+
+                showNext();
+
+            }
+
+            if (e.key === 'ArrowLeft') {
+
+                showPrev();
+
+            }
+
         }
     );
+
 }
