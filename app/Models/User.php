@@ -36,4 +36,9 @@ class User extends Authenticatable
         return $this->hasOne(DataDiriKaryawan::class);
     }
 
+    public function dataBrand()
+    {
+        return $this->hasOne(DataBrand::class);
+    }
+
 }

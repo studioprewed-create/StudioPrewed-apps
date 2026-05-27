@@ -132,6 +132,12 @@
     gap:18px;
 }
 
+.future-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
 .service-item{
     display:grid;
     grid-template-columns:220px 1fr 50px;

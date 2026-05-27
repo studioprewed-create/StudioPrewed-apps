@@ -69,6 +69,11 @@
                         <i class="fa-solid fa-chart-line"></i> <span>Statistik</span>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('executive.partnership') ? 'active' : '' }}">
+                    <a href="{{ route('executive.partnership') }}" data-page="Brand.Partnership">
+                        <i class="fa-solid fa-chart-line"></i> <span>Statistik</span>
+                    </a>
+                </li>
             @endif
         @endif
 

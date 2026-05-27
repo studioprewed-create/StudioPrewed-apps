@@ -45,6 +45,9 @@ class EXECUTIVEController extends Controller
     public function statistikpendapatan(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikPendapatan'); }
     public function statistikkinerja(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikKinerja'); }
     public function statistikkatalog(Request $request){ return $this->loadPage($request, 'StatistikContent.StatistikKatalog'); }
+    public function partnership(Request $request){ return $this->loadPage($request, 'Brand.Partnership'); }
+    public function dataPartnership(Request $request){ return $this->loadPage($request, 'Brand.DataPartnership'); }
+    public function kategoriPartnership(Request $request){ return $this->loadPage($request, 'Brand.KategoriPartnership'); }
     public function upload(Request $request){ return $this->loadPage($request, 'Upload'); }
     public function dataakun(Request $request){ return $this->loadPage($request, 'DataAkun'); }
     public function menuHomeDashboard(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Dashboard'); }

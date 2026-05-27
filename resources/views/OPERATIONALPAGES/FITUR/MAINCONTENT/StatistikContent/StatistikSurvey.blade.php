@@ -166,8 +166,7 @@
                 {{-- BUTTON --}}
                 <button
                     type="submit"
-                    class="filter-btn"
-                >
+                    class="filter-btn">
 
                     <i class="fas fa-search"></i>
 
