@@ -19,7 +19,7 @@ class Survey extends Model
     protected $casts = [
 
         'favorite_services' => 'array',
-
+        'future_services' => 'array',
         'photo_date' => 'date',
 
     ];
