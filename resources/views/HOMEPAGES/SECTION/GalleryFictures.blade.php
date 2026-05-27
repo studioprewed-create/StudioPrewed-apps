@@ -56,17 +56,17 @@
 
     <div class="modal-backdrop"></div>
 
+    <button class="porto-nav porto-prev">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <button class="porto-nav porto-next">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
     <div class="modal-card">
 
         <button class="modal-close">&times;</button>
-
-        <button class="porto-nav porto-prev">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-
-        <button class="porto-nav porto-next">
-            <i class="fas fa-chevron-right"></i>
-        </button>
 
         <div class="modal-body">
             

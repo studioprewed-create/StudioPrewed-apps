@@ -379,13 +379,13 @@
 }
 
 .porto-nav{
-    position:absolute;
+    position:fixed;
 
     top:50%;
     transform:translateY(-50%);
 
-    width:52px;
-    height:52px;
+    width:58px;
+    height:58px;
 
     display:flex;
     align-items:center;
@@ -402,7 +402,7 @@
 
     cursor:pointer;
 
-    z-index:20;
+    z-index:10001;
 
     transition:
         background .3s ease,
@@ -414,6 +414,7 @@
 }
 
 .porto-nav:hover{
+
     background:rgba(255,255,255,.14);
 
     transform:
@@ -422,68 +423,16 @@
 }
 
 .porto-prev{
-    left:18px;
+    left:40px;
 }
 
 .porto-next{
-    right:18px;
+    right:40px;
 }
 
 .porto-nav i{
-    font-size:16px;
+    font-size:18px;
     pointer-events:none;
-}
-
-/* =========================
-   TABLET
-========================= */
-
-@media (max-width:768px){
-
-    .porto-nav{
-        width:46px;
-        height:46px;
-    }
-
-    .porto-prev{
-        left:12px;
-    }
-
-    .porto-next{
-        right:12px;
-    }
-
-    .porto-nav i{
-        font-size:14px;
-    }
-
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width:480px){
-
-    .porto-nav{
-        width:42px;
-        height:42px;
-
-        background:rgba(10,10,10,.78);
-    }
-
-    .porto-prev{
-        left:10px;
-    }
-
-    .porto-next{
-        right:10px;
-    }
-
-    .porto-nav i{
-        font-size:13px;
-    }
-
 }
 
 @keyframes modalFade {
@@ -666,6 +615,24 @@
     height: 34px;
     font-size: 18px;
   }
+
+  .porto-nav{
+    width:46px;
+    height:46px;
+  }
+
+  .porto-prev{
+    left:12px;
+  }
+
+  .porto-next{
+    right:12px;
+  }
+
+  .porto-nav i{
+    font-size:14px;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -764,6 +731,25 @@
     width: 30px;
     height: 30px;
     font-size: 16px;
+  }
+
+  .porto-nav{
+    width:42px;
+    height:42px;
+
+    background:rgba(10,10,10,.78);
+  }
+
+  .porto-prev{
+    left:10px;
+  }
+
+  .porto-next{
+    right:10px;
+  }
+
+  .porto-nav i{
+    font-size:13px;
   }
 
 }
