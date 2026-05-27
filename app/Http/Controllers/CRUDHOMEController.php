@@ -40,6 +40,8 @@ class CRUDHOMEController extends Controller
                 'photo_date' => 'nullable|date',
                 'favorite_services' => 'nullable|array',
                 'favorite_services.*' => 'string',
+                'future_services' => 'nullable|array',
+                'future_services.*' => 'string',
                 'recommendation_score' => 'required|integer|min:1|max:10',
                 'feedback' => 'nullable|string',
             ]);
@@ -49,6 +51,7 @@ class CRUDHOMEController extends Controller
                 'customer_name' => $validated['customer_name'] ?? null,
                 'photo_date' => $validated['photo_date'] ?? null,
                 'favorite_services' => $validated['favorite_services'] ?? [],
+                'future_services' => $validated['future_services'] ?? [],
                 'recommendation_score' => $validated['recommendation_score'],
                 'feedback' => $validated['feedback'] ?? null,
             ]);

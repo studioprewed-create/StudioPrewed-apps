@@ -10,7 +10,7 @@ class Survey extends Model
 
         'customer_name',
         'photo_date',
-
+        'future_services',
         'favorite_services',
         'recommendation_score',
         'feedback',

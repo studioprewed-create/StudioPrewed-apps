@@ -176,7 +176,38 @@
 
                         </div>
 
-                        
+                        <div class="survey-question">
+                            <h3>
+                                3. Kedepannya kalian tertarik layanan apa?
+                            </h3>
+                            <p>
+                                (Boleh pilih lebih dari satu)
+                            </p>
+                            <div class="checkbox-group">
+                                @php
+                                    $futureServices = [
+
+                                        'Post Wedding',
+                                        'Maternity',
+                                        'Family Portrait',
+                                        'Anniversary Session'
+
+                                    ];
+                                @endphp
+                                @foreach($futureServices as $service)
+                                    <label class="checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            name="future_services[]"
+                                            value="{{ $service }}"
+                                        >
+                                        <span>
+                                            {{ $service }}
+                                        </span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
 
                         <div class="survey-question">
 
