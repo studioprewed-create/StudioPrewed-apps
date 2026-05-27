@@ -1784,6 +1784,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     };
+
+    const initBrandCategoryModals = () => {
+
+    const createModal = document.getElementById('modal-brand-category-create');
+    const editModal   = document.getElementById('modal-brand-category-edit');
+    const openBtn     = document.getElementById('btn-open-brand-category-create');
+
+        if (!createModal || !editModal) return;
+
+        const showModal = (modal) => {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const hideModals = () => {
+
+            createModal.classList.remove('show');
+            editModal.classList.remove('show');
+
+            document.body.style.overflow = '';
+        };
+
+        if (openBtn) {
+            openBtn.onclick = () => showModal(createModal);
+        }
+
+        document.querySelectorAll('.btn-edit-brand-category').forEach(btn => {
+
+            btn.onclick = () => {
+
+                const id          = btn.dataset.id;
+                const name        = btn.dataset.name;
+                const description = btn.dataset.description;
+
+                const form = document.getElementById('editBrandCategoryForm');
+
+                form.action = `${form.dataset.baseUrl}/${id}`;
+
+                document.getElementById('edit-brand-category-name').value = name || '';
+
+                document.getElementById('edit-brand-category-description').value = description || '';
+
+                showModal(editModal);
+            };
+        });
+
+        document.querySelectorAll('[data-close-brand-category-modal]').forEach(btn => {
+            btn.onclick = hideModals;
+        });
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -1801,6 +1851,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initSkemaKerjaModal();
         initSidebarMobile();
         initStatistikSurvey();
+        initBrandCategoryModals();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

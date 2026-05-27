@@ -66,7 +66,8 @@ class CRUDBACKController extends Controller
                 'package'   => 'Catalogue',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
-                'googlereview' => 'StatistikContent.StatistikReview',    
+                'googlereview' => 'StatistikContent.StatistikReview',
+                'brand-category' => 'Brand.KategoriPartnership',    
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -576,6 +577,16 @@ class CRUDBACKController extends Controller
                     );
                 }
             }
+            elseif ($section === 'brand-category') {
+                $request->validate([
+                    'name' => 'required|string|max:255',
+                    'description' => 'nullable|string',
+                ]);
+                BrandCategory::create([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                 ->with('success', ucfirst($section).' berhasil ditambahkan!');
         }
@@ -597,6 +608,7 @@ class CRUDBACKController extends Controller
                 'package'  => Package::findOrFail($id),
                 'addon'   => Addon::findOrFail($id),
                 'bookingexecutive' => BookingClient::findOrFail($id),
+                'brand-category' => BrandCategory::findOrFail($id),
                 default => null,
             };
 
@@ -620,6 +632,7 @@ class CRUDBACKController extends Controller
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
                 'skemakerja' => 'JadwalKerja',
+                'brand-category' => 'Brand.KategoriPartnership',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -1167,6 +1180,20 @@ class CRUDBACKController extends Controller
                     ]
                 );
             }
+            elseif ($section === 'brand-category') {
+
+                $item = BrandCategory::findOrFail($id);
+
+                $request->validate([
+                    'name' => 'required|string|max:255',
+                    'description' => 'nullable|string',
+                ]);
+
+                $item->update([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                         ->with('success', ucfirst($section).' berhasil diperbarui!');
         }
@@ -1187,6 +1214,7 @@ class CRUDBACKController extends Controller
                 'package'   => 'Catalogue',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
+                'brand-category' => 'Brand.KategoriPartnership',
 
             ];
 
@@ -1207,6 +1235,7 @@ class CRUDBACKController extends Controller
                 'package'  => Package::findOrFail($id),
                 'addon'   => Addon::findOrFail($id),
                 'bookingexecutive' => BookingClient::findOrFail($id),
+                'brand-category' => BrandCategory::findOrFail($id),
                 default => null,
             };
 

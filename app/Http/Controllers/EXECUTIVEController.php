@@ -30,6 +30,7 @@ use App\Models\DataDiriKaryawan;
 use \App\Models\SkemaKerja;
 use \App\Models\Survey;
 use App\Models\GoogleReview;
+use App\Models\BrandCategory;
 
 class EXECUTIVEController extends Controller
 {
@@ -1300,6 +1301,13 @@ class EXECUTIVEController extends Controller
                     ]
                 );
             }
+            if ($page === 'Brand.KategoriPartnership') {
+                $brandCategories = BrandCategory::latest()->get();
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'brandCategories' => $brandCategories,
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -1848,6 +1856,14 @@ class EXECUTIVEController extends Controller
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
                     compact('googleReviews', 'sort')
+                );
+            }
+            if ($page === 'Brand.KategoriPartnership') {
+
+                $brandCategories = BrandCategory::latest()->get();
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact('brandCategories')
                 );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -2448,6 +2464,13 @@ class EXECUTIVEController extends Controller
                             'sort' => $sort,
                         ]
                     );
+                }
+                if ($page === 'Brand.KategoriPartnership') {
+                    $brandCategories = BrandCategory::latest()->get();
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page' => $page,
+                        'brandCategories' => $brandCategories,
+                    ]);
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
             }
