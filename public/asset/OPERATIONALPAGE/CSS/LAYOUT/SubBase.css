@@ -1,20 +1,11 @@
-.settings-layout {
+
+.sub-domain {
 
     display: flex;
 
     width: 100%;
 
-    min-height: calc(100vh - 5px);
-
-    background:
-        radial-gradient(
-            120% 160% at 10% 0%,
-            #151515 0,
-            #050505 45%,
-            #000 100%
-        );
-
-    overflow: hidden;
+    min-height: 100vh;
 }
 
 /* =========================================
@@ -23,9 +14,7 @@
 
 .sub-sidebar {
 
-    width: 240px;
-
-    min-height: 100vh;
+    width: 100px;
 
     background-color: var(--darker);
 
@@ -33,60 +22,43 @@
 
     flex-direction: column;
 
+    align-items: center;
+
+    position: sticky;
+
+    top: 0;
+
+    min-height: 100vh;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0 0 30px rgba(0,0,0,0.45);
+
     overflow-y: auto;
 
     scrollbar-width: thin;
 
     scrollbar-color: #555 transparent;
 
-    border-right:
-        1px solid rgba(255,255,255,0.04);
-
-    flex-shrink: 0;
-
-    box-shadow:
-        0 0 30px rgba(0,0,0,0.45);
+    z-index: 10;
 }
 
-/* =========================================
-   SUB SIDEBAR HEADER
-========================================= */
+.sub-sidebar:hover {
 
-.sub-sidebar-header {
+    width: 240px;
 
-    padding: 24px 20px 18px;
-
-    border-bottom:
-        1px solid rgba(255,255,255,0.05);
-}
-
-.sub-sidebar-header h3 {
-
-    font-size: 18px;
-
-    font-weight: 600;
-
-    color: var(--text);
-
-    margin-bottom: 4px;
-}
-
-.sub-sidebar-header span {
-
-    font-size: 12px;
-
-    color: var(--text-muted);
+    align-items: flex-start;
 }
 
 /* =========================================
    MENU
 ========================================= */
 
-.sub-menu {
+.sub-sidebar .sub-menu {
 
     list-style: none;
 
-    padding: 14px 0;
+    padding: 0;
 
     width: 100%;
 }
@@ -95,24 +67,39 @@
    MENU ITEM
 ========================================= */
 
-.sub-menu-item {
+.sub-sidebar .sub-menu li {
 
-    margin: 6px 0;
+    margin: 12px 0;
 
     font-size: 15px;
 
+    cursor: pointer;
+
     width: 100%;
+
+    text-align: center;
+
+    transition: all 0.25s ease;
 
     position: relative;
 
     overflow: hidden;
 }
 
+.sub-sidebar:hover .sub-menu li {
+
+    text-align: left;
+
+    padding-left: 10px;
+
+    border-radius: 10px;
+}
+
 /* =========================================
    LINK
 ========================================= */
 
-.sub-menu-item a {
+.sub-sidebar .sub-menu a {
 
     color: var(--text-muted);
 
@@ -122,41 +109,43 @@
 
     align-items: center;
 
-    padding: 12px 18px;
-
-    margin: 0 10px;
+    padding: 12px 14px;
 
     transition: all 0.25s ease;
 
     border-radius: 10px;
+}
 
-    font-size: 13px;
+/* =========================================
+   ICON
+========================================= */
 
-    font-weight: 500;
+.sub-sidebar .sub-menu a i {
 
-    white-space: nowrap;
+    color: inherit;
+
+    min-width: 24px;
+
+    font-size: 14px;
 }
 
 /* =========================================
    HOVER
 ========================================= */
 
-.sub-menu-item a:hover {
+.sub-sidebar .sub-menu a:hover {
 
     color: var(--text);
 
     background:
         rgba(62, 32, 7, 0.886);
-
-    transform:
-        translateX(3px);
 }
 
 /* =========================================
    ACTIVE
 ========================================= */
 
-.sub-menu-item.active > a {
+.sub-sidebar .sub-menu .active > a {
 
     color: var(--text);
 
@@ -168,7 +157,7 @@
         );
 }
 
-.sub-menu-item.active::after {
+.sub-sidebar .sub-menu .active::after {
 
     content: "";
 
@@ -193,6 +182,28 @@
 }
 
 /* =========================================
+   TEXT
+========================================= */
+
+.sub-sidebar .sub-menu span {
+
+    opacity: 0;
+
+    transition: opacity 0.2s ease;
+
+    margin-left: 12px;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+}
+
+.sub-sidebar:hover .sub-menu span {
+
+    opacity: 1;
+}
+
+/* =========================================
    SCROLLBAR
 ========================================= */
 
@@ -214,14 +225,14 @@
 }
 
 /* =========================================
-   SETTINGS CONTENT
+   SUB CONTENT WRAP
 ========================================= */
 
-.settings-content {
+.sub-content-wrap {
 
     flex: 1;
 
-    min-width: 0;
+    width: 100%;
 
     overflow-y: auto;
 }
@@ -235,8 +246,6 @@
     width: 100%;
 
     min-height: 100vh;
-
-    padding: 26px;
 }
 
 /* =========================================
@@ -247,12 +256,26 @@
 
     .sub-sidebar {
 
-        width: 220px;
+        transform: translateX(-100%);
+
+        width: 240px;
+
+        align-items: flex-start;
+    }
+
+    .sub-sidebar:hover {
+
+        width: 240px;
+    }
+
+    .sub-sidebar.is-open {
+
+        transform: translateX(0);
     }
 
     .sub-content {
 
-        padding: 20px;
+        width: 100%;
     }
 
 }
@@ -265,36 +288,12 @@
 
     .sub-sidebar {
 
-        width: 190px;
-    }
-
-    .sub-sidebar-header {
-
-        padding: 20px 16px 16px;
-    }
-
-    .sub-sidebar-header h3 {
-
-        font-size: 16px;
-    }
-
-    .sub-sidebar-header span {
-
-        font-size: 11px;
-    }
-
-    .sub-menu-item a {
-
-        padding: 11px 14px;
-
-        font-size: 12px;
-
-        margin: 0 8px;
+        width: 240px;
     }
 
     .sub-content {
 
-        padding: 18px;
+        width: 100%;
     }
 
 }
@@ -305,73 +304,19 @@
 
 @media (max-width: 480px) {
 
-    .settings-layout {
-
-        flex-direction: column;
-    }
-
     .sub-sidebar {
 
-        width: 100%;
-
-        min-height: auto;
-
-        border-right: none;
-
-        border-bottom:
-            1px solid rgba(255,255,255,0.05);
-
-        overflow-x: auto;
-
-        overflow-y: hidden;
+        width: 240px;
     }
 
-    .sub-sidebar-header {
+    .sub-sidebar .sub-menu a {
 
-        display: none;
+        padding: 11px 12px;
     }
 
-    .sub-menu {
+    .sub-sidebar .sub-menu span {
 
-        display: flex;
-
-        align-items: center;
-
-        gap: 8px;
-
-        padding: 10px;
-
-        width: max-content;
-    }
-
-    .sub-menu-item {
-
-        margin: 0;
-
-        width: auto;
-    }
-
-    .sub-menu-item a {
-
-        margin: 0;
-
-        padding: 10px 14px;
-
-        border-radius: 10px;
-
-        font-size: 11px;
-    }
-
-    .sub-menu-item.active::after {
-
-        display: none;
-    }
-
-    .sub-content {
-
-        padding: 14px;
-
-        min-height: auto;
+        font-size: 12px;
     }
 
 }
