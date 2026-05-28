@@ -6,18 +6,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Studio Prewed - Executive')</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/EXECUTIVE/PAGE/EXECUTIVE.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/LAYOUT/Base.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Dashboard.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Jadwalkerja.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Jadwalpesanan.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Catalogue.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Menupanel.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Dataakun.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/Statistik.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/StatistikSurvey.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/StatistikReview.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/PAGE/DataBrand.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/EXECUTIVE/PAGE/EXECUTIVE.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//LAYOUT/Base.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Jadwalkerja.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Jadwalpesanan.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Catalogue.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Menupanel.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Dataakun.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/Statistik.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/StatistikSurvey.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/StatistikReview.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/DataBrand.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
