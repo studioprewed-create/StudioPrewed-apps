@@ -2,26 +2,26 @@
 
     <ul class="sub-menu">
 
-        <li class="sub-menu-item {{ request()->routeIs('executive.settings.profile') ? 'active' : '' }}">
-            <a href="{{ route('executive.settings.profile') }}">
+        <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
+            <a href="{{ route('') }}">
                 <span>Profile</span>
             </a>
         </li>
 
-        <li class="sub-menu-item {{ request()->routeIs('executive.settings.appearance') ? 'active' : '' }}">
-            <a href="{{ route('executive.settings.appearance') }}">
+        <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
+            <a href="{{ route('') }}">
                 <span>Appearance</span>
             </a>
         </li>
 
-        <li class="sub-menu-item {{ request()->routeIs('executive.settings.notification') ? 'active' : '' }}">
-            <a href="{{ route('executive.settings.notification') }}">
+        <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
+            <a href="{{ route('') }}">
                 <span>Notification</span>
             </a>
         </li>
 
-        <li class="sub-menu-item {{ request()->routeIs('executive.settings.activity') ? 'active' : '' }}">
-            <a href="{{ route('executive.settings.activity') }}">
+        <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
+            <a href="{{ route('') }}">
                 <span>Activity</span>
             </a>
         </li>
