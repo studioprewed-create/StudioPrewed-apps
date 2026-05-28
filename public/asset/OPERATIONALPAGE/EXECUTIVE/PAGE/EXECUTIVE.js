@@ -108,10 +108,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 else if ( role === 'BRAND_PARTNERSHIP' || role === 'STUDIO') {
 
+                    const logoPreviewWrap = document.getElementById('db-logo-preview-wrap'); 
+                    const logoPreview = document.getElementById('db-logo-preview');
+
                     if (formBrand) formBrand.style.display = 'block';
 
                     document.getElementById('db-nama-brand').value =
                         btn.dataset.dbNamaBrand || '';
+
+                        if (btn.dataset.dbLogo) {
+
+                            logoPreviewWrap.style.display = 'block';
+
+                            logoPreview.src = `/storage/${btn.dataset.dbLogo}`;
+                        }
+                        else {
+
+                            logoPreviewWrap.style.display = 'none';
+
+                            logoPreview.src = '';
+                        }
 
                     document.getElementById('db-category').value =
                         btn.dataset.dbCategory || '';

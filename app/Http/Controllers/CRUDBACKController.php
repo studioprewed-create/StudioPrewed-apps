@@ -826,6 +826,8 @@ class CRUDBACKController extends Controller
                     'email'    => 'required|email|unique:users,email,' . $user->id,
                     'role'     => 'required|string',
                     'password' => 'nullable|string|min:6|confirmed',
+
+                    'data_brand.logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
                 ]);
                 $user->name  = $request->name;
                 $user->email = $request->email;
@@ -861,7 +863,12 @@ class CRUDBACKController extends Controller
                         
                         if (empty($data['nama_brand'])) { 
                             $data['nama_brand'] = $user->name; 
-                            } 
+                            }
+                        if ($request->hasFile('data_brand.logo')) { 
+                            $path = $request ->file('data_brand.logo') 
+                            ->store('brand/logo', 'public'); 
+                            $data['logo'] = $path; 
+                        }
                             $user->dataBrand()->updateOrCreate( 
                                 ['user_id' => $user->id], $data ); 
                     } 

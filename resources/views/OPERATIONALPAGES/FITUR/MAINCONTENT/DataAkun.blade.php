@@ -189,6 +189,7 @@
                                     data-role="{{ $user->role }}"
 
                                     data-db-nama-brand="{{ $user->dataBrand?->nama_brand ?? '' }}"
+                                    data-db-logo="{{ $user->dataBrand?->logo ?? '' }}"
                                     data-db-category="{{ $user->dataBrand?->category_id ?? '' }}"
                                     data-db-description="{{ $user->dataBrand?->description ?? '' }}"
                                     data-db-email="{{ $user->dataBrand?->email ?? '' }}"
@@ -380,7 +381,7 @@
                 <button type="button" class="btn btn-secondary" data-close-modal>&times;</button>
             </div>
 
-            <form id="editUserForm" method="POST"
+            <form id="editUserForm" method="POST" enctype="multipart/form-data"
                 data-base-url="{{ url('executive/homepages/update/user') }}">
                 @csrf
                 @method('PUT')
@@ -534,6 +535,31 @@
                                 id="db-nama-brand"
                                 name="data_brand[nama_brand]"
                                 class="form-control">
+                        </div>
+                        <div class="mb-3">
+
+                            <label>Logo Brand</label>
+
+                            <input type="file"
+                                id="db-logo"
+                                name="data_brand[logo]"
+                                class="form-control"
+                                accept="image/*">
+
+                        </div>
+
+                        <div class="mb-3" id="db-logo-preview-wrap" style="display:none;">
+
+                            <img id="db-logo-preview"
+                                src=""
+                                alt="Logo Preview"
+                                style="
+                                    width:100px;
+                                    height:100px;
+                                    object-fit:cover;
+                                    border-radius:10px;
+                                    border:1px solid #ddd;
+                                ">
                         </div>
 
                         <div class="mb-3">
