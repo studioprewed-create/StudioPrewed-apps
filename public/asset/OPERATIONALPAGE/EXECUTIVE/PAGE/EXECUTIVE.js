@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
+    const subContent = document.getElementById('sub-content');
     const menuLinks   = document.querySelectorAll('.sidebar .menu a[data-page]');
+    const subMenuLinks = document.querySelectorAll('.sub-menu a[data-subpage]');
     const dropdowns   = document.querySelectorAll('.menu-item.dropdown > .dropdown-toggle');
 
     const LS_KEY = 'exec_activeMenu';
@@ -1942,8 +1944,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(html => {
                 mainContent.innerHTML = html;
 
-                bindSubMenu();
-
                 if (pushHistory) {
                     history.pushState({ page }, '', url);
                 }
@@ -1962,8 +1962,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const loadSubPage = (link, pushHistory = true) => {
-
-    const subContent = document.getElementById('sub-content');
 
         if (!subContent) return;
 
@@ -1992,7 +1990,6 @@ document.addEventListener('DOMContentLoaded', () => {
             initPageScripts();
 
             setActiveSubMenuItem(subpage);
-
         })
         .catch(err => {
 
@@ -2013,6 +2010,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    subMenuLinks.forEach(link => {
+
+        link.addEventListener('click', (e) => {
+
+            e.preventDefault();
+
+            loadSubPage(link);
+
+        });
+
+    });
 
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', (e) => {
@@ -2026,24 +2034,6 @@ document.addEventListener('DOMContentLoaded', () => {
             parent.classList.toggle('active');
         });
     });
-
-    function bindSubMenu() {
-
-        document
-            .querySelectorAll('.sub-menu a[data-subpage]')
-            .forEach(link => {
-
-                link.onclick = (e) => {
-
-                    e.preventDefault();
-
-                    loadSubPage(link);
-
-                };
-
-            });
-
-    }
     
 
     setActiveMenuItem(serverPage);
