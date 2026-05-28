@@ -1,0 +1,337 @@
+.settings-layout {
+
+    display: flex;
+
+    gap: 24px;
+
+    width: 100%;
+
+    min-height: calc(100vh - 120px);
+
+    align-items: flex-start;
+}
+
+/* =========================================
+   SUB SIDEBAR
+========================================= */
+
+.sub-sidebar {
+
+    width: 260px;
+
+    flex-shrink: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--dark-light),
+            #111111
+        );
+
+    border-radius: var(--sp-radius-lg);
+
+    padding: 20px 16px;
+
+    border:
+        1px solid rgba(255,255,255,0.04);
+
+    box-shadow:
+        0 0 30px rgba(0,0,0,0.45);
+
+    position: sticky;
+
+    top: 20px;
+
+    overflow: hidden;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.sub-sidebar-header {
+
+    margin-bottom: 24px;
+
+    padding-bottom: 16px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.05);
+}
+
+.sub-sidebar-header h3 {
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    color: var(--text);
+
+    margin-bottom: 4px;
+}
+
+.sub-sidebar-header span {
+
+    font-size: 12px;
+
+    color: var(--text-muted);
+}
+
+/* =========================================
+   MENU
+========================================= */
+
+.sub-menu {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+}
+
+.sub-menu-item {
+
+    margin-bottom: 8px;
+
+    position: relative;
+}
+
+/* =========================================
+   LINK
+========================================= */
+
+.sub-menu-item a {
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 13px 16px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    color: var(--text-muted);
+
+    transition:
+        all .25s ease;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+/* =========================================
+   HOVER
+========================================= */
+
+.sub-menu-item a:hover {
+
+    background:
+        rgba(62, 32, 7, 0.886);
+
+    color:
+        var(--text);
+
+    transform:
+        translateX(4px);
+}
+
+/* =========================================
+   ACTIVE
+========================================= */
+
+.sub-menu-item.active a {
+
+    color:
+        var(--text);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(62,32,7,0.95),
+            transparent
+        );
+}
+
+.sub-menu-item.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 4px;
+
+    height: 100%;
+
+    border-radius: 4px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            var(--primary),
+            var(--Brown)
+        );
+}
+
+/* =========================================
+   SETTINGS CONTENT
+========================================= */
+
+.settings-content {
+
+    flex: 1;
+
+    min-width: 0;
+
+    background:
+        radial-gradient(
+            120% 160% at 10% 0%,
+            #151515 0,
+            #050505 45%,
+            #000 100%
+        );
+
+    border-radius: 20px;
+
+    padding: 28px;
+
+    border:
+        1px solid rgba(255,255,255,0.03);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,0.45);
+}
+
+/* =========================================
+   SUB CONTENT
+========================================= */
+
+.sub-content {
+
+    width: 100%;
+
+    min-height: 600px;
+}
+
+/* =========================================
+   RESPONSIVE 1024
+========================================= */
+
+@media (max-width: 1024px) {
+
+    .settings-layout {
+
+        flex-direction: column;
+    }
+
+    .sub-sidebar {
+
+        width: 100%;
+
+        position: relative;
+
+        top: unset;
+    }
+
+    .settings-content {
+
+        width: 100%;
+    }
+
+}
+
+/* =========================================
+   RESPONSIVE 768
+========================================= */
+
+@media (max-width: 768px) {
+
+    .settings-layout {
+
+        gap: 18px;
+    }
+
+    .sub-sidebar {
+
+        padding: 18px 14px;
+    }
+
+    .sub-sidebar-header h3 {
+
+        font-size: 16px;
+    }
+
+    .sub-sidebar-header span {
+
+        font-size: 11px;
+    }
+
+    .sub-menu-item a {
+
+        padding: 12px 14px;
+
+        font-size: 13px;
+    }
+
+    .settings-content {
+
+        padding: 20px;
+    }
+
+}
+
+/* =========================================
+   RESPONSIVE 480
+========================================= */
+
+@media (max-width: 480px) {
+
+    .settings-layout {
+
+        gap: 14px;
+    }
+
+    .sub-sidebar {
+
+        border-radius: 14px;
+
+        padding: 14px 12px;
+    }
+
+    .sub-sidebar-header {
+
+        margin-bottom: 18px;
+    }
+
+    .sub-sidebar-header h3 {
+
+        font-size: 15px;
+    }
+
+    .sub-menu-item a {
+
+        padding: 11px 12px;
+
+        font-size: 12px;
+
+        border-radius: 10px;
+    }
+
+    .settings-content {
+
+        padding: 16px;
+
+        border-radius: 14px;
+    }
+
+}
