@@ -25,6 +25,22 @@ class DataBrand extends Model
         'is_active',
     ];
 
+    public function getLogoUrlAttribute()
+    {
+        if (!$this->logo) {
+            return 'https://via.placeholder.com/200x200?text=No+Logo';
+        }
+
+        $storagePath = public_path('storage/' . $this->logo);
+
+        if (file_exists($storagePath)) {
+            return asset('public/storage/' . $this->logo);
+        }
+
+        return 'https://via.placeholder.com/200x200?text=No+Logo';
+    }
+
+
     // =========================
     // RELATION USER
     // =========================

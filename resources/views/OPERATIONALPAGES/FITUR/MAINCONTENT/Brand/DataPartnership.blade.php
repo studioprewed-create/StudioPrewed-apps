@@ -29,7 +29,7 @@
                 <div class="partnership-logo">
 
                     @if($brand?->logo)
-                        <img src="{{ asset('storage/' . $brand->logo) }}" alt="">
+                       <img src="{{ $brand->logo_url }}" alt="">
                     @else
                         <i class="fa fa-image"></i>
                     @endif
