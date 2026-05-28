@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
-    const subContent = document.getElementById('sub-content');
     const menuLinks   = document.querySelectorAll('.sidebar .menu a[data-page]');
-    const subMenuLinks = document.querySelectorAll('.sub-menu a[data-subpage]');
     const dropdowns   = document.querySelectorAll('.menu-item.dropdown > .dropdown-toggle');
 
     const LS_KEY = 'exec_activeMenu';
@@ -1963,6 +1961,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadSubPage = (link, pushHistory = true) => {
 
+    const subContent = document.getElementById('sub-content');
+
         if (!subContent) return;
 
         const url = link.getAttribute('href');
@@ -1990,6 +1990,7 @@ document.addEventListener('DOMContentLoaded', () => {
             initPageScripts();
 
             setActiveSubMenuItem(subpage);
+
         })
         .catch(err => {
 
@@ -2010,15 +2011,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    subMenuLinks.forEach(link => {
+    document.addEventListener('click', (e) => {
 
-        link.addEventListener('click', (e) => {
+        const link = e.target.closest(
+            '.sub-menu a[data-subpage]'
+        );
 
-            e.preventDefault();
+        if (!link) return;
 
-            loadSubPage(link);
+        e.preventDefault();
 
-        });
+        loadSubPage(link);
 
     });
 
