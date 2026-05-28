@@ -1312,6 +1312,24 @@ class EXECUTIVEController extends Controller
                     'brandCategories' => $brandCategories,
                 ]);
             }
+            if ($page === 'Brand.DataPartnership') {
+
+                $brands = User::with([
+                    'dataBrand',
+                    'dataBrand.category',
+                ])
+                ->whereIn('role', [
+                    'BRAND_PARTNERSHIP',
+                    'STUDIO',
+                ])
+                ->latest()
+                ->get();
+
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page'   => $page,
+                    'brands' => $brands,
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -1871,6 +1889,22 @@ class EXECUTIVEController extends Controller
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
                     compact('brandCategories')
+                );
+            }
+            if ($page === 'Brand.DataPartnership') {
+
+                $brands = User::with([
+                    'dataBrand.category'
+                ])
+                ->whereIn('role', [
+                    'BRAND_PARTNERSHIP',
+                    'STUDIO'
+                ])
+                ->get();
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact('brands')
                 );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -2481,6 +2515,24 @@ class EXECUTIVEController extends Controller
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page' => $page,
                         'brandCategories' => $brandCategories,
+                    ]);
+                }
+                if ($page === 'Brand.DataPartnership') {
+
+                    $brands = User::with([
+                        'dataBrand',
+                        'dataBrand.category',
+                    ])
+                    ->whereIn('role', [
+                        'BRAND_PARTNERSHIP',
+                        'STUDIO',
+                    ])
+                    ->latest()
+                    ->get();
+
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'   => $page,
+                        'brands' => $brands,
                     ]);
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
