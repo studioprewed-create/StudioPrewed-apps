@@ -526,6 +526,102 @@
                         </div>
                     </div>
 
+                    <div id="form-brand" style="display:none;">
+
+                        <div class="mb-3">
+                            <label>Nama Brand</label>
+                            <input type="text"
+                                id="db-nama-brand"
+                                name="data_brand[nama_brand]"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Kategori Brand</label>
+
+                            <select id="db-category"
+                                    name="data_brand[category_id]"
+                                    class="form-control">
+
+                                <option value="">- Pilih Category -</option>
+
+                                @foreach ($brandCategories as $category)
+                                    <option value="{{ $category->id }}">
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Description</label>
+
+                            <textarea id="db-description"
+                                    name="data_brand[description]"
+                                    class="form-control"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Email</label>
+
+                            <input type="email"
+                                id="db-email"
+                                name="data_brand[email]"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Phone</label>
+
+                            <input type="text"
+                                id="db-phone"
+                                name="data_brand[phone]"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Website</label>
+
+                            <input type="text"
+                                id="db-website"
+                                name="data_brand[website]"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Instagram</label>
+
+                            <input type="text"
+                                id="db-instagram"
+                                name="data_brand[instagram]"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Tiktok</label>
+
+                            <input type="text"
+                                id="db-tiktok"
+                                name="data_brand[tiktok]"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Status</label>
+
+                            <select id="db-active"
+                                    name="data_brand[is_active]"
+                                    class="form-control">
+
+                                <option value="1">Active</option>
+                                <option value="0">Non Active</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
                     {{-- ================================================= --}}
                     {{-- ============== DATA DIRI KARYAWAN ================ --}}
                     {{-- ================================================= --}}
