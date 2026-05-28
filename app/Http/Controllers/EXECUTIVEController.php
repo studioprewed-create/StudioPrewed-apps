@@ -811,10 +811,14 @@ class EXECUTIVEController extends Controller
                 return $this->loadContent($request, $page);
             }
             if ($page === 'DataAkun') {
-                $users = User::with(['dataDiri', 'dataDiriKaryawan'])->get();
+                $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
+
+                $brandCategories = BrandCategory::all();
+
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
                     'users' => $users,
+                    'brandCategories' => $brandCategories,
                 ]);
             }
             if ($page === 'Catalogue') {
