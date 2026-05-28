@@ -1317,8 +1317,11 @@ class EXECUTIVEController extends Controller
     public function loadContent(Request $request, $page)
         {
             if ($page === 'DataAkun') {
-                $users = User::with(['dataDiri', 'dataDiriKaryawan'])->get();
-                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('users'));
+                $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
+
+                $brandCategories = BrandCategory::all();
+
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('users', 'brandCategories'));
             }
             if ($page === 'Catalogue') {
                 $packages = Package::orderBy('order')->get();
@@ -1880,10 +1883,14 @@ class EXECUTIVEController extends Controller
         {
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
                 if ($page === 'DataAkun') {
-                    $users = User::with(['dataDiri', 'dataDiriKaryawan'])->get();
+                    $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
+
+                    $brandCategories = BrandCategory::all();
+
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                        'page'  => $page,
+                        'page' => $page,
                         'users' => $users,
+                        'brandCategories' => $brandCategories,
                     ]);
                 }
                 if ($page === 'Catalogue') {
