@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
+    const subContent = document.getElementById('sub-content');
     const menuLinks   = document.querySelectorAll('.sidebar .menu a[data-page]');
+    const subMenuLinks = document.querySelectorAll('.sub-menu a[data-subpage]');
     const dropdowns   = document.querySelectorAll('.menu-item.dropdown > .dropdown-toggle');
 
     const LS_KEY = 'exec_activeMenu';
@@ -1918,6 +1920,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const setActiveSubMenuItem = (subpage) => {
+
+        document
+            .querySelectorAll('.sub-menu .sub-menu-item')
+            .forEach(li => li.classList.remove('active'));
+
+        const link = document.querySelector(
+            `.sub-menu a[data-subpage="${subpage}"]`
+        );
+
+        if (!link) return;
+
+        link.parentElement.classList.add('active');
+    };
+
     const loadPage = (link, pushHistory = true) => {
         const url  = link.getAttribute('href');
         const page = link.dataset.page;
@@ -1944,11 +1961,65 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     };
 
+    const loadSubPage = (link, pushHistory = true) => {
+
+        if (!subContent) return;
+
+        const url = link.getAttribute('href');
+        const subpage = link.dataset.subpage;
+
+        fetch(url, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(res => res.text())
+        .then(html => {
+
+            subContent.innerHTML = html;
+
+            if (pushHistory) {
+
+                history.pushState({
+                    page: serverPage,
+                    subpage
+                }, '', url);
+
+            }
+
+            initPageScripts();
+
+            setActiveSubMenuItem(subpage);
+        })
+        .catch(err => {
+
+            console.error(err);
+
+            subContent.innerHTML = `
+                <div class="alert alert-danger">
+                    Gagal memuat sub halaman ${subpage}
+                </div>
+            `;
+        });
+    };
+
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             loadPage(link);
         });
+    });
+
+    subMenuLinks.forEach(link => {
+
+        link.addEventListener('click', (e) => {
+
+            e.preventDefault();
+
+            loadSubPage(link);
+
+        });
+
     });
 
     dropdowns.forEach(dropdown => {
@@ -1963,6 +2034,7 @@ document.addEventListener('DOMContentLoaded', () => {
             parent.classList.toggle('active');
         });
     });
+    
 
     setActiveMenuItem(serverPage);
     initPageScripts();

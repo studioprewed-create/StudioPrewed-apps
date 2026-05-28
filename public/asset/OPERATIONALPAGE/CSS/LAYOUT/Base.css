@@ -333,11 +333,6 @@ body {
   overflow-y: auto;
 }
 
-.content.has-sub-domain { 
-  padding: 0; 
-  margin-top: 0; 
-}
-
 .alert {
   padding: 10px 16px;
   border-radius: 10px;

@@ -94,9 +94,19 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/berkas', [EXECUTIVEController::class, 'menuBerkas'])->name('berkas');
         });
 
+        Route::prefix('subpage')->name('subpage.')->group(function () {
+            Route::get('/profile',[SUBEXECUTIVEController::class, 'profile'])->name('profile');
+            Route::get('/appearance',[SUBEXECUTIVEController::class, 'appearance'])->name('appearance');
+            Route::get('/notification',[SUBEXECUTIVEController::class, 'notification'])->name('notification');
+            Route::get('/activity',[SUBEXECUTIVEController::class, 'activity'])->name('activity');
+        });
+
         // AJAX load (tanpa view utama)
         Route::get('/load-content/{page}', [EXECUTIVEController::class, 'loadContent'])->name('load');
         Route::get('/{page}', [EXECUTIVEController::class, 'loadDirect'])->where('page', '[A-Za-z0-9\.\-]+')->name('page');
+
+        Route::get('/load-sub-content/{page}/{subpage}',[SUBEXECUTIVEController::class, 'subLoadContent'])->where(['page' => '[A-Za-z0-9\.\-]+','subpage' => '[A-Za-z0-9\.\-]+'])->name('sub.load');
+        Route::get('/sub/{page}/{subpage}',[SUBEXECUTIVEController::class, 'subLoadDirect'])->where(['page' => '[A-Za-z0-9\.\-]+','subpage' => '[A-Za-z0-9\.\-]+'])->name('sub.page');
 
         Route::prefix('homepages')->name('homepages.')->group(function () {
             Route::get('create/{section}', [CRUDBACKController::class, 'create'])->name('create');
