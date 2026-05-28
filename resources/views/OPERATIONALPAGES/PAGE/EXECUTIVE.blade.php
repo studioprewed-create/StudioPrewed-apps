@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/EXECUTIVE/PAGE/EXECUTIVE.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//LAYOUT/Base.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//LAYOUT/SubBase.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Jadwalkerja.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Jadwalpesanan.css') }}">
