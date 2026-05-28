@@ -85,6 +85,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/DataPartnership', [EXECUTIVEController::class, 'DataPartnership'])->name('dataPartnership');
         Route::get('/KategoriPartnership', [EXECUTIVEController::class, 'KategoriPartnership'])->name('kategoriPartnership');
         Route::get('/upload', [EXECUTIVEController::class, 'upload'])->name('upload');
+        Route::get('/settings', [EXECUTIVEController::class, 'settings'])->name('settings');
         
         Route::prefix('menupanel')->name('menupanel.')->group(function () {
             Route::get('/homepages/dashboard', [EXECUTIVEController::class, 'menuHomeDashboard'])->name('homepages.dashboard');

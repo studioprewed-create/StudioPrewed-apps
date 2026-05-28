@@ -55,6 +55,7 @@ class EXECUTIVEController extends Controller
     public function menuHomePortofolio(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Portofolio'); }
     public function menuHomePricelist(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Pricelist'); }
     public function menuBerkas(Request $request){ return $this->loadPage($request, 'MenuPanel.Berkas'); }
+    public function settings(Request $request){ return $this->loadPage($request, 'Settings'); }
 
     private function nextOrder(string $modelClass): int
         {
