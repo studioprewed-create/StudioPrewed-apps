@@ -3,25 +3,25 @@
     <ul class="sub-menu">
 
         <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
-            <a href="{{ route('') }}">
+            <a href="">
                 <span>Profile</span>
             </a>
         </li>
 
         <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
-            <a href="{{ route('') }}">
+            <a href="">
                 <span>Appearance</span>
             </a>
         </li>
 
         <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
-            <a href="{{ route('') }}">
+            <a href="">
                 <span>Notification</span>
             </a>
         </li>
 
         <li class="sub-menu-item {{ request()->routeIs('') ? 'active' : '' }}">
-            <a href="{{ route('') }}">
+            <a href="">
                 <span>Activity</span>
             </a>
         </li>
