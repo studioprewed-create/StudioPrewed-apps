@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EXECUTIVEController;
+use App\Http\Controllers\SUBEXECUTIVEController;
 use App\Http\Controllers\FRONTPAGEController;
 use App\Http\Controllers\CRUDHOMEController;
 use App\Http\Controllers\CRUDBACKController;
