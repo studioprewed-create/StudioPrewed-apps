@@ -1942,6 +1942,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(html => {
                 mainContent.innerHTML = html;
 
+                bindSubMenu();
+
                 if (pushHistory) {
                     history.pushState({ page }, '', url);
                 }
@@ -2011,19 +2013,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.addEventListener('click', (e) => {
-
-        const link = e.target.closest(
-            '.sub-menu a[data-subpage]'
-        );
-
-        if (!link) return;
-
-        e.preventDefault();
-
-        loadSubPage(link);
-
-    });
 
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', (e) => {
@@ -2037,6 +2026,24 @@ document.addEventListener('DOMContentLoaded', () => {
             parent.classList.toggle('active');
         });
     });
+
+    function bindSubMenu() {
+
+        document
+            .querySelectorAll('.sub-menu a[data-subpage]')
+            .forEach(link => {
+
+                link.onclick = (e) => {
+
+                    e.preventDefault();
+
+                    loadSubPage(link);
+
+                };
+
+            });
+
+    }
     
 
     setActiveMenuItem(serverPage);
