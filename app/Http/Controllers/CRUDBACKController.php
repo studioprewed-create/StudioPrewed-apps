@@ -853,6 +853,20 @@ class CRUDBACKController extends Controller
                     }
 
                     $user->dataDiriKaryawan()?->delete();
+                    $user->dataBrand()?->delete();
+                }
+                elseif ( $user->role === 'BRAND_PARTNERSHIP' || $user->role === 'STUDIO' ) { 
+                    if ($request->filled('data_brand')) { 
+                        $data = $request->input('data_brand'); 
+                        
+                        if (empty($data['nama_brand'])) { 
+                            $data['nama_brand'] = $user->name; 
+                            } 
+                            $user->dataBrand()->updateOrCreate( 
+                                ['user_id' => $user->id], $data ); 
+                    } 
+                    $user->dataDiri()?->delete(); 
+                    $user->dataDiriKaryawan()?->delete(); 
                 }
                 else {
 
@@ -872,6 +886,7 @@ class CRUDBACKController extends Controller
                         );
                     }
                     $user->dataDiri()?->delete();
+                    $user->dataBrand()?->delete();
                 }
             }
             elseif ($section === 'temabaju') {

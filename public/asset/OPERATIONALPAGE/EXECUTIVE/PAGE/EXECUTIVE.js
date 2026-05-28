@@ -83,9 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ======================
                 const formClient   = document.getElementById('form-client');
                 const formKaryawan = document.getElementById('form-karyawan');
+                const formBrand = document.getElementById('form-brand');
 
                 if (formClient)   formClient.style.display = 'none';
                 if (formKaryawan) formKaryawan.style.display = 'none';
+                if (formBrand) formBrand.style.display = 'none';
 
                 // =================================================
                 // ================= CLIENT ========================
@@ -104,7 +106,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('dd-jk-pasangan').value        = btn.dataset.ddJkPasangan || '';
                     document.getElementById('dd-tgl-lahir-pasangan').value = btn.dataset.ddTglLahirPasangan || '';
                 }
+                else if ( role === 'BRAND_PARTNERSHIP' || role === 'STUDIO') {
 
+                    if (formBrand) formBrand.style.display = 'block';
+
+                    document.getElementById('db-nama-brand').value =
+                        btn.dataset.dbNamaBrand || '';
+
+                    document.getElementById('db-category').value =
+                        btn.dataset.dbCategory || '';
+
+                    document.getElementById('db-description').value =
+                        btn.dataset.dbDescription || '';
+
+                    document.getElementById('db-email').value =
+                        btn.dataset.dbEmail || '';
+
+                    document.getElementById('db-phone').value =
+                        btn.dataset.dbPhone || '';
+
+                    document.getElementById('db-website').value =
+                        btn.dataset.dbWebsite || '';
+
+                    document.getElementById('db-instagram').value =
+                        btn.dataset.dbInstagram || '';
+
+                    document.getElementById('db-tiktok').value =
+                        btn.dataset.dbTiktok || '';
+
+                    document.getElementById('db-active').value =
+                        btn.dataset.dbActive || 1;
+                }
                 // =================================================
                 // ================= KARYAWAN ======================
                 // =================================================
