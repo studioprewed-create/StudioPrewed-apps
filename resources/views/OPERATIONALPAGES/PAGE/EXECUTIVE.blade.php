@@ -30,7 +30,7 @@
     @include('OPERATIONALPAGES.FITUR.MAPPING.topbar')
 
     <div class="container">
-        <div id="main-content" class="content has-sub-domain" data-current-page="{{ $page }}">
+        <div id="main-content" class="content" data-current-page="{{ $page }}">
             @if(View::exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page"))
                 @include("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")
             @else

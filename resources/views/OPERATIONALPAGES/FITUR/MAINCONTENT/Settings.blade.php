@@ -1,28 +1,32 @@
-<div class="sub-domain">
+<div class="has-sub-domain">
 
-    @include('OPERATIONALPAGES.FITUR.MAPPING.SUBSIDEBAR.Settings')
+    <div class="sub-domain">
 
-    <div class="sub-content-wrap">
+        @include('OPERATIONALPAGES.FITUR.MAPPING.SUBSIDEBAR.Settings')
 
-        @if(isset($subpage))
-            <div id="sub-content"
-                 class="sub-content"
-                 data-current-page="{{ $subpage }}">
+        <div class="sub-content-wrap">
 
-                @if(View::exists("OPERATIONALPAGES.FITUR.SUBCONTENT.$subpage"))
+            @if(isset($subpage))
+                <div id="sub-content"
+                     class="sub-content"
+                     data-current-page="{{ $subpage }}">
 
-                    @include("OPERATIONALPAGES.FITUR.SUBCONTENT.$subpage")
+                    @if(View::exists("OPERATIONALPAGES.FITUR.SUBCONTENT.$subpage"))
 
-                @else
+                        @include("OPERATIONALPAGES.FITUR.SUBCONTENT.$subpage")
 
-                    <div class="alert alert-warning">
-                        Sub halaman "{{ $subpage }}" belum dibuat.
-                    </div>
+                    @else
 
-                @endif
+                        <div class="alert alert-warning">
+                            Sub halaman "{{ $subpage }}" belum dibuat.
+                        </div>
 
-            </div>
-        @endif
+                    @endif
+
+                </div>
+            @endif
+
+        </div>
 
     </div>
 
