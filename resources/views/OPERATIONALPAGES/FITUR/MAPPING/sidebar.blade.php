@@ -74,6 +74,11 @@
                         <i class="fa-solid fa-chart-line"></i> <span>Partnership</span>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('executive.settings') ? 'active' : '' }}">
+                    <a href="{{ route('executive.settings') }}" data-page="Settings">
+                        <i class="fa-solid fa-chart-line"></i> <span>Settings</span>
+                    </a>
+                </li>
             @endif
         @endif
 
