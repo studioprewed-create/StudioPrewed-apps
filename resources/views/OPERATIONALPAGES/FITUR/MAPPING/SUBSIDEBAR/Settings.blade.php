@@ -1,42 +1,31 @@
-    <div class="sub-sidebar">
+<div class="sub-sidebar">
 
-        <div class="sub-sidebar-header">
-            <h3>Settings</h3>
-            <span>Pengaturan sistem executive</span>
-        </div>
+    <ul class="sub-menu">
 
-        <ul class="sub-menu">
+        <li class="sub-menu-item {{ request()->routeIs('executive.settings.profile') ? 'active' : '' }}">
+            <a href="{{ route('executive.settings.profile') }}">
+                <span>Profile</span>
+            </a>
+        </li>
 
-            <li class="sub-menu-item active">
-                <a href="#">
-                    <span>Profile</span>
-                </a>
-            </li>
+        <li class="sub-menu-item {{ request()->routeIs('executive.settings.appearance') ? 'active' : '' }}">
+            <a href="{{ route('executive.settings.appearance') }}">
+                <span>Appearance</span>
+            </a>
+        </li>
 
-            <li class="sub-menu-item">
-                <a href="#">
-                    <span>Appearance</span>
-                </a>
-            </li>
+        <li class="sub-menu-item {{ request()->routeIs('executive.settings.notification') ? 'active' : '' }}">
+            <a href="{{ route('executive.settings.notification') }}">
+                <span>Notification</span>
+            </a>
+        </li>
 
-            <li class="sub-menu-item">
-                <a href="#">
-                    <span>Notification</span>
-                </a>
-            </li>
+        <li class="sub-menu-item {{ request()->routeIs('executive.settings.activity') ? 'active' : '' }}">
+            <a href="{{ route('executive.settings.activity') }}">
+                <span>Activity</span>
+            </a>
+        </li>
 
-            <li class="sub-menu-item">
-                <a href="#">
-                    <span>Activity</span>
-                </a>
-            </li>
+    </ul>
 
-            <li class="sub-menu-item">
-                <a href="#">
-                    <span>Security</span>
-                </a>
-            </li>
-
-        </ul>
-
-    </div>
+</div>
