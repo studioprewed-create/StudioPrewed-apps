@@ -54,7 +54,7 @@ class SUBEXECUTIVEController extends Controller
     public function temaBaju(Request $request){ return $this->subLoadPage($request, 'Catalogue', 'Catalogue.TemaBaju'); }
     public function kategoritemabaju(Request $request){ return $this->subLoadPage($request, 'Catalogue', 'Catalogue.KategoriBaju'); }
 
-    public function jadwalkerja(Request $request){ return $this->subLoadPage($request, 'Schedule', 'Schedule.Jadwalkerja'); }
+    public function jadwalkerja(Request $request){ return $this->subLoadPage($request, 'Schedule', 'Schedule.JadwalKerja'); }
     public function jadwalpesanan(Request $request){ return $this->subLoadPage($request, 'Schedule', 'Schedule.JadwalPesanan'); }
 
     private function subLoadPage(Request $request, $page, $subpage)
@@ -502,7 +502,7 @@ class SUBEXECUTIVEController extends Controller
                     'addonGroups' => $addonGroups,
                 ]);
             }
-            if ($subpage === 'Schedule.Jadwalkerja') {
+            if ($subpage === 'Schedule.JadwalKerja') {
                 $weekOffset = (int) $request->input('week', 0);
 
                 $startOfWeek = now()
@@ -958,7 +958,7 @@ class SUBEXECUTIVEController extends Controller
                     'bookings', 'selectedDate', 'status', 'search', 'packages', 'addons', 'temas', 'addonGroups'
                 ));
             }
-            if ($subpage === 'Schedule.Jadwalkerja') {
+            if ($subpage === 'Schedule.JadwalKerja') {
 
                 $weekOffset = (int) $request->input('week', 0);
 
@@ -1446,7 +1446,7 @@ class SUBEXECUTIVEController extends Controller
                         'addonGroups' => $addonGroups,
                     ]);
                 }
-                if ($subpage === 'Schedule.Jadwalkerja') {
+                if ($subpage === 'Schedule.JadwalKerja') {
 
                     $weekOffset = (int) $request->input('week', 0);
 
