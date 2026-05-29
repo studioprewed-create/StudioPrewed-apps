@@ -35,7 +35,7 @@ use App\Models\BrandCategory;
 class EXECUTIVEController extends Controller
 {
     public function dashboard(Request $request){ return $this->loadPage($request, 'Dashboard'); }
-    public function shedule(Request $request){ return $this->loadPage($request, 'Schedule'); }
+    public function schedule(Request $request){ return $this->loadPage($request, 'Schedule'); }
     public function jadwalkerja(Request $request){ return $this->loadPage($request, 'JadwalKerja'); }
     public function jadwalpesanan(Request $request){ return $this->loadPage($request, 'JadwalPesanan'); }
     public function catalogue(Request $request){ return $this->loadPage($request, 'Catalogue'); }
