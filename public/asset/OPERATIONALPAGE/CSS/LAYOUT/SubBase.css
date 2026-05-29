@@ -32,7 +32,7 @@
 
     top: 0;
 
-    min-height: 100vh;
+    height: 100vh;
 
     transition: all 0.3s ease;
 
@@ -45,7 +45,12 @@
     scrollbar-color: #555 transparent;
 
     z-index: 10;
+
+    flex-shrink: 0;
+
+    overflow-x: hidden;
 }
+
 
 /* =========================================
    MENU
@@ -57,8 +62,11 @@
 
     padding: 0;
 
+    margin: 0;
+
     width: 100%;
 }
+
 
 /* =========================================
    MENU ITEM
@@ -228,7 +236,7 @@
     margin: 0;
     margin-top: 5px;
     padding: 26px 26px 40px;
-    overflow-y: auto;
+    min-width: 0;
 }
 
 /* =========================================
@@ -239,7 +247,7 @@
 
     width: 100%;
 
-    min-height: 100vh;
+    min-height: calc(100vh - 40px);
 }
 
 /* =========================================
