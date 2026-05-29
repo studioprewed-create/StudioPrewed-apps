@@ -13,15 +13,9 @@
                 </a>
             </li>
 
-            <li class="menu-item {{ request()->routeIs('executive.jadwalkerja') ? 'active' : '' }}">
-                <a href="{{ route('executive.jadwalkerja') }}" data-page="JadwalKerja">
-                    <i class="fas fa-users"></i> <span>Jadwal Kerja</span>
-                </a>
-            </li>
-
-            <li class="menu-item {{ request()->routeIs('executive.jadwalpesanan') ? 'active' : '' }}">
-                <a href="{{ route('executive.jadwalpesanan') }}" data-page="JadwalPesanan">
-                    <i class="fas fa-calendar-check"></i> <span>Jadwal Pesanan</span>
+            <li class="menu-item {{ request()->routeIs('executive.schedule') ? 'active' : '' }}">
+                <a href="{{ route('executive.schedule') }}" data-page="Schedule">
+                    <i class="fas fa-calendar-check"></i> <span>Schedule</span>
                 </a>
             </li>
 

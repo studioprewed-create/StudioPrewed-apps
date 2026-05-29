@@ -70,14 +70,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('executive')->name('executive.')->group(function () {
         Route::get('/dashboard', [EXECUTIVEController::class, 'dashboard'])->name('dashboard');
-        Route::get('/jadwalkerja', [EXECUTIVEController::class, 'jadwalkerja'])->name('jadwalkerja');
-        Route::get('/jadwalpesanan', [EXECUTIVEController::class, 'jadwalpesanan'])->name('jadwalpesanan');
         Route::get('/catalogue', [EXECUTIVEController::class, 'catalogue'])->name('catalogue');
         Route::get('/galleryattire', [EXECUTIVEController::class, 'galleryattire'])->name('galleryattire');
         Route::get('/statistik', [EXECUTIVEController::class, 'statistik'])->name('statistik');
         Route::get('/Management', [EXECUTIVEController::class, 'management'])->name('management');
         Route::get('/upload', [EXECUTIVEController::class, 'upload'])->name('upload');
         Route::get('/settings', [EXECUTIVEController::class, 'settings'])->name('settings');
+        Route::get('/schedule', [EXECUTIVEController::class, 'schedule'])->name('schedule');
         
         Route::prefix('menupanel')->name('menupanel.')->group(function () {
             Route::get('/homepages/dashboard', [EXECUTIVEController::class, 'menuHomeDashboard'])->name('homepages.dashboard');
@@ -106,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/Package', [SUBEXECUTIVEController::class, 'Package'])->name('package');
             Route::get('/TemaBaju', [SUBEXECUTIVEController::class, 'TemaBaju'])->name('temaBaju');
             Route::get('/Kategoritemabaju', [SUBEXECUTIVEController::class, 'Kategoritemabaju'])->name('kategoritemabaju');
+
+            Route::get('/jadwalkerja', [SUBEXECUTIVEController::class, 'jadwalkerja'])->name('jadwalkerja');
+            Route::get('/jadwalpesanan', [SUBEXECUTIVEController::class, 'jadwalpesanan'])->name('jadwalpesanan');
         });
 
         // AJAX load (tanpa view utama)
