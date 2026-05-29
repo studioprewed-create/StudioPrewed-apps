@@ -12,34 +12,13 @@
     margin: -26px -26px -40px;
 }
 
-.sub-sidebar.expanded {
-    width: 240px;
-    align-items: flex-start;
-}
-
-.sub-sidebar.expanded .sub-menu span {
-    opacity: 1;
-}
-
-.sub-content-wrap {
-
-    transition: all .3s ease;
-
-}
-
-.sub-sidebar:hover + .sub-content-wrap {
-
-    margin-left: 140px;
-
-}
 
 /* =========================================
    SUB SIDEBAR
 ========================================= */
-
 .sub-sidebar {
 
-    width: 100px;
+    width: 180px; /* sesuaikan */
 
     background-color: var(--darker);
 
@@ -47,7 +26,7 @@
 
     flex-direction: column;
 
-    align-items: center;
+    align-items: flex-start;
 
     position: sticky;
 
@@ -66,13 +45,6 @@
     scrollbar-color: #555 transparent;
 
     z-index: 10;
-}
-
-.sub-sidebar:hover {
-
-    width: 240px;
-
-    align-items: flex-start;
 }
 
 /* =========================================
@@ -102,7 +74,9 @@
 
     width: 100%;
 
-    text-align: center;
+    text-align: left;
+
+    padding-left: 10px;
 
     transition: all 0.25s ease;
 
@@ -212,9 +186,7 @@
 
 .sub-sidebar .sub-menu span {
 
-    opacity: 0;
-
-    transition: opacity 0.2s ease;
+    opacity: 1;
 
     margin-left: 12px;
 
@@ -223,10 +195,6 @@
     white-space: nowrap;
 }
 
-.sub-sidebar:hover .sub-menu span {
-
-    opacity: 1;
-}
 
 /* =========================================
    SCROLLBAR

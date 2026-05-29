@@ -2009,13 +2009,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadPage(link);
         });
     });
-
-    subMenuLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadSubPage(link);
-        });
-    });
+    
 
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', (e) => {
