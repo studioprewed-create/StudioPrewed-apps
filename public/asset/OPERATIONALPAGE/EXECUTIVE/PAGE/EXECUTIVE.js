@@ -2022,6 +2022,32 @@ document.addEventListener('DOMContentLoaded', () => {
             parent.classList.toggle('active');
         });
     });
+
+    const subSidebar = document.querySelector('.sub-sidebar');
+
+    document.addEventListener('click', (e) => {
+
+        const subLink = e.target.closest(
+            '.sub-menu a[data-subpage]'
+        );
+
+        if (!subLink) return;
+
+        subSidebar?.classList.add('expanded');
+
+    });
+
+    document.addEventListener('click', (e) => {
+
+        if (
+            e.target.closest('.sub-sidebar')
+        ) {
+            return;
+        }
+
+        subSidebar?.classList.remove('expanded');
+
+    });
     
 
     setActiveMenuItem(serverPage);

@@ -12,6 +12,15 @@
     margin: -26px -26px -40px;
 }
 
+.sub-sidebar.expanded {
+    width: 240px;
+    align-items: flex-start;
+}
+
+.sub-sidebar.expanded .sub-menu span {
+    opacity: 1;
+}
+
 /* =========================================
    SUB SIDEBAR
 ========================================= */
