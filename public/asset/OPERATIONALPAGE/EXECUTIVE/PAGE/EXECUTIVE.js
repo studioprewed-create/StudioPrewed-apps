@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
-    const subContent = document.getElementById('sub-content');
     const menuLinks   = document.querySelectorAll('.sidebar .menu a[data-page]');
-    const subMenuLinks = document.querySelectorAll('.sub-menu a[data-subpage]');
     const dropdowns   = document.querySelectorAll('.menu-item.dropdown > .dropdown-toggle');
 
     const LS_KEY = 'exec_activeMenu';
@@ -1965,9 +1963,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadSubPage = (link, pushHistory = true) => {
 
-    const subContent = document.getElementById('sub-content');
+        const subContent = document.getElementById('sub-content');
 
-        if (!subContent) return;
+        if (!subContent) {
+            console.error('sub-content tidak ditemukan');
+            return;
+        }
 
         const url = link.getAttribute('href');
         const subpage = link.dataset.subpage;
@@ -1992,8 +1993,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             initPageScripts();
-
             setActiveSubMenuItem(subpage);
+
         })
         .catch(err => {
 
@@ -2028,12 +2029,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    subMenuLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadSubPage(link);
-        });
-    });
+    bindSubMenuLinks();
 
     function bindSubMenuLinks() {
 
@@ -2041,20 +2037,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .querySelectorAll('.sub-menu a[data-subpage]')
             .forEach(link => {
 
-                link.removeEventListener('click', link._subHandler);
-
-                link._subHandler = (e) => {
+                lisnk.onclick = (e) => {
 
                     e.preventDefault();
-
                     loadSubPage(link);
 
                 };
-
-                link.addEventListener(
-                    'click',
-                    link._subHandler
-                );
 
             });
 
@@ -2062,7 +2050,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setActiveMenuItem(serverPage);
     initPageScripts();
-    bindSubMenuLinks();
     localStorage.setItem(LS_KEY, serverPage);
 
     window.addEventListener('popstate', (event) => {
