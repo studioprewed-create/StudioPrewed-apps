@@ -51,7 +51,7 @@ class SUBEXECUTIVEController extends Controller
             if ($request->ajax()) {
                 return $this->subLoadContent($request, $page, $subpage);
             }
-            if ($page === 'StatistikContent.StatistikSurvey') {
+            if ($subpage === 'StatistikContent.StatistikSurvey') {
 
                 $services = [
                     'Fotografer',
@@ -330,7 +330,7 @@ class SUBEXECUTIVEController extends Controller
 
                 ]);
             }
-            if ($page === 'StatistikContent.StatistikReview') {
+            if ($subpage === 'StatistikContent.StatistikReview') {
                 $sort = $request->sort;
 
                 $googleReviews = GoogleReview::query();
@@ -375,7 +375,7 @@ class SUBEXECUTIVEController extends Controller
         }
     public function subLoadContent(Request $request, $page, $subpage)
         {
-            if ($page === 'StatistikContent.StatistikSurvey') {
+            if ($subpage === 'StatistikContent.StatistikSurvey') {
 
                 $services = [
                     'Fotografer',
@@ -645,7 +645,7 @@ class SUBEXECUTIVEController extends Controller
                     )
                 );
             }
-            if ($page === 'StatistikContent.StatistikReview') {
+            if ($subpage === 'StatistikContent.StatistikReview') {
                 $googleReviews = GoogleReview::latest(
                     'review_date'
                 )->get();
@@ -655,7 +655,7 @@ class SUBEXECUTIVEController extends Controller
                     compact('googleReviews')
                 );
             }
-            if ($page === 'StatistikContent.StatistikReview') {
+            if ($subpage === 'StatistikContent.StatistikReview') {
                 $sort = $request->sort;
 
                 $googleReviews = GoogleReview::query();
@@ -701,7 +701,7 @@ class SUBEXECUTIVEController extends Controller
     public function subLoadDirect(Request $request, $page, $subpage)
         {
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage")) {
-                if ($page === 'StatistikContent.StatistikSurvey') {
+                if ($subpage === 'StatistikContent.StatistikSurvey') {
 
                     $services = [
                         'Fotografer',
@@ -968,7 +968,7 @@ class SUBEXECUTIVEController extends Controller
 
                     ]);
                 }
-                if ($page === 'StatistikContent.StatistikReview') {
+                if ($subpage === 'StatistikContent.StatistikReview') {
 
                     $sort = $request->sort;
 
@@ -1012,6 +1012,6 @@ class SUBEXECUTIVEController extends Controller
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page, 'subpage' => $subpage]);
             }
-            abort(404, "Halaman $page tidak ditemukan");
+            abort(404, "Halaman $subpage tidak ditemukan");
         }
 }
