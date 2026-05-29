@@ -9,8 +9,8 @@
             @if(isset($subpage))
                 <div id="sub-content" class="sub-content" data-current-page="{{ $subpage }}">
 
-                    @if(View::exists("OPERATIONALPAGES.FITUR.SUBCONTENT.$subpage"))
-                        @include("OPERATIONALPAGES.FITUR.SUBCONTENT.$subpage")
+                    @if(View::exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage"))
+                        @include("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage")
                     @else
                         <div class="alert alert-warning">
                             Sub halaman "{{ $subpage }}" belum dibuat.
