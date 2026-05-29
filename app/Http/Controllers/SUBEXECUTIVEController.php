@@ -308,6 +308,7 @@ class SUBEXECUTIVEController extends Controller
                 ];
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
                     'subpage' => $subpage,
                     'services' => $services,
                     'favoriteBefore' => $favoriteBefore,
@@ -364,7 +365,8 @@ class SUBEXECUTIVEController extends Controller
 
                 return view(
                     'OPERATIONALPAGES.PAGE.EXECUTIVE',
-                    [
+                    [   
+                        'page' => $page,
                         'subpage' => $subpage,
                         'googleReviews' => $googleReviews,
                         'sort' => $sort,

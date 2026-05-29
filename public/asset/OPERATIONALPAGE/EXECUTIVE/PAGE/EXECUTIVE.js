@@ -2024,6 +2024,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    subMenuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadSubPage(link);
+        });
+    });
 
     setActiveMenuItem(serverPage);
     initPageScripts();
