@@ -4,7 +4,7 @@
 
         <li class="sub-menu-item {{ request()->routeIs('executive.subpage.dataakun') ? 'active' : '' }}">
             <a href="{{ route('executive.subpage.dataakun') }}"
-               data-subpage="ManagementContent.DataAkun">
+               data-subpage="Management.DataAkun">
                 <i class="fas fa-users"></i>
                 <span>Data Akun</span>
             </a>
@@ -12,7 +12,7 @@
 
          <li class="sub-menu-item {{ request()->routeIs('executive.subpage.dataPartnership') ? 'active' : '' }}">
             <a href="{{ route('executive.subpage.dataPartnership') }}"
-               data-subpage="PartnershipContent.DataPartnership">
+               data-subpage="Management.Partnership">
                 <i class="fas fa-handshake"></i>
                 <span>Data Partnership</span>
             </a>
@@ -20,7 +20,7 @@
 
         <li class="sub-menu-item {{ request()->routeIs('executive.subpage.kategoriPartnership') ? 'active' : '' }}">
             <a href="{{ route('executive.subpage.kategoriPartnership') }}"
-               data-subpage="PartnershipContent.KategoriPartnership">
+               data-subpage="Management.KPartnership">
                 <i class="fas fa-tags"></i>
                 <span>Kategori</span>
             </a>

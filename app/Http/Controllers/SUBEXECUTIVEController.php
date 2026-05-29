@@ -46,9 +46,9 @@ class SUBEXECUTIVEController extends Controller
     public function statistikkinerja(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKinerja'); }
     public function statistikkatalog(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKatalog'); }
 
-    public function dataakun(Request $request){ return $this->subLoadPage($request, 'Management', 'management.DataAkun'); }
-    public function dataPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'management.Partnership'); }
-    public function kategoriPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'management.KPartnership'); }
+    public function dataakun(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.DataAkun'); }
+    public function dataPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.Partnership'); }
+    public function kategoriPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.KPartnership'); }
 
     private function subLoadPage(Request $request, $page, $subpage)
         {
@@ -377,7 +377,7 @@ class SUBEXECUTIVEController extends Controller
                     ]
                 );
             }
-            if ($subpage === 'DataAkun') {
+            if ($subpage === 'Management.DataAkun') {
                 $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
 
                 $brandCategories = BrandCategory::all();
@@ -389,7 +389,7 @@ class SUBEXECUTIVEController extends Controller
                     'brandCategories' => $brandCategories,
                 ]);
             }
-            if ($subpage === 'management.KPartnership') {
+            if ($subpage === 'Management.KPartnership') {
                 $brandCategories = BrandCategory::latest()->get();
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
@@ -397,7 +397,7 @@ class SUBEXECUTIVEController extends Controller
                     'brandCategories' => $brandCategories,
                 ]);
             }
-            if ($subpage === 'Brand.DataPartnership') {
+            if ($subpage === 'Management.Partnership') {
 
                 $brands = User::with([
                     'dataBrand',
@@ -728,14 +728,14 @@ class SUBEXECUTIVEController extends Controller
                     compact('googleReviews', 'sort')
                 );
             }
-            if ($subpage === 'DataAkun') {
+            if ($subpage === 'Management.DataAkun') {
                 $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
 
                 $brandCategories = BrandCategory::all();
 
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage", compact('users', 'brandCategories'));
             }
-            if ($subpage === 'management.KPartnership') {
+            if ($subpage === 'Management.KPartnership') {
 
                 $brandCategories = BrandCategory::latest()->get();
                 return view(
@@ -743,7 +743,7 @@ class SUBEXECUTIVEController extends Controller
                     compact('brandCategories')
                 );
             }
-            if ($subpage === 'Brand.DataPartnership') {
+            if ($subpage === 'Management.Partnership') {
 
                 $brands = User::with([
                     'dataBrand.category'
@@ -1078,7 +1078,7 @@ class SUBEXECUTIVEController extends Controller
                         ]
                     );
                 }
-                if ($subpage === 'DataAkun') {
+                if ($subpage === 'Management.DataAkun') {
                     $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
 
                     $brandCategories = BrandCategory::all();
@@ -1090,7 +1090,7 @@ class SUBEXECUTIVEController extends Controller
                         'brandCategories' => $brandCategories,
                     ]);
                 }
-                if ($subpage === 'management.KPartnership') {
+                if ($subpage === 'Management.KPartnership') {
                     $brandCategories = BrandCategory::latest()->get();
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page' => $page,
@@ -1098,7 +1098,7 @@ class SUBEXECUTIVEController extends Controller
                         'brandCategories' => $brandCategories,
                     ]);
                 }
-                if ($subpage === 'Brand.DataPartnership') {
+                if ($subpage === 'Management.Partnershipz') {
 
                     $brands = User::with([
                         'dataBrand',
