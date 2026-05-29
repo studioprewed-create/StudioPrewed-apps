@@ -626,7 +626,7 @@ class SUBEXECUTIVEController extends Controller
                 ];
 
                 return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page.$subpage",
                     compact(
                         'services',
                         'favoriteBefore',
@@ -949,7 +949,7 @@ class SUBEXECUTIVEController extends Controller
                     ];
 
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-
+                        'page' => $page,
                         'subpage' => $subpage,
                         'services' => $services,
                         'favoriteBefore' => $favoriteBefore,
