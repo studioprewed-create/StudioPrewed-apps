@@ -1944,6 +1944,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(html => {
                 mainContent.innerHTML = html;
 
+                bindSubMenuLinks();
+
                 if (pushHistory) {
                     history.pushState({ page }, '', url);
                 }
@@ -1962,6 +1964,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const loadSubPage = (link, pushHistory = true) => {
+
+    const subContent = document.getElementById('sub-content');
 
         if (!subContent) return;
 
@@ -2031,8 +2035,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    function bindSubMenuLinks() {
+
+        document
+            .querySelectorAll('.sub-menu a[data-subpage]')
+            .forEach(link => {
+
+                link.removeEventListener('click', link._subHandler);
+
+                link._subHandler = (e) => {
+
+                    e.preventDefault();
+
+                    loadSubPage(link);
+
+                };
+
+                link.addEventListener(
+                    'click',
+                    link._subHandler
+                );
+
+            });
+
+    }
+
     setActiveMenuItem(serverPage);
     initPageScripts();
+    bindSubMenuLinks();
     localStorage.setItem(LS_KEY, serverPage);
 
     window.addEventListener('popstate', (event) => {

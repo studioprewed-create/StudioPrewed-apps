@@ -459,9 +459,8 @@ class SUBEXECUTIVEController extends Controller
                 }
 
                 $query->latest();
-
-                $surveys = $allDataRaw;
                 $allDataRaw = $query->get();
+                $surveys = $allDataRaw;
                 $allData = $allDataRaw->unique(function ($item) {
 
                     return strtolower(trim($item->customer_name))
@@ -626,7 +625,7 @@ class SUBEXECUTIVEController extends Controller
                 ];
 
                 return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page.$subpage",
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
                     compact(
                         'services',
                         'favoriteBefore',
@@ -1008,6 +1007,7 @@ class SUBEXECUTIVEController extends Controller
                     return view(
                         'OPERATIONALPAGES.PAGE.EXECUTIVE',
                         [
+                            'page' => $page,
                             'subpage' => $subpage,
                             'googleReviews' => $googleReviews,
                             'sort' => $sort,
