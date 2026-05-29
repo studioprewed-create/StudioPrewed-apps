@@ -2010,6 +2010,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    subMenuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadSubPage(link);
+        });
+    });
+
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', (e) => {
             e.preventDefault();
