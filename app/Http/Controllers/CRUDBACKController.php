@@ -63,7 +63,7 @@ class CRUDBACKController extends Controller
                 'gallery'   => 'MenuPanel.HomePages.Portofolio',
                 'promo'     => 'MenuPanel.HomePages.Pricelist',
                 'addon'     => 'MenuPanel.HomePages.Pricelist',
-                'user'      => 'subpage.dataakun',
+                'user'      => 'subpage/dataakun',
                 'package'   => 'Catalogue',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
