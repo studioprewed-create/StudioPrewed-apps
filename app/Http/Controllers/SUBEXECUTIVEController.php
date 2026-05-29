@@ -308,7 +308,7 @@ class SUBEXECUTIVEController extends Controller
                 ];
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                    'page' => $page,
+                    'subpage' => $subpage,
                     'services' => $services,
                     'favoriteBefore' => $favoriteBefore,
                     'favoriteAfter' => $favoriteAfter,
@@ -365,7 +365,7 @@ class SUBEXECUTIVEController extends Controller
                 return view(
                     'OPERATIONALPAGES.PAGE.EXECUTIVE',
                     [
-                        'page' => $page,
+                        'subpage' => $subpage,
                         'googleReviews' => $googleReviews,
                         'sort' => $sort,
                     ]
@@ -622,7 +622,7 @@ class SUBEXECUTIVEController extends Controller
                 ];
 
                 return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
                     compact(
                         'services',
                         'favoriteBefore',
@@ -651,7 +651,7 @@ class SUBEXECUTIVEController extends Controller
                 )->get();
 
                 return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
                     compact('googleReviews')
                 );
             }
@@ -688,7 +688,7 @@ class SUBEXECUTIVEController extends Controller
                     ->get();
 
                 return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
                     compact('googleReviews', 'sort')
                 );
             }
@@ -946,7 +946,7 @@ class SUBEXECUTIVEController extends Controller
 
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
 
-                        'page' => $page,
+                        'subpage' => $subpage,
                         'services' => $services,
                         'favoriteBefore' => $favoriteBefore,
                         'favoriteAfter' => $favoriteAfter,
@@ -1004,7 +1004,7 @@ class SUBEXECUTIVEController extends Controller
                     return view(
                         'OPERATIONALPAGES.PAGE.EXECUTIVE',
                         [
-                            'page' => $page,
+                            'subpage' => $subpage,
                             'googleReviews' => $googleReviews,
                             'sort' => $sort,
                         ]
