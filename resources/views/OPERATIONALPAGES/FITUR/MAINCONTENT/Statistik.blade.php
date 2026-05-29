@@ -6,8 +6,9 @@
 
         <div class="sub-content-wrap">
 
-            @if(isset($subpage))
-                <div id="sub-content" class="sub-content" data-current-page="{{ $subpage }}">
+            <div id="sub-content" class="sub-content" data-current-page="{{ $subpage ?? '' }}">
+
+                @if(isset($subpage))
 
                     @if(View::exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage"))
                         @include("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage")
@@ -16,8 +17,13 @@
                             Sub halaman "{{ $subpage }}" belum dibuat.
                         </div>
                     @endif
-                </div>
-            @endif
+
+                @endif
+
+            </div>
+
         </div>
+
     </div>
+
 </div>
