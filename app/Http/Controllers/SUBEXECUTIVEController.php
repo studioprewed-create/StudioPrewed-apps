@@ -44,7 +44,7 @@ class SUBEXECUTIVEController extends Controller
     public function statistikpengeluaran(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikPengeluaran'); }
     public function statistikpendapatan(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikPendapatan'); }
     public function statistikkinerja(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKinerja'); }
-    public function statistikkatalog(Request $request){ return $this->ssubLoadPage($request, 'Statistik', 'StatistikContent.StatistikKatalog'); }
+    public function statistikkatalog(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKatalog'); }
 
     public function dataakun(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.DataAkun'); }
     public function dataPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.Partnership'); }
