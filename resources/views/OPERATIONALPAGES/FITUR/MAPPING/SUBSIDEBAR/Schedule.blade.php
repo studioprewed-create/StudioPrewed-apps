@@ -2,7 +2,7 @@
 
     <ul class="sub-menu">
 
-        <li class="menu-item {{ request()->routeIs('executive.subpage.jadwalpesanan') ? 'active' : '' }}">
+        <li class="sub-menu-item {{ request()->routeIs('executive.subpage.jadwalpesanan') ? 'active' : '' }}">
             <a href="{{ route('executive.subpage.jadwalpesanan') }}"
                data-subpage="Schedule.JadwalPesanan">
                 <i class="fas fa-calendar-check"></i>
@@ -10,7 +10,7 @@
             </a>
         </li>
 
-        <li class="menu-item {{ request()->routeIs('executive.subpage.jadwalkerja') ? 'active' : '' }}">
+        <li class="sub-menu-item {{ request()->routeIs('executive.subpage.jadwalkerja') ? 'active' : '' }}">
             <a href="{{ route('executive.subpage.jadwalkerja') }}"
                data-subpage="Schedule.Jadwalkerja">
                 <i class="fas fa-users"></i>
