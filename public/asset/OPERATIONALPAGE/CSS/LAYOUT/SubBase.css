@@ -21,6 +21,18 @@
     opacity: 1;
 }
 
+.sub-content-wrap {
+
+    transition: all .3s ease;
+
+}
+
+.sub-sidebar:hover + .sub-content-wrap {
+
+    margin-left: 140px;
+
+}
+
 /* =========================================
    SUB SIDEBAR
 ========================================= */
