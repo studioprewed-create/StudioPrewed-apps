@@ -804,15 +804,6 @@ class EXECUTIVEController extends Controller
             if ($request->ajax()) {
                 return $this->loadContent($request, $page);
             }
-            if ($page === 'Catalogue') {
-                $packages = Package::orderBy('order')->get();
-                $temas    = TemaBaju::orderBy('order')->get();
-                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                    'page' => $page,
-                    'packages' => $packages,
-                    'temas' => $temas,
-                ]);
-            }
             if ($page === 'MenuPanel.HomePages.Dashboard') {
                 $slides = HeroSlide::orderBy('order')->get();
                 $marquees = Marquee::orderBy('order')->get();
@@ -972,11 +963,6 @@ class EXECUTIVEController extends Controller
         }
     public function loadContent(Request $request, $page)
         {
-            if ($page === 'Catalogue') {
-                $packages = Package::orderBy('order')->get();
-                $temas    = TemaBaju::orderBy('order')->get();
-                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('packages', 'temas'));
-            }
             if ($page === 'MenuPanel.HomePages.Dashboard') {
                 $slides = $this->applyFilters(
                     HeroSlide::query(),
@@ -1206,15 +1192,6 @@ class EXECUTIVEController extends Controller
     public function loadDirect(Request $request, $page)
         {
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
-                if ($page === 'Catalogue') {
-                    $packages = Package::orderBy('order')->get();
-                    $temas    = TemaBaju::orderBy('order')->get();
-                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                        'page'     => $page,
-                        'packages' => $packages,
-                        'temas'    => $temas,
-                    ]);
-                }
                 if ($page === 'MenuPanel.HomePages.Dashboard') {
                     $slides = $this->applyFilters(
                         HeroSlide::query(),

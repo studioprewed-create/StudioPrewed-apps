@@ -102,6 +102,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dataakun', [SUBEXECUTIVEController::class, 'dataakun'])->name('dataakun');
             Route::get('/DataPartnership', [SUBEXECUTIVEController::class, 'DataPartnership'])->name('dataPartnership');
             Route::get('/KategoriPartnership', [SUBEXECUTIVEController::class, 'KategoriPartnership'])->name('kategoriPartnership');
+
+            Route::get('/Package', [SUBEXECUTIVEController::class, 'Package'])->name('package');
+            Route::get('/TemaBaju', [SUBEXECUTIVEController::class, 'TemaBaju'])->name('temaBaju');
+            Route::get('/Kategoritemabaju', [SUBEXECUTIVEController::class, 'Kategoritemabaju'])->name('kategoritemabaju');
         });
 
         // AJAX load (tanpa view utama)

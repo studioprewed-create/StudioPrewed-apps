@@ -44,11 +44,16 @@ class SUBEXECUTIVEController extends Controller
     public function statistikpengeluaran(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikPengeluaran'); }
     public function statistikpendapatan(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikPendapatan'); }
     public function statistikkinerja(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKinerja'); }
-    public function statistikkatalog(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKatalog'); }
+    public function statistikkatalog(Request $request){ return $this->ssubLoadPage($request, 'Statistik', 'StatistikContent.StatistikKatalog'); }
 
     public function dataakun(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.DataAkun'); }
     public function dataPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.Partnership'); }
     public function kategoriPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'Management.KPartnership'); }
+
+    public function package(Request $request){ return $this->subLoadPage($request, 'Catalogue', 'Catalogue.Package'); }
+    public function temaBaju(Request $request){ return $this->subLoadPage($request, 'Catalogue', 'Catalogue.TemaBaju'); }
+    public function kategoritemabaju(Request $request){ return $this->subLoadPage($request, 'Catalogue', 'Catalogue.KategoriBaju'); }
+
 
     private function subLoadPage(Request $request, $page, $subpage)
         {
@@ -416,6 +421,26 @@ class SUBEXECUTIVEController extends Controller
                     'brands' => $brands,
                 ]);
             }
+            if ($subpage === 'Catalogue.Package') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'subpage' => $subpage,
+                    'packages' => $packages,
+                    'temas' => $temas,
+                ]);
+            }
+            if ($subpage === 'Catalogue.TemaBaju') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'subpage' => $subpage,
+                    'packages' => $packages,
+                    'temas' => $temas,
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page, 'subpage' => $subpage]);
         }
     public function subLoadContent(Request $request, $page, $subpage)
@@ -758,6 +783,16 @@ class SUBEXECUTIVEController extends Controller
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
                     compact('brands')
                 );
+            }
+            if ($subpage === 'Catalogue.Package') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage", compact('packages', 'temas'));
+            }
+            if ($subpage === 'Catalogue.TemaBaju') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage", compact('packages', 'temas'));
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage")) {
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage");
@@ -1115,6 +1150,26 @@ class SUBEXECUTIVEController extends Controller
                         'page'   => $page,
                         'subpage' => $subpage,
                         'brands' => $brands,
+                    ]);
+                }
+                if ($subpage === 'Catalogue.Package') {
+                    $packages = Package::orderBy('order')->get();
+                    $temas    = TemaBaju::orderBy('order')->get();
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'     => $page,
+                        'subpage' => $subpage,
+                        'packages' => $packages,
+                        'temas'    => $temas,
+                    ]);
+                }
+                if ($subpage === 'Catalogue.TemaBaju') {
+                    $packages = Package::orderBy('order')->get();
+                    $temas    = TemaBaju::orderBy('order')->get();
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'     => $page,
+                        'subpage' => $subpage,
+                        'packages' => $packages,
+                        'temas'    => $temas,
                     ]);
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page, 'subpage' => $subpage]);
