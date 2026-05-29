@@ -1,58 +1,105 @@
 <div class="page-header">
     <div>
-        <h1>Dashboard Data Partnership</h1>
-        <div class="subtitle">
-            Monitoring seluruh partnership sistem studio prewed
-        </div>
+        <h1>DATA PARTNERSHIP</h1>
+        <p>Brand partnership & studio management</p>
     </div>
 </div>
 
-<div class="stats-grid">
+@if($brands->isEmpty())
 
-    {{-- Statistik Kinerja --}}
-    <a href="{{ route('executive.dataPartnership') }}" class="stats-card performance">
-        <div class="stats-top">
-            <div class="stats-icon">
-                <i class="fas fa-user-check"></i>
+    <div class="alert alert-info">
+        <i class="fa fa-info-circle"></i>
+        Belum ada data partnership.
+    </div>
+
+@else
+
+<div class="partnership-grid">
+
+    @foreach($brands as $user)
+
+        @php
+            $brand = $user->dataBrand;
+        @endphp
+
+        <div class="partnership-card">
+
+            <div class="partnership-top">
+
+                <div class="partnership-logo">
+
+                    @if($brand?->logo)
+                       <img src="{{ $brand->logo_url }}" alt="">
+                    @else
+                        <i class="fa fa-image"></i>
+                    @endif
+
+                </div>
+
+                <div class="partnership-info">
+
+                    <h3>
+                        {{ $brand?->nama_brand ?? $user->name }}
+                    </h3>
+
+                    <span class="role-badge
+                        @if($user->role === 'BRAND_PARTNERSHIP')
+                            role-brand_partnership
+                        @else
+                            role-studio
+                        @endif">
+
+                        {{ $user->role }}
+
+                    </span>
+
+                </div>
+
             </div>
 
-            <div class="stats-text">
-                <h3>Data Partnership</h3>
-                <span>Data Partnership</span>
+            <div class="partnership-body">
+
+                <div class="partnership-item">
+                    <span>Category</span>
+                    <strong>
+                        {{ $brand?->category?->name ?? '-' }}
+                    </strong>
+                </div>
+
+                <div class="partnership-item">
+                    <span>Email</span>
+                    <strong>
+                        {{ $brand?->email ?? $user->email }}
+                    </strong>
+                </div>
+
+                <div class="partnership-item">
+                    <span>Phone</span>
+                    <strong>
+                        {{ $brand?->phone ?? '-' }}
+                    </strong>
+                </div>
+
+                <div class="partnership-item">
+                    <span>Website</span>
+                    <strong>
+                        {{ $brand?->website ?? '-' }}
+                    </strong>
+                </div>
+
+                <div class="partnership-item">
+                    <span>Instagram</span>
+                    <strong>
+                        {{ $brand?->instagram ?? '-' }}
+                    </strong>
+                </div>
+
             </div>
+
         </div>
 
-        <p>
-            Data Partnership
-        </p>
-
-        <div class="stats-footer">
-            <span>Buka Data</span>
-            <i class="fas fa-arrow-right"></i>
-        </div>
-    </a>
-
-    {{-- Statistik Katalog --}}
-    <a href="{{ route('executive.kategoriPartnership') }}" class="stats-card catalog">
-        <div class="stats-top">
-            <div class="stats-icon">
-                <i class="fas fa-images"></i>
-            </div>
-
-            <div class="stats-text">
-                <h3>kategori</h3>
-                <span>kategori Partnership</span>
-            </div>
-        </div>
-
-        <p>
-            menampilkan data kategori partnership
-        </p>
-
-        <div class="stats-footer">
-            <span>Buka Data</span>
-            <i class="fas fa-arrow-right"></i>
-        </div>
-    </a>
+    @endforeach
 
 </div>
+
+@endif
