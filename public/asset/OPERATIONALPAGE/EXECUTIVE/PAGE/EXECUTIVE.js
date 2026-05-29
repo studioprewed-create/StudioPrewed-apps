@@ -2037,7 +2037,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .querySelectorAll('.sub-menu a[data-subpage]')
             .forEach(link => {
 
-                lisnk.onclick = (e) => {
+                link.onclick = (e) => {
 
                     e.preventDefault();
                     loadSubPage(link);
