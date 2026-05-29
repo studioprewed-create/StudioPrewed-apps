@@ -75,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/catalogue', [EXECUTIVEController::class, 'catalogue'])->name('catalogue');
         Route::get('/galleryattire', [EXECUTIVEController::class, 'galleryattire'])->name('galleryattire');
         Route::get('/statistik', [EXECUTIVEController::class, 'statistik'])->name('statistik');
-        Route::get('/Management', [EXECUTIVEController::class, 'management'])->name('managements');
+        Route::get('/Management', [EXECUTIVEController::class, 'management'])->name('management');
         Route::get('/upload', [EXECUTIVEController::class, 'upload'])->name('upload');
         Route::get('/settings', [EXECUTIVEController::class, 'settings'])->name('settings');
         
