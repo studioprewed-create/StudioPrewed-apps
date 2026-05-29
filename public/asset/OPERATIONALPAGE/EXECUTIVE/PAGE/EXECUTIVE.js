@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
-    const subContent = document.getElementById('sub-content');
     const menuLinks   = document.querySelectorAll('.sidebar .menu a[data-page]');
-    const subMenuLinks = document.querySelectorAll('.sub-menu a[data-subpage]');
     const dropdowns   = document.querySelectorAll('.menu-item.dropdown > .dropdown-toggle');
 
     const LS_KEY = 'exec_activeMenu';
@@ -1962,8 +1960,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const loadSubPage = (link, pushHistory = true) => {
+    const subContent = document.getElementById('sub-content');
 
-        if (!subContent) return;
+        if (!subContent) {
+            console.error('sub-content tidak ditemukan');
+            return;
+        }
 
         const url = link.getAttribute('href');
         const subpage = link.dataset.subpage;
@@ -1979,27 +1981,18 @@ document.addEventListener('DOMContentLoaded', () => {
             subContent.innerHTML = html;
 
             if (pushHistory) {
-
                 history.pushState({
                     page: serverPage,
                     subpage
                 }, '', url);
-
             }
 
+            setActiveSubMenuItem(subpage);
             initPageScripts();
 
-            setActiveSubMenuItem(subpage);
         })
         .catch(err => {
-
             console.error(err);
-
-            subContent.innerHTML = `
-                <div class="alert alert-danger">
-                    Gagal memuat sub halaman ${subpage}
-                </div>
-            `;
         });
     };
 
@@ -2008,18 +2001,6 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             loadPage(link);
         });
-    });
-
-    subMenuLinks.forEach(link => {
-
-        link.addEventListener('click', (e) => {
-
-            e.preventDefault();
-
-            loadSubPage(link);
-
-        });
-
     });
 
     dropdowns.forEach(dropdown => {
@@ -2033,6 +2014,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             parent.classList.toggle('active');
         });
+    });
+
+    document.addEventListener('click', (e) => {
+
+        const link = e.target.closest(
+            '.sub-menu a[data-subpage]'
+        );
+
+        if (!link) return;
+
+        e.preventDefault();
+
+        loadSubPage(link);
+
     });
     
 
