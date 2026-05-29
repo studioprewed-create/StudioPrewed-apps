@@ -18,33 +18,23 @@
 ========================================= */
 .sub-sidebar {
 
-    width: 180px; /* sesuaikan */
+    position: fixed;
 
-    background-color: var(--darker);
+    left: 100px; /* lebar sidebar utama */
 
-    display: flex;
+    top: 65px; /* tinggi topbar */
 
-    flex-direction: column;
+    width: 180px;
 
-    align-items: flex-start;
-
-    position: sticky;
-
-    top: 0;
-
-    min-height: 100vh;
-
-    transition: all 0.3s ease;
-
-    box-shadow: 0 0 30px rgba(0,0,0,0.45);
+    height: calc(100vh - 65px);
 
     overflow-y: auto;
 
-    scrollbar-width: thin;
+    background-color: var(--darker);
 
-    scrollbar-color: #555 transparent;
+    z-index: 100;
 
-    z-index: 10;
+    box-shadow: 0 0 30px rgba(0,0,0,0.45);
 }
 
 /* =========================================
@@ -229,6 +219,8 @@
     margin-top: 5px;
     padding: 26px 26px 40px;
     overflow-y: auto;
+    margin-left: 180px;
+
 }
 
 /* =========================================
