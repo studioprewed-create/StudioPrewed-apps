@@ -39,12 +39,12 @@ class SUBEXECUTIVEController extends Controller
     public function notification(Request $request){return $this->subLoadPage($request,'Settings','SUBCONTENT.Notification');}
     public function activity(Request $request){return $this->subLoadPage($request,'Settings','SUBCONTENT.Activity');}
 
-    public function statistiksurvey(Request $request){ return $this->subloadPage($request, 'StatistikContent.StatistikSurvey'); }
-    public function statistikreview(Request $request){ return $this->subloadPage($request, 'StatistikContent.StatistikReview'); }
-    public function statistikpengeluaran(Request $request){ return $this->subloadPage($request, 'StatistikContent.StatistikPengeluaran'); }
-    public function statistikpendapatan(Request $request){ return $this->subloadPage($request, 'StatistikContent.StatistikPendapatan'); }
-    public function statistikkinerja(Request $request){ return $this->subloadPage($request, 'StatistikContent.StatistikKinerja'); }
-    public function statistikkatalog(Request $request){ return $this->subloadPage($request, 'StatistikContent.StatistikKatalog'); }
+    public function statistiksurvey(Request $request){ return $this->subloadPage($request, 'Statistik', 'StatistikContent.StatistikSurvey'); }
+    public function statistikreview(Request $request){ return $this->subloadPage($request, 'Statistik', 'StatistikContent.StatistikReview'); }
+    public function statistikpengeluaran(Request $request){ return $this->subloadPage($request, 'Statistik', 'StatistikContent.StatistikPengeluaran'); }
+    public function statistikpendapatan(Request $request){ return $this->subloadPage($request, 'Statistik', 'StatistikContent.StatistikPendapatan'); }
+    public function statistikkinerja(Request $request){ return $this->subloadPage($request, 'Statistik', 'StatistikContent.StatistikKinerja'); }
+    public function statistikkatalog(Request $request){ return $this->subloadPage($request, 'Statistik', 'StatistikContent.StatistikKatalog'); }
 
     private function subLoadPage(Request $request, $page, $subpage)
         {
