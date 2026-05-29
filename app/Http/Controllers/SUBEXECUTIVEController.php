@@ -649,16 +649,6 @@ class SUBEXECUTIVEController extends Controller
                 );
             }
             if ($subpage === 'StatistikContent.StatistikReview') {
-                $googleReviews = GoogleReview::latest(
-                    'review_date'
-                )->get();
-
-                return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
-                    compact('googleReviews')
-                );
-            }
-            if ($subpage === 'StatistikContent.StatistikReview') {
                 $sort = $request->sort;
 
                 $googleReviews = GoogleReview::query();
@@ -699,7 +689,7 @@ class SUBEXECUTIVEController extends Controller
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage");
             }
 
-            return "<div class='alert alert-warning'>Halaman <b>$page</b> belum dibuat.</div>";
+            return "<div class='alert alert-warning'>Halaman <b>$subpage</b> belum dibuat.</div>";
         }
     public function subLoadDirect(Request $request, $page, $subpage)
         {
