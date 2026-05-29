@@ -1882,6 +1882,33 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.onclick = hideModals;
         });
     };
+
+    const initSubSidebarLock = () => {
+    const content = document.querySelector('.content');
+    const subSidebar = document.querySelector('.sub-sidebar');
+
+        if (!content || !subSidebar) return;
+
+        let ticking = false;
+
+        content.onscroll = () => {
+
+            if (ticking) return;
+
+            ticking = true;
+
+            requestAnimationFrame(() => {
+
+                subSidebar.style.transform =
+                    `translateY(${content.scrollTop}px)`;
+
+                ticking = false;
+
+            });
+
+        };
+
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -1900,6 +1927,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initSidebarMobile();
         initStatistikSurvey();
         initBrandCategoryModals();
+        initSubSidebarLock();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */
