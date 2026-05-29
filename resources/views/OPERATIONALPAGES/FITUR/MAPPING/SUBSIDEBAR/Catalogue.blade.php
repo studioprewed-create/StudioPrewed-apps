@@ -1,29 +1,31 @@
-<div class="has-sub-domain">
+<div class="sub-sidebar">
 
-    <div class="sub-domain">
+    <ul class="sub-menu">
 
-        @include('OPERATIONALPAGES.FITUR.MAPPING.SUBSIDEBAR.Catalogue')
+        <li class="sub-menu-item {{ request()->routeIs('executive.subpage.package') ? 'active' : '' }}">
+            <a href="{{ route('executive.subpage.package') }}"
+               data-subpage="Catalogue.Package">
+                <i class="fas fa-users"></i>
+                <span>Package</span>
+            </a>
+        </li>
 
-        <div class="sub-content-wrap">
+         <li class="sub-menu-item {{ request()->routeIs('executive.subpage.temaBaju') ? 'active' : '' }}">
+            <a href="{{ route('executive.subpage.temaBaju') }}"
+               data-subpage="Catalogue.TemaBaju">
+                <i class="fas fa-handshake"></i>
+                <span>Tema Baju</span>
+            </a>
+        </li>
 
-            <div id="sub-content" class="sub-content" data-current-page="{{ $subpage ?? '' }}">
+        <li class="sub-menu-item {{ request()->routeIs('executive.subpage.kategoritemabaju') ? 'active' : '' }}">
+            <a href="{{ route('executive.subpage.kategoritemabaju') }}"
+               data-subpage="Catalogue.KategoriBaju">
+                <i class="fas fa-tags"></i>
+                <span>Kategori Baju</span>
+            </a>
+        </li>
 
-                @if(isset($subpage))
-
-                    @if(View::exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage"))
-                        @include("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage")
-                    @else
-                        <div class="alert alert-warning">
-                            Sub halaman "{{ $subpage }}" belum dibuat.
-                        </div>
-                    @endif
-
-                @endif
-
-            </div>
-
-        </div>
-
-    </div>
+    </ul>
 
 </div>
