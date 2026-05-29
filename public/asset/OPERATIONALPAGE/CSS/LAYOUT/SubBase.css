@@ -228,6 +228,7 @@
     margin-top: 5px;
     padding: 26px 26px 40px;
     overflow-y: auto;
+    height: 100vh;
 }
 
 /* =========================================
