@@ -18,7 +18,7 @@
 ========================================= */
 .sub-sidebar {
 
-    width: 180px;
+    width: 180px; /* sesuaikan */
 
     background-color: var(--darker);
 
@@ -32,17 +32,13 @@
 
     top: 0;
 
-    height: 100vh;
-
-    flex-shrink: 0;
-
-    overflow-y: auto;
-
-    overflow-x: hidden;
+    min-height: 100vh;
 
     transition: all 0.3s ease;
 
     box-shadow: 0 0 30px rgba(0,0,0,0.45);
+
+    overflow-y: auto;
 
     scrollbar-width: thin;
 
@@ -228,15 +224,11 @@
 .sub-content-wrap {
 
     flex: 1;
-    min-width: 0;
-    background: radial-gradient(
-        120% 160% at 10% 0%,
-        #151515 0,
-        #050505 45%,
-        #000 100%
-    );
+    background: radial-gradient(120% 160% at 10% 0%, #151515 0, #050505 45%, #000 100%);
+    margin: 0;
     margin-top: 5px;
     padding: 26px 26px 40px;
+    overflow-y: auto;
 }
 
 /* =========================================
