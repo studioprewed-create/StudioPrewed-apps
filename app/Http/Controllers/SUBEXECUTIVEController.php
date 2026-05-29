@@ -459,6 +459,8 @@ class SUBEXECUTIVEController extends Controller
                 }
 
                 $query->latest();
+
+                $surveys = $allDataRaw;
                 $allDataRaw = $query->get();
                 $allData = $allDataRaw->unique(function ($item) {
 
