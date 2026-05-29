@@ -18,7 +18,7 @@
 ========================================= */
 .sub-sidebar {
 
-    width: 180px; /* sesuaikan */
+    width: 180px;
 
     background-color: var(--darker);
 
@@ -34,23 +34,22 @@
 
     height: 100vh;
 
+    flex-shrink: 0;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
     transition: all 0.3s ease;
 
     box-shadow: 0 0 30px rgba(0,0,0,0.45);
-
-    overflow-y: auto;
 
     scrollbar-width: thin;
 
     scrollbar-color: #555 transparent;
 
     z-index: 10;
-
-    flex-shrink: 0;
-
-    overflow-x: hidden;
 }
-
 
 /* =========================================
    MENU
@@ -62,11 +61,8 @@
 
     padding: 0;
 
-    margin: 0;
-
     width: 100%;
 }
-
 
 /* =========================================
    MENU ITEM
@@ -232,11 +228,15 @@
 .sub-content-wrap {
 
     flex: 1;
-    background: radial-gradient(120% 160% at 10% 0%, #151515 0, #050505 45%, #000 100%);
-    margin: 0;
+    min-width: 0;
+    background: radial-gradient(
+        120% 160% at 10% 0%,
+        #151515 0,
+        #050505 45%,
+        #000 100%
+    );
     margin-top: 5px;
     padding: 26px 26px 40px;
-    min-width: 0;
 }
 
 /* =========================================
@@ -247,7 +247,7 @@
 
     width: 100%;
 
-    min-height: calc(100vh - 40px);
+    min-height: 100vh;
 }
 
 /* =========================================
