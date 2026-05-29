@@ -76,12 +76,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/galleryattire', [EXECUTIVEController::class, 'galleryattire'])->name('galleryattire');
         Route::get('/dataakun', [EXECUTIVEController::class, 'dataakun'])->name('dataakun');
         Route::get('/statistik', [EXECUTIVEController::class, 'statistik'])->name('statistik');
-        Route::get('/statistiksurvey', [EXECUTIVEController::class, 'statistiksurvey'])->name('statistiksurvey');
-        Route::get('/statistikreview', [EXECUTIVEController::class, 'statistikreview'])->name('statistikreview');
-        Route::get('/statistikpengeluaran', [EXECUTIVEController::class, 'statistikpengeluaran'])->name('statistikpengeluaran');
-        Route::get('/statistikpendapatan', [EXECUTIVEController::class, 'statistikpendapatan'])->name('statistikpendapatan');
-        Route::get('/statistikkinerja', [EXECUTIVEController::class, 'statistikkinerja'])->name('statistikkinerja');
-        Route::get('/statistikkatalog', [EXECUTIVEController::class, 'statistikkatalog'])->name('statistikkatalog');
         Route::get('/Partnership', [EXECUTIVEController::class, 'Partnership'])->name('partnership');
         Route::get('/DataPartnership', [EXECUTIVEController::class, 'DataPartnership'])->name('dataPartnership');
         Route::get('/KategoriPartnership', [EXECUTIVEController::class, 'KategoriPartnership'])->name('kategoriPartnership');
@@ -100,6 +94,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/appearance',[SUBEXECUTIVEController::class, 'appearance'])->name('appearance');
             Route::get('/notification',[SUBEXECUTIVEController::class, 'notification'])->name('notification');
             Route::get('/activity',[SUBEXECUTIVEController::class, 'activity'])->name('activity');
+
+            Route::get('/statistiksurvey', [SUBEXECUTIVEController::class, 'statistiksurvey'])->name('statistiksurvey');
+            Route::get('/statistikreview', [SUBEXECUTIVEController::class, 'statistikreview'])->name('statistikreview');
+            Route::get('/statistikpengeluaran', [SUBEXECUTIVEController::class, 'statistikpengeluaran'])->name('statistikpengeluaran');
+            Route::get('/statistikpendapatan', [SUBEXECUTIVEController::class, 'statistikpendapatan'])->name('statistikpendapatan');
+            Route::get('/statistikkinerja', [SUBEXECUTIVEController::class, 'statistikkinerja'])->name('statistikkinerja');
+            Route::get('/statistikkatalog', [SUBEXECUTIVEController::class, 'statistikkatalog'])->name('statistikkatalog');
         });
 
         // AJAX load (tanpa view utama)
