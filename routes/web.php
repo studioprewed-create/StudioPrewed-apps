@@ -74,11 +74,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/jadwalpesanan', [EXECUTIVEController::class, 'jadwalpesanan'])->name('jadwalpesanan');
         Route::get('/catalogue', [EXECUTIVEController::class, 'catalogue'])->name('catalogue');
         Route::get('/galleryattire', [EXECUTIVEController::class, 'galleryattire'])->name('galleryattire');
-        Route::get('/dataakun', [EXECUTIVEController::class, 'dataakun'])->name('dataakun');
         Route::get('/statistik', [EXECUTIVEController::class, 'statistik'])->name('statistik');
-        Route::get('/Partnership', [EXECUTIVEController::class, 'Partnership'])->name('partnership');
-        Route::get('/DataPartnership', [EXECUTIVEController::class, 'DataPartnership'])->name('dataPartnership');
-        Route::get('/KategoriPartnership', [EXECUTIVEController::class, 'KategoriPartnership'])->name('kategoriPartnership');
+        Route::get('/Management', [EXECUTIVEController::class, 'management'])->name('managements');
         Route::get('/upload', [EXECUTIVEController::class, 'upload'])->name('upload');
         Route::get('/settings', [EXECUTIVEController::class, 'settings'])->name('settings');
         
@@ -101,6 +98,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/statistikpendapatan', [SUBEXECUTIVEController::class, 'statistikpendapatan'])->name('statistikpendapatan');
             Route::get('/statistikkinerja', [SUBEXECUTIVEController::class, 'statistikkinerja'])->name('statistikkinerja');
             Route::get('/statistikkatalog', [SUBEXECUTIVEController::class, 'statistikkatalog'])->name('statistikkatalog');
+
+            Route::get('/dataakun', [SUBEXECUTIVEController::class, 'dataakun'])->name('dataakun');
+            Route::get('/DataPartnership', [SUBEXECUTIVEController::class, 'DataPartnership'])->name('dataPartnership');
+            Route::get('/KategoriPartnership', [SUBEXECUTIVEController::class, 'KategoriPartnership'])->name('kategoriPartnership');
         });
 
         // AJAX load (tanpa view utama)

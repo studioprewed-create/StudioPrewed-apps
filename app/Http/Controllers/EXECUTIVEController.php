@@ -40,11 +40,10 @@ class EXECUTIVEController extends Controller
     public function catalogue(Request $request){ return $this->loadPage($request, 'Catalogue'); }
     public function galleryattire(Request $request){ return $this->loadPage($request, 'GalleryAttire'); }
     public function statistik(Request $request){ return $this->loadPage($request, 'Statistik'); }
-    public function partnership(Request $request){ return $this->loadPage($request, 'Brand.Partnership'); }
+    public function management(Request $request){ return $this->loadPage($request, 'Management'); }
     public function dataPartnership(Request $request){ return $this->loadPage($request, 'Brand.DataPartnership'); }
     public function kategoriPartnership(Request $request){ return $this->loadPage($request, 'Brand.KategoriPartnership'); }
     public function upload(Request $request){ return $this->loadPage($request, 'Upload'); }
-    public function dataakun(Request $request){ return $this->loadPage($request, 'DataAkun'); }
     public function menuHomeDashboard(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Dashboard'); }
     public function menuHomePortofolio(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Portofolio'); }
     public function menuHomePricelist(Request $request){ return $this->loadPage($request, 'MenuPanel.HomePages.Pricelist'); }
@@ -805,17 +804,6 @@ class EXECUTIVEController extends Controller
             if ($request->ajax()) {
                 return $this->loadContent($request, $page);
             }
-            if ($page === 'DataAkun') {
-                $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
-
-                $brandCategories = BrandCategory::all();
-
-                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                    'page' => $page,
-                    'users' => $users,
-                    'brandCategories' => $brandCategories,
-                ]);
-            }
             if ($page === 'Catalogue') {
                 $packages = Package::orderBy('order')->get();
                 $temas    = TemaBaju::orderBy('order')->get();
@@ -980,42 +968,10 @@ class EXECUTIVEController extends Controller
                     'karyawanByRole' => $karyawanByRole,
                 ]);
             }
-            if ($page === 'Brand.KategoriPartnership') {
-                $brandCategories = BrandCategory::latest()->get();
-                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                    'page' => $page,
-                    'brandCategories' => $brandCategories,
-                ]);
-            }
-            if ($page === 'Brand.DataPartnership') {
-
-                $brands = User::with([
-                    'dataBrand',
-                    'dataBrand.category',
-                ])
-                ->whereIn('role', [
-                    'BRAND_PARTNERSHIP',
-                    'STUDIO',
-                ])
-                ->latest()
-                ->get();
-
-                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                    'page'   => $page,
-                    'brands' => $brands,
-                ]);
-            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
         {
-            if ($page === 'DataAkun') {
-                $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
-
-                $brandCategories = BrandCategory::all();
-
-                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('users', 'brandCategories'));
-            }
             if ($page === 'Catalogue') {
                 $packages = Package::orderBy('order')->get();
                 $temas    = TemaBaju::orderBy('order')->get();
@@ -1241,30 +1197,6 @@ class EXECUTIVEController extends Controller
                     compact('startOfWeek', 'bookingsByDate', 'karyawanByRole')
                 );
             }
-            if ($page === 'Brand.KategoriPartnership') {
-
-                $brandCategories = BrandCategory::latest()->get();
-                return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
-                    compact('brandCategories')
-                );
-            }
-            if ($page === 'Brand.DataPartnership') {
-
-                $brands = User::with([
-                    'dataBrand.category'
-                ])
-                ->whereIn('role', [
-                    'BRAND_PARTNERSHIP',
-                    'STUDIO'
-                ])
-                ->get();
-
-                return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
-                    compact('brands')
-                );
-            }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page");
             }
@@ -1274,17 +1206,6 @@ class EXECUTIVEController extends Controller
     public function loadDirect(Request $request, $page)
         {
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
-                if ($page === 'DataAkun') {
-                    $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
-
-                    $brandCategories = BrandCategory::all();
-
-                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                        'page' => $page,
-                        'users' => $users,
-                        'brandCategories' => $brandCategories,
-                    ]);
-                }
                 if ($page === 'Catalogue') {
                     $packages = Package::orderBy('order')->get();
                     $temas    = TemaBaju::orderBy('order')->get();
@@ -1557,31 +1478,6 @@ class EXECUTIVEController extends Controller
                     // Isi dengan data yang diperlukan untuk Berkas
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page' => $page,
-                    ]);
-                }
-                if ($page === 'Brand.KategoriPartnership') {
-                    $brandCategories = BrandCategory::latest()->get();
-                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                        'page' => $page,
-                        'brandCategories' => $brandCategories,
-                    ]);
-                }
-                if ($page === 'Brand.DataPartnership') {
-
-                    $brands = User::with([
-                        'dataBrand',
-                        'dataBrand.category',
-                    ])
-                    ->whereIn('role', [
-                        'BRAND_PARTNERSHIP',
-                        'STUDIO',
-                    ])
-                    ->latest()
-                    ->get();
-
-                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
-                        'page'   => $page,
-                        'brands' => $brands,
                     ]);
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);

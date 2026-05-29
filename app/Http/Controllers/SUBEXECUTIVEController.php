@@ -46,6 +46,10 @@ class SUBEXECUTIVEController extends Controller
     public function statistikkinerja(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKinerja'); }
     public function statistikkatalog(Request $request){ return $this->subLoadPage($request, 'Statistik', 'StatistikContent.StatistikKatalog'); }
 
+    public function dataakun(Request $request){ return $this->subLoadPage($request, 'Management', 'management.DataAkun'); }
+    public function dataPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'management.Partnership'); }
+    public function kategoriPartnership(Request $request){ return $this->subLoadPage($request, 'Management', 'management.KPartnership'); }
+
     private function subLoadPage(Request $request, $page, $subpage)
         {
             if ($request->ajax()) {
@@ -373,6 +377,45 @@ class SUBEXECUTIVEController extends Controller
                     ]
                 );
             }
+            if ($subpage === 'DataAkun') {
+                $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
+
+                $brandCategories = BrandCategory::all();
+
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'subpage' => $subpage,
+                    'users' => $users,
+                    'brandCategories' => $brandCategories,
+                ]);
+            }
+            if ($subpage === 'management.KPartnership') {
+                $brandCategories = BrandCategory::latest()->get();
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'subpage' => $subpage,
+                    'brandCategories' => $brandCategories,
+                ]);
+            }
+            if ($subpage === 'Brand.DataPartnership') {
+
+                $brands = User::with([
+                    'dataBrand',
+                    'dataBrand.category',
+                ])
+                ->whereIn('role', [
+                    'BRAND_PARTNERSHIP',
+                    'STUDIO',
+                ])
+                ->latest()
+                ->get();
+
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page'   => $page,
+                    'subpage' => $subpage,
+                    'brands' => $brands,
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page, 'subpage' => $subpage]);
         }
     public function subLoadContent(Request $request, $page, $subpage)
@@ -683,6 +726,37 @@ class SUBEXECUTIVEController extends Controller
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
                     compact('googleReviews', 'sort')
+                );
+            }
+            if ($subpage === 'DataAkun') {
+                $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
+
+                $brandCategories = BrandCategory::all();
+
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage", compact('users', 'brandCategories'));
+            }
+            if ($subpage === 'management.KPartnership') {
+
+                $brandCategories = BrandCategory::latest()->get();
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
+                    compact('brandCategories')
+                );
+            }
+            if ($subpage === 'Brand.DataPartnership') {
+
+                $brands = User::with([
+                    'dataBrand.category'
+                ])
+                ->whereIn('role', [
+                    'BRAND_PARTNERSHIP',
+                    'STUDIO'
+                ])
+                ->get();
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
+                    compact('brands')
                 );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage")) {
@@ -1003,6 +1077,45 @@ class SUBEXECUTIVEController extends Controller
                             'sort' => $sort,
                         ]
                     );
+                }
+                if ($subpage === 'DataAkun') {
+                    $users = User::with(['dataDiri', 'dataDiriKaryawan','dataBrand'])->get();
+
+                    $brandCategories = BrandCategory::all();
+
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page' => $page,
+                        'subpage' => $subpage,
+                        'users' => $users,
+                        'brandCategories' => $brandCategories,
+                    ]);
+                }
+                if ($subpage === 'management.KPartnership') {
+                    $brandCategories = BrandCategory::latest()->get();
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page' => $page,
+                        'subpage' => $subpage,
+                        'brandCategories' => $brandCategories,
+                    ]);
+                }
+                if ($subpage === 'Brand.DataPartnership') {
+
+                    $brands = User::with([
+                        'dataBrand',
+                        'dataBrand.category',
+                    ])
+                    ->whereIn('role', [
+                        'BRAND_PARTNERSHIP',
+                        'STUDIO',
+                    ])
+                    ->latest()
+                    ->get();
+
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'   => $page,
+                        'subpage' => $subpage,
+                        'brands' => $brands,
+                    ]);
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page, 'subpage' => $subpage]);
             }
