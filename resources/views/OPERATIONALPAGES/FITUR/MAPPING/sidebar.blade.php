@@ -47,6 +47,19 @@
                     </li>
                 </ul>
             </li>
+            <li class="menu-item dropdown">
+                <a href="#" class="dropdown-toggle">
+                    <i class="fa-solid fa-table-cells-large"></i> <span>Catalogue</span>
+                    <i class="fa-solid fa-chevron-right submenu-icon"></i>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('executive.Catalogue.tacpackage') }}" data-page="Catalogue.TACPackage">
+                            Tac Package
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="menu-item {{ request()->routeIs('executive.catalogue') ? 'active' : '' }}">
                 <a href="{{ route('executive.menupanel.berkas') }}" data-page="MenuPanel.Berkas">
                     <i class="fa-solid fa-images"></i> <span>Berkas</span>

@@ -32,6 +32,7 @@ use \App\Models\Survey;
 use App\Models\GoogleReview;
 use Carbon\Carbon;
 use App\Models\BrandCategory;
+use App\Models\TACPackage;
 
 class CRUDBACKController extends Controller
 {
@@ -68,7 +69,8 @@ class CRUDBACKController extends Controller
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
                 'googlereview' => 'StatistikContent.StatistikReview',
-                'brand-category' => 'Brand.KategoriPartnership',    
+                'brand-category' => 'Brand.KategoriPartnership',
+                'tacpackage' => 'Catalogue/TACPackage',    
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -588,6 +590,24 @@ class CRUDBACKController extends Controller
                     'description' => $request->description,
                 ]);
             }
+            elseif ($section === 'tacpackage') {
+                $validated = $request->validate([
+                    'package_id' => 'required|exists:packages,id',
+                    'content'    => 'required|string',
+                ]);
+
+                $maxOrder = TACPackage::where(
+                    'package_id',
+                    $validated['package_id']
+                )->max('order') ?? 0;
+
+                TACPackage::create([
+                    'package_id' => $validated['package_id'],
+                    'content'    => $validated['content'],
+                    'order'      => $maxOrder + 1,
+                    'active'     => $request->boolean('active', true),
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                 ->with('success', ucfirst($section).' berhasil ditambahkan!');
         }
@@ -610,6 +630,7 @@ class CRUDBACKController extends Controller
                 'addon'   => Addon::findOrFail($id),
                 'bookingexecutive' => BookingClient::findOrFail($id),
                 'brand-category' => BrandCategory::findOrFail($id),
+                'tacpackage' => TACPackage::findOrFail($id),
                 default => null,
             };
 
@@ -634,6 +655,7 @@ class CRUDBACKController extends Controller
                 'bookingexecutive' => 'JadwalPesanan',
                 'skemakerja' => 'JadwalKerja',
                 'brand-category' => 'Brand.KategoriPartnership',
+                'tacpackage' => 'Catalogue/TACPackage',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -1217,6 +1239,26 @@ class CRUDBACKController extends Controller
                     'description' => $request->description,
                 ]);
             }
+            elseif ($section === 'tacpackage') {
+                $item = TACPackage::findOrFail($id);
+
+                $validated = $request->validate([
+                    'package_id' => 'required|exists:packages,id',
+                    'content'    => 'required|string',
+                    'order'      => 'nullable|integer',
+                ]);
+
+                $item->update([
+                    'package_id' => $validated['package_id'],
+                    'content'    => $validated['content'],
+                    'order'      => $this->cleanOrder(
+                        $request->input('order', $item->order),
+                        TACPackage::class,
+                        $item->order
+                    ),
+                    'active'     => $request->boolean('active', $item->active),
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                         ->with('success', ucfirst($section).' berhasil diperbarui!');
         }
@@ -1238,7 +1280,7 @@ class CRUDBACKController extends Controller
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
                 'brand-category' => 'Brand.KategoriPartnership',
-
+                'tacpackage' => 'Catalogue/TACPackage',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -1259,6 +1301,7 @@ class CRUDBACKController extends Controller
                 'addon'   => Addon::findOrFail($id),
                 'bookingexecutive' => BookingClient::findOrFail($id),
                 'brand-category' => BrandCategory::findOrFail($id),
+                'tacpackage' => TACPackage::findOrFail($id),
                 default => null,
             };
 

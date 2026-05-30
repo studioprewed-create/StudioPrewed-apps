@@ -221,3 +221,234 @@
 <div class="custom-modal-backdrop" id="backdropEditTema"></div>
 <div class="custom-modal" id="modalEditTema" aria-hidden="true">
 
+<div class="custom-modal-backdrop"
+     id="backdropCreateTacPackage">
+</div>
+
+<div class="custom-modal" id="modalCreateTacPackage">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h5>
+                Tambah TAC Package
+            </h5>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnCloseCreateTacPackage">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <form
+                method="POST"
+                action="{{ route('executive.homepages.store','tacpackage') }}">
+
+                @csrf
+
+                <div class="tac-form-card">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Package
+                        </label>
+
+                        <select
+                            name="package_id"
+                            class="form-control"
+                            required>
+
+                            @foreach($packages as $package)
+
+                            <option value="{{ $package->id }}">
+                                {{ $package->nama_paket }}
+                            </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            TAC Content
+                        </label>
+
+                        <textarea
+                            name="content"
+                            rows="4"
+                            class="form-control"
+                            required></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Order
+                        </label>
+
+                        <input
+                            type="number"
+                            name="order"
+                            class="form-control"
+                            value="1">
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseCreateTacPackage2">
+
+                        Batal
+
+                    </button>
+
+                    <button
+                        class="btn btn-primary">
+
+                        Simpan
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="custom-modal-backdrop"id="backdropEditTacPackage"></div>
+<div class="custom-modal"
+     id="modalEditTacPackage">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h5>
+                Edit TAC Package
+            </h5>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnCloseEditTacPackage">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <form
+                id="editTacPackageForm"
+                method="POST"
+                data-base-url="{{ url('executive/homepages/update/tacpackage') }}">
+
+                @csrf
+                @method('PUT')
+
+                <div class="tac-form-card">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Package
+                        </label>
+
+                        <select
+                            id="et-package-id"
+                            name="package_id"
+                            class="form-control">
+
+                            @foreach($packages as $package)
+
+                            <option value="{{ $package->id }}">
+                                {{ $package->nama_paket }}
+                            </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            TAC Content
+                        </label>
+
+                        <textarea
+                            id="et-content"
+                            name="content"
+                            rows="4"
+                            class="form-control"></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Order
+                        </label>
+
+                        <input
+                            type="number"
+                            id="et-order"
+                            name="order"
+                            class="form-control">
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseEditTacPackage2">
+
+                        Batal
+
+                    </button>
+
+                    <button
+                        class="btn btn-primary">
+
+                        Update
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -31,9 +31,12 @@ use \App\Models\SkemaKerja;
 use \App\Models\Survey;
 use App\Models\GoogleReview;
 use App\Models\BrandCategory;
+use App\Models\TACPackage;
 
 class EXECUTIVEController extends Controller
 {
+    public function tacpackage(Request $request){ return $this->loadPage($request, 'Catalogue.TACPackage'); }
+
     public function dashboard(Request $request){ return $this->loadPage($request, 'Dashboard'); }
     public function schedule(Request $request){ return $this->loadPage($request, 'Schedule'); }
     public function jadwalkerja(Request $request){ return $this->loadPage($request, 'JadwalKerja'); }
@@ -851,6 +854,21 @@ class EXECUTIVEController extends Controller
                     'addons'   => $addons,
                 ]);
             }
+            if ($page === 'Catalogue.TACPackage') {
+
+                $tacPackages = TACPackage::with('package')
+                    ->orderBy('order')
+                    ->get();
+
+                $packages = Package::orderBy('nama_paket')
+                    ->get();
+
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'tacPackages' => $tacPackages,
+                    'packages' => $packages,
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -973,6 +991,22 @@ class EXECUTIVEController extends Controller
                 )->get();
                 $addons   = Addon::orderBy('kategori')->orderBy('nama')->get();
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('slides', 'promos','addons'));
+            }
+            if ($page === 'Catalogue.TACPackage') {
+                $tacPackages = TACPackage::with('package')
+                    ->orderBy('order')
+                    ->get();
+
+                $packages = Package::orderBy('nama_paket')
+                    ->get();
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact(
+                        'tacPackages',
+                        'packages'
+                    )
+                );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page");
@@ -1136,6 +1170,23 @@ class EXECUTIVEController extends Controller
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page' => $page,
                     ]);
+                }
+                if ($page === 'Catalogue.TACPackage') {
+                    $tacPackages = TACPackage::with('package')
+                        ->orderBy('order')
+                        ->get();
+
+                    $packages = Package::orderBy('nama_paket')
+                        ->get();
+
+                    return view(
+                        'OPERATIONALPAGES.PAGE.EXECUTIVE',
+                        [
+                            'page' => $page,
+                            'tacPackages' => $tacPackages,
+                            'packages' => $packages,
+                        ]
+                    );
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
             }

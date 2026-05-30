@@ -56,4 +56,10 @@ class Package extends Model
         }
         return $this->harga;
     }
+
+    public function tacPackages()
+    {
+        return $this->hasMany(TACPackage::class)
+            ->orderBy('order');
+    }
 }

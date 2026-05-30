@@ -78,6 +78,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/settings', [EXECUTIVEController::class, 'settings'])->name('settings');
         Route::get('/schedule', [EXECUTIVEController::class, 'schedule'])->name('schedule');
         
+        Route::prefix('Catalogue')->name('Catalogue.')->group(function () {
+            Route::get('/TACPackage', [EXECUTIVEController::class, 'TACPackage'])->name('tacpackage');
+        });
+
         Route::prefix('menupanel')->name('menupanel.')->group(function () {
             Route::get('/homepages/dashboard', [EXECUTIVEController::class, 'menuHomeDashboard'])->name('homepages.dashboard');
             Route::get('/homepages/portofolio', [EXECUTIVEController::class, 'menuHomePortofolio'])->name('homepages.portofolio');

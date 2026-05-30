@@ -1,0 +1,36 @@
+.tac-form-card{
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.03),
+            rgba(255,255,255,.01)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.05);
+
+    border-radius:16px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+}
+
+.tac-form-card .form-group{
+    margin-bottom:14px;
+}
+
+.tac-form-card textarea{
+    resize:vertical;
+    min-height:120px;
+}
+
+.tac-form-card .form-label{
+
+    font-weight:600;
+
+    color:var(--primary-light);
+
+    margin-bottom:8px;
+}
