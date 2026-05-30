@@ -219,12 +219,9 @@
 </div>
 
 <div class="custom-modal-backdrop" id="backdropEditTema"></div>
-<div class="custom-modal" id="modalEditTema" aria-hidden="true">
+<div class="custom-modal" id="modalEditTema" aria-hidden="true"></div>
 
-<div class="custom-modal-backdrop"
-     id="backdropCreateTacPackage">
-</div>
-
+<div class="custom-modal-backdrop" id="backdropCreateTacPackage"></div>
 <div class="custom-modal" id="modalCreateTacPackage">
 
     <div class="modal-content">
