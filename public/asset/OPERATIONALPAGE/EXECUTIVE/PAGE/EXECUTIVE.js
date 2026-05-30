@@ -1886,123 +1886,92 @@ document.addEventListener('DOMContentLoaded', () => {
     const initTACPackageModals = () => {
 
     const backdropCreate =
-        document.getElementById(
-            'backdropCreateTacPackage'
-        );
+        document.getElementById('backdropCreateTacPackage');
 
     const modalCreate =
-        document.getElementById(
-            'modalCreateTacPackage'
-        );
+        document.getElementById('modalCreateTacPackage');
 
     const btnOpen =
-        document.getElementById(
-            'btn-open-tacpackage-create'
-        );
+        document.getElementById('btn-open-tacpackage-create');
 
     const btnClose =
-        document.getElementById(
-            'btnCloseCreateTacPackage'
-        );
+        document.getElementById('btnCloseCreateTacPackage');
 
     const btnClose2 =
-        document.getElementById(
-            'btnCloseCreateTacPackage2'
-        );
+        document.getElementById('btnCloseCreateTacPackage2');
 
     const backdropEdit =
-        document.getElementById(
-            'backdropEditTacPackage'
-        );
+        document.getElementById('backdropEditTacPackage');
 
     const modalEdit =
-        document.getElementById(
-            'modalEditTacPackage'
-        );
+        document.getElementById('modalEditTacPackage');
 
     const btnEditClose =
-        document.getElementById(
-            'btnCloseEditTacPackage'
-        );
+        document.getElementById('btnCloseEditTacPackage');
 
     const btnEditClose2 =
-        document.getElementById(
-            'btnCloseEditTacPackage2'
-        );
+        document.getElementById('btnCloseEditTacPackage2');
 
     const form =
-        document.getElementById(
-            'editTacPackageForm'
-        );
+        document.getElementById('editTacPackageForm');
 
-        if (!modalCreate || !modalEdit) return;
+    if (!modalCreate || !modalEdit) return;
 
-        const showCreate = () => {
-            backdropCreate.classList.add('show');
-            modalCreate.classList.add('show');
-        };
+    const showCreate = () => {
+        backdropCreate.classList.add('show');
+        modalCreate.classList.add('show');
+    };
 
-        const hideCreate = () => {
-            backdropCreate.classList.remove('show');
-            modalCreate.classList.remove('show');
-        };
+    const hideCreate = () => {
+        backdropCreate.classList.remove('show');
+        modalCreate.classList.remove('show');
+    };
 
-        const showEdit = () => {
-            backdropEdit.classList.add('show');
-            modalEdit.classList.add('show');
-        };
+    const showEdit = () => {
+        backdropEdit.classList.add('show');
+        modalEdit.classList.add('show');
+    };
 
-        const hideEdit = () => {
-            backdropEdit.classList.remove('show');
-            modalEdit.classList.remove('show');
-        };
+    const hideEdit = () => {
+        backdropEdit.classList.remove('show');
+        modalEdit.classList.remove('show');
+    };
 
-        if(btnOpen) btnOpen.onclick = showCreate;
+        if (btnOpen) btnOpen.onclick = showCreate;
 
-        if(btnClose) btnClose.onclick = hideCreate;
-        if(btnClose2) btnClose2.onclick = hideCreate;
+        if (btnClose) btnClose.onclick = hideCreate;
+        if (btnClose2) btnClose2.onclick = hideCreate;
 
-        if(btnEditClose) btnEditClose.onclick = hideEdit;
-        if(btnEditClose2) btnEditClose2.onclick = hideEdit;
+        if (btnEditClose) btnEditClose.onclick = hideEdit;
+        if (btnEditClose2) btnEditClose2.onclick = hideEdit;
 
         document
-        .querySelectorAll('.btn-edit-tacpackage')
-        .forEach(btn => {
+            .querySelectorAll('.btn-edit-tacpackage')
+            .forEach(btn => {
 
-            btn.onclick = () => {
+                btn.onclick = () => {
 
-                const id =
-                    btn.dataset.id;
+                    const id = btn.dataset.id;
 
-                form.action =
-                    `${form.dataset.baseUrl}/${id}`;
+                    form.action =
+                        `${form.dataset.baseUrl}/${id}`;
 
-                document.getElementById(
-                    'et-package-id'
-                ).value =
-                    btn.dataset.packageId;
+                    document.getElementById(
+                        'et-content'
+                    ).value =
+                        btn.dataset.content;
 
-                document.getElementById(
-                    'et-content'
-                ).value =
-                    btn.dataset.content;
-
-                document.getElementById(
-                    'et-order'
-                ).value =
-                    btn.dataset.order;
-
-                showEdit();
-            };
-        });
+                    showEdit();
+                };
+            });
 
         backdropCreate.onclick = (e) => {
-            if(e.target === backdropCreate)
+            if (e.target === backdropCreate)
                 hideCreate();
         };
 
         backdropEdit.onclick = (e) => {
-            if(e.target === backdropEdit)
+            if (e.target === backdropEdit)
                 hideEdit();
         };
     };

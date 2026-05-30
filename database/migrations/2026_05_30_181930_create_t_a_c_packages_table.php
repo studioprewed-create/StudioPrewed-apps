@@ -10,23 +10,15 @@ return new class extends Migration
     {
         Schema::create('tac_packages', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('package_id')
-                ->constrained('packages')
-                ->cascadeOnDelete();
-
             $table->text('content');
-
-            $table->integer('order')->default(0);
-
             $table->boolean('active')->default(true);
-
             $table->timestamps();
+
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('tac_packages');
+        Schema::dropIfExists('tacs');
     }
 };

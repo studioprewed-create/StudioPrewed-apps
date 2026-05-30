@@ -592,20 +592,12 @@ class CRUDBACKController extends Controller
             }
             elseif ($section === 'tacpackage') {
                 $validated = $request->validate([
-                    'package_id' => 'required|exists:packages,id',
-                    'content'    => 'required|string',
+                    'content' => 'required|string',
                 ]);
 
-                $maxOrder = TACPackage::where(
-                    'package_id',
-                    $validated['package_id']
-                )->max('order') ?? 0;
-
                 TACPackage::create([
-                    'package_id' => $validated['package_id'],
-                    'content'    => $validated['content'],
-                    'order'      => $maxOrder + 1,
-                    'active'     => $request->boolean('active', true),
+                    'content' => $validated['content'],
+                    'active'  => $request->boolean('active', true),
                 ]);
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])
@@ -1240,23 +1232,16 @@ class CRUDBACKController extends Controller
                 ]);
             }
             elseif ($section === 'tacpackage') {
+
                 $item = TACPackage::findOrFail($id);
 
                 $validated = $request->validate([
-                    'package_id' => 'required|exists:packages,id',
-                    'content'    => 'required|string',
-                    'order'      => 'nullable|integer',
+                    'content' => 'required|string',
                 ]);
 
                 $item->update([
-                    'package_id' => $validated['package_id'],
-                    'content'    => $validated['content'],
-                    'order'      => $this->cleanOrder(
-                        $request->input('order', $item->order),
-                        TACPackage::class,
-                        $item->order
-                    ),
-                    'active'     => $request->boolean('active', $item->active),
+                    'content' => $validated['content'],
+                    'active'  => $request->boolean('active', $item->active),
                 ]);
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])

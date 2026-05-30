@@ -38,9 +38,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Package</th>
                 <th>Content</th>
-                <th>Order</th>
                 <th width="180">Edit</th>
                 <th width="180">Delete</th>
             </tr>
@@ -55,15 +53,7 @@
                 <td>{{ $index + 1 }}</td>
 
                 <td>
-                    {{ $tac->package->nama_paket }}
-                </td>
-
-                <td>
                     {{ $tac->content }}
-                </td>
-
-                <td>
-                    {{ $tac->order }}
                 </td>
 
                 <td>
@@ -73,9 +63,7 @@
                         class="btn btn-secondary btn-edit-tacpackage"
 
                         data-id="{{ $tac->id }}"
-                        data-package-id="{{ $tac->package_id }}"
-                        data-content="{{ $tac->content }}"
-                        data-order="{{ $tac->order }}">
+                        data-content="{{ $tac->content }}">
 
                         <i class="fa fa-pen"></i>
                         Edit
@@ -88,7 +76,7 @@
 
                     <form
                         method="POST"
-                        action="{{ route('executive.homepages.destroy',['section'=>'tacpackage','id'=>$tac->id]) }}"
+                        action="{{ route('executive.homepages.destroy', ['section' => 'tacpackage', 'id' => $tac->id]) }}"
                         onsubmit="return confirm('Yakin hapus TAC ini?')">
 
                         @csrf
@@ -110,7 +98,7 @@
             @empty
 
             <tr>
-                <td colspan="6">
+                <td colspan="4">
                     Belum ada data TAC Package.
                 </td>
             </tr>

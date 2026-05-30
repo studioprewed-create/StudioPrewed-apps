@@ -228,9 +228,7 @@
 
         <div class="modal-header">
 
-            <h5>
-                Tambah TAC Package
-            </h5>
+            <h5>Tambah TAC Package</h5>
 
             <button
                 type="button"
@@ -256,29 +254,6 @@
                     <div class="form-group">
 
                         <label class="form-label">
-                            Package
-                        </label>
-
-                        <select
-                            name="package_id"
-                            class="form-control"
-                            required>
-
-                            @foreach($packages as $package)
-
-                            <option value="{{ $package->id }}">
-                                {{ $package->nama_paket }}
-                            </option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label class="form-label">
                             TAC Content
                         </label>
 
@@ -287,20 +262,6 @@
                             rows="4"
                             class="form-control"
                             required></textarea>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label class="form-label">
-                            Order
-                        </label>
-
-                        <input
-                            type="number"
-                            name="order"
-                            class="form-control"
-                            value="1">
 
                     </div>
 
@@ -317,11 +278,8 @@
 
                     </button>
 
-                    <button
-                        class="btn btn-primary">
-
+                    <button class="btn btn-primary">
                         Simpan
-
                     </button>
 
                 </div>
@@ -334,17 +292,14 @@
 
 </div>
 
-<div class="custom-modal-backdrop"id="backdropEditTacPackage"></div>
-<div class="custom-modal"
-     id="modalEditTacPackage">
+<div class="custom-modal-backdrop" id="backdropEditTacPackage"></div>
+<div class="custom-modal" id="modalEditTacPackage">
 
     <div class="modal-content">
 
         <div class="modal-header">
 
-            <h5>
-                Edit TAC Package
-            </h5>
+            <h5>Edit TAC Package</h5>
 
             <button
                 type="button"
@@ -372,29 +327,6 @@
                     <div class="form-group">
 
                         <label class="form-label">
-                            Package
-                        </label>
-
-                        <select
-                            id="et-package-id"
-                            name="package_id"
-                            class="form-control">
-
-                            @foreach($packages as $package)
-
-                            <option value="{{ $package->id }}">
-                                {{ $package->nama_paket }}
-                            </option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label class="form-label">
                             TAC Content
                         </label>
 
@@ -402,21 +334,8 @@
                             id="et-content"
                             name="content"
                             rows="4"
-                            class="form-control"></textarea>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label class="form-label">
-                            Order
-                        </label>
-
-                        <input
-                            type="number"
-                            id="et-order"
-                            name="order"
-                            class="form-control">
+                            class="form-control"
+                            required></textarea>
 
                     </div>
 
@@ -433,11 +352,8 @@
 
                     </button>
 
-                    <button
-                        class="btn btn-primary">
-
+                    <button class="btn btn-primary">
                         Update
-
                     </button>
 
                 </div>

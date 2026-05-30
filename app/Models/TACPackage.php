@@ -12,19 +12,11 @@ class TACPackage extends Model
     protected $table = 'tac_packages';
 
     protected $fillable = [
-        'package_id',
         'content',
-        'order',
         'active',
     ];
 
     protected $casts = [
-        'order'  => 'integer',
         'active' => 'boolean',
     ];
-
-    public function package()
-    {
-        return $this->belongsTo(Package::class);
-    }
 }

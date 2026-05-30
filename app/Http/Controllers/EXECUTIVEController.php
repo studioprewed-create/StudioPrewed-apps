@@ -855,18 +855,12 @@ class EXECUTIVEController extends Controller
                 ]);
             }
             if ($page === 'Catalogue.TACPackage') {
-
-                $tacPackages = TACPackage::with('package')
-                    ->orderBy('order')
-                    ->get();
-
-                $packages = Package::orderBy('nama_paket')
+                $tacPackages = TACPackage::orderBy('id')
                     ->get();
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
                     'tacPackages' => $tacPackages,
-                    'packages' => $packages,
                 ]);
             }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
@@ -993,18 +987,13 @@ class EXECUTIVEController extends Controller
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('slides', 'promos','addons'));
             }
             if ($page === 'Catalogue.TACPackage') {
-                $tacPackages = TACPackage::with('package')
-                    ->orderBy('order')
-                    ->get();
-
-                $packages = Package::orderBy('nama_paket')
+                $tacPackages = TACPackage::orderBy('id')
                     ->get();
 
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
                     compact(
-                        'tacPackages',
-                        'packages'
+                        'tacPackages'
                     )
                 );
             }
@@ -1172,11 +1161,7 @@ class EXECUTIVEController extends Controller
                     ]);
                 }
                 if ($page === 'Catalogue.TACPackage') {
-                    $tacPackages = TACPackage::with('package')
-                        ->orderBy('order')
-                        ->get();
-
-                    $packages = Package::orderBy('nama_paket')
+                    $tacPackages = TACPackage::orderBy('id')
                         ->get();
 
                     return view(
@@ -1184,7 +1169,6 @@ class EXECUTIVEController extends Controller
                         [
                             'page' => $page,
                             'tacPackages' => $tacPackages,
-                            'packages' => $packages,
                         ]
                     );
                 }
