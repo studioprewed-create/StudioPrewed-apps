@@ -34,6 +34,7 @@ use Carbon\Carbon;
 use App\Models\BrandCategory;
 use App\Models\TACPackage;
 use App\Models\KonsepAttire;
+use App\Models\DESCPackage;
 
 class CRUDBACKController extends Controller
 {
@@ -72,7 +73,9 @@ class CRUDBACKController extends Controller
                 'googlereview' => 'StatistikContent.StatistikReview',
                 'brand-category' => 'Brand.KategoriPartnership',
                 'tacpackage' => 'Catalogue/TACPackage', 
-                'konsepattire' => 'Catalogue/TACPackage',    
+                'konsepattire' => 'Catalogue/TACPackage',
+                'descpackage' => 'Catalogue/TACPackage',
+                    
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -612,6 +615,16 @@ class CRUDBACKController extends Controller
                     'active'  => $request->boolean('active', true),
                 ]);
             }
+            elseif ($section === 'descpackage') {
+                $validated = $request->validate([
+                    'content' => 'required|string',
+                ]);
+
+                DESCPackage::create([
+                    'content' => $validated['content'],
+                    'active' => $request->boolean('active', true),
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                 ->with('success', ucfirst($section).' berhasil ditambahkan!');
         }
@@ -636,6 +649,7 @@ class CRUDBACKController extends Controller
                 'brand-category' => BrandCategory::findOrFail($id),
                 'tacpackage' => TACPackage::findOrFail($id),
                 'konsepattire' => KonsepAttire::findOrFail($id),
+                'descpackage' => DESCPackage::findOrFail($id),
                 default => null,
             };
 
@@ -662,6 +676,7 @@ class CRUDBACKController extends Controller
                 'brand-category' => 'Brand.KategoriPartnership',
                 'tacpackage' => 'Catalogue/TACPackage',
                 'konsepattire' => 'Catalogue/TACPackage',
+                'descpackage' => 'Catalogue/TACPackage',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -1271,6 +1286,18 @@ class CRUDBACKController extends Controller
                     'active'  => $request->boolean('active', $item->active),
                 ]);
             }
+            elseif ($section === 'descpackage') {
+                $item = DESCPackage::findOrFail($id);
+
+                $validated = $request->validate([
+                    'content' => 'required|string',
+                ]);
+
+                $item->update([
+                    'content' => $validated['content'],
+                    'active' => $request->boolean('active', $item->active),
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                         ->with('success', ucfirst($section).' berhasil diperbarui!');
         }
@@ -1294,7 +1321,7 @@ class CRUDBACKController extends Controller
                 'brand-category' => 'Brand.KategoriPartnership',
                 'tacpackage' => 'Catalogue/TACPackage',
                 'konsepattire' => 'Catalogue/TACPackage',
-                
+                'descpackage' => 'Catalogue/TACPackage',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -1317,6 +1344,7 @@ class CRUDBACKController extends Controller
                 'brand-category' => BrandCategory::findOrFail($id),
                 'tacpackage' => TACPackage::findOrFail($id),
                 'konsepattire' => KonsepAttire::findOrFail($id),
+                'descpackage' => DESCPackage::findOrFail($id),
                 default => null,
             };
 

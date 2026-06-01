@@ -511,3 +511,136 @@
 
 </div>
 
+<div class="custom-modal-backdrop" id="backdropCreateDescPackage"></div>
+<div class="custom-modal" id="modalCreateDescPackage">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h5>Tambah Deskripsi Package</h5>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnCloseCreateDescPackage">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <form
+                method="POST"
+                action="{{ route('executive.homepages.store','descpackage') }}">
+
+                @csrf
+
+                <div class="form-group">
+
+                    <label>Deskripsi Package</label>
+
+                    <textarea
+                        name="content"
+                        rows="4"
+                        class="form-control"
+                        required></textarea>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseCreateDescPackage2">
+
+                        Batal
+
+                    </button>
+
+                    <button class="btn btn-primary">
+                        Simpan
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="custom-modal-backdrop" id="backdropEditDescPackage"></div>
+<div class="custom-modal" id="modalEditDescPackage">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h5>Edit Deskripsi Package</h5>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnCloseEditDescPackage">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <form
+                id="editDescPackageForm"
+                method="POST"
+                data-base-url="{{ url('executive/homepages/update/descpackage') }}">
+
+                @csrf
+                @method('PUT')
+
+                <div class="form-group">
+
+                    <label>Deskripsi Package</label>
+
+                    <textarea
+                        id="edp-content"
+                        name="content"
+                        rows="4"
+                        class="form-control"
+                        required></textarea>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseEditDescPackage2">
+
+                        Batal
+
+                    </button>
+
+                    <button class="btn btn-primary">
+                        Update
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+

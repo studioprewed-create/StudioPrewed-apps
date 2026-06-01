@@ -2068,6 +2068,99 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideEdit();
         };
     };
+
+    const initDescPackageModals = () => {
+
+    const backdropCreate =
+        document.getElementById('backdropCreateDescPackage');
+
+    const modalCreate =
+        document.getElementById('modalCreateDescPackage');
+
+    const btnOpen =
+        document.getElementById('btn-open-descpackage-create');
+
+    const btnClose =
+        document.getElementById('btnCloseCreateDescPackage');
+
+    const btnClose2 =
+        document.getElementById('btnCloseCreateDescPackage2');
+
+    const backdropEdit =
+        document.getElementById('backdropEditDescPackage');
+
+    const modalEdit =
+        document.getElementById('modalEditDescPackage');
+
+    const btnEditClose =
+        document.getElementById('btnCloseEditDescPackage');
+
+    const btnEditClose2 =
+        document.getElementById('btnCloseEditDescPackage2');
+
+    const form =
+        document.getElementById('editDescPackageForm');
+
+    if (!modalCreate || !modalEdit) return;
+
+    const showCreate = () => {
+        backdropCreate.classList.add('show');
+        modalCreate.classList.add('show');
+    };
+
+    const hideCreate = () => {
+        backdropCreate.classList.remove('show');
+        modalCreate.classList.remove('show');
+    };
+
+    const showEdit = () => {
+        backdropEdit.classList.add('show');
+        modalEdit.classList.add('show');
+    };
+
+    const hideEdit = () => {
+        backdropEdit.classList.remove('show');
+        modalEdit.classList.remove('show');
+    };
+
+        if (btnOpen) btnOpen.onclick = showCreate;
+
+        if (btnClose) btnClose.onclick = hideCreate;
+        if (btnClose2) btnClose2.onclick = hideCreate;
+
+        if (btnEditClose) btnEditClose.onclick = hideEdit;
+        if (btnEditClose2) btnEditClose2.onclick = hideEdit;
+
+        document
+            .querySelectorAll('.btn-edit-descpackage')
+            .forEach(btn => {
+
+                btn.onclick = () => {
+
+                    const id = btn.dataset.id;
+
+                    form.action =
+                        `${form.dataset.baseUrl}/${id}`;
+
+                    document.getElementById(
+                        'edp-content'
+                    ).value =
+                        btn.dataset.content;
+
+                    showEdit();
+                };
+            });
+
+        backdropCreate.onclick = (e) => {
+            if (e.target === backdropCreate)
+                hideCreate();
+        };
+
+        backdropEdit.onclick = (e) => {
+            if (e.target === backdropEdit)
+                hideEdit();
+        };
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -2088,6 +2181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initBrandCategoryModals();
         initTACPackageModals();
         initKonsepAttireModals();
+        initDescPackageModals();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

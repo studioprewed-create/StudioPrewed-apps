@@ -33,6 +33,7 @@ use App\Models\GoogleReview;
 use App\Models\BrandCategory;
 use App\Models\TACPackage;
 use App\Models\KonsepAttire;
+use App\Models\DESCPackage;
 
 class EXECUTIVEController extends Controller
 {
@@ -858,12 +859,13 @@ class EXECUTIVEController extends Controller
             if ($page === 'Catalogue.TACPackage') {
                 $tacPackages = TACPackage::orderBy('id') ->get();
                 $konsepAttires = KonsepAttire::orderBy('id')->get();
+                $descPackages = DESCPackage::orderBy('id')->get();
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
                     'tacPackages' => $tacPackages,
                     'konsepAttires' => $konsepAttires,
-
+                    'descPackages' => $descPackages,
                 ]);
             }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
@@ -992,12 +994,14 @@ class EXECUTIVEController extends Controller
             if ($page === 'Catalogue.TACPackage') {
                 $tacPackages = TACPackage::orderBy('id')->get();
                 $konsepAttires = KonsepAttire::orderBy('id')->get();
+                $descPackages = DESCPackage::orderBy('id')->get();
 
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
                     compact(
                         'tacPackages',
-                        'konsepAttires'
+                        'konsepAttires',
+                        'descPackages'
                     )
                 );
             }
@@ -1167,6 +1171,7 @@ class EXECUTIVEController extends Controller
                 if ($page === 'Catalogue.TACPackage') {
                     $tacPackages = TACPackage::orderBy('id')->get();
                     $konsepAttires = KonsepAttire::orderBy('id')->get();
+                    $descPackages = DESCPackage::orderBy('id')->get();
 
                     return view(
                         'OPERATIONALPAGES.PAGE.EXECUTIVE',
@@ -1174,6 +1179,7 @@ class EXECUTIVEController extends Controller
                             'page' => $page,
                             'tacPackages' => $tacPackages,
                             'konsepAttires' => $konsepAttires,
+                            'descPackages' => $descPackages,
                         ]
                     );
                 }
