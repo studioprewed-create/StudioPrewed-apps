@@ -23,19 +23,32 @@
         </div>
 
         <section class="faq-section" id="faq">
-                <div class="faq-list">
-                    @foreach($faqs as $faq)
-                        <div class="faq-item">
-                            <button class="faq-question" type="button">
-                                <h3>{{ $faq->question }}</h3>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>{{ $faq->answer }}</p>
-                            </div>
+            <div class="faq-wrapper">
+                @foreach($faqs as $faq)
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        <div class="faq-left">
+                            <span class="faq-number">
+                                01
+                            </span>
+                            <h3>
+                                {{ $faq->question }}
+                            </h3>
                         </div>
-                    @endforeach
+                        <span class="faq-icon">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>
+                                {{ $faq->answer }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
+                @endforeach
+            </div>
         </section>
     </div>
 </section>

@@ -70,7 +70,6 @@ export function initGoogleReviews() {
     }
 
     function renderCards(){
-
         const filtered = getFilteredCards();
         cards.forEach(card=>{
             card.style.display = 'none';

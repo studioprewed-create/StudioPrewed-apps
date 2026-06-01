@@ -45,59 +45,119 @@ export function initHeroCarousel() {
 }
 
 export function initFaqToggle() {
+
     const faqItems = document.querySelectorAll('.faq-item');
-    if (!faqItems.length) return; // ⬅️ AMAN: hanya keluar dari FAQ
+
+    if (!faqItems.length) return;
 
     faqItems.forEach((item, index) => {
-      const question = item.querySelector('.faq-question');
-      const answer   = item.querySelector('.faq-answer');
-      if (!question || !answer) return;
 
-      // Nomor urut
-      const frameNumber = (index + 1).toString().padStart(2, '0');
-      question.setAttribute('data-index', frameNumber);
-      item.style.setProperty('--item-index', index);
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const number = item.querySelector('.faq-number');
 
-      // Aksesibilitas
-      item.setAttribute('aria-expanded', 'false');
-      question.setAttribute('aria-controls', `faq-answer-${index}`);
-      answer.id = `faq-answer-${index}`;
+        if (!question || !answer) return;
 
-      // Toggle FAQ
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
+        number.textContent =
+            (index + 1).toString().padStart(2, '0');
 
-        // Tutup FAQ lain
-        faqItems.forEach(other => {
-          if (other !== item && other.classList.contains('active')) {
-            other.classList.remove('active');
-            other.setAttribute('aria-expanded', 'false');
-          }
+        item.style.setProperty('--item-index', index);
+
+        item.setAttribute('aria-expanded', 'false');
+
+        question.setAttribute(
+            'aria-controls',
+            `faq-answer-${index}`
+        );
+
+        answer.id = `faq-answer-${index}`;
+
+        question.addEventListener('click', () => {
+
+            const isActive =
+                item.classList.contains('active');
+
+            faqItems.forEach(other => {
+
+                const otherAnswer =
+                    other.querySelector('.faq-answer');
+
+                other.classList.remove('active');
+
+                other.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+                otherAnswer.style.maxHeight = null;
+            });
+
+            if (!isActive) {
+
+                item.classList.add('active');
+
+                item.setAttribute(
+                    'aria-expanded',
+                    'true'
+                );
+
+                answer.style.maxHeight =
+                    answer.scrollHeight + 'px';
+            }
+
         });
 
-        // Toggle current
-        item.classList.toggle('active', !isActive);
-        item.setAttribute('aria-expanded', String(!isActive));
-      });
     });
 
-    // Intersection Observer (animasi masuk)
     if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
 
-      faqItems.forEach(item => observer.observe(item));
+        const observer = new IntersectionObserver(
+
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.animate(
+                            [
+                                {
+                                    opacity:0,
+                                    transform:'translateY(30px)'
+                                },
+                                {
+                                    opacity:1,
+                                    transform:'translateY(0)'
+                                }
+                            ],
+                            {
+                                duration:700,
+                                easing:'cubic-bezier(.23,1,.32,1)',
+                                fill:'forwards'
+                            }
+                        );
+
+                        observer.unobserve(entry.target);
+                    }
+
+                });
+
+            },
+
+            {
+                threshold:.1
+            }
+
+        );
+
+        faqItems.forEach(item => {
+
+            observer.observe(item);
+
+        });
+
     }
+
 }
 
 export function initGalleryCarousel() {
