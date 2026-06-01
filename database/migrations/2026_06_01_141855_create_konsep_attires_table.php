@@ -8,17 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('tac_packages', function (Blueprint $table) {
+        Schema::create('konsep_attires', function (Blueprint $table) {
             $table->id();
             $table->text('content');
             $table->boolean('active')->default(true);
             $table->timestamps();
-
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('tac_packages');
+        Schema::dropIfExists('konsep_attires');
     }
 };

@@ -33,6 +33,7 @@ use App\Models\GoogleReview;
 use Carbon\Carbon;
 use App\Models\BrandCategory;
 use App\Models\TACPackage;
+use App\Models\KonsepAttire;
 
 class CRUDBACKController extends Controller
 {
@@ -70,7 +71,8 @@ class CRUDBACKController extends Controller
                 'bookingexecutive' => 'JadwalPesanan',
                 'googlereview' => 'StatistikContent.StatistikReview',
                 'brand-category' => 'Brand.KategoriPartnership',
-                'tacpackage' => 'Catalogue/TACPackage',    
+                'tacpackage' => 'Catalogue/TACPackage', 
+                'konsepattire' => 'Catalogue/TACPackage',    
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -600,6 +602,16 @@ class CRUDBACKController extends Controller
                     'active'  => $request->boolean('active', true),
                 ]);
             }
+            elseif ($section === 'konsepattire') {
+                $validated = $request->validate([
+                    'content' => 'required|string',
+                ]);
+
+                KonsepAttire::create([
+                    'content' => $validated['content'],
+                    'active'  => $request->boolean('active', true),
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                 ->with('success', ucfirst($section).' berhasil ditambahkan!');
         }
@@ -623,6 +635,7 @@ class CRUDBACKController extends Controller
                 'bookingexecutive' => BookingClient::findOrFail($id),
                 'brand-category' => BrandCategory::findOrFail($id),
                 'tacpackage' => TACPackage::findOrFail($id),
+                'konsepattire' => KonsepAttire::findOrFail($id),
                 default => null,
             };
 
@@ -648,6 +661,7 @@ class CRUDBACKController extends Controller
                 'skemakerja' => 'JadwalKerja',
                 'brand-category' => 'Brand.KategoriPartnership',
                 'tacpackage' => 'Catalogue/TACPackage',
+                'konsepattire' => 'Catalogue/TACPackage',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -1244,6 +1258,19 @@ class CRUDBACKController extends Controller
                     'active'  => $request->boolean('active', $item->active),
                 ]);
             }
+            elseif ($section === 'konsepattire') {
+
+                $item = KonsepAttire::findOrFail($id);
+
+                $validated = $request->validate([
+                    'content' => 'required|string',
+                ]);
+
+                $item->update([
+                    'content' => $validated['content'],
+                    'active'  => $request->boolean('active', $item->active),
+                ]);
+            }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                         ->with('success', ucfirst($section).' berhasil diperbarui!');
         }
@@ -1266,6 +1293,8 @@ class CRUDBACKController extends Controller
                 'bookingexecutive' => 'JadwalPesanan',
                 'brand-category' => 'Brand.KategoriPartnership',
                 'tacpackage' => 'Catalogue/TACPackage',
+                'konsepattire' => 'Catalogue/TACPackage',
+                
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -1287,6 +1316,7 @@ class CRUDBACKController extends Controller
                 'bookingexecutive' => BookingClient::findOrFail($id),
                 'brand-category' => BrandCategory::findOrFail($id),
                 'tacpackage' => TACPackage::findOrFail($id),
+                'konsepattire' => KonsepAttire::findOrFail($id),
                 default => null,
             };
 

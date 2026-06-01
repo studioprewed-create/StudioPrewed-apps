@@ -32,6 +32,7 @@ use \App\Models\Survey;
 use App\Models\GoogleReview;
 use App\Models\BrandCategory;
 use App\Models\TACPackage;
+use App\Models\KonsepAttire;
 
 class EXECUTIVEController extends Controller
 {
@@ -855,12 +856,14 @@ class EXECUTIVEController extends Controller
                 ]);
             }
             if ($page === 'Catalogue.TACPackage') {
-                $tacPackages = TACPackage::orderBy('id')
-                    ->get();
+                $tacPackages = TACPackage::orderBy('id') ->get();
+                $konsepAttires = KonsepAttire::orderBy('id')->get();
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
                     'tacPackages' => $tacPackages,
+                    'konsepAttires' => $konsepAttires,
+
                 ]);
             }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
@@ -987,13 +990,14 @@ class EXECUTIVEController extends Controller
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('slides', 'promos','addons'));
             }
             if ($page === 'Catalogue.TACPackage') {
-                $tacPackages = TACPackage::orderBy('id')
-                    ->get();
+                $tacPackages = TACPackage::orderBy('id')->get();
+                $konsepAttires = KonsepAttire::orderBy('id')->get();
 
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
                     compact(
-                        'tacPackages'
+                        'tacPackages',
+                        'konsepAttires'
                     )
                 );
             }
@@ -1161,14 +1165,15 @@ class EXECUTIVEController extends Controller
                     ]);
                 }
                 if ($page === 'Catalogue.TACPackage') {
-                    $tacPackages = TACPackage::orderBy('id')
-                        ->get();
+                    $tacPackages = TACPackage::orderBy('id')->get();
+                    $konsepAttires = KonsepAttire::orderBy('id')->get();
 
                     return view(
                         'OPERATIONALPAGES.PAGE.EXECUTIVE',
                         [
                             'page' => $page,
                             'tacPackages' => $tacPackages,
+                            'konsepAttires' => $konsepAttires,
                         ]
                     );
                 }

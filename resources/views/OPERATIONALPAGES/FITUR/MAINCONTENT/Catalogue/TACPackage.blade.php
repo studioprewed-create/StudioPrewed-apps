@@ -11,6 +11,15 @@
             ADD TAC
         </button>
     </div>
+
+    <div class="header-actions">
+        <button
+            class="btn btn-primary"
+            id="btn-open-konsepattire-create">
+            <i class="fa fa-plus"></i>
+            ADD KONSEP ATTIRE
+        </button>
+    </div>
 </div>
 
 @if(session('success'))
@@ -100,6 +109,86 @@
             <tr>
                 <td colspan="4">
                     Belum ada data TAC Package.
+                </td>
+            </tr>
+
+            @endforelse
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="tables">
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Content</th>
+                <th width="180">Edit</th>
+                <th width="180">Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @forelse($konsepAttires as $index => $konsep)
+
+            <tr>
+
+                <td>{{ $index + 1 }}</td>
+
+                <td>
+                    {{ $konsep->content }}
+                </td>
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary btn-edit-konsepattire"
+
+                        data-id="{{ $konsep->id }}"
+                        data-content="{{ $konsep->content }}">
+
+                        <i class="fa fa-pen"></i>
+                        Edit
+
+                    </button>
+
+                </td>
+
+                <td>
+
+                    <form
+                        method="POST"
+                        action="{{ route('executive.homepages.destroy', ['section' => 'konsepattire', 'id' => $konsep->id]) }}"
+                        onsubmit="return confirm('Yakin hapus Konsep Attire ini?')">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-danger">
+
+                            <i class="fa fa-trash"></i>
+                            Hapus
+
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            @empty
+
+            <tr>
+                <td colspan="4">
+                    Belum ada data Konsep Attire.
                 </td>
             </tr>
 

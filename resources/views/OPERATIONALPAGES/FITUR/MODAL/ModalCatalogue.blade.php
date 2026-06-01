@@ -365,3 +365,149 @@
     </div>
 
 </div>
+
+<div class="custom-modal-backdrop" id="backdropCreateKonsepAttire"></div>
+<div class="custom-modal" id="modalCreateKonsepAttire">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h5>Tambah Konsep Attire</h5>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnCloseCreateKonsepAttire">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <form
+                method="POST"
+                action="{{ route('executive.homepages.store','konsepattire') }}">
+
+                @csrf
+
+                <div class="tac-form-card">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Konsep Attire
+                        </label>
+
+                        <textarea
+                            name="content"
+                            rows="4"
+                            class="form-control"
+                            required></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseCreateKonsepAttire2">
+
+                        Batal
+
+                    </button>
+
+                    <button class="btn btn-primary">
+                        Simpan
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="custom-modal-backdrop" id="backdropEditKonsepAttire"></div>
+<div class="custom-modal" id="modalEditKonsepAttire">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h5>Edit Konsep Attire</h5>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="btnCloseEditKonsepAttire">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <form
+                id="editKonsepAttireForm"
+                method="POST"
+                data-base-url="{{ url('executive/homepages/update/konsepattire') }}">
+
+                @csrf
+                @method('PUT')
+
+                <div class="tac-form-card">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Konsep Attire
+                        </label>
+
+                        <textarea
+                            id="eka-content"
+                            name="content"
+                            rows="4"
+                            class="form-control"
+                            required></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseEditKonsepAttire2">
+
+                        Batal
+
+                    </button>
+
+                    <button class="btn btn-primary">
+                        Update
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+

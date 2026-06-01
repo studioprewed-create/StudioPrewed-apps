@@ -1975,6 +1975,99 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideEdit();
         };
     };
+
+    const initKonsepAttireModals = () => {
+
+    const backdropCreate =
+        document.getElementById('backdropCreateKonsepAttire');
+
+    const modalCreate =
+        document.getElementById('modalCreateKonsepAttire');
+
+    const btnOpen =
+        document.getElementById('btn-open-konsepattire-create');
+
+    const btnClose =
+        document.getElementById('btnCloseCreateKonsepAttire');
+
+    const btnClose2 =
+        document.getElementById('btnCloseCreateKonsepAttire2');
+
+    const backdropEdit =
+        document.getElementById('backdropEditKonsepAttire');
+
+    const modalEdit =
+        document.getElementById('modalEditKonsepAttire');
+
+    const btnEditClose =
+        document.getElementById('btnCloseEditKonsepAttire');
+
+    const btnEditClose2 =
+        document.getElementById('btnCloseEditKonsepAttire2');
+
+    const form =
+        document.getElementById('editKonsepAttireForm');
+
+        if (!modalCreate || !modalEdit) return;
+
+        const showCreate = () => {
+            backdropCreate.classList.add('show');
+            modalCreate.classList.add('show');
+        };
+
+        const hideCreate = () => {
+            backdropCreate.classList.remove('show');
+            modalCreate.classList.remove('show');
+        };
+
+        const showEdit = () => {
+            backdropEdit.classList.add('show');
+            modalEdit.classList.add('show');
+        };
+
+        const hideEdit = () => {
+            backdropEdit.classList.remove('show');
+            modalEdit.classList.remove('show');
+        };
+
+        if (btnOpen) btnOpen.onclick = showCreate;
+
+        if (btnClose) btnClose.onclick = hideCreate;
+        if (btnClose2) btnClose2.onclick = hideCreate;
+
+        if (btnEditClose) btnEditClose.onclick = hideEdit;
+        if (btnEditClose2) btnEditClose2.onclick = hideEdit;
+
+        document
+            .querySelectorAll('.btn-edit-konsepattire')
+            .forEach(btn => {
+
+                btn.onclick = () => {
+
+                    const id = btn.dataset.id;
+
+                    form.action =
+                        `${form.dataset.baseUrl}/${id}`;
+
+                    document.getElementById(
+                        'eka-content'
+                    ).value =
+                        btn.dataset.content;
+
+                    showEdit();
+                };
+            });
+
+        backdropCreate.onclick = (e) => {
+            if (e.target === backdropCreate)
+                hideCreate();
+        };
+
+        backdropEdit.onclick = (e) => {
+            if (e.target === backdropEdit)
+                hideEdit();
+        };
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -1994,6 +2087,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initStatistikSurvey();
         initBrandCategoryModals();
         initTACPackageModals();
+        initKonsepAttireModals();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */
