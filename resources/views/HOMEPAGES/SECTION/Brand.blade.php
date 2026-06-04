@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,17 +32,17 @@
             --border: #3a3a3a;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             --radius: 10px;
-            --bg:#0a0d0e;            
-            --panel:#000000;         
-            --card:#11181d;          
-            --text:#eaf6f6;          
-            --muted:#9fb3b5;         
-            --line:#1b2a2f;          
-            --teal:#f1991694;        
-            --teal-2:rgb(212, 172, 90);        
-            --shadow:0 18px 60px rgba(0,0,0,.4);
-            --radius:18px;
-            --maxw:100%;
+            --bg: #0a0d0e;
+            --panel: #000000;
+            --card: #11181d;
+            --text: #eaf6f6;
+            --muted: #9fb3b5;
+            --line: #1b2a2f;
+            --teal: #f1991694;
+            --teal-2: rgb(212, 172, 90);
+            --shadow: 0 18px 60px rgba(0, 0, 0, .4);
+            --radius: 18px;
+            --maxw: 100%;
             --dark-bg: #0f1115;
             --dark-border: #2a3242;
             --text-primary: #e8edf7;
@@ -62,8 +63,8 @@
         body {
             background-color: var(--bg, #0a0d0e);
             background-image: radial-gradient(circle at 10% 20%, rgba(212, 172, 90, 0.05) 0%, transparent 35%),
-                              radial-gradient(circle at 90% 70%, rgba(245, 245, 220, 0.03) 0%, transparent 40%),
-                              linear-gradient(145deg, #050707 0%, #0f1417 100%);
+                radial-gradient(circle at 90% 70%, rgba(245, 245, 220, 0.03) 0%, transparent 40%),
+                linear-gradient(145deg, #050707 0%, #0f1417 100%);
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: var(--text, #eaf6f6);
             display: flex;
@@ -94,7 +95,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
         }
 
         .section-headline p {
@@ -126,7 +127,7 @@
             align-items: center;
             text-align: center;
             transition: var(--transition, all 0.6s cubic-bezier(0.65, 0, 0.35, 1));
-            box-shadow: 0 18px 30px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(212, 172, 90, 0.1) inset;
+            box-shadow: 0 18px 30px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(212, 172, 90, 0.1) inset;
             position: relative;
             backdrop-filter: blur(4px);
             height: 100%;
@@ -140,7 +141,7 @@
             inset: 0;
             border-radius: inherit;
             padding: 1px;
-            background: radial-gradient(circle at 70% 20%, rgba(212,172,90,0.3), transparent 70%);
+            background: radial-gradient(circle at 70% 20%, rgba(212, 172, 90, 0.3), transparent 70%);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -152,7 +153,7 @@
         .brand-card:hover {
             transform: translateY(-8px);
             border-color: rgba(212, 172, 90, 0.6);
-            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.9), 0 0 0 1px rgba(245, 245, 220, 0.2) inset;
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(245, 245, 220, 0.2) inset;
             background: linear-gradient(145deg, #0f1318, #07090b);
         }
 
@@ -168,7 +169,7 @@
             margin-bottom: 1.8rem;
             border: 1.5px solid var(--teal-2);
             border-color: rgba(212, 172, 90, 0.6);
-            box-shadow: 0 8px 14px rgba(0,0,0,0.8), 0 0 0 1px rgba(212,172,90,0.2) inset;
+            box-shadow: 0 8px 14px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 172, 90, 0.2) inset;
             padding: 1.2rem;
             backdrop-filter: blur(8px);
             transition: 0.3s ease;
@@ -176,7 +177,7 @@
 
         .brand-card:hover .logo-wrapper {
             border-color: var(--teal-2);
-            box-shadow: 0 0 18px rgba(212,172,90,0.4);
+            box-shadow: 0 0 18px rgba(212, 172, 90, 0.4);
         }
 
         /* SVG / gambar dummy sebagai logo — tetap konsisten */
@@ -184,7 +185,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
             color: var(--teal-2);
         }
 
@@ -211,7 +212,7 @@
             max-width: 280px;
             margin: 0 auto;
             font-weight: 400;
-            border-top: 1px dashed rgba(212,172,90,0.3);
+            border-top: 1px dashed rgba(212, 172, 90, 0.3);
             padding-top: 1rem;
             margin-top: 0.4rem;
         }
@@ -234,9 +235,11 @@
             .brand-grid {
                 grid-template-columns: 1fr;
             }
+
             .section-headline h2 {
                 font-size: 2rem;
             }
+
             .brand-card {
                 padding: 2rem 1.2rem;
             }
@@ -251,7 +254,7 @@
         }
 
         /* Aspek kotak grid SAMA RATA — card menggunakan flex column, semua elemen stretch */
-        .brand-card > * {
+        .brand-card>* {
             max-width: 100%;
         }
 
@@ -270,7 +273,7 @@
         .brand-footer {
             margin-top: auto;
             font-size: 0.7rem;
-            color: rgba(212,172,90,0.6);
+            color: rgba(212, 172, 90, 0.6);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -305,12 +308,13 @@
         }
     </style>
 </head>
+
 <body>
     <section class="partnership-section">
         <!-- headline dengan nuansa root: gradasi coklat & hitam -->
         <div class="section-headline">
             <h2>⚡ PARTNERSHIP & BRAND</h2>
-            <p>——  grid 3 · dominan hitam · gradasi coklat  ——</p>
+            <p>—— grid 3 · dominan hitam · gradasi coklat ——</p>
         </div>
 
         <!-- 3 grid per baris — kotak SAMA RATA, isi: nama, logo, deskripsi -->
@@ -320,10 +324,13 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="15" y="15" width="70" height="70" rx="18" fill="none" stroke="var(--teal-2, #d4ac5a)" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.9"/>
-                        <circle cx="50" cy="50" r="28" fill="rgba(212,172,90,0.2)" stroke="var(--teal-2)" stroke-width="2"/>
-                        <path d="M50 30 L60 45 L55 62 L45 62 L40 45 Z" fill="var(--teal-2)" opacity="0.9"/>
-                        <text x="50" y="82" font-size="12" fill="var(--cream)" text-anchor="middle" font-weight="bold">LUM</text>
+                        <rect x="15" y="15" width="70" height="70" rx="18" fill="none"
+                            stroke="var(--teal-2, #d4ac5a)" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.9" />
+                        <circle cx="50" cy="50" r="28" fill="rgba(212,172,90,0.2)" stroke="var(--teal-2)"
+                            stroke-width="2" />
+                        <path d="M50 30 L60 45 L55 62 L45 62 L40 45 Z" fill="var(--teal-2)" opacity="0.9" />
+                        <text x="50" y="82" font-size="12" fill="var(--cream)" text-anchor="middle"
+                            font-weight="bold">LUM</text>
                     </svg>
                 </div>
                 <h3 class="brand-name">LUMINA</h3>
@@ -339,10 +346,14 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="34" fill="none" stroke="var(--teal-2)" stroke-width="2.2" stroke-dasharray="5 3"/>
-                        <polygon points="50,25 70,50 60,70 40,70 30,50" fill="rgba(212,172,90,0.3)" stroke="var(--teal-2)" stroke-width="2"/>
-                        <line x1="32" y1="45" x2="68" y2="55" stroke="var(--cream)" stroke-width="1.8" opacity="0.7"/>
-                        <text x="50" y="84" font-size="13" fill="var(--cream)" text-anchor="middle" font-family="monospace">⛰️ TERRA</text>
+                        <circle cx="50" cy="50" r="34" fill="none" stroke="var(--teal-2)"
+                            stroke-width="2.2" stroke-dasharray="5 3" />
+                        <polygon points="50,25 70,50 60,70 40,70 30,50" fill="rgba(212,172,90,0.3)"
+                            stroke="var(--teal-2)" stroke-width="2" />
+                        <line x1="32" y1="45" x2="68" y2="55" stroke="var(--cream)"
+                            stroke-width="1.8" opacity="0.7" />
+                        <text x="50" y="84" font-size="13" fill="var(--cream)" text-anchor="middle"
+                            font-family="monospace">⛰️ TERRA</text>
                     </svg>
                 </div>
                 <h3 class="brand-name">TERRA</h3>
@@ -358,10 +369,12 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="25" y="35" width="50" height="40" rx="8" fill="none" stroke="var(--teal-2)" stroke-width="2.5"/>
-                        <ellipse cx="50" cy="35" rx="22" ry="10" stroke="var(--teal-2)" stroke-width="2" fill="rgba(212,172,90,0.2)"/>
-                        <path d="M38 65 L45 75 L55 75 L62 65" stroke="var(--cream)" stroke-width="2.2" fill="none"/>
-                        <circle cx="50" cy="55" r="8" fill="var(--teal-2)" opacity="0.5"/>
+                        <rect x="25" y="35" width="50" height="40" rx="8" fill="none"
+                            stroke="var(--teal-2)" stroke-width="2.5" />
+                        <ellipse cx="50" cy="35" rx="22" ry="10" stroke="var(--teal-2)"
+                            stroke-width="2" fill="rgba(212,172,90,0.2)" />
+                        <path d="M38 65 L45 75 L55 75 L62 65" stroke="var(--cream)" stroke-width="2.2" fill="none" />
+                        <circle cx="50" cy="55" r="8" fill="var(--teal-2)" opacity="0.5" />
                         <text x="50" y="92" font-size="12" fill="var(--cream)" text-anchor="middle">☕ KOPI</text>
                     </svg>
                 </div>
@@ -378,9 +391,11 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="22" y="22" width="56" height="56" rx="8" fill="none" stroke="var(--teal-2)" stroke-width="2" stroke-dasharray="8 4"/>
-                        <path d="M30 50 L70 50 M50 30 L50 70" stroke="var(--teal-2)" stroke-width="2.5"/>
-                        <circle cx="50" cy="50" r="16" fill="rgba(212,172,90,0.2)" stroke="var(--cream)" stroke-width="1.5"/>
+                        <rect x="22" y="22" width="56" height="56" rx="8" fill="none"
+                            stroke="var(--teal-2)" stroke-width="2" stroke-dasharray="8 4" />
+                        <path d="M30 50 L70 50 M50 30 L50 70" stroke="var(--teal-2)" stroke-width="2.5" />
+                        <circle cx="50" cy="50" r="16" fill="rgba(212,172,90,0.2)"
+                            stroke="var(--cream)" stroke-width="1.5" />
                         <text x="50" y="82" font-size="12" fill="#e6dbba" text-anchor="middle">BRWN</text>
                     </svg>
                 </div>
@@ -397,9 +412,11 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
-                        <polygon points="50,20 80,40 80,70 50,90 20,70 20,40" fill="none" stroke="var(--teal-2)" stroke-width="2.2"/>
-                        <circle cx="50" cy="50" r="22" fill="rgba(212,172,90,0.15)" stroke="var(--cream)" stroke-width="1.5"/>
-                        <path d="M35 52 L45 58 L60 44" stroke="var(--teal-2)" stroke-width="3" fill="none"/>
+                        <polygon points="50,20 80,40 80,70 50,90 20,70 20,40" fill="none" stroke="var(--teal-2)"
+                            stroke-width="2.2" />
+                        <circle cx="50" cy="50" r="22" fill="rgba(212,172,90,0.15)"
+                            stroke="var(--cream)" stroke-width="1.5" />
+                        <path d="M35 52 L45 58 L60 44" stroke="var(--teal-2)" stroke-width="3" fill="none" />
                         <text x="50" y="84" font-size="13" fill="var(--cream)" text-anchor="middle">SABANA</text>
                     </svg>
                 </div>
@@ -416,10 +433,11 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
-                        <ellipse cx="50" cy="55" rx="28" ry="20" stroke="var(--teal-2)" stroke-width="2.2" fill="none"/>
-                        <path d="M35 44 Q50 30, 65 44" stroke="var(--cream)" stroke-width="2" fill="none"/>
-                        <circle cx="40" cy="58" r="5" fill="rgba(212,172,90,0.5)"/>
-                        <circle cx="60" cy="58" r="5" fill="rgba(212,172,90,0.6)"/>
+                        <ellipse cx="50" cy="55" rx="28" ry="20" stroke="var(--teal-2)"
+                            stroke-width="2.2" fill="none" />
+                        <path d="M35 44 Q50 30, 65 44" stroke="var(--cream)" stroke-width="2" fill="none" />
+                        <circle cx="40" cy="58" r="5" fill="rgba(212,172,90,0.5)" />
+                        <circle cx="60" cy="58" r="5" fill="rgba(212,172,90,0.6)" />
                         <text x="50" y="92" font-size="12" fill="var(--cream)" text-anchor="middle">CACAO</text>
                     </svg>
                 </div>
@@ -437,8 +455,10 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70">
-                        <rect x="20" y="20" width="60" height="60" rx="12" fill="none" stroke="var(--teal-2)" stroke-width="2.5"/>
-                        <path d="M50 35 L65 50 L50 65 L35 50 Z" fill="rgba(212,172,90,0.4)" stroke="var(--cream)" stroke-width="1.5"/>
+                        <rect x="20" y="20" width="60" height="60" rx="12" fill="none"
+                            stroke="var(--teal-2)" stroke-width="2.5" />
+                        <path d="M50 35 L65 50 L50 65 L35 50 Z" fill="rgba(212,172,90,0.4)" stroke="var(--cream)"
+                            stroke-width="1.5" />
                         <text x="50" y="82" font-size="13" fill="#f5f5dc" text-anchor="middle">ARK</text>
                     </svg>
                 </div>
@@ -455,8 +475,9 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70">
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="var(--teal-2)" stroke-width="2" stroke-dasharray="7 3"/>
-                        <path d="M40 42 L60 42 L68 60 L32 60 Z" fill="rgba(212,172,90,0.25)" stroke="var(--teal-2)"/>
+                        <circle cx="50" cy="50" r="30" fill="none" stroke="var(--teal-2)"
+                            stroke-width="2" stroke-dasharray="7 3" />
+                        <path d="M40 42 L60 42 L68 60 L32 60 Z" fill="rgba(212,172,90,0.25)" stroke="var(--teal-2)" />
                         <text x="50" y="78" font-size="14" fill="var(--cream)" text-anchor="middle">SOIL</text>
                     </svg>
                 </div>
@@ -473,8 +494,9 @@
             <div class="brand-card">
                 <div class="logo-wrapper">
                     <svg viewBox="0 0 100 100" width="70" height="70">
-                        <path d="M30 45 L50 28 L70 45 L60 72 L40 72 Z" fill="none" stroke="var(--teal-2)" stroke-width="2.3"/>
-                        <path d="M45 55 L55 55 L52 68 L48 68 Z" fill="var(--cream)" opacity="0.7"/>
+                        <path d="M30 45 L50 28 L70 45 L60 72 L40 72 Z" fill="none" stroke="var(--teal-2)"
+                            stroke-width="2.3" />
+                        <path d="M45 55 L55 55 L52 68 L48 68 Z" fill="var(--cream)" opacity="0.7" />
                         <text x="50" y="90" font-size="12" fill="#e6dbba" text-anchor="middle">WAREG</text>
                     </svg>
                 </div>
@@ -487,11 +509,13 @@
                 <div class="brand-footer">wastra</div>
             </div>
         </div> <!-- end brand-grid -->
-        
+
         <!-- subtle caption untuk memperkuat kesan dominan hitam & gradasi coklat -->
-        <div style="text-align: center; margin-top: 3rem; color: var(--teal-2); opacity: 0.6; font-size: 0.8rem; letter-spacing: 3px; border-top: 1px solid rgba(212,172,90,0.2); padding-top: 1.8rem;">
+        <div
+            style="text-align: center; margin-top: 3rem; color: var(--teal-2); opacity: 0.6; font-size: 0.8rem; letter-spacing: 3px; border-top: 1px solid rgba(212,172,90,0.2); padding-top: 1.8rem;">
             ⚡ BRAND PARTNERSHIP · GRID 3 KOLOM · DOMINAN HITAM & GRADASI COKLAT · ROOT VARIABLES ⚡
         </div>
     </section>
 </body>
+
 </html>

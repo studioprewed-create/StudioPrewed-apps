@@ -3,8 +3,8 @@
         @forelse($packages as $pkg)
             @php
                 $hasDisc = ($pkg->discount ?? 0) > 0;
-                $final   = $pkg->final_price ?? $pkg->harga;
-                $imgUrl  = $pkg->image_url ?? 'https://via.placeholder.com/600x400?text=No+Image';
+                $final = $pkg->final_price ?? $pkg->harga;
+                $imgUrl = $pkg->image_url ?? 'https://via.placeholder.com/600x400?text=No+Image';
             @endphp
 
             <div class="package-card">
@@ -21,14 +21,14 @@
                         <div class="package-features">
                             <div class="feature">
                                 <i class="fas fa-clock"></i>
-                                Durasi: {{ (int)$pkg->durasi }} menit
+                                Durasi: {{ (int) $pkg->durasi }} menit
                             </div>
                         </div>
 
                         <div class="package-price">
                             <div class="price-box">
                                 <span class="price-final">Rp {{ number_format(round($final, -4), 0, ',', '.') }}</span>
-                                @if($hasDisc)
+                                @if ($hasDisc)
                                     <span class="price-original">Rp {{ number_format($pkg->harga, 0, ',', '.') }}</span>
                                 @endif
                             </div>

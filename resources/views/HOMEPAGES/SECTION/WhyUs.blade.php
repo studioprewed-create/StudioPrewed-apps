@@ -9,27 +9,23 @@
         </header>
 
         <div class="features" role="list">
-            @foreach($portraitServices ?? [] as $svc)
+            @foreach ($portraitServices ?? [] as $svc)
                 @php
-                    $img = $svc->image ? asset('public/storage/'.$svc->image) : asset('asset/IMGhome/default.jpg');
+                    $img = $svc->image ? asset('public/storage/' . $svc->image) : asset('asset/IMGhome/default.jpg');
                     $cat = $svc->category ?? 'prewed';
                 @endphp
 
-                <a href="{{ route('Portofolio', ['category' => $cat]) }}"
-                class="portrait-card-link"
-                role="listitem">
+                <a href="{{ route('Portofolio', ['category' => $cat]) }}" class="portrait-card-link" role="listitem">
 
                     <article class="f-card f-card--portrait" tabindex="0">
 
                         <div class="f-card-media">
-                            <img src="{{ $img }}"
-                                alt="{{ $svc->title }}"
-                                class="f-card-image">
+                            <img src="{{ $img }}" alt="{{ $svc->title }}" class="f-card-image">
                         </div>
 
                         <div class="f-card-text">
                             <h3>{{ $svc->title }}</h3>
-                            @if($svc->description)
+                            @if ($svc->description)
                                 <p>{{ $svc->description }}</p>
                             @endif
                         </div>

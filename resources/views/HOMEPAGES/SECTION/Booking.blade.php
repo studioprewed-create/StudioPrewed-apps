@@ -4,34 +4,31 @@
 
 <div class="booking-container" id="bookingWizard">
 
-@if (session('success'))
-    <div class="alert alert-success" style="margin:16px auto;max-width:980px">
-        {{ session('success') }}
-    </div>
-@endif
+    @if (session('success'))
+        <div class="alert alert-success" style="margin:16px auto;max-width:980px">
+            {{ session('success') }}
+        </div>
+    @endif
 
-@if ($errors->any())
-    <div class="alert alert-danger" style="margin:16px auto;max-width:980px">
-        <strong>Gagal menyimpan:</strong>
-        <ul style="margin:8px 0 0 18px">
-            @foreach ($errors->all() as $e)
-                <li>{{ $e }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="alert alert-danger" style="margin:16px auto;max-width:980px">
+            <strong>Gagal menyimpan:</strong>
+            <ul style="margin:8px 0 0 18px">
+                @foreach ($errors->all() as $e)
+                    <li>{{ $e }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-@if($dataDiri)
-<div id="prefillData"
-    data-nama="{{ e($dataDiri->nama) }}"
-    data-phone="{{ e($dataDiri->phone) }}"
-    data-gender="{{ e($dataDiri->jenis_kelamin) }}"
-    data-nama-pasangan="{{ e($dataDiri->nama_pasangan) }}"
-    data-phone-pasangan="{{ e($dataDiri->phone_pasangan) }}"
-    data-gender-pasangan="{{ e($dataDiri->jenis_kelamin_pasangan) }}"
-    data-email="{{ e($user->email ?? Auth::user()->email ?? '') }}">
-</div>
-@endif
+    @if ($dataDiri)
+        <div id="prefillData" data-nama="{{ e($dataDiri->nama) }}" data-phone="{{ e($dataDiri->phone) }}"
+            data-gender="{{ e($dataDiri->jenis_kelamin) }}" data-nama-pasangan="{{ e($dataDiri->nama_pasangan) }}"
+            data-phone-pasangan="{{ e($dataDiri->phone_pasangan) }}"
+            data-gender-pasangan="{{ e($dataDiri->jenis_kelamin_pasangan) }}"
+            data-email="{{ e($user->email ?? (Auth::user()->email ?? '')) }}">
+        </div>
+    @endif
 
     <h2>Form Booking Prewed</h2>
 
@@ -72,9 +69,9 @@
         <label>Pilih Paket</label>
         <select id="package_id">
             <option value="">-- pilih paket --</option>
-            @foreach($packages as $pkg)
-                <option value="{{ $pkg->id }}" data-durasi="{{ (int)$pkg->durasi }}">
-                    {{ $pkg->nama_paket }} ({{ (int)$pkg->durasi }} menit)
+            @foreach ($packages as $pkg)
+                <option value="{{ $pkg->id }}" data-durasi="{{ (int) $pkg->durasi }}">
+                    {{ $pkg->nama_paket }} ({{ (int) $pkg->durasi }} menit)
                 </option>
             @endforeach
         </select>
@@ -105,7 +102,7 @@
                 <label>Nama Tema</label>
                 <select id="tema_nama">
                     <option value="">-- pilih nama tema --</option>
-                    @foreach($temas->groupBy('nama') as $nama => $list)
+                    @foreach ($temas->groupBy('nama') as $nama => $list)
                         <option value="{{ $nama }}">{{ $nama }}</option>
                     @endforeach
                 </select>
@@ -114,10 +111,8 @@
                 <label>Kode Tema</label>
                 <select id="tema_kode" disabled>
                     <option value="">-- pilih kode tema --</option>
-                    @foreach($temas as $t)
-                        <option
-                            value="{{ $t->kode }}"
-                            data-nama="{{ $t->nama }}"
+                    @foreach ($temas as $t)
+                        <option value="{{ $t->kode }}" data-nama="{{ $t->nama }}"
                             data-id="{{ $t->id }}">
                             {{ $t->kode }} - {{ $t->nama }}
                         </option>
@@ -135,29 +130,24 @@
                 dengan tema utama.
             </p>
 
-            @if($addonGroups->isNotEmpty())
+            @if ($addonGroups->isNotEmpty())
                 <div class="addons-grid">
-                   @foreach ($addonGroups as $kategori => $group)
-                    <div class="addon-group addon-kat-{{ $kategori }}">
-                        <h4>{{ $group->first()->kategori_label }}</h4>
+                    @foreach ($addonGroups as $kategori => $group)
+                        <div class="addon-group addon-kat-{{ $kategori }}">
+                            <h4>{{ $group->first()->kategori_label }}</h4>
 
-                        @foreach ($group as $addon)
-                            <label class="addon-item">
-                                <input
-                                    type="checkbox"
-                                    class="addon-check"
-                                    data-id="{{ $addon->id }}"
-                                    data-kategori="{{ $addon->kategori }}"
-                                    data-harga="{{ $addon->harga }}"
-                                    data-durasi="{{ $addon->durasi ?? 0 }}"
-                                >
-                                <span class="addon-name">{{ $addon->nama }}</span>
-                                <small>{{ $addon->durasi_label }}</small>
-                                <span>Rp {{ number_format($addon->harga, 0, ',', '.') }}</span>
-                            </label>
-                        @endforeach
-                    </div>
-                @endforeach
+                            @foreach ($group as $addon)
+                                <label class="addon-item">
+                                    <input type="checkbox" class="addon-check" data-id="{{ $addon->id }}"
+                                        data-kategori="{{ $addon->kategori }}" data-harga="{{ $addon->harga }}"
+                                        data-durasi="{{ $addon->durasi ?? 0 }}">
+                                    <span class="addon-name">{{ $addon->nama }}</span>
+                                    <small>{{ $addon->durasi_label }}</small>
+                                    <span>Rp {{ number_format($addon->harga, 0, ',', '.') }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
             @else
                 <p style="opacity:.7">Belum ada addon yang aktif.</p>
@@ -186,7 +176,7 @@
                     <label>Nama Tema Tambahan</label>
                     <select id="tema2_nama">
                         <option value="">-- pilih nama tema --</option>
-                        @foreach($temas->groupBy('nama') as $nama => $list)
+                        @foreach ($temas->groupBy('nama') as $nama => $list)
                             <option value="{{ $nama }}">{{ $nama }}</option>
                         @endforeach
                     </select>
@@ -195,10 +185,8 @@
                     <label>Kode Tema Tambahan</label>
                     <select id="tema2_kode" disabled>
                         <option value="">-- pilih kode tema --</option>
-                        @foreach($temas as $t)
-                            <option
-                                value="{{ $t->kode }}"
-                                data-nama="{{ $t->nama }}"
+                        @foreach ($temas as $t)
+                            <option value="{{ $t->kode }}" data-nama="{{ $t->nama }}"
                                 data-id="{{ $t->id }}">
                                 {{ $t->kode }} - {{ $t->nama }}
                             </option>

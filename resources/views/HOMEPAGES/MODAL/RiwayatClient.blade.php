@@ -7,7 +7,7 @@
         <h3>Detail Booking</h3>
         <h3 class="modal-section-title">Data Paket</h3>
         <div class="modal-grid">
-        
+
             <div><strong>Kode Pesanan</strong><br>#{{ $booking->kode_pesanan }}</div>
             <div><strong>Status</strong><br>{{ ucfirst($booking->status) }}</div>
 
@@ -39,13 +39,14 @@
 
         <h3 class="modal-section-title">Harga & Tambahan</h3>
 
-        <div class="modal-grid">   
-            <div><strong>Harga Paket</strong><br>{{ 'Rp ' . number_format((int)$booking->package_price, 0, ',', '.') }}</div>
+        <div class="modal-grid">
+            <div><strong>Harga Paket</strong><br>{{ 'Rp ' . number_format((int) $booking->package_price, 0, ',', '.') }}
+            </div>
             <div><strong>Total Addon</strong><br>{{ $booking->addons_total_formatted }}</div>
 
             <div style="grid-column:1/-1">
                 <strong>Total</strong><br>
-                {{ $booking->grand_total_formatted}}
+                {{ $booking->grand_total_formatted }}
             </div>
         </div>
     </div>

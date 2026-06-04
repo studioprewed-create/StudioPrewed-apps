@@ -1,8 +1,8 @@
 <section class="google-review-section" id="aboutSection">
     @php
-        $model1 = $aboutus->where('model_type','model1')->sortBy('order');
-        $model2 = $aboutus->where('model_type','model2')->sortBy('order');
-        $model3 = $aboutus->where('model_type','model3')->sortBy('order');
+        $model1 = $aboutus->where('model_type', 'model1')->sortBy('order');
+        $model2 = $aboutus->where('model_type', 'model2')->sortBy('order');
+        $model3 = $aboutus->where('model_type', 'model3')->sortBy('order');
     @endphp
 
     <div class="container">
@@ -13,21 +13,23 @@
                 </span>
 
                 <h2>
-                    APA SAJA TENTANG 
+                    APA SAJA TENTANG
                     <span>KAMI</span>
                 </h2>
 
                 <p>
-                    Kami menghadirkan sesi prewedding dengan konsep elegan, hangat, dan penuh cerita, untuk mengabadikan setiap momen spesial sebelum hari bahagia Anda tiba.
+                    Kami menghadirkan sesi prewedding dengan konsep elegan, hangat, dan penuh cerita, untuk mengabadikan
+                    setiap momen spesial sebelum hari bahagia Anda tiba.
                 </p>
             </div>
         </div>
         <div class="about-mosaic">
-            @if($model1->isNotEmpty())
-                @foreach($model1 as $item)
-                    @if(!empty($item->all_image_urls))
+            @if ($model1->isNotEmpty())
+                @foreach ($model1 as $item)
+                    @if (!empty($item->all_image_urls))
                         <div class="mosaic-item mosaic-main">
-                            <img src="{{ $item->all_image_urls[0] ?? asset('public/asset/IMGhome/default.jpg') }}" alt="Portrait">
+                            <img src="{{ $item->all_image_urls[0] ?? asset('public/asset/IMGhome/default.jpg') }}"
+                                alt="Portrait">
                         </div>
                     @endif
 
@@ -39,10 +41,10 @@
                 @endforeach
             @endif
 
-            @if($model2->isNotEmpty())
+            @if ($model2->isNotEmpty())
                 <div class="mosaic-text mosaic-text-1">
                     <div class="mosaic-text-inner">
-                        @foreach($model2 as $data)
+                        @foreach ($model2 as $data)
                             <div class="mosaic-text-1a">
                                 <h3>{{ $data->title }}</h3>
                                 <h4>{{ $data->subtitle }}</h4>
@@ -52,9 +54,9 @@
                     </div>
                 </div>
 
-                @foreach($model2 as $data)
-                    @foreach($data->all_image_urls as $key => $img)
-                        @if($key < 2 && $img)
+                @foreach ($model2 as $data)
+                    @foreach ($data->all_image_urls as $key => $img)
+                        @if ($key < 2 && $img)
                             <div class="mosaic-item mosaic-item-{{ $key + 1 }}">
                                 <img src="{{ $img }}" alt="Portrait">
                             </div>
@@ -63,10 +65,10 @@
                 @endforeach
             @endif
 
-            @if($model3->isNotEmpty())
-                @foreach($model3 as $data)
-                    @foreach($data->all_image_urls as $key => $img)
-                        @if($key < 2 && $img)
+            @if ($model3->isNotEmpty())
+                @foreach ($model3 as $data)
+                    @foreach ($data->all_image_urls as $key => $img)
+                        @if ($key < 2 && $img)
                             <div class="mosaic-item mosaic-item-{{ $key + 3 }}">
                                 <img src="{{ $img }}" alt="Portrait">
                             </div>
@@ -76,7 +78,7 @@
 
                 <div class="mosaic-text mosaic-text-2">
                     <div class="mosaic-text-inner">
-                        @foreach($model3 as $data)
+                        @foreach ($model3 as $data)
                             <div class="mosaic-text-2a">
                                 <h3>{{ $data->title }}</h3>
                                 <h4>{{ $data->subtitle }}</h4>

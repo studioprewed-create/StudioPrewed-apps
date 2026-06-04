@@ -15,7 +15,8 @@
                 </h2>
 
                 <p>
-                Dari cara booking hingga waktu pengerjaan foto, semua jawaban yang Anda butuhkan tersedia di sini. Kami menyusunnya sesederhana mungkin agar mudah dipahami.
+                    Dari cara booking hingga waktu pengerjaan foto, semua jawaban yang Anda butuhkan tersedia di sini.
+                    Kami menyusunnya sesederhana mungkin agar mudah dipahami.
                 </p>
 
             </div>
@@ -23,19 +24,19 @@
         </div>
 
         <section class="faq-section" id="faq">
-                <div class="faq-list">
-                    @foreach($faqs as $faq)
-                        <div class="faq-item">
-                            <button class="faq-question" type="button">
-                                <h3>{{ $faq->question }}</h3>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>{{ $faq->answer }}</p>
-                            </div>
+            <div class="faq-list">
+                @foreach ($faqs as $faq)
+                    <div class="faq-item">
+                        <button class="faq-question" type="button">
+                            <h3>{{ $faq->question }}</h3>
+                            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>{{ $faq->answer }}</p>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
+            </div>
         </section>
     </div>
 </section>
