@@ -18,9 +18,7 @@
     </div>
 </div>
 
-<div class="schedule-container"
-     data-start-week="{{ $startOfWeek->format('Y-m-d') }}"
-     data-week-offset="0">
+<div class="schedule-container" data-start-week="{{ $startOfWeek->format('Y-m-d') }}" data-week-offset="0">
 
     {{-- HEADER --}}
     <div class="schedule-header">
@@ -74,7 +72,6 @@
 
                         <td>
                             @forelse ($dayBookings as $booking)
-
                                 <div class="staff-card">
 
                                     {{-- KODE PESANAN --}}
@@ -95,35 +92,35 @@
                                     {{-- ROLE KARYAWAN --}}
                                     <div class="staff-roles">
 
-                                        @if($booking->skemaKerja?->fotografer)
+                                        @if ($booking->skemaKerja?->fotografer)
                                             <span class="staff-role role-photographer">
                                                 Fotografer:
                                                 {{ $booking->skemaKerja->fotografer->nama_lengkap }}
                                             </span>
                                         @endif
 
-                                        @if($booking->skemaKerja?->videografer)
+                                        @if ($booking->skemaKerja?->videografer)
                                             <span class="staff-role role-videographer">
                                                 Videografer:
                                                 {{ $booking->skemaKerja->videografer->nama_lengkap }}
                                             </span>
                                         @endif
 
-                                        @if($booking->skemaKerja?->editor)
+                                        @if ($booking->skemaKerja?->editor)
                                             <span class="staff-role role-editor">
                                                 Editor:
                                                 {{ $booking->skemaKerja->editor->nama_lengkap }}
                                             </span>
                                         @endif
 
-                                        @if($booking->skemaKerja?->makeup)
+                                        @if ($booking->skemaKerja?->makeup)
                                             <span class="staff-role role-makeup">
                                                 Makeup:
                                                 {{ $booking->skemaKerja->makeup->nama_lengkap }}
                                             </span>
                                         @endif
 
-                                        @if($booking->skemaKerja?->attire)
+                                        @if ($booking->skemaKerja?->attire)
                                             <span class="staff-role role-attire">
                                                 Attire:
                                                 {{ $booking->skemaKerja->attire->nama_lengkap }}
@@ -131,17 +128,14 @@
                                         @endif
 
                                     </div>
-                                    @if(in_array(auth()->user()->role, ['ADMIN', 'DIREKTUR']))
-                                        <button
-                                            class="btn-edit-skema"
-                                            data-booking-id="{{ $booking->id }}"
+                                    @if (in_array(auth()->user()->role, ['ADMIN', 'DIREKTUR']))
+                                        <button class="btn-edit-skema" data-booking-id="{{ $booking->id }}"
                                             data-date="{{ $booking->photoshoot_date }}"
                                             data-editor="{{ $booking->skemaKerja?->editor_karyawan_id }}"
                                             data-fotografer="{{ $booking->skemaKerja?->photografer_karyawan_id }}"
                                             data-videografer="{{ $booking->skemaKerja?->videografer_karyawan_id }}"
                                             data-makeup="{{ $booking->skemaKerja?->makeup_karyawan_id }}"
-                                            data-attire="{{ $booking->skemaKerja?->attire_karyawan_id }}"
-                                        >
+                                            data-attire="{{ $booking->skemaKerja?->attire_karyawan_id }}">
                                             Edit
                                         </button>
                                     @endif
@@ -202,81 +196,80 @@
 
 <div class="custom-modal-backdrop" id="skemaBackdrop"></div>
 
-    <div class="custom-modal" id="skemaModal" aria-hidden="true">
-        <div class="modal-content modal-md">
+<div class="custom-modal" id="skemaModal" aria-hidden="true">
+    <div class="modal-content modal-md">
 
-            <div class="modal-header">
-                <h5>Edit Skema Kerja</h5>
-                <button type="button" class="btn btn-secondary" id="closeSkema">✕</button>
-            </div>
-
-            <div class="modal-body">
-                <form id="skemaForm" method="POST"
-                    data-base-url="{{ url('executive/homepages/update/skemakerja') }}">
-                    @csrf
-                    @method('PUT')
-
-                    <input type="hidden" name="booking_client_id" id="sk-booking-id">
-                    <input type="hidden" name="current_date" id="sk-current-date">
-
-                    <div class="grid-2">
-                        <div class="form-group">
-                            <label>Editor</label>
-                            <select name="editor_karyawan_id" id="sk-editor">
-                                <option value="">-</option>
-                                @foreach($karyawanByRole['editor'] as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Fotografer</label>
-                            <select name="photografer_karyawan_id" id="sk-fotografer">
-                                <option value="">-</option>
-                                @foreach($karyawanByRole['photografer'] as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Videografer</label>
-                            <select name="videografer_karyawan_id" id="sk-videografer">
-                                <option value="">-</option>
-                                @foreach($karyawanByRole['videografer'] as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Makeup</label>
-                            <select name="makeup_karyawan_id" id="sk-makeup">
-                                <option value="">-</option>
-                                @foreach($karyawanByRole['makeup'] as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Attire</label>
-                            <select name="attire_karyawan_id" id="sk-attire">
-                                <option value="">-</option>
-                                @foreach($karyawanByRole['attire'] as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <button type="button" class="btn btn-secondary" id="closeSkema2">Batal</button>
-                    </div>
-                </form>
-            </div>
-
+        <div class="modal-header">
+            <h5>Edit Skema Kerja</h5>
+            <button type="button" class="btn btn-secondary" id="closeSkema">✕</button>
         </div>
+
+        <div class="modal-body">
+            <form id="skemaForm" method="POST" data-base-url="{{ url('executive/homepages/update/skemakerja') }}">
+                @csrf
+                @method('PUT')
+
+                <input type="hidden" name="booking_client_id" id="sk-booking-id">
+                <input type="hidden" name="current_date" id="sk-current-date">
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Editor</label>
+                        <select name="editor_karyawan_id" id="sk-editor">
+                            <option value="">-</option>
+                            @foreach ($karyawanByRole['editor'] as $k)
+                                <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fotografer</label>
+                        <select name="photografer_karyawan_id" id="sk-fotografer">
+                            <option value="">-</option>
+                            @foreach ($karyawanByRole['photografer'] as $k)
+                                <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Videografer</label>
+                        <select name="videografer_karyawan_id" id="sk-videografer">
+                            <option value="">-</option>
+                            @foreach ($karyawanByRole['videografer'] as $k)
+                                <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Makeup</label>
+                        <select name="makeup_karyawan_id" id="sk-makeup">
+                            <option value="">-</option>
+                            @foreach ($karyawanByRole['makeup'] as $k)
+                                <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Attire</label>
+                        <select name="attire_karyawan_id" id="sk-attire">
+                            <option value="">-</option>
+                            @foreach ($karyawanByRole['attire'] as $k)
+                                <option value="{{ $k->id }}">{{ $k->nama_lengkap }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary" id="closeSkema2">Batal</button>
+                </div>
+            </form>
+        </div>
+
     </div>
+</div>
