@@ -219,7 +219,70 @@
 </div>
 
 <div class="custom-modal-backdrop" id="backdropEditTema"></div>
-<div class="custom-modal" id="modalEditTema" aria-hidden="true"></div>
+<div class="custom-modal" id="modalEditTema" aria-hidden="true">
+    <div class="modal-content modal-xl">
+        <div class="modal-header">
+            <h5>Edit Tema Baju</h5>
+            <button class="btn btn-secondary" type="button" id="btnCloseEditTema">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" enctype="multipart/form-data" id="editTemaForm" data-base-url="{{ url('/executive/tema-baju') }}">
+                @csrf
+                @method('PUT')
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-heading"></i> Nama</label>
+                        <input type="text" class="form-control" name="nama" id="et-nama" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-barcode"></i> Kode</label>
+                        <input type="text" class="form-control" name="kode" id="et-kode" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-tag"></i> Harga (Rp)</label>
+                        <input type="number" step="0.01" class="form-control" name="harga" id="et-harga" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-ruler"></i> Ukuran</label>
+                        <input type="text" class="form-control" name="ukuran" id="et-ukuran" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-layer-group"></i> Tipe</label>
+                        <input type="text" class="form-control" name="tipe" id="et-tipe" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-user-tie"></i> Designer</label>
+                        <input type="text" class="form-control" name="designer" id="et-designer" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-sticky-note"></i> Detail</label>
+                    <textarea name="detail" class="form-control" rows="3" id="et-detail" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-image"></i> Ganti Gambar (opsional)</label>
+                    <div class="image-upload-container" id="uploadDropTemaEdit">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Pilih ulang gambar (opsional)</p>
+                        <small>Format: JPG, PNG, WEBP | Maks: 2MB per gambar</small>
+                        <input type="file" name="images[]" id="et-images" accept="image/*" multiple class="file-overlay">
+                    </div>
+                    <div id="previewImagesEdit" class="thumbs-wrap"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" id="btnCloseEditTema2">Batal</button>
+                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-save"></i> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="custom-modal-backdrop" id="backdropCreateTacPackage"></div>
 <div class="custom-modal" id="modalCreateTacPackage">
