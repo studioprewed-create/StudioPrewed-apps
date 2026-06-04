@@ -70,7 +70,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('executive')->name('executive.')->group(function () {
         Route::get('/dashboard', [EXECUTIVEController::class, 'dashboard'])->name('dashboard');
-        Route::get('/catalogue', [EXECUTIVEController::class, 'catalogue'])->name('catalogue');
         Route::get('/galleryattire', [EXECUTIVEController::class, 'galleryattire'])->name('galleryattire');
         Route::get('/statistik', [EXECUTIVEController::class, 'statistik'])->name('statistik');
         Route::get('/Management', [EXECUTIVEController::class, 'management'])->name('management');
@@ -79,7 +78,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/schedule', [EXECUTIVEController::class, 'schedule'])->name('schedule');
         
         Route::prefix('Catalogue')->name('Catalogue.')->group(function () {
-            Route::get('/TACPackage', [EXECUTIVEController::class, 'TACPackage'])->name('tacpackage');
+            Route::get('/LibraryCatalogue', [EXECUTIVEController::class, 'LibraryCatalogue'])->name('librarycatalogue');
+            Route::get('/Package', [EXECUTIVEController::class, 'Package'])->name('package');
+            Route::get('/TemaBaju', [EXECUTIVEController::class, 'TemaBaju'])->name('temaBaju');
+        });
+
+        Route::prefix('Schedule')->name('Schedule.')->group(function () {
+            Route::get('/jadwalkerja', [EXECUTIVEController::class, 'jadwalkerja'])->name('jadwalkerja');
+            Route::get('/jadwalpesanan', [EXECUTIVEController::class, 'jadwalpesanan'])->name('jadwalpesanan');
         });
 
         Route::prefix('menupanel')->name('menupanel.')->group(function () {
@@ -106,12 +112,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/DataPartnership', [SUBEXECUTIVEController::class, 'DataPartnership'])->name('dataPartnership');
             Route::get('/KategoriPartnership', [SUBEXECUTIVEController::class, 'KategoriPartnership'])->name('kategoriPartnership');
 
-            Route::get('/Package', [SUBEXECUTIVEController::class, 'Package'])->name('package');
-            Route::get('/TemaBaju', [SUBEXECUTIVEController::class, 'TemaBaju'])->name('temaBaju');
-            Route::get('/Kategoritemabaju', [SUBEXECUTIVEController::class, 'Kategoritemabaju'])->name('kategoritemabaju');
-
-            Route::get('/jadwalkerja', [SUBEXECUTIVEController::class, 'jadwalkerja'])->name('jadwalkerja');
-            Route::get('/jadwalpesanan', [SUBEXECUTIVEController::class, 'jadwalpesanan'])->name('jadwalpesanan');
         });
 
         // AJAX load (tanpa view utama)

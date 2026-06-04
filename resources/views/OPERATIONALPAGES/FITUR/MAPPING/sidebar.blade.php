@@ -12,17 +12,26 @@
                     <i class="fas fa-home"></i> <span>Dashboard</span>
                 </a>
             </li>
-
             <li class="menu-item {{ request()->routeIs('executive.schedule') ? 'active' : '' }}">
                 <a href="{{ route('executive.schedule') }}" data-page="Schedule">
                     <i class="fas fa-calendar-check"></i> <span>Schedule</span>
                 </a>
             </li>
-
-            <li class="menu-item {{ request()->routeIs('executive.catalogue') ? 'active' : '' }}">
-                <a href="{{ route('executive.catalogue') }}" data-page="Catalogue">
-                    <i class="fa-solid fa-images"></i> <span>Catalogue</span>
+            <li class="menu-item dropdown">
+                <a href="#" class="dropdown-toggle">
+                    <i class="fa-solid fa-table-cells-large"></i> <span>Schedule</span>
+                    <i class="fa-solid fa-chevron-right submenu-icon"></i>
                 </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('executive.Schedule.jadwalpesanan') }}" data-page="Schedule.JadwalPesanan">
+                            Jadwal Pesanan
+                        </a>
+                        <a href="{{ route('executive.Schedule.jadwalkerja') }}" data-page="Schedule.JadwalKerja">
+                            Jadwal Kerja
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="menu-item dropdown">
                 <a href="#" class="dropdown-toggle">
@@ -54,13 +63,19 @@
                 </a>
                 <ul class="submenu">
                     <li>
-                        <a href="{{ route('executive.Catalogue.tacpackage') }}" data-page="Catalogue.TACPackage">
-                            Tac Package
+                        <a href="{{ route('executive.Catalogue.tacpackage') }}" data-page="Catalogue.LibraryCatalogue">
+                            Library Catalogue
+                        </a>
+                        <a href="{{ route('executive.Catalogue.package') }}" data-page="Catalogue.Package">
+                            Package
+                        </a>
+                        <a href="{{ route('executive.Catalogue.temaBaju') }}" data-page="Catalogue.TemaBaju">
+                            Attire
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="menu-item {{ request()->routeIs('executive.catalogue') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('executive.menupanel.berkas') ? 'active' : '' }}">
                 <a href="{{ route('executive.menupanel.berkas') }}" data-page="MenuPanel.Berkas">
                     <i class="fa-solid fa-images"></i> <span>Berkas</span>
                 </a>

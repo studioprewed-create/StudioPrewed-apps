@@ -37,13 +37,14 @@ use App\Models\DESCPackage;
 
 class EXECUTIVEController extends Controller
 {
-    public function tacpackage(Request $request){ return $this->loadPage($request, 'Catalogue.TACPackage'); }
+    public function librarycatalogue(Request $request){ return $this->loadPage($request, 'Catalogue.LibraryCatalogue'); }
+    public function package(Request $request){ return $this->LoadPage($request, 'Catalogue.Package'); }
+    public function temaBaju(Request $request){ return $this->LoadPage($request, 'Catalogue.TemaBaju'); }
+
+    public function jadwalkerja(Request $request){ return $this->LoadPage($request, 'Schedule.JadwalKerja'); }
+    public function jadwalpesanan(Request $request){ return $this->LoadPage($request, 'Schedule.JadwalPesanan'); }
 
     public function dashboard(Request $request){ return $this->loadPage($request, 'Dashboard'); }
-    public function schedule(Request $request){ return $this->loadPage($request, 'Schedule'); }
-    public function jadwalkerja(Request $request){ return $this->loadPage($request, 'JadwalKerja'); }
-    public function jadwalpesanan(Request $request){ return $this->loadPage($request, 'JadwalPesanan'); }
-    public function catalogue(Request $request){ return $this->loadPage($request, 'Catalogue'); }
     public function galleryattire(Request $request){ return $this->loadPage($request, 'GalleryAttire'); }
     public function statistik(Request $request){ return $this->loadPage($request, 'Statistik'); }
     public function management(Request $request){ return $this->loadPage($request, 'Management'); }
@@ -868,6 +869,131 @@ class EXECUTIVEController extends Controller
                     'descPackages' => $descPackages,
                 ]);
             }
+            if ($page === 'Catalogue.Package') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'packages' => $packages,
+                    'temas' => $temas,
+                ]);
+            }
+            if ($page === 'Catalogue.TemaBaju') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page' => $page,
+                    'packages' => $packages,
+                    'temas' => $temas,
+                ]);
+            }
+            if ($page === 'Schedule.JadwalPesanan') {
+                // Ambil input tanggal, status, dan search dari request
+                $selectedDate = $request->input('date', now()->toDateString());
+                $status       = $request->input('status', 'all');
+                $search       = $request->input('search');
+
+                // Query untuk mengambil data booking berdasarkan tanggal yang dipilih
+                $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
+                $query->where('kode_pesanan', 'like', 'SP%');
+
+                // Mapping status
+                $statusMap = [
+                    'pending'   => 'submitted',
+                    'confirmed' => 'confirmed',
+                    'canceled'  => 'cancelled',
+                    'completed' => 'completed',
+                ];
+
+                // Filter berdasarkan status
+                if ($status !== 'all' && isset($statusMap[$status])) {
+                    $query->where('status', $statusMap[$status]);
+                }
+
+                // Filter berdasarkan pencarian
+                if ($search) {
+                    $query->where(function ($q) use ($search) {
+                        $q->where('kode_pesanan', 'like', "%{$search}%")
+                        ->orWhere('nama_gabungan', 'like', "%{$search}%")
+                        ->orWhere('nama_cpp', 'like', "%{$search}%")
+                        ->orWhere('nama_cpw', 'like', "%{$search}%")
+                        ->orWhere('phone_gabungan', 'like', "%{$search}%")
+                        ->orWhere('phone_cpp', 'like', "%{$search}%")
+                        ->orWhere('phone_cpw', 'like', "%{$search}%");
+                    });
+                }
+
+                // Ambil data booking yang sudah difilter
+                $bookings = $query->orderBy('start_time')->get();
+
+                // Ambil data tambahan seperti packages, addons, temas
+                $packages = Package::orderBy('order')->get();
+                $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                $addonGroups = $addons->groupBy('kategori');
+
+                // Menggunakan loadPage untuk memuat halaman utama dengan data yang sudah disiapkan
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page'         => $page,
+                    'bookings'     => $bookings,
+                    'selectedDate' => $selectedDate,
+                    'status'       => $status,
+                    'search'       => $search,
+                    'packages'     => $packages,
+                    'addons'       => $addons,
+                    'temas'        => $temas,
+                    'addonGroups' => $addonGroups,
+                ]);
+            }
+            if ($page === 'Schedule.JadwalKerja') {
+                $weekOffset = (int) $request->input('week', 0);
+
+                $startOfWeek = now()
+                    ->startOfWeek()
+                    ->addWeeks($weekOffset);
+
+                $endOfWeek = $startOfWeek->copy()->addDays(6);
+
+                $bookings = BookingClient::with([
+                    'skemaKerja.editor',
+                    'skemaKerja.fotografer',
+                    'skemaKerja.videografer',
+                    'skemaKerja.makeup',
+                    'skemaKerja.attire',
+                ])
+                ->whereBetween('photoshoot_date', [
+                    $startOfWeek->toDateString(),
+                    $endOfWeek->toDateString(),
+                ])
+                ->orderBy('photoshoot_date')
+                ->orderBy('start_time')
+                ->get();
+
+                foreach ($bookings as $booking) {
+                    $booking->skemaKerja()->firstOrCreate([
+                        'booking_client_id' => $booking->id,
+                    ]);
+                }
+
+                $bookingsByDate = $bookings->groupBy(fn ($b) =>
+                    $b->photoshoot_date->format('Y-m-d')
+                );
+
+                $karyawanByRole = [
+                    'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
+                    'photografer' => DataDiriKaryawan::where('role', 'PHOTOGRAFER')->get(),
+                    'videografer' => DataDiriKaryawan::where('role', 'VIDEOGRAFER')->get(),
+                    'makeup' => DataDiriKaryawan::where('role', 'MAKE_UP')->get(),
+                    'attire' => DataDiriKaryawan::where('role', 'ATTIRE')->get(),
+                ];
+
+                return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                    'page'           => $page,
+                    'startOfWeek'    => $startOfWeek,
+                    'bookingsByDate' => $bookingsByDate,
+                    'karyawanByRole' => $karyawanByRole,
+                ]);
+            }
             return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
         }
     public function loadContent(Request $request, $page)
@@ -1003,6 +1129,117 @@ class EXECUTIVEController extends Controller
                         'konsepAttires',
                         'descPackages'
                     )
+                );
+            }
+            if ($page === 'Catalogue.Package') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('packages', 'temas'));
+            }
+            if ($page === 'Catalogue.TemaBaju') {
+                $packages = Package::orderBy('order')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('packages', 'temas'));
+            }
+            if ($page === 'Schedule.JadwalPesanan') {
+                // Ambil input tanggal, status, dan search dari request
+                $selectedDate = $request->input('date', now()->toDateString());
+                $status       = $request->input('status', 'all');
+                $search       = $request->input('search');
+
+                // Query untuk mengambil data booking berdasarkan tanggal yang dipilih
+                $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
+
+                // Filter khusus untuk executive jika perlu
+                $query->where('kode_pesanan', 'like', 'SP%');
+
+                // Mapping status
+                $statusMap = [
+                    'pending'   => 'submitted',
+                    'confirmed' => 'confirmed',
+                    'canceled'  => 'cancelled',
+                    'completed' => 'completed',
+                ];
+
+                // Filter berdasarkan status
+                if ($status !== 'all' && isset($statusMap[$status])) {
+                    $query->where('status', $statusMap[$status]);
+                }
+
+                // Filter berdasarkan pencarian
+                if ($search) {
+                    $query->where(function ($q) use ($search) {
+                        $q->where('kode_pesanan', 'like', "%{$search}%")
+                        ->orWhere('nama_gabungan', 'like', "%{$search}%")
+                        ->orWhere('nama_cpp', 'like', "%{$search}%")
+                        ->orWhere('nama_cpw', 'like', "%{$search}%")
+                        ->orWhere('phone_gabungan', 'like', "%{$search}%")
+                        ->orWhere('phone_cpp', 'like', "%{$search}%")
+                        ->orWhere('phone_cpw', 'like', "%{$search}%");
+                    });
+                }
+
+                // Ambil data booking yang sudah difilter
+                $bookings = $query->orderBy('start_time')->get();
+
+                // Ambil data lainnya seperti packages, addons, temas
+                $packages = Package::orderBy('order')->get();
+                $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
+                $temas    = TemaBaju::orderBy('order')->get();
+
+                $addonGroups = $addons->groupBy('kategori');
+
+                // Kirim data ke view menggunakan loadContent
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact(
+                    'bookings', 'selectedDate', 'status', 'search', 'packages', 'addons', 'temas', 'addonGroups'
+                ));
+            }
+            if ($page === 'Schedule.JadwalKerja') {
+
+                $weekOffset = (int) $request->input('week', 0);
+
+                $startOfWeek = now()
+                    ->startOfWeek()
+                    ->addWeeks($weekOffset);
+
+                $endOfWeek = $startOfWeek->copy()->addDays(6);
+
+                $bookings = BookingClient::with([
+                    'skemaKerja.editor',
+                    'skemaKerja.fotografer',
+                    'skemaKerja.videografer',
+                    'skemaKerja.makeup',
+                    'skemaKerja.attire',
+                ])
+                ->whereBetween('photoshoot_date', [
+                    $startOfWeek->toDateString(),
+                    $endOfWeek->toDateString(),
+                ])
+                ->orderBy('photoshoot_date')
+                ->orderBy('start_time')
+                ->get();
+
+                foreach ($bookings as $booking) {
+                    $booking->skemaKerja()->firstOrCreate([
+                        'booking_client_id' => $booking->id,
+                    ]);
+                }
+
+                $bookingsByDate = $bookings->groupBy(fn ($b) =>
+                    $b->photoshoot_date->format('Y-m-d')
+                );
+
+                $karyawanByRole = [
+                    'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
+                    'photografer' => DataDiriKaryawan::where('role', 'PHOTOGRAFER')->get(),
+                    'videografer' => DataDiriKaryawan::where('role', 'VIDEOGRAFER')->get(),
+                    'makeup' => DataDiriKaryawan::where('role', 'MAKE_UP')->get(),
+                    'attire' => DataDiriKaryawan::where('role', 'ATTIRE')->get(),
+                ];
+
+                return view(
+                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
+                    compact('startOfWeek', 'bookingsByDate', 'karyawanByRole')
                 );
             }
             if (view()->exists("OPERATIONALPAGES.FITUR.MAINCONTENT.$page")) {
@@ -1182,6 +1419,135 @@ class EXECUTIVEController extends Controller
                             'descPackages' => $descPackages,
                         ]
                     );
+                }
+                if ($page === 'Catalogue.Package') {
+                    $packages = Package::orderBy('order')->get();
+                    $temas    = TemaBaju::orderBy('order')->get();
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'     => $page,
+                        'packages' => $packages,
+                        'temas'    => $temas,
+                    ]);
+                }
+                if ($page === 'Catalogue.TemaBaju') {
+                    $packages = Package::orderBy('order')->get();
+                    $temas    = TemaBaju::orderBy('order')->get();
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'     => $page,
+                        'packages' => $packages,
+                        'temas'    => $temas,
+                    ]);
+                }
+                if ($page === 'Schedule.JadwalPesanan') {
+                    // Ambil input tanggal, status, dan search dari request
+                    $selectedDate = $request->input('date', now()->toDateString());
+                    $status       = $request->input('status', 'all');
+                    $search       = $request->input('search');
+
+                    // Query untuk mengambil data booking berdasarkan tanggal yang dipilih
+                    $query = BookingClient::whereDate('photoshoot_date', $selectedDate);
+
+                    // Filter khusus untuk executive jika perlu
+                    $query->where('kode_pesanan', 'like', 'SP%');
+
+                    // Mapping status
+                    $statusMap = [
+                        'pending'   => 'submitted',
+                        'confirmed' => 'confirmed',
+                        'canceled'  => 'cancelled',
+                        'completed' => 'completed',
+                    ];
+
+                    // Filter berdasarkan status
+                    if ($status !== 'all' && isset($statusMap[$status])) {
+                        $query->where('status', $statusMap[$status]);
+                    }
+
+                    // Filter berdasarkan pencarian
+                    if ($search) {
+                        $query->where(function ($q) use ($search) {
+                            $q->where('kode_pesanan', 'like', "%{$search}%")
+                            ->orWhere('nama_gabungan', 'like', "%{$search}%")
+                            ->orWhere('nama_cpp', 'like', "%{$search}%")
+                            ->orWhere('nama_cpw', 'like', "%{$search}%")
+                            ->orWhere('phone_gabungan', 'like', "%{$search}%")
+                            ->orWhere('phone_cpp', 'like', "%{$search}%")
+                            ->orWhere('phone_cpw', 'like', "%{$search}%");
+                        });
+                    }
+
+                    // Ambil data booking sesuai query yang sudah difilter
+                    $bookings = $query->orderBy('start_time')->get();
+
+                    // Ambil data lainnya seperti packages, addons, temas
+                    $packages = Package::orderBy('order')->get();
+                    $addons   = Addon::where('is_active', true)->orderBy('kategori')->orderBy('nama')->get();
+                    $temas    = TemaBaju::orderBy('order')->get();
+
+                    $addonGroups = $addons->groupBy('kategori');
+
+                    // Menggunakan view untuk memuat halaman utama dengan data yang sudah disiapkan
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'         => $page,
+                        'bookings'     => $bookings,
+                        'selectedDate' => $selectedDate,
+                        'status'       => $status,
+                        'search'       => $search,
+                        'packages'     => $packages,
+                        'addons'       => $addons,
+                        'temas'        => $temas,
+                        'addonGroups' => $addonGroups,
+                    ]);
+                }
+                if ($page === 'Schedule.JadwalKerja') {
+
+                    $weekOffset = (int) $request->input('week', 0);
+
+                    $startOfWeek = now()
+                        ->startOfWeek()
+                        ->addWeeks($weekOffset);
+
+                    $endOfWeek = $startOfWeek->copy()->addDays(6);
+
+                    $bookings = BookingClient::with([
+                        'skemaKerja.editor',
+                        'skemaKerja.fotografer',
+                        'skemaKerja.videografer',
+                        'skemaKerja.makeup',
+                        'skemaKerja.attire',
+                    ])
+                    ->whereBetween('photoshoot_date', [
+                        $startOfWeek->toDateString(),
+                        $endOfWeek->toDateString(),
+                    ])
+                    ->orderBy('photoshoot_date')
+                    ->orderBy('start_time')
+                    ->get();
+
+                    foreach ($bookings as $booking) {
+                        $booking->skemaKerja()->firstOrCreate([
+                        'booking_client_id' => $booking->id,
+                    ]);
+                    }
+
+                    $bookingsByDate = $bookings->groupBy(fn ($b) =>
+                        $b->photoshoot_date->format('Y-m-d')
+                    );
+
+                    $karyawanByRole = [
+                        'editor' => DataDiriKaryawan::where('role', 'EDITOR')->get(),
+                        'photografer' => DataDiriKaryawan::where('role', 'PHOTOGRAFER')->get(),
+                        'videografer' => DataDiriKaryawan::where('role', 'VIDEOGRAFER')->get(),
+                        'makeup' => DataDiriKaryawan::where('role', 'MAKE_UP')->get(),
+                        'attire' => DataDiriKaryawan::where('role', 'ATTIRE')->get(),
+                    ];
+
+                    return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
+                        'page'           => $page,
+                        'startOfWeek'    => $startOfWeek,
+                        'bookingsByDate' => $bookingsByDate,
+                        'karyawanByRole' => $karyawanByRole,
+                    ]);
                 }
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', ['page' => $page]);
             }
