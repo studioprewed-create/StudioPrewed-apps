@@ -12,11 +12,6 @@
                     <i class="fas fa-home"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('executive.schedule') ? 'active' : '' }}">
-                <a href="{{ route('executive.schedule') }}" data-page="Schedule">
-                    <i class="fas fa-calendar-check"></i> <span>Schedule</span>
-                </a>
-            </li>
             <li class="menu-item dropdown">
                 <a href="#" class="dropdown-toggle">
                     <i class="fa-solid fa-table-cells-large"></i> <span>Schedule</span>
@@ -27,6 +22,8 @@
                         <a href="{{ route('executive.Schedule.jadwalpesanan') }}" data-page="Schedule.JadwalPesanan">
                             Jadwal Pesanan
                         </a>
+                    </li>
+                    <li>
                         <a href="{{ route('executive.Schedule.jadwalkerja') }}" data-page="Schedule.JadwalKerja">
                             Jadwal Kerja
                         </a>
@@ -66,9 +63,13 @@
                         <a href="{{ route('executive.Catalogue.librarycatalogue') }}" data-page="Catalogue.LibraryCatalogue">
                             Library Catalogue
                         </a>
+                    </li>
+                    <li>
                         <a href="{{ route('executive.Catalogue.package') }}" data-page="Catalogue.Package">
                             Package
                         </a>
+                    </li>
+                    <li>
                         <a href="{{ route('executive.Catalogue.temaBaju') }}" data-page="Catalogue.TemaBaju">
                             Attire
                         </a>
