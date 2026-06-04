@@ -63,7 +63,7 @@
                 </a>
                 <ul class="submenu">
                     <li>
-                        <a href="{{ route('executive.Catalogue.tacpackage') }}" data-page="Catalogue.LibraryCatalogue">
+                        <a href="{{ route('executive.Catalogue.librarycatalogue') }}" data-page="Catalogue.LibraryCatalogue">
                             Library Catalogue
                         </a>
                         <a href="{{ route('executive.Catalogue.package') }}" data-page="Catalogue.Package">
