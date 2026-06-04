@@ -857,7 +857,7 @@ class EXECUTIVEController extends Controller
                     'addons'   => $addons,
                 ]);
             }
-            if ($page === 'Catalogue.TACPackage') {
+            if ($page === 'Catalogue.LibraryCatalogue') {
                 $tacPackages = TACPackage::orderBy('id') ->get();
                 $konsepAttires = KonsepAttire::orderBy('id')->get();
                 $descPackages = DESCPackage::orderBy('id')->get();
@@ -1117,7 +1117,7 @@ class EXECUTIVEController extends Controller
                 $addons   = Addon::orderBy('kategori')->orderBy('nama')->get();
                 return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('slides', 'promos','addons'));
             }
-            if ($page === 'Catalogue.TACPackage') {
+            if ($page === 'Catalogue.LibraryCatalogue') {
                 $tacPackages = TACPackage::orderBy('id')->get();
                 $konsepAttires = KonsepAttire::orderBy('id')->get();
                 $descPackages = DESCPackage::orderBy('id')->get();
@@ -1405,7 +1405,7 @@ class EXECUTIVEController extends Controller
                         'page' => $page,
                     ]);
                 }
-                if ($page === 'Catalogue.TACPackage') {
+                if ($page === 'Catalogue.LibraryCatalogue') {
                     $tacPackages = TACPackage::orderBy('id')->get();
                     $konsepAttires = KonsepAttire::orderBy('id')->get();
                     $descPackages = DESCPackage::orderBy('id')->get();
