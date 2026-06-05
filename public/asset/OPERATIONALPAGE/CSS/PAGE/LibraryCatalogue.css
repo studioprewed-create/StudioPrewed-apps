@@ -114,29 +114,52 @@
 .library-master-page .library-table-wrap {
   width: 100%;
   overflow-x: auto;
+  background: rgba(7,7,7,.65);
 }
 
 .library-master-page .library-table {
   width: 100%;
   min-width: 900px;
   table-layout: fixed;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .library-master-page .library-table th,
 .library-master-page .library-table td {
-  padding: 18px 24px;
-  border-bottom: 1px solid rgba(255,255,255,.055);
+  padding: 18px 22px;
   vertical-align: middle;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-right: 1px solid rgba(255,255,255,.07);
 }
 
-.library-master-page .library-table th {
-  background: rgba(255,255,255,.035);
+.library-master-page .library-table th:last-child,
+.library-master-page .library-table td:last-child {
+  border-right: none;
+}
+
+.library-master-page .library-table thead th {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
   color: #b9c4d6;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
   text-transform: uppercase;
+}
+
+.library-master-page .library-table tbody tr {
+  background: rgba(255,255,255,.01);
+  transition: background .18s ease;
+}
+
+.library-master-page .library-table tbody tr:hover {
+  background: rgba(255,255,255,.035);
+}
+
+.library-master-page .library-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .library-master-page .library-table td {
@@ -157,7 +180,6 @@
 .library-master-page .library-table th:nth-child(3),
 .library-master-page .library-table td:nth-child(3) {
   width: 160px;
-  text-align: center;
 }
 
 .library-master-page .library-table th:nth-child(4),
@@ -165,15 +187,23 @@
 .library-master-page .library-table th:nth-child(5),
 .library-master-page .library-table td:nth-child(5) {
   width: 150px;
-  text-align: center;
+}
+
+.library-master-page .library-table .text-center {
+  text-align: left;
 }
 
 .library-master-page .library-data-text {
+  max-width: 100%;
+  color: #fff;
   font-weight: 600;
+  line-height: 1.55;
+  word-break: break-word;
 }
 
 .library-master-page .library-status {
   display: inline-flex;
+  align-items: center;
   padding: 6px 12px;
   border-radius: 999px;
   font-size: 12px;
@@ -183,11 +213,13 @@
 .library-master-page .library-status.is-active {
   color: #4ade80;
   background: rgba(74,222,128,.14);
+  border: 1px solid rgba(74,222,128,.18);
 }
 
 .library-master-page .library-status.is-inactive {
   color: #fb7185;
   background: rgba(251,113,133,.14);
+  border: 1px solid rgba(251,113,133,.18);
 }
 
 .library-master-page .library-table .btn {
@@ -201,6 +233,14 @@
 
 .library-master-page .library-table form {
   margin: 0;
+}
+
+.library-master-page .library-empty {
+  padding: 30px 12px;
+  color: #b9c4d6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .hidden {
