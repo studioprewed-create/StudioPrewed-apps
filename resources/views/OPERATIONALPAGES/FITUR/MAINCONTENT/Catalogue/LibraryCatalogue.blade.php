@@ -52,7 +52,6 @@
 @endphp
 
 <div class="stats-page library-master-page">
-
     <div class="stats-header">
         <div>
             <h1>Library Catalogue</h1>
@@ -83,33 +82,34 @@
         </div>
     @endif
 
-    <div class="stats-grid-card library-switch-grid">
+    <div class="library-summary-grid">
         @foreach ($librarySections as $key => $section)
             <button
                 type="button"
-                class="stats-card-mini library-switch-card {{ $loop->first ? 'active' : '' }}"
+                class="library-summary-card {{ $loop->first ? 'active' : '' }}"
                 data-library-target="{{ $key }}">
-
-                <span>
+                <div class="summary-icon">
                     <i class="fas {{ $section['icon'] }}"></i>
-                    {{ $section['title'] }}
-                </span>
+                </div>
 
-                <h2>{{ $section['items']->count() }}</h2>
-
-                <p>{{ $section['subtitle'] }}</p>
+                <div class="summary-content">
+                    <span>{{ $section['title'] }}</span>
+                    <h2>{{ $section['items']->count() }}</h2>
+                    <p>{{ $section['subtitle'] }}</p>
+                </div>
             </button>
         @endforeach
     </div>
 
     @foreach ($librarySections as $key => $section)
-        <div
+        <section
             id="{{ $key }}Section"
-            class="stats-box library-panel {{ $loop->first ? '' : 'hidden' }}"
+            class="library-panel {{ $loop->first ? '' : 'hidden' }}"
             data-library-panel="{{ $key }}">
 
-            <div class="box-header">
+            <div class="library-panel-header">
                 <div>
+                    <span>Master Data</span>
                     <h3>{{ $section['title'] }}</h3>
                     <p>Total {{ $section['items']->count() }} data tersimpan</p>
                 </div>
@@ -120,14 +120,15 @@
                 </button>
             </div>
 
-            <div class="stats-table-wrap">
-                <table class="stats-table">
+            <div class="library-table-wrap">
+                <table class="library-table">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Data</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Status</th>
+                            <th class="text-center">Edit</th>
+                            <th class="text-center">Delete</th>
                         </tr>
                     </thead>
 
@@ -140,9 +141,19 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
 
-                                <td>{{ $value }}</td>
+                                <td>
+                                    <div class="library-data-text">
+                                        {{ $value }}
+                                    </div>
+                                </td>
 
                                 <td>
+                                    <span class="library-status {{ $item->active ? 'is-active' : 'is-inactive' }}">
+                                        {{ $item->active ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
                                     <button
                                         type="button"
                                         class="btn btn-secondary {{ $section['editClass'] }}"
@@ -154,7 +165,7 @@
                                     </button>
                                 </td>
 
-                                <td>
+                                <td class="text-center">
                                     <form
                                         method="POST"
                                         action="{{ route('executive.homepages.destroy', ['section' => $key, 'id' => $item->id]) }}"
@@ -171,16 +182,19 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">{{ $section['empty'] }}</td>
+                                <td colspan="5">
+                                    <div class="library-empty">
+                                        <i class="fas fa-folder-open"></i>
+                                        {{ $section['empty'] }}
+                                    </div>
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-
-        </div>
+        </section>
     @endforeach
-
 </div>
 
 @include('OPERATIONALPAGES.FITUR.MODAL.ModalCatalogue')
