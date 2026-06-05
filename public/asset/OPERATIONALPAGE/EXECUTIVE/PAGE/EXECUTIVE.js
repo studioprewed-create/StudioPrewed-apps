@@ -2225,6 +2225,27 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === backdropEdit) hideEdit();
         };
     };
+
+    const initLibraryCatalogueTabs = () => {
+        const cards = document.querySelectorAll('[data-library-target]');
+        const panels = document.querySelectorAll('[data-library-panel]');
+
+        if (!cards.length || !panels.length) return;
+
+        cards.forEach(card => {
+            card.onclick = () => {
+                const target = card.dataset.libraryTarget;
+
+                cards.forEach(item => item.classList.remove('active'));
+                panels.forEach(panel => panel.classList.remove('active'));
+
+                card.classList.add('active');
+
+                const activePanel = document.querySelector(`[data-library-panel="${target}"]`);
+                if (activePanel) activePanel.classList.add('active');
+            };
+        });
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -2247,6 +2268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initKonsepAttireModals();
         initDescPackageModals();
         initPackageLabelModals();
+        initLibraryCatalogueTabs();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

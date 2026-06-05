@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/StatistikSurvey.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/StatistikReview.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/DataBrand.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/LibraryCatalogue.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
