@@ -84,9 +84,7 @@
 
     <div class="library-summary-grid">
         @foreach ($librarySections as $key => $section)
-            <button
-                type="button"
-                class="library-summary-card {{ $loop->first ? 'active' : '' }}"
+            <button type="button" class="library-summary-card {{ $loop->first ? 'active' : '' }}"
                 data-library-target="{{ $key }}">
                 <div class="summary-icon">
                     <i class="fas {{ $section['icon'] }}"></i>
@@ -102,9 +100,7 @@
     </div>
 
     @foreach ($librarySections as $key => $section)
-        <section
-            id="{{ $key }}Section"
-            class="library-panel {{ $loop->first ? '' : 'hidden' }}"
+        <section id="{{ $key }}Section" class="library-panel {{ $loop->first ? '' : 'hidden' }}"
             data-library-panel="{{ $key }}">
 
             <div class="library-panel-header">
@@ -154,11 +150,8 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <button
-                                        type="button"
-                                        class="btn btn-secondary {{ $section['editClass'] }}"
-                                        data-id="{{ $item->id }}"
-                                        data-content="{{ $value }}"
+                                    <button type="button" class="btn btn-secondary {{ $section['editClass'] }}"
+                                        data-id="{{ $item->id }}" data-content="{{ $value }}"
                                         data-name="{{ $value }}">
                                         <i class="fa fa-pen"></i>
                                         Edit
@@ -166,8 +159,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <form
-                                        method="POST"
+                                    <form method="POST"
                                         action="{{ route('executive.homepages.destroy', ['section' => $key, 'id' => $item->id]) }}"
                                         onsubmit="return confirm('{{ $section['confirm'] }}')">
                                         @csrf
