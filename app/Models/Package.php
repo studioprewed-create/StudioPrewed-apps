@@ -21,6 +21,9 @@ class Package extends Model
         'notes',
         'konsep',
         'rules',
+        'label_id',
+        'attire_ids',
+        'tac_ids',
         'order',
         'active',
     ];
@@ -31,6 +34,11 @@ class Package extends Model
         'durasi'   => 'integer',
         'order'    => 'integer',
         'active'   => 'boolean',
+        'deskripsi'  => 'array',
+        'konsep'     => 'array',
+        'label_id'   => 'array',
+        'attire_ids' => 'array',
+        'tac_ids'    => 'array',
     ];
 
     // ⬇⬇⬇ ini yang kita sesuaikan untuk HOSTINGER
@@ -57,9 +65,32 @@ class Package extends Model
         return $this->harga;
     }
 
-    public function tacPackages()
+    public function getDescriptionItemsAttribute()
     {
-        return $this->hasMany(TACPackage::class)
-            ->orderBy('order');
+        return DESCPackage::whereIn('id', $this->deskripsi ?? [])
+            ->where('active', true)
+            ->get();
     }
+
+    public function getKonsepItemsAttribute()
+    {
+        return KonsepAttire::whereIn('id', $this->konsep ?? [])
+            ->where('active', true)
+            ->get();
+    }
+
+    public function getLabelItemsAttribute()
+    {
+        return PackageLabel::whereIn('id', $this->label_id ?? [])
+            ->where('active', true)
+            ->get();
+    }
+
+    public function getTacItemsAttribute()
+    {
+        return TACPackage::whereIn('id', $this->tac_ids ?? [])
+            ->where('active', true)
+            ->get();
+    }
+    
 }

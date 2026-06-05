@@ -707,3 +707,83 @@
 
 </div>
 
+<div class="custom-modal-backdrop" id="backdropCreatePackageLabel"></div>
+<div class="custom-modal" id="modalCreatePackageLabel">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Tambah Package Label</h5>
+
+            <button type="button" class="btn btn-secondary" id="btnCloseCreatePackageLabel">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <form method="POST" action="{{ route('executive.homepages.store','packagelabel') }}">
+                @csrf
+
+                <div class="form-group">
+                    <label>Package Label</label>
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCloseCreatePackageLabel2">
+                        Batal
+                    </button>
+
+                    <button class="btn btn-primary">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal-backdrop" id="backdropEditPackageLabel"></div>
+<div class="custom-modal" id="modalEditPackageLabel">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Edit Package Label</h5>
+
+            <button type="button" class="btn btn-secondary" id="btnCloseEditPackageLabel">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <form
+                id="editPackageLabelForm"
+                method="POST"
+                data-base-url="{{ url('executive/homepages/update/packagelabel') }}">
+                @csrf
+                @method('PUT')
+
+                <div class="form-group">
+                    <label>Package Label</label>
+                    <input
+                        type="text"
+                        id="epl-name"
+                        name="name"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCloseEditPackageLabel2">
+                        Batal
+                    </button>
+
+                    <button class="btn btn-primary">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,7 @@ use App\Models\BrandCategory;
 use App\Models\TACPackage;
 use App\Models\KonsepAttire;
 use App\Models\DESCPackage;
+use App\Models\PackageLabel;
 
 class EXECUTIVEController extends Controller
 {
