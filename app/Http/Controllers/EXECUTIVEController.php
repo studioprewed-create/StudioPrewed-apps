@@ -862,12 +862,14 @@ class EXECUTIVEController extends Controller
                 $tacPackages = TACPackage::orderBy('id') ->get();
                 $konsepAttires = KonsepAttire::orderBy('id')->get();
                 $descPackages = DESCPackage::orderBy('id')->get();
+                $packageLabels = PackageLabel::orderBy('id')->get();
 
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
                     'tacPackages' => $tacPackages,
                     'konsepAttires' => $konsepAttires,
                     'descPackages' => $descPackages,
+                    'packageLabels' => $packageLabels,
                 ]);
             }
             if ($page === 'Catalogue.Package') {
@@ -1122,13 +1124,15 @@ class EXECUTIVEController extends Controller
                 $tacPackages = TACPackage::orderBy('id')->get();
                 $konsepAttires = KonsepAttire::orderBy('id')->get();
                 $descPackages = DESCPackage::orderBy('id')->get();
+                $packageLabels = PackageLabel::orderBy('id')->get();
 
                 return view(
                     "OPERATIONALPAGES.FITUR.MAINCONTENT.$page",
                     compact(
                         'tacPackages',
                         'konsepAttires',
-                        'descPackages'
+                        'descPackages',
+                        'packageLabels'
                     )
                 );
             }
@@ -1410,6 +1414,7 @@ class EXECUTIVEController extends Controller
                     $tacPackages = TACPackage::orderBy('id')->get();
                     $konsepAttires = KonsepAttire::orderBy('id')->get();
                     $descPackages = DESCPackage::orderBy('id')->get();
+                    $packageLabels = PackageLabel::orderBy('id')->get();
 
                     return view(
                         'OPERATIONALPAGES.PAGE.EXECUTIVE',
@@ -1418,6 +1423,7 @@ class EXECUTIVEController extends Controller
                             'tacPackages' => $tacPackages,
                             'konsepAttires' => $konsepAttires,
                             'descPackages' => $descPackages,
+                            'packageLabels' => $packageLabels,
                         ]
                     );
                 }
