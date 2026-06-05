@@ -2227,23 +2227,31 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initLibraryCatalogueTabs = () => {
-        const cards = document.querySelectorAll('[data-library-target]');
+        const buttons = document.querySelectorAll('[data-library-target]');
         const panels = document.querySelectorAll('[data-library-panel]');
 
-        if (!cards.length || !panels.length) return;
+        if (!buttons.length || !panels.length) return;
 
-        cards.forEach(card => {
-            card.onclick = () => {
-                const target = card.dataset.libraryTarget;
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.dataset.libraryTarget;
 
-                cards.forEach(item => item.classList.remove('active'));
-                panels.forEach(panel => panel.classList.remove('active'));
+                buttons.forEach(item => item.classList.remove('active'));
 
-                card.classList.add('active');
+                panels.forEach(panel => {
+                    panel.classList.add('hidden');
+                });
 
-                const activePanel = document.querySelector(`[data-library-panel="${target}"]`);
-                if (activePanel) activePanel.classList.add('active');
-            };
+                button.classList.add('active');
+
+                const activePanel = document.querySelector(
+                    `[data-library-panel="${target}"]`
+                );
+
+                if (activePanel) {
+                    activePanel.classList.remove('hidden');
+                }
+            });
         });
     };
     

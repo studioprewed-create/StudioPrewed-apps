@@ -51,12 +51,17 @@
     ];
 @endphp
 
-<div class="library-page">
-    <div class="library-header">
+<div class="stats-page library-master-page">
+
+    <div class="stats-header">
         <div>
-            <span>Catalogue Master Data</span>
             <h1>Library Catalogue</h1>
-            <p>Pilih salah satu data master untuk melihat, menambah, mengubah, atau menghapus data.</p>
+            <p>Kelola master data package Studio Prewed</p>
+        </div>
+
+        <div class="stats-badge">
+            <i class="fas fa-layer-group"></i>
+            Catalogue Library
         </div>
     </div>
 
@@ -78,31 +83,35 @@
         </div>
     @endif
 
-    <div class="library-card-grid">
+    <div class="stats-grid-card library-switch-grid">
         @foreach ($librarySections as $key => $section)
             <button
                 type="button"
-                class="library-switch-card {{ $loop->first ? 'active' : '' }}"
+                class="stats-card-mini library-switch-card {{ $loop->first ? 'active' : '' }}"
                 data-library-target="{{ $key }}">
-                <div class="library-card-icon">
-                    <i class="fa {{ $section['icon'] }}"></i>
-                </div>
 
-                <div>
-                    <h3>{{ $section['title'] }}</h3>
-                    <p>{{ $section['subtitle'] }}</p>
-                    <strong>{{ $section['items']->count() }} Data</strong>
-                </div>
+                <span>
+                    <i class="fas {{ $section['icon'] }}"></i>
+                    {{ $section['title'] }}
+                </span>
+
+                <h2>{{ $section['items']->count() }}</h2>
+
+                <p>{{ $section['subtitle'] }}</p>
             </button>
         @endforeach
     </div>
 
     @foreach ($librarySections as $key => $section)
-        <div class="library-table-panel {{ $loop->first ? 'active' : '' }}" data-library-panel="{{ $key }}">
-            <div class="library-table-head">
+        <div
+            id="{{ $key }}Section"
+            class="stats-box library-panel {{ $loop->first ? '' : 'hidden' }}"
+            data-library-panel="{{ $key }}">
+
+            <div class="box-header">
                 <div>
-                    <h2>{{ $section['title'] }}</h2>
-                    <p>Total {{ $section['items']->count() }} data tersimpan.</p>
+                    <h3>{{ $section['title'] }}</h3>
+                    <p>Total {{ $section['items']->count() }} data tersimpan</p>
                 </div>
 
                 <button class="btn btn-primary" id="{{ $section['buttonId'] }}">
@@ -111,14 +120,14 @@
                 </button>
             </div>
 
-            <div class="tables library-table-wrap">
-                <table class="table">
+            <div class="stats-table-wrap">
+                <table class="stats-table">
                     <thead>
                         <tr>
-                            <th width="80">ID</th>
+                            <th>No</th>
                             <th>Data</th>
-                            <th width="180">Edit</th>
-                            <th width="180">Delete</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
 
@@ -130,6 +139,7 @@
 
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+
                                 <td>{{ $value }}</td>
 
                                 <td>
@@ -167,9 +177,10 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     @endforeach
+
 </div>
 
 @include('OPERATIONALPAGES.FITUR.MODAL.ModalCatalogue')
-

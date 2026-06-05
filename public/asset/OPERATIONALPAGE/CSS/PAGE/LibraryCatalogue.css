@@ -116,6 +116,10 @@
   border-radius: 0;
 }
 
+.hidden {
+    display: none !important;
+}
+
 
 @media (max-width: 1024px) {
 
