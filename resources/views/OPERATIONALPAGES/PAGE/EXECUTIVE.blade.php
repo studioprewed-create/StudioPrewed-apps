@@ -14,9 +14,7 @@
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Jadwalkerja.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Jadwalpesanan.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Catalogue.css') }}">
-    @if($page === 'Catalogue.Package')
-        <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/Package.css') }}">
-    @endif
+    <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/Package.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Menupanel.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS//PAGE/Dataakun.css') }}">
     <link rel="stylesheet" href="{{ asset('public/asset/OPERATIONALPAGE/CSS/PAGE/Statistik.css') }}">
