@@ -8,7 +8,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('executive.packages.store') }}" method="POST" enctype="multipart/form-data" id="formCreatePackage">
+<form action="{{ route('executive.homepages.store', 'package') }}" method="POST" enctype="multipart/form-data" id="formCreatePackage">
                 @csrf
                 @php
                     $temas = $temas ?? collect();
@@ -48,7 +48,7 @@
                             @foreach($packageLabels as $label)
                                 <label class="option-card">
                                     <input type="checkbox" name="label_id[]" value="{{ $label->id }}" @if(in_array($label->id, old('label_id', []))) checked @endif>
-                                    <span class="option-text">{{ $label->nama }}</span>
+                                    <span class="option-text">{{ $label->name ?? $label->nama }}</span>
                                 </label>
                             @endforeach
                         </div>
@@ -63,7 +63,7 @@
                             @foreach($konsepAttires as $konsep)
                                 <label class="option-card">
                                     <input type="checkbox" name="konsep[]" value="{{ $konsep->id }}" @if(in_array($konsep->id, old('konsep', []))) checked @endif>
-                                    <span class="option-text">{{ $konsep->nama }}</span>
+                                    <span class="option-text">{{ $konsep->content ?? $konsep->nama }}</span>
                                 </label>
                             @endforeach
                         </div>
@@ -90,7 +90,7 @@
                             @foreach($tacPackages as $tac)
                                 <label class="option-card">
                                     <input type="checkbox" name="tac_ids[]" value="{{ $tac->id }}" @if(in_array($tac->id, old('tac_ids', []))) checked @endif>
-                                    <span class="option-text">{{ $tac->content ?? $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</span>
+                                    <span class="option-text">{{ $tac->content ?? $tac->title ?? $tac->name ?? $tac->nama ?? 'TAC #' . $tac->id }}</span>
                                 </label>
                             @endforeach
                         </div>
@@ -143,7 +143,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" enctype="multipart/form-data" id="editPackageForm" data-base-url="{{ url('/executive/packages') }}">
+<form method="POST" enctype="multipart/form-data" id="editPackageForm" data-base-url="{{ url('/executive/homepages/update/package') }}">
                 @csrf
                 @method('PUT')
 
@@ -177,7 +177,7 @@
                             @foreach($packageLabels as $label)
                                 <label class="option-card" for="ep-label-{{ $label->id }}">
                                     <input id="ep-label-{{ $label->id }}" type="checkbox" name="label_id[]" value="{{ $label->id }}">
-                                    <span class="option-text">{{ $label->nama }}</span>
+                                    <span class="option-text">{{ $label->name ?? $label->nama }}</span>
                                 </label>
                             @endforeach
                         </div>
@@ -192,7 +192,7 @@
                             @foreach($konsepAttires as $konsep)
                                 <label class="option-card" for="ep-konsep-{{ $konsep->id }}">
                                     <input id="ep-konsep-{{ $konsep->id }}" type="checkbox" name="konsep[]" value="{{ $konsep->id }}">
-                                    <span class="option-text">{{ $konsep->nama }}</span>
+                                    <span class="option-text">{{ $konsep->content ?? $konsep->nama }}</span>
                                 </label>
                             @endforeach
                         </div>
@@ -219,7 +219,7 @@
                             @foreach($tacPackages as $tac)
                                 <label class="option-card" for="ep-tac-{{ $tac->id }}">
                                     <input id="ep-tac-{{ $tac->id }}" type="checkbox" name="tac_ids[]" value="{{ $tac->id }}">
-                                    <span class="option-text">{{ $tac->content ?? $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</span>
+                                        <span class="option-text">{{ $tac->content ?? $tac->title ?? $tac->name ?? $tac->nama ?? 'TAC #' . $tac->id }}</span>
                                 </label>
                             @endforeach
                         </div>
