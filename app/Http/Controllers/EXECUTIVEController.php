@@ -645,7 +645,7 @@ class EXECUTIVEController extends Controller
             ]);
 
             return redirect()
-                ->route('executive.catalogue')
+                ->route('executive.catalogue.package')
                 ->with('success', 'Tema baju berhasil ditambahkan.');
         }
 
@@ -689,7 +689,7 @@ class EXECUTIVEController extends Controller
             ]);
 
             return redirect()
-                ->route('executive.catalogue')
+                ->route('executive.catalogue.package')
                 ->with('success', 'Tema baju berhasil diperbarui.');
         }
 
@@ -704,7 +704,7 @@ class EXECUTIVEController extends Controller
                 $temaBaju->delete();
 
                 return redirect()
-                    ->route('executive.catalogue')
+                    ->route('executive.catalogue.package')
                     ->with('success', 'Tema baju berhasil dihapus.');
             }
 
@@ -712,12 +712,18 @@ class EXECUTIVEController extends Controller
             {
                 $request->validate([
                     'nama_paket' => 'required|string|max:255',
-                    'deskripsi'  => 'nullable|string',
+                    'deskripsi'  => 'nullable|array',
+                    'deskripsi.*' => 'nullable|integer|exists:desc_packages,id',
                     'harga'      => 'required|numeric',
                     'durasi'     => 'nullable|integer',
                     'discount'   => 'nullable|numeric|min:0|max:100',
                     'notes'      => 'nullable|string',
-                    'konsep'     => 'nullable|string',
+                    'konsep'     => 'nullable|array',
+                    'konsep.*'   => 'nullable|integer|exists:konsep_attires,id',
+                    'label_id'   => 'nullable|array',
+                    'label_id.*' => 'nullable|integer|exists:package_labels,id',
+                    'tac_ids'    => 'nullable|array',
+                    'tac_ids.*'  => 'nullable|integer|exists:tac_packages,id',
                     'rules'      => 'nullable|string',
                     'attire_ids' => 'nullable|array',
                     'attire_ids.*' => 'nullable|integer|exists:tema_baju,id',
@@ -734,13 +740,15 @@ class EXECUTIVEController extends Controller
 
                 Package::create([
                     'nama_paket' => $request->nama_paket,
-                    'deskripsi'  => $request->deskripsi,
+                    'deskripsi'  => $request->input('deskripsi', []),
                     'harga'      => $request->harga,
                     'durasi'     => $request->durasi,
                     'discount'   => $request->discount ?? 0,
                     'notes'      => $request->notes,
-                    'konsep'     => $request->konsep,
+                    'konsep'     => $request->input('konsep', []),
+                    'label_id'   => $request->input('label_id', []),
                     'rules'      => $request->rules,
+                    'tac_ids'    => $request->input('tac_ids', []),
                     'attire_ids' => $request->input('attire_ids', []),
                     'images'     => $imagePath,
                     'order'      => $maxOrder + 1,
@@ -748,7 +756,7 @@ class EXECUTIVEController extends Controller
                 ]);
 
                 return redirect()
-                    ->route('executive.catalogue')
+                    ->route('executive.catalogue.package')
                     ->with('success', 'Package berhasil ditambahkan.');
             }
 
@@ -756,12 +764,18 @@ class EXECUTIVEController extends Controller
             {
                 $request->validate([
                     'nama_paket' => 'required|string|max:255',
-                    'deskripsi'  => 'nullable|string',
+                    'deskripsi'  => 'nullable|array',
+                    'deskripsi.*' => 'nullable|integer|exists:desc_packages,id',
                     'harga'      => 'required|numeric',
                     'durasi'     => 'nullable|integer',
                     'discount'   => 'nullable|numeric|min:0|max:100',
                     'notes'      => 'nullable|string',
-                    'konsep'     => 'nullable|string',
+                    'konsep'     => 'nullable|array',
+                    'konsep.*'   => 'nullable|integer|exists:konsep_attires,id',
+                    'label_id'   => 'nullable|array',
+                    'label_id.*' => 'nullable|integer|exists:package_labels,id',
+                    'tac_ids'    => 'nullable|array',
+                    'tac_ids.*'  => 'nullable|integer|exists:tac_packages,id',
                     'rules'      => 'nullable|string',
                     'attire_ids' => 'nullable|array',
                     'attire_ids.*' => 'nullable|integer|exists:tema_baju,id',
@@ -780,20 +794,22 @@ class EXECUTIVEController extends Controller
 
                 $package->update([
                     'nama_paket' => $request->nama_paket,
-                    'deskripsi'  => $request->deskripsi,
+                    'deskripsi'  => $request->input('deskripsi', []),
                     'harga'      => $request->harga,
                     'durasi'     => $request->durasi,
                     'discount'   => $request->discount ?? 0,
                     'notes'      => $request->notes,
-                    'konsep'     => $request->konsep,
+                    'konsep'     => $request->input('konsep', []),
+                    'label_id'   => $request->input('label_id', []),
                     'rules'      => $request->rules,
+                    'tac_ids'    => $request->input('tac_ids', []),
                     'attire_ids' => $request->input('attire_ids', []),
                     'images'     => $imagePath,
                     // 'order' & 'active' kalau mau diubah, bisa ditambah di sini
                 ]);
 
                 return redirect()
-                    ->route('executive.catalogue')
+                    ->route('executive.catalogue.package')
                     ->with('success', 'Package berhasil diperbarui.');
             }
 
@@ -807,7 +823,7 @@ class EXECUTIVEController extends Controller
                 $package->delete();
 
                 return redirect()
-                    ->route('executive.catalogue')
+                    ->route('executive.catalogue.package')
                     ->with('success', 'Package berhasil dihapus.');
             }
     
