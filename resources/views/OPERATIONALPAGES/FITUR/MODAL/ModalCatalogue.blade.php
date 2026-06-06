@@ -36,19 +36,56 @@
                         <textarea name="notes" class="form-control" rows="2" placeholder="Catatan tambahan">{{ old('notes') }}</textarea>
                     </div>
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
-                        <textarea name="konsep" class="form-control" rows="2" placeholder="Konsep foto yang ditawarkan">{{ old('konsep') }}</textarea>
+                        <label class="form-label"><i class="fas fa-list-alt"></i> Label Paket</label>
+                        <select name="label_id[]" class="form-control" multiple size="5">
+                            @foreach($packageLabels as $label)
+                                <option value="{{ $label->id }}" @if(in_array($label->id, old('label_id', []))) selected @endif>{{ $label->nama }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih label paket yang berlaku.</small>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
-                    <textarea name="deskripsi" class="form-control" rows="3" placeholder="Jelaskan detail paket">{{ old('deskripsi') }}</textarea>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
+                        <select name="konsep[]" class="form-control" multiple size="5">
+                            @foreach($konsepAttires as $konsep)
+                                <option value="{{ $konsep->id }}" @if(in_array($konsep->id, old('konsep', []))) selected @endif>{{ $konsep->nama }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih satu atau beberapa konsep untuk paket ini.</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
+                        <select name="deskripsi[]" class="form-control" multiple size="5">
+                            @foreach($descPackages as $desc)
+                                <option value="{{ $desc->id }}" @if(in_array($desc->id, old('deskripsi', []))) selected @endif>{{ $desc->title ?? $desc->nama ?? 'Deskripsi #' . $desc->id }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih deskripsi paket yang sesuai.</small>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-list-alt"></i> Rules</label>
-                    <textarea name="rules" class="form-control" rows="2" placeholder="Syarat dan ketentuan paket">{{ old('rules') }}</textarea>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
+                        <select name="tac_ids[]" class="form-control" multiple size="5">
+                            @foreach($tacPackages as $tac)
+                                <option value="{{ $tac->id }}" @if(in_array($tac->id, old('tac_ids', []))) selected @endif>{{ $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih satu atau beberapa TAC package.</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-tshirt"></i> Tema Baju</label>
+                        <select name="attire_ids[]" id="attire_ids" class="form-control" multiple size="5">
+                            @foreach($temas as $tema)
+                                <option value="{{ $tema->id }}" @if(in_array($tema->id, old('attire_ids', []))) selected @endif>{{ $tema->nama }} ({{ $tema->kode }})</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih satu atau lebih tema baju yang tersedia untuk paket ini.</small>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -181,14 +218,56 @@
                         <textarea name="notes" class="form-control" rows="2" id="ep-notes"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
-                        <textarea name="konsep" class="form-control" rows="2" id="ep-konsep"></textarea>
+                        <label class="form-label"><i class="fas fa-list-alt"></i> Label Paket</label>
+                        <select name="label_id[]" id="ep-label_id" class="form-control" multiple size="5">
+                            @foreach($packageLabels as $label)
+                                <option value="{{ $label->id }}">{{ $label->nama }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih label paket yang berlaku.</small>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
-                    <textarea name="deskripsi" class="form-control" rows="3" id="ep-deskripsi"></textarea>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
+                        <select name="konsep[]" id="ep-konsep" class="form-control" multiple size="5">
+                            @foreach($konsepAttires as $konsep)
+                                <option value="{{ $konsep->id }}">{{ $konsep->nama }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih satu atau beberapa konsep untuk paket ini.</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
+                        <select name="deskripsi[]" id="ep-deskripsi" class="form-control" multiple size="5">
+                            @foreach($descPackages as $desc)
+                                <option value="{{ $desc->id }}">{{ $desc->title ?? $desc->nama ?? 'Deskripsi #' . $desc->id }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih deskripsi paket yang sesuai.</small>
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
+                        <select name="tac_ids[]" id="ep-tac_ids" class="form-control" multiple size="5">
+                            @foreach($tacPackages as $tac)
+                                <option value="{{ $tac->id }}">{{ $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih satu atau beberapa TAC package.</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-tshirt"></i> Tema Baju</label>
+                        <select name="attire_ids[]" id="ep-attire_ids" class="form-control" multiple size="5">
+                            @foreach($temas as $tema)
+                                <option value="{{ $tema->id }}">{{ $tema->nama }} ({{ $tema->kode }})</option>
+                            @endforeach
+                        </select>
+                        <small class="muted">Pilih satu atau lebih tema baju yang tersedia untuk paket ini.</small>
+                    </div>
                 </div>
 
                 <div class="form-group">

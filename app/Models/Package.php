@@ -79,6 +79,13 @@ class Package extends Model
             ->get();
     }
 
+    public function getAttireItemsAttribute()
+    {
+        return TemaBaju::whereIn('id', $this->attire_ids ?? [])
+            ->where('active', true)
+            ->get();
+    }
+
     public function getLabelItemsAttribute()
     {
         return PackageLabel::whereIn('id', $this->label_id ?? [])

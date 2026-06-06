@@ -416,6 +416,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === backdrop) hideModal();
         };
 
+        const setMultiSelectValues = (select, values) => {
+            if (!select) return;
+            const normalized = Array.isArray(values) ? values : [];
+            Array.from(select.options).forEach(option => {
+                option.selected = normalized.includes(option.value) || normalized.includes(Number(option.value));
+            });
+        };
+
         document.querySelectorAll('.btn-edit-package').forEach(btn => {
             btn.onclick = () => {
                 const id = btn.dataset.id;
@@ -431,6 +439,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('ep-notes').value      = btn.dataset.notes || '';
                 document.getElementById('ep-konsep').value     = btn.dataset.konsep || '';
                 document.getElementById('ep-rules').value      = btn.dataset.rules || '';
+
+                const setInputMultiSelect = (id, value) => {
+                    setMultiSelectValues(document.getElementById(id), value);
+                };
+
+                const deskripsiIds = btn.dataset.deskripsi ? JSON.parse(btn.dataset.deskripsi) : [];
+                const konsepIds = btn.dataset.konsep ? JSON.parse(btn.dataset.konsep) : [];
+                const attireIds = btn.dataset.attireIds ? JSON.parse(btn.dataset.attireIds) : [];
+                const labelIds = btn.dataset.labelIds ? JSON.parse(btn.dataset.labelIds) : [];
+                const tacIds = btn.dataset.tacIds ? JSON.parse(btn.dataset.tacIds) : [];
+
+                setInputMultiSelect('ep-deskripsi', deskripsiIds);
+                setInputMultiSelect('ep-konsep', konsepIds);
+                setInputMultiSelect('ep-attire_ids', attireIds);
+                setInputMultiSelect('ep-label_id', labelIds);
+                setInputMultiSelect('ep-tac_ids', tacIds);
 
                 const previewBox = document.getElementById('previewPackageImageEdit');
                 const imgTag     = previewBox?.querySelector('img');

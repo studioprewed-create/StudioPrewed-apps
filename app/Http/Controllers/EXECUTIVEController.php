@@ -719,6 +719,8 @@ class EXECUTIVEController extends Controller
                     'notes'      => 'nullable|string',
                     'konsep'     => 'nullable|string',
                     'rules'      => 'nullable|string',
+                    'attire_ids' => 'nullable|array',
+                    'attire_ids.*' => 'nullable|integer|exists:tema_baju,id',
                     'images'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
                 ]);
 
@@ -739,6 +741,7 @@ class EXECUTIVEController extends Controller
                     'notes'      => $request->notes,
                     'konsep'     => $request->konsep,
                     'rules'      => $request->rules,
+                    'attire_ids' => $request->input('attire_ids', []),
                     'images'     => $imagePath,
                     'order'      => $maxOrder + 1,
                     // 'active' pakai default dari migration
@@ -760,6 +763,8 @@ class EXECUTIVEController extends Controller
                     'notes'      => 'nullable|string',
                     'konsep'     => 'nullable|string',
                     'rules'      => 'nullable|string',
+                    'attire_ids' => 'nullable|array',
+                    'attire_ids.*' => 'nullable|integer|exists:tema_baju,id',
                     'images'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
                 ]);
 
@@ -782,6 +787,7 @@ class EXECUTIVEController extends Controller
                     'notes'      => $request->notes,
                     'konsep'     => $request->konsep,
                     'rules'      => $request->rules,
+                    'attire_ids' => $request->input('attire_ids', []),
                     'images'     => $imagePath,
                     // 'order' & 'active' kalau mau diubah, bisa ditambah di sini
                 ]);
@@ -1139,7 +1145,19 @@ class EXECUTIVEController extends Controller
             if ($page === 'Catalogue.Package') {
                 $packages = Package::orderBy('order')->get();
                 $temas    = TemaBaju::orderBy('order')->get();
-                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact('packages', 'temas'));
+                $tacPackages = TACPackage::orderBy('id')->get();
+                $konsepAttires = KonsepAttire::orderBy('id')->get();
+                $descPackages = DESCPackage::orderBy('id')->get();
+                $packageLabels = PackageLabel::orderBy('id')->get();
+
+                return view("OPERATIONALPAGES.FITUR.MAINCONTENT.$page", compact(
+                    'packages',
+                    'temas',
+                    'tacPackages',
+                    'konsepAttires',
+                    'descPackages',
+                    'packageLabels'
+                ));
             }
             if ($page === 'Catalogue.TemaBaju') {
                 $packages = Package::orderBy('order')->get();

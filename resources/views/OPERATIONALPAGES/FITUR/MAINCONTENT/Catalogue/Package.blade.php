@@ -1,10 +1,7 @@
 <div class="page-header">
     <div>
         <h1>Catalogue</h1>
-        <div class="subtitle">Kelola paket dan tema baju yang tampil di katalog</div>
-    </div>
-    <div class="header-actions">
-        <button type="button" class="btn btn-secondary" id="btnOpenCreatePackage">
+        <div class="subtitle">Kelola paket katalog beserta tema baju yang terkait</div>
             <i class="fa-solid fa-plus"></i> Tambah Package
         </button>
         <button type="button" class="btn btn-primary" id="btnOpenCreateTema">
@@ -50,7 +47,7 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="card-head">
+                            <div class="card-head package-head">
                                 <div>
                                     <div class="title">{{ $p->nama_paket }}</div>
                                     @if($p->discount > 0)
@@ -83,6 +80,14 @@
                                 </p>
                             @endif
 
+                            @if($p->attire_items->isNotEmpty())
+                                <div class="chips package-themes">
+                                    @foreach($p->attire_items as $theme)
+                                        <span class="theme-chip">{{ $theme->nama }}</span>
+                                    @endforeach
+                                </div>
+                            @endif
+
                             <div class="card-actions">
                                 {{-- Edit Package --}}
                                 <button type="button"
@@ -93,10 +98,13 @@
                                     data-harga="{{ $p->harga }}"
                                     data-discount="{{ $p->discount }}"
                                     data-durasi="{{ $p->durasi }}"
-                                    data-deskripsi="{{ $p->deskripsi }}"
+                                    data-deskripsi='@json($p->deskripsi)'
                                     data-notes="{{ $p->notes }}"
-                                    data-konsep="{{ $p->konsep }}"
-                                    data-rules="{{ $p->rules }}">
+                                    data-konsep='@json($p->konsep)'
+                                    data-rules="{{ $p->rules }}"
+                                    data-attire-ids='@json($p->attire_ids)'
+                                    data-label-ids='@json($p->label_id)'
+                                    data-tac-ids='@json($p->tac_ids)'>
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
 
@@ -117,79 +125,6 @@
         @endif
     </div>
 
-    {{-- =====================  TEMA BAJU  ===================== --}}
-    <div>
-        <div class="h3">Tema Baju</div>
-
-        @if(($temas ?? collect())->isEmpty())
-            <div class="alert alert-info">
-                <i class="fa-solid fa-circle-info"></i>
-                Belum ada tema baju. Klik <b>Tambah Tema Baju</b> untuk menambahkan.
-            </div>
-        @else
-            <div class="grid-cards sm">
-                @foreach($temas as $t)
-                    <div class="card-elev">
-                        <div class="ratio-3x4">
-                            <img src="{{ $t->main_image }}" alt="{{ $t->nama }}">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-head">
-                                <div>
-                                    <div class="title">{{ $t->nama }}</div>
-                                    <div class="small muted">{{ $t->kode }}</div>
-                                </div>
-                                <span class="role-badge {{ $t->active ? 'badge-active' : 'badge-inactive' }}">
-                                    {{ $t->active ? 'ACTIVE' : 'INACTIVE' }}
-                                </span>
-                            </div>
-
-                            <div class="price">Rp {{ number_format($t->harga,0,',','.') }}</div>
-
-                            <div class="chips">
-                                <span><i class="fa-solid fa-ruler"></i> {{ $t->ukuran }}</span>
-                                <span><i class="fa-solid fa-layer-group"></i> {{ $t->tipe }}</span>
-                                <span><i class="fa-solid fa-user-tie"></i> {{ $t->designer }}</span>
-                            </div>
-
-                            @if($t->detail)
-                                <p class="muted">{{ \Illuminate\Support\Str::limit($t->detail, 120) }}</p>
-                            @endif
-
-                            <div class="card-actions">
-                                {{-- Edit Tema --}}
-                                <button type="button"
-                                    class="btn btn-outline btn-edit-tema"
-                                    title="Edit tema baju"
-                                    data-id="{{ $t->id }}"
-                                    data-nama="{{ $t->nama }}"
-                                    data-kode="{{ $t->kode }}"
-                                    data-harga="{{ $t->harga }}"
-                                    data-ukuran="{{ $t->ukuran }}"
-                                    data-tipe="{{ $t->tipe }}"
-                                    data-designer="{{ $t->designer }}"
-                                    data-detail="{{ $t->detail }}"
-                                    data-images='@json($t->all_image_urls)'>
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-
-                                {{-- Hapus --}}
-                                <form action="{{ route('executive.tema_baju.destroy', $t->id) }}" method="POST"
-                                      onsubmit="return confirm('Yakin hapus tema {{ $t->nama }}?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger" type="submit" title="Hapus">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-    </div>
 </div>
 
 @include('OPERATIONALPAGES.FITUR.MODAL.ModalCatalogue')

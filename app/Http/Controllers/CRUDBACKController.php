@@ -68,7 +68,7 @@ class CRUDBACKController extends Controller
                 'promo'     => 'MenuPanel.HomePages.Pricelist',
                 'addon'     => 'MenuPanel.HomePages.Pricelist',
                 'user'      => 'subpage/dataakun',
-                'package'   => 'Catalogue',
+                'package'   => 'Catalogue/Package',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
                 'googlereview' => 'StatistikContent.StatistikReview',
@@ -284,6 +284,8 @@ class CRUDBACKController extends Controller
                     'notes'      => 'nullable|string',
                     'konsep'     => 'nullable|string',
                     'rules'      => 'nullable|string',
+                    'attire_ids' => 'nullable|array',
+                    'attire_ids.*' => 'nullable|integer|exists:tema_baju,id',
                     'images'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
                 ]);
 
@@ -303,6 +305,7 @@ class CRUDBACKController extends Controller
                     'notes'      => $validated['notes'],
                     'konsep'     => $validated['konsep'],
                     'rules'      => $validated['rules'],
+                    'attire_ids' => $validated['attire_ids'] ?? [],
                     'images'     => $imagePath,
                     'order'      => $maxOrder + 1,
                 ]);
@@ -681,7 +684,7 @@ class CRUDBACKController extends Controller
                 'promo'     => 'MenuPanel.HomePages.Pricelist',
                 'addon'     => 'MenuPanel.HomePages.Pricelist',
                 'user'      => 'DataAkun',
-                'package'   => 'Catalogue',
+                'package'   => 'Catalogue/Package',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
                 'skemakerja' => 'JadwalKerja',
@@ -1002,6 +1005,8 @@ class CRUDBACKController extends Controller
                     'notes'      => 'nullable|string',
                     'konsep'     => 'nullable|string',
                     'rules'      => 'nullable|string',
+                    'attire_ids' => 'nullable|array',
+                    'attire_ids.*' => 'nullable|integer|exists:tema_baju,id',
                     'images'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
                 ]);
 
@@ -1021,6 +1026,7 @@ class CRUDBACKController extends Controller
                     'notes'      => $validated['notes'],
                     'konsep'     => $validated['konsep'],
                     'rules'      => $validated['rules'],
+                    'attire_ids' => $validated['attire_ids'] ?? [],
                     'images'     => $imagePath,
                 ]);
             }
@@ -1340,7 +1346,7 @@ class CRUDBACKController extends Controller
                 'promo'     => 'MenuPanel.HomePages.Pricelist',
                 'addon'     => 'MenuPanel.HomePages.Pricelist',
                 'user'      => 'DataAkun',
-                'package'   => 'Catalogue',
+                'package'   => 'Catalogue/Package',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
                 'brand-category' => 'Brand.KategoriPartnership',
