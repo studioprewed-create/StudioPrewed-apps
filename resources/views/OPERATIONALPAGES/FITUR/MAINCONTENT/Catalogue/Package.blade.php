@@ -41,7 +41,6 @@
 @include('OPERATIONALPAGES.FITUR.Notifikasi.Alert')
 
 <div class="tables">
-    <div class="h3">Packages</div>
 
     @if (($packages ?? collect())->isEmpty())
         <div class="alert alert-info">
