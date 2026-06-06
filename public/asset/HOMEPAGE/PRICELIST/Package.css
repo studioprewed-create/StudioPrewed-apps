@@ -416,7 +416,7 @@
     }
 
     .packages-grid {
-        grid-template-columns: 2fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.2rem;
     }
 
@@ -573,8 +573,8 @@
     }
 
     .packages-grid {
-        grid-template-columns: 2fr;
-        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
     }
 
     .package-card {
