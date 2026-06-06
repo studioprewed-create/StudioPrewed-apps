@@ -416,14 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === backdrop) hideModal();
         };
 
-        const setMultiSelectValues = (select, values) => {
-            if (!select) return;
-            const normalized = Array.isArray(values) ? values : [];
-            Array.from(select.options).forEach(option => {
-                option.selected = normalized.includes(option.value) || normalized.includes(Number(option.value));
-            });
-        };
-
         document.querySelectorAll('.btn-edit-package').forEach(btn => {
             btn.onclick = () => {
                 const id = btn.dataset.id;
@@ -435,13 +427,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('ep-harga').value      = btn.dataset.harga || '';
                 document.getElementById('ep-discount').value   = btn.dataset.discount || '';
                 document.getElementById('ep-durasi').value     = btn.dataset.durasi || '';
-                document.getElementById('ep-deskripsi').value  = btn.dataset.deskripsi || '';
                 document.getElementById('ep-notes').value      = btn.dataset.notes || '';
-                document.getElementById('ep-konsep').value     = btn.dataset.konsep || '';
                 document.getElementById('ep-rules').value      = btn.dataset.rules || '';
 
-                const setInputMultiSelect = (id, value) => {
-                    setMultiSelectValues(document.getElementById(id), value);
+                const setCheckboxGroupValues = (wrapperId, values) => {
+                    const wrapper = document.getElementById(wrapperId);
+                    if (!wrapper) return;
+                    const normalized = Array.isArray(values) ? values.map(String) : [];
+                    wrapper.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                        input.checked = normalized.includes(input.value);
+                    });
                 };
 
                 const deskripsiIds = btn.dataset.deskripsi ? JSON.parse(btn.dataset.deskripsi) : [];
@@ -450,11 +445,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const labelIds = btn.dataset.labelIds ? JSON.parse(btn.dataset.labelIds) : [];
                 const tacIds = btn.dataset.tacIds ? JSON.parse(btn.dataset.tacIds) : [];
 
-                setInputMultiSelect('ep-deskripsi', deskripsiIds);
-                setInputMultiSelect('ep-konsep', konsepIds);
-                setInputMultiSelect('ep-attire_ids', attireIds);
-                setInputMultiSelect('ep-label_id', labelIds);
-                setInputMultiSelect('ep-tac_ids', tacIds);
+                setCheckboxGroupValues('ep-deskripsi', deskripsiIds);
+                setCheckboxGroupValues('ep-konsep', konsepIds);
+                setCheckboxGroupValues('ep-attire_ids', attireIds);
+                setCheckboxGroupValues('ep-label_id', labelIds);
+                setCheckboxGroupValues('ep-tac_ids', tacIds);
 
                 const previewBox = document.getElementById('previewPackageImageEdit');
                 const imgTag     = previewBox?.querySelector('img');
