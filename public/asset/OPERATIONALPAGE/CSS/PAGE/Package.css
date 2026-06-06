@@ -152,6 +152,10 @@
     overflow-x: auto;
 }
 
+.tables > div {
+    width: 100%;
+}
+
 .h3 {
     font-size: 22px;
     font-weight: 800;
@@ -190,7 +194,7 @@
 .card-grid {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: minmax(260px, 320px) 1fr;
     gap: 0;
     align-items: stretch;
 }
