@@ -10,6 +10,13 @@
         <div class="modal-body">
             <form action="{{ route('executive.packages.store') }}" method="POST" enctype="multipart/form-data" id="formCreatePackage">
                 @csrf
+                @php
+                    $temas = $temas ?? collect();
+                    $packageLabels = $packageLabels ?? collect();
+                    $konsepAttires = $konsepAttires ?? collect();
+                    $descPackages = $descPackages ?? collect();
+                    $tacPackages = $tacPackages ?? collect();
+                @endphp
 
                 <div class="form-grid-2">
                     <div class="form-group">
