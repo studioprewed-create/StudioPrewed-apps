@@ -31,24 +31,7 @@
     </div>
 </div>
 
-{{-- Alerts --}}
-@if(session('success'))
-    <div class="alert alert-success"><i class="fa-solid fa-check-circle"></i> {{ session('success') }}</div>
-@endif
-@if(session('error'))
-    <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation"></i> {{ session('error') }}</div>
-@endif
-@if($errors->any())
-    <div class="alert alert-danger">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <strong>Terjadi kesalahan!</strong>
-        <ul class="mt-8">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@include('OPERATIONALPAGES.FITUR.Notifikasi.Alert')
 
 <div class="tables">
     <div>
