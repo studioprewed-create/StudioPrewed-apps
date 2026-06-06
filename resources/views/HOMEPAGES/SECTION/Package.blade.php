@@ -18,9 +18,11 @@
                     @if($hasDisc)
                         <div class="discount-badge">-{{ rtrim(rtrim(number_format($pkg->discount,2), '0'),'.') }}%</div>
                     @endif
-                    <div class="Label-badge" style="background-color: {{ $pkg->label_id->first()->color ?? '#888' }};">
-                        {{ $pkg->label_id->first()->name ?? 'No Label' }}
-                    </div>
+                    @if($pkg->label_items && $pkg->label_items->isNotEmpty())
+                        <div class="Label-badge" style="background-color: {{ $pkg->label_items->first()->color ?? '#888' }};">
+                            {{ $pkg->label_items->first()->name ?? 'No Label' }}
+                        </div>
+                    @endif
                 </div>
 
                 {{-- Content Section --}}
