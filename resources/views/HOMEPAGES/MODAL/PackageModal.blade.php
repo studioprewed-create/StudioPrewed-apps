@@ -64,12 +64,20 @@
                             <i class="fas fa-palette"></i>
                             <div>
                                 <h5>Konsep</h5>
-                                <p>{{ $pkg->konsep ?: '-' }}</p>
+                                @if($pkg->konsep_items && $pkg->konsep_items->count())
+                                    <p>{{ $pkg->konsep_items->pluck('content')->implode(', ') }}</p>
+                                @else
+                                    <p>-</p>
+                                @endif
                             </div>
                         </div>
                         <div class="pkg-desc">
                             <h5><i class="fas fa-align-left"></i> Deskripsi Paket</h5>
-                            <p>{{ $pkg->deskripsi ?: 'Tidak ada deskripsi.' }}</p>
+                            @if($pkg->description_items && $pkg->description_items->count())
+                                <p>{{ $pkg->description_items->pluck('content')->implode(' • ') }}</p>
+                            @else
+                                <p>Tidak ada deskripsi.</p>
+                            @endif
                         </div>
                         <div class="pkg-item">
                             <i class="fas fa-list-alt"></i>
