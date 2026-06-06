@@ -87,19 +87,47 @@
     box-shadow: 0 16px 38px rgba(0,0,0,0.18);
 }
 
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 26px;
+    width: 100%;
+}
+
+.stats-card {
+    padding: 26px 24px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.22);
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .stats-value {
-    font-size: 34px;
+    font-size: 38px;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
 }
 
 .stats-label {
     font-size: 13px;
     color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
 }
 
 .tables {
+    width: 100%;
+    max-width: 100%;
+}
+
+.tables > div {
     width: 100%;
 }
 
@@ -112,8 +140,9 @@
 
 .grid-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 24px;
+    width: 100%;
 }
 
 .card-elev {
