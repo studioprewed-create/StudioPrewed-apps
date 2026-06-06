@@ -1,8 +1,4 @@
 <section class="packages-section" id="Booking">
-    <div class="packages-header">
-        <h2 class="packages-title">Paket Prewedding Kami</h2>
-        <p class="packages-subtitle">Pilih paket terbaik untuk momen spesial Anda</p>
-    </div>
 
     <div class="packages-grid" id="packages-container">
         @forelse($packages as $pkg)
