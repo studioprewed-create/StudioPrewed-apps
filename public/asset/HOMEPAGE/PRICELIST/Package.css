@@ -105,7 +105,7 @@
     top: 12px;
     right: 12px;
     background: linear-gradient(135deg, rgba(212, 172, 90, 0.25), rgba(212, 172, 90, 0.1));
-    color: var(--teal-2, #d4ac5a);
+    color: var(--teal-2, #000000);
     padding: 8px 12px;
     border-radius: 999px;
     font-size: 12px;
@@ -113,6 +113,21 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: 1px solid rgba(212, 172, 90, 0.35);
+    backdrop-filter: blur(8px);
+}
+
+.Label-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
 }
 
@@ -452,6 +467,13 @@
         padding: 7px 11px;
         font-size: 11px;
     }
+    
+    .label-badge {
+        top: 10px;
+        left: 10px;
+        padding: 7px 11px;
+        font-size: 11px;
+    }
 
     .package-body {
         padding: 1.2rem;
@@ -605,6 +627,15 @@
     .discount-badge {
         top: 8px;
         right: 8px;
+        padding: 6px 10px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+
+    .label-badge {
+        top: 8px;
+        left: 8px;
         padding: 6px 10px;
         font-size: 10px;
         font-weight: 700;
