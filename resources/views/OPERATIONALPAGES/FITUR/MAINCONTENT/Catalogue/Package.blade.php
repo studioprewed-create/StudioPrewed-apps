@@ -1,12 +1,33 @@
 <div class="page-header">
-    <div>
+    <div class="page-heading">
         <h1>Catalogue</h1>
-        <div class="subtitle">Kelola paket katalog beserta tema baju yang terkait</div>
+        <div class="subtitle">Kelola paket katalog dan relasi tema baju dengan lebih rapi.</div>
+    </div>
+    <div class="header-actions">
+        <button type="button" class="btn btn-primary" id="btnOpenCreatePackage">
             <i class="fa-solid fa-plus"></i> Tambah Package
         </button>
-        <button type="button" class="btn btn-primary" id="btnOpenCreateTema">
-            <i class="fa-solid fa-plus"></i> Tambah Tema Baju
-        </button>
+    </div>
+</div>
+
+@php
+    $packageCollection = $packages ?? collect();
+    $packageActive = $packageCollection->where('active', true)->count();
+    $packageInactive = $packageCollection->where('active', false)->count();
+@endphp
+
+<div class="stats-row">
+    <div class="stats-card">
+        <div class="stats-value">{{ $packageCollection->count() }}</div>
+        <div class="stats-label">Total Package</div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-value">{{ $packageActive }}</div>
+        <div class="stats-label">Package Aktif</div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-value">{{ $packageInactive }}</div>
+        <div class="stats-label">Package Nonaktif</div>
     </div>
 </div>
 

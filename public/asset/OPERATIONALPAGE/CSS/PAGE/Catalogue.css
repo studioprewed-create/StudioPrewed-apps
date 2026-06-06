@@ -168,9 +168,65 @@
   to   { opacity: 1; }
 }
 
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.page-header .page-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.page-header h1 {
+    margin: 0;
+}
+
+.page-header .subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
 .header-actions {
     display: flex;
     gap: 10px;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.stats-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stats-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stats-label {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.tables {
+    width: 100%;
 }
 
 .grid-cards {

@@ -67,7 +67,7 @@
                         <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
                         <select name="deskripsi[]" class="form-control" multiple size="5">
                             @foreach($descPackages as $desc)
-                                <option value="{{ $desc->id }}" @if(in_array($desc->id, old('deskripsi', []))) selected @endif>{{ $desc->title ?? $desc->nama ?? 'Deskripsi #' . $desc->id }}</option>
+                                <option value="{{ $desc->id }}" @if(in_array($desc->id, old('deskripsi', []))) selected @endif>{{ $desc->content ?? $desc->title ?? $desc->nama ?? 'Deskripsi #' . $desc->id }}</option>
                             @endforeach
                         </select>
                         <small class="muted">Pilih deskripsi paket yang sesuai.</small>
@@ -79,7 +79,7 @@
                         <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
                         <select name="tac_ids[]" class="form-control" multiple size="5">
                             @foreach($tacPackages as $tac)
-                                <option value="{{ $tac->id }}" @if(in_array($tac->id, old('tac_ids', []))) selected @endif>{{ $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</option>
+                                <option value="{{ $tac->id }}" @if(in_array($tac->id, old('tac_ids', []))) selected @endif>{{ $tac->content ?? $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</option>
                             @endforeach
                         </select>
                         <small class="muted">Pilih satu atau beberapa TAC package.</small>
@@ -249,7 +249,7 @@
                         <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
                         <select name="deskripsi[]" id="ep-deskripsi" class="form-control" multiple size="5">
                             @foreach($descPackages as $desc)
-                                <option value="{{ $desc->id }}">{{ $desc->title ?? $desc->nama ?? 'Deskripsi #' . $desc->id }}</option>
+                                <option value="{{ $desc->id }}">{{ $desc->content ?? $desc->title ?? $desc->nama ?? 'Deskripsi #' . $desc->id }}</option>
                             @endforeach
                         </select>
                         <small class="muted">Pilih deskripsi paket yang sesuai.</small>
@@ -261,7 +261,7 @@
                         <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
                         <select name="tac_ids[]" id="ep-tac_ids" class="form-control" multiple size="5">
                             @foreach($tacPackages as $tac)
-                                <option value="{{ $tac->id }}">{{ $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</option>
+                                <option value="{{ $tac->id }}">{{ $tac->content ?? $tac->title ?? $tac->nama ?? 'TAC #' . $tac->id }}</option>
                             @endforeach
                         </select>
                         <small class="muted">Pilih satu atau beberapa TAC package.</small>
