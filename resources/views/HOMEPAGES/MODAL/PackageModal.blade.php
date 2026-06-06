@@ -90,15 +90,15 @@
                             <i class="fas fa-file-alt"></i>
                             <div>
                                 <h5>Syarat & Ketentuan</h5>
-                                <ul class="pkg-notes">
-                                    <li>Harap melakukan pembayaran DP sebesar Rp.250.000</li>
-                                    <li>Khusus untuk weekend dan tanggal merah DP sebesar Rp.500.000</li>
-                                    <li>Khusus untuk Adat Sumatera, DP minimal sejumlah harga charge attire</li>
-                                    <li>Pelunasan maksimal H-1 sebelum pemotretan berlangsung</li>
-                                    <li>Jika ada pembatalan booking/cancel dianggap hangus</li>
-                                    <li>Free reschedule 1x, infokan maksimal H-3 dari jadwal awal</li>
-                                    <li>Datang 2 jam sebelum booking (2,5 jam untuk adat Sumatera)</li>
-                                </ul>
+                                @if($pkg->tac_items && $pkg->tac_items->count())
+                                    <ul class="pkg-notes">
+                                        @foreach($pkg->tac_items as $tac)
+                                            <li>{{ $tac->content ?? $tac->name ?? '' }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-muted">Tidak ada syarat & ketentuan.</p>
+                                @endif
                             </div>
                         </div>
                         <div class="pkg-item">

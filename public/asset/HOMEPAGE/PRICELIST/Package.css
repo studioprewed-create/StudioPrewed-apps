@@ -42,7 +42,7 @@
     background: linear-gradient(135deg, rgba(25, 25, 35, 0.98), rgba(15, 15, 25, 0.96));
     border-radius: 20px;
     overflow: hidden;
-    border: 1.2px solid rgba(96, 165, 250, 0.1);
+    border: 1.2px solid rgba(212, 172, 90, 0.1);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.05);
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: flex;
@@ -53,8 +53,8 @@
 
 .package-card:hover {
     transform: translateY(-10px);
-    border-color: rgba(96, 165, 250, 0.25);
-    box-shadow: 0 35px 85px rgba(96, 165, 250, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    border-color: rgba(212, 172, 90, 0.25);
+    box-shadow: 0 35px 85px rgba(212, 172, 90, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.08);
 }
 
 /* IMAGE WRAPPER */
@@ -104,15 +104,15 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    background: linear-gradient(135deg, rgba(20, 184, 166, 0.25), rgba(20, 184, 166, 0.1));
-    color: #22c55e;
+    background: linear-gradient(135deg, rgba(212, 172, 90, 0.25), rgba(212, 172, 90, 0.1));
+    color: var(--teal-2, #d4ac5a);
     padding: 8px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 1px solid rgba(20, 184, 166, 0.35);
+    border: 1px solid rgba(212, 172, 90, 0.35);
     backdrop-filter: blur(8px);
 }
 
@@ -221,7 +221,7 @@
 .price-final {
     font-size: 1.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--primary), rgba(96, 165, 250, 0.9));
+    background: linear-gradient(135deg, #d4ac5a, #b58a3c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -236,9 +236,9 @@
     gap: 0.6rem;
     padding: 12px 20px;
     border-radius: 12px;
-    border: 1.2px solid rgba(96, 165, 250, 0.25);
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(96, 165, 250, 0.02));
-    color: #c8e6ff;
+    border: 1.2px solid rgba(212, 172, 90, 0.25);
+    background: linear-gradient(135deg, rgba(212, 172, 90, 0.12), rgba(212, 172, 90, 0.05));
+    color: var(--teal-2, #d4ac5a);
     font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
@@ -249,8 +249,8 @@
 }
 
 .btn-view-detail:hover {
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(96, 165, 250, 0.08));
-    border-color: rgba(96, 165, 250, 0.4);
+    background: linear-gradient(135deg, rgba(212, 172, 90, 0.2), rgba(212, 172, 90, 0.1));
+    border-color: rgba(212, 172, 90, 0.4);
     transform: translateY(-2px);
 }
 
@@ -389,10 +389,8 @@
     .btn-view-detail {
         padding: 10px 16px;
         font-size: 0.85rem;
+        font-size: 1rem;
     }
-}
-    font-size: 1rem;
-  }
 
   .package-features {
     font-size: 0.82rem;

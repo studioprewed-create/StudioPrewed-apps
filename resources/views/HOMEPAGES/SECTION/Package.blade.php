@@ -27,41 +27,7 @@
                 {{-- Content Section --}}
                 <div class="package-body">
                     {{-- Title --}}
-                    <div class="package-header">
-                        <h3 class="package-title">{{ ucfirst($pkg->nama_paket) }}</h3>
-                    </div>
-
-                    {{-- Features Grid --}}
-                    <div class="package-features">
-                        @if($pkg->durasi)
-                            <div class="feature-item">
-                                <i class="fas fa-clock"></i>
-                                <span>{{ (int) $pkg->durasi }} menit</span>
-                            </div>
-                        @endif
-                        @if($pkg->attire_items && $pkg->attire_items->count())
-                            <div class="feature-item">
-                                <i class="fas fa-palette"></i>
-                                <span>{{ $pkg->attire_items->count() }} tema</span>
-                            </div>
-                        @endif
-                    </div>
-
-                    {{-- Description --}}
-                    @if($pkg->description_items && $pkg->description_items->count())
-                        <p class="package-description">
-                            {{ \Illuminate\Support\Str::limit($pkg->description_items->pluck('content')->implode(' • '), 100) }}
-                        </p>
-                    @endif
-
-                    {{-- Labels & Konsep --}}
-                    @if($pkg->label_items && $pkg->label_items->count())
-                        <div class="package-tags">
-                            @foreach($pkg->label_items->take(3) as $label)
-                                <span class="tag">{{ $label->name }}</span>
-                            @endforeach
-                        </div>
-                    @endif
+                    <h3 class="package-title">{{ ucfirst($pkg->nama_paket) }}</h3>
 
                     {{-- Price Section --}}
                     <div class="package-price-section">

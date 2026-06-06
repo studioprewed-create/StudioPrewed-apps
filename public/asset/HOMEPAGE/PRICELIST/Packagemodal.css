@@ -20,10 +20,11 @@
   z-index: 1;
   width: min(1080px, 94vw);
   margin: 40px auto;
-  background: #111;
-  color: #f2f2f2;
-  border-radius: 12px;
-  box-shadow: 0 20px 80px rgba(0,0,0,.5);
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.98), rgba(15, 15, 15, 0.96));
+  color: var(--text, #e0e0e0);
+  border-radius: 16px;
+  border: 1px solid rgba(203, 203, 203, 0.08);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   max-height: calc(100vh - 80px);
   display: flex;
@@ -88,6 +89,8 @@
   font-size: 1.6rem;
   font-weight: 800;
   margin-bottom: 10px;
+  color: var(--white, #ffffff);
+  letter-spacing: -0.01em;
 }
 
 .pkg-price {
@@ -99,11 +102,16 @@
 .pkg-price .price-final {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--primary, #cbcbcb);
+  background: linear-gradient(135deg, #d4ac5a, #b58a3c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .pkg-price .price-original {
   text-decoration: line-through;
-  color: #888;
+  color: var(--muted, #9fb3b5);
+  font-size: 0.9rem;
 }
 
 .pkg-grid {
@@ -119,19 +127,23 @@
 }
 .pkg-item i { 
   margin-top: 4px; 
-  color: #bbb; 
+  color: var(--primary-light, #a8a59c);
+  font-size: 1rem;
 }
 
 .pkg-item h5 { 
   margin: 0 0 4px; 
   font-size: .95rem; 
-  color: #fff; 
+  color: var(--white, #ffffff);
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
 .pkg-item p { 
   margin: 0; 
-  color: #cfcfcf; 
-  font-size: .85rem; 
+  color: var(--text-light, #b0b0b0); 
+  font-size: .85rem;
+  line-height: 1.5;
 }
 
 .pkg-desc h5 {
@@ -142,7 +154,7 @@
 .pkg-desc p {
   font-size: .95rem;
   line-height: 1.6;
-  color: #d6d6d6;
+  color: var(--text-light, #b0b0b0);
 }
 
 .pkg-actions {
@@ -188,20 +200,21 @@
 .pkg-notes li {
   position: relative;
   padding-left: 18px;
-  margin-bottom: 6px;
-
-  font-size: .85rem;        /* samakan */
-  color: #cfcfcf;           /* samakan */
-  line-height: 1.5;         /* biar enak dibaca */
+  margin-bottom: 8px;
+  font-size: .9rem;
+  color: var(--text-light, #b0b0b0);
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .pkg-notes li::before {
-  content: "•";
+  content: "✓";
   position: absolute;
   left: 0;
-  top: 2px; /* biar sejajar text */
-  color: #25D366;
+  top: 2px;
+  color: var(--teal-2, #d4ac5a);
   font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .pkg-modal__panel .nav-btn{
