@@ -695,7 +695,7 @@
     }
 
     /* TABLES */
-    .tables {
+    .tables-package {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
