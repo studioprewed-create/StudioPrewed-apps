@@ -48,10 +48,10 @@
             Belum ada package. Klik <b>Tambah Package</b> untuk menambahkan.
         </div>
     @else
-        <div class="grid-cards">
+        <div class="grid-cards-package">
             @foreach ($packages as $p)
-                <article class="card-elev">
-                    <div class="card-grid">
+                <article class="card-elev-package">
+                    <div class="card-grid-package">
                         <div class="card-media">
                             <div class="ratio-3x4">
                                 <img src="{{ $p->image_url }}" alt="{{ $p->nama_paket }}">
