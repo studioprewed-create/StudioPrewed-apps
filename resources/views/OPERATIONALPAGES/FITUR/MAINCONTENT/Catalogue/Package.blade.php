@@ -40,7 +40,7 @@
 
 @include('OPERATIONALPAGES.FITUR.Notifikasi.Alert')
 
-<div class="tables">
+<div class="tables-package">
 
     @if (($packages ?? collect())->isEmpty())
         <div class="alert alert-info">

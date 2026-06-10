@@ -146,13 +146,13 @@
     font-weight: 600;
 }
 
-.tables {
+.tables-package {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
 }
 
-.tables > div {
+.tables-package > div {
     width: 100%;
 }
 
