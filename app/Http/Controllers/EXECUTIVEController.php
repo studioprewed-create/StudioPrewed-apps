@@ -897,10 +897,18 @@ class EXECUTIVEController extends Controller
             if ($page === 'Catalogue.Package') {
                 $packages = Package::orderBy('order')->get();
                 $temas    = TemaBaju::orderBy('order')->get();
+                $tacPackages = TACPackage::orderBy('id')->get();
+                $konsepAttires = KonsepAttire::orderBy('id')->get();
+                $descPackages = DESCPackage::orderBy('id')->get();
+                $packageLabels = PackageLabel::orderBy('id')->get();
                 return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                     'page' => $page,
                     'packages' => $packages,
                     'temas' => $temas,
+                    'tacPackages' => $tacPackages,
+                    'konsepAttires' => $konsepAttires,
+                    'descPackages' => $descPackages,
+                    'packageLabels' => $packageLabels,
                 ]);
             }
             if ($page === 'Catalogue.TemaBaju') {
@@ -1464,10 +1472,18 @@ class EXECUTIVEController extends Controller
                 if ($page === 'Catalogue.Package') {
                     $packages = Package::orderBy('order')->get();
                     $temas    = TemaBaju::orderBy('order')->get();
+                    $tacPackages = TACPackage::orderBy('id')->get();
+                    $konsepAttires = KonsepAttire::orderBy('id')->get();
+                    $descPackages = DESCPackage::orderBy('id')->get();
+                    $packageLabels = PackageLabel::orderBy('id')->get();
                     return view('OPERATIONALPAGES.PAGE.EXECUTIVE', [
                         'page'     => $page,
                         'packages' => $packages,
                         'temas'    => $temas,
+                        'tacPackages' => $tacPackages,
+                        'konsepAttires' => $konsepAttires,
+                        'descPackages' => $descPackages,
+                        'packageLabels' => $packageLabels,
                     ]);
                 }
                 if ($page === 'Catalogue.TemaBaju') {
