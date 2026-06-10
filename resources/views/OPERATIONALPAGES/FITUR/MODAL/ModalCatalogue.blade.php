@@ -176,13 +176,16 @@
                         <input type="number" step="0.01" min="0" max="100" class="form-control"
                             name="discount" id="ep-discount">
                     </div>
-                </div>
-
-                <div class="form-grid-2">
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-sticky-note"></i> Notes</label>
                         <textarea name="notes" class="form-control" rows="2" id="ep-notes"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-list-alt"></i> Rules</label>
+                        <textarea name="rules" class="form-control" rows="2" id="ep-rules"></textarea>
+                    </div>
+                </div>
+
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-list-alt"></i> Label Paket</label>
                         <div class="option-grid" id="ep-label_id">
@@ -196,9 +199,6 @@
                         </div>
                         <small class="muted">Pilih label paket yang berlaku.</small>
                     </div>
-                </div>
-
-                <div class="form-grid-2">
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
                         <div class="option-grid" id="ep-konsep">
@@ -226,9 +226,6 @@
                         </div>
                         <small class="muted">Pilih deskripsi paket yang sesuai.</small>
                     </div>
-                </div>
-
-                <div class="form-grid-2">
                     <div class="form-group">
                         <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
                         <div class="option-grid" id="ep-tac_ids">
@@ -257,26 +254,18 @@
                         </div>
                         <small class="muted">Pilih satu atau lebih tema baju yang tersedia untuk paket ini.</small>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-list-alt"></i> Rules</label>
-                    <textarea name="rules" class="form-control" rows="2" id="ep-rules"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-image"></i> Ganti Gambar (opsional)</label>
-                    <div class="image-upload-container" id="uploadDropPackageEdit">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Klik atau seret gambar ke sini</p>
-                        <small>Format: JPG, PNG, WEBP | Maks: 2MB</small>
-                        <input type="file" name="images" id="ep-image" accept="image/*" class="file-overlay">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-image"></i> Ganti Gambar (opsional)</label>
+                        <div class="image-upload-container" id="uploadDropPackageEdit">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Klik atau seret gambar ke sini</p>
+                            <small>Format: JPG, PNG, WEBP | Maks: 2MB</small>
+                            <input type="file" name="images" id="ep-image" accept="image/*" class="file-overlay">
+                        </div>
+                        <div id="previewPackageImageEdit" class="img-preview-box">
+                            <img src="" alt="Preview">
+                        </div>
                     </div>
-                    <div id="previewPackageImageEdit" class="img-preview-box">
-                        <img src="" alt="Preview">
-                    </div>
-                </div>
-
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" id="btnCloseEditPackage2">Batal</button>
                     <button class="btn btn-primary" type="submit"><i class="fa-solid fa-save"></i> Simpan</button>
