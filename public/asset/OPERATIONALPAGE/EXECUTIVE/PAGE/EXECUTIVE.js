@@ -662,20 +662,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 document.getElementById('dp-temas').innerHTML =
                     temas.map(item => `
-                        <div class="package-attire-item">
+                        <div class="package-theme-card">
 
                             <img
                                 src="${item.main_image}"
                                 alt="${item.nama}"
                             >
 
-                            <div class="package-attire-name">
-                                ${item.nama}
+                            <div class="package-theme-body">
+
+                                <div class="package-theme-name">
+                                    ${item.nama}
+                                </div>
+
+                                <div class="package-theme-code">
+                                    ${item.kode || '-'}
+                                </div>
+
                             </div>
 
                         </div>
                     `).join('');
-
+                    
                 showModal();
             };
         });
