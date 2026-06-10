@@ -695,7 +695,7 @@
     }
 
     /* TABLES */
-    .tables-package {
+    .tables {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -709,6 +709,7 @@
 
     .grid-cards-package {
         gap: 16px;
+        grid-template-columns: 1fr;
     }
 
     /* CARD STYLING */
@@ -937,6 +938,7 @@
 
     .grid-cards-package {
         gap: 12px;
+        grid-template-columns: 1fr;
     }
 
     /* CARDS */
