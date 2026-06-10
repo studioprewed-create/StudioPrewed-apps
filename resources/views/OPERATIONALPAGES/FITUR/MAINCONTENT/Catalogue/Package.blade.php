@@ -129,31 +129,18 @@
                             @endif
 
                             <div class="card-actions">
-                                <button
-                                    type="button"
-                                    class="btn btn-info btn-detail-package"
-
-                                    data-package='@json([
-                                        "nama" => $p->nama_paket,
-                                        "image" => $p->image_url,
-                                        "harga" => $p->harga,
-                                        "final_price" => $p->final_price,
-                                        "discount" => $p->discount,
-                                        "durasi" => $p->durasi,
-                                        "notes" => $p->notes,
-                                        "rules" => $p->rules,
-                                        "active" => $p->active,
-
-                                        "labels" => $p->label_items,
-                                        "konsep" => $p->konsep_items,
-                                        "descriptions" => $p->description_items,
-                                        "tacs" => $p->tac_items,
-                                        "temas" => $p->attire_items,
-                                    ])'
-                                >
+                                <button type="button" class="btn btn-info btn-detail-package" title="Detail Package"
+                                    data-nama="{{ $p->nama_paket }}" data-image="{{ $p->image_url }}"
+                                    data-harga="{{ $p->harga }}" data-final-price="{{ $p->final_price }}"
+                                    data-discount="{{ $p->discount }}" data-durasi="{{ $p->durasi }}"
+                                    data-notes="{{ $p->notes }}" data-rules="{{ $p->rules }}"
+                                    data-active="{{ $p->active }}" data-labels='@json($p->label_items)'
+                                    data-konsep-items='@json($p->konsep_items)'
+                                    data-description-items='@json($p->description_items)'
+                                    data-tac-items='@json($p->tac_items)'
+                                    data-attire-items='@json($p->attire_items)'>
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-
                                 {{-- Edit Package --}}
                                 <button type="button" class="btn btn-outline btn-edit-package" title="Edit package"
                                     data-id="{{ $p->id }}" data-nama="{{ $p->nama_paket }}"

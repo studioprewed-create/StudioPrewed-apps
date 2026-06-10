@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const initCataloguePackageDetailModal = () => {
 
     const backdrop = document.getElementById('backdropDetailPackage');
-    const modal    = document.getElementById('modalDetailPackage');
+    const modal = document.getElementById('modalDetailPackage');
     const btnClose = document.getElementById('btnCloseDetailPackage');
 
         if (!backdrop || !modal) return;
@@ -552,163 +552,133 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.remove('show');
         };
 
-        const renderChips = (target, items, field) => {
+        if (btnClose) btnClose.onclick = hideModal;
 
-            const el = document.getElementById(target);
-
-            if (!el) return;
-
-            el.innerHTML = (items || [])
-                .map(item => `
-                    <span class="theme-chip">
-                        ${item[field]}
-                    </span>
-                `)
-                .join('');
+        backdrop.onclick = (e) => {
+            if (e.target === backdrop) hideModal();
         };
 
-        const renderList = (target, items, field) => {
+        document.querySelectorAll('.btn-detail-package').forEach(btn => {
 
-            const el = document.getElementById(target);
+            btn.onclick = () => {
 
-            if (!el) return;
+                document.getElementById('dp-image').src =
+                    btn.dataset.image || '';
 
-            el.innerHTML = (items || [])
-                .map(item => `
-                    <li>${item[field]}</li>
-                `)
-                .join('');
-        };
+                document.getElementById('dp-nama').textContent =
+                    btn.dataset.nama || '';
 
-        const renderTemas = (items) => {
+                document.getElementById('dp-durasi').textContent =
+                    `${btn.dataset.durasi || 0} Menit`;
 
-            const el = document.getElementById('dp-temas');
+                document.getElementById('dp-status').innerHTML =
+                    btn.dataset.active === '1'
+                        ? '<span class="role-badge badge-active">ACTIVE</span>'
+                        : '<span class="role-badge badge-inactive">INACTIVE</span>';
 
-            if (!el) return;
+                document.getElementById('dp-notes').textContent =
+                    btn.dataset.notes || '-';
 
-            el.innerHTML = (items || [])
-                .map(item => `
-                    <div class="attire-detail-card">
+                document.getElementById('dp-rules').textContent =
+                    btn.dataset.rules || '-';
 
-                        <img
-                            src="${item.main_image}"
-                            alt="${item.nama}"
-                        >
+                const harga =
+                    Number(btn.dataset.harga || 0);
 
-                        <div class="attire-detail-content">
+                const finalPrice =
+                    Number(btn.dataset.finalPrice || 0);
 
-                            <h4>${item.nama}</h4>
+                const discount =
+                    Number(btn.dataset.discount || 0);
 
-                            <div class="attire-meta">
-                                Kode : ${item.kode || '-'}
-                            </div>
-
-                            <div class="attire-meta">
-                                Designer : ${item.designer || '-'}
-                            </div>
-
-                            <div class="attire-meta">
-                                Tipe : ${item.tipe || '-'}
-                            </div>
-
-                            <div class="attire-meta">
-                                Ukuran : ${item.ukuran || '-'}
-                            </div>
-
-                            <p>
-                                ${item.detail || '-'}
-                            </p>
-
-                        </div>
-
-                    </div>
-                `)
-                .join('');
-        };
-
-        const fillPackageDetail = (data) => {
-
-            document.getElementById('dp-image').src =
-                data.image || '';
-
-            document.getElementById('dp-nama').textContent =
-                data.nama || '';
-
-            document.getElementById('dp-status').innerHTML =
-                data.active
-                    ? '<span class="role-badge badge-active">ACTIVE</span>'
-                    : '<span class="role-badge badge-inactive">INACTIVE</span>';
-
-            document.getElementById('dp-durasi').textContent =
-                `${data.durasi || 0} Menit`;
-
-            document.getElementById('dp-notes').textContent =
-                data.notes || '-';
-
-            document.getElementById('dp-rules').textContent =
-                data.rules || '-';
-
-            document.getElementById('dp-price').innerHTML =
-                data.discount > 0
+                document.getElementById('dp-price').innerHTML =
+                    discount > 0
                     ? `
                         <div class="price-strike">
-                            Rp ${Number(data.harga).toLocaleString('id-ID')}
+                            Rp ${harga.toLocaleString('id-ID')}
                         </div>
 
                         <div class="price">
-                            Rp ${Number(data.final_price).toLocaleString('id-ID')}
+                            Rp ${finalPrice.toLocaleString('id-ID')}
                             <span class="disc-pill">
-                                -${data.discount}%
+                                -${discount}%
                             </span>
                         </div>
                     `
                     : `
                         <div class="price">
-                            Rp ${Number(data.harga).toLocaleString('id-ID')}
+                            Rp ${harga.toLocaleString('id-ID')}
                         </div>
                     `;
 
-            renderChips('dp-labels', data.labels, 'name');
-            renderChips('dp-konsep', data.konsep, 'content');
+                const labels =
+                    btn.dataset.labels
+                        ? JSON.parse(btn.dataset.labels)
+                        : [];
 
-            renderList(
-                'dp-descriptions',
-                data.descriptions,
-                'content'
-            );
+                document.getElementById('dp-labels').innerHTML =
+                    labels.map(item => `
+                        <span class="theme-chip">
+                            ${item.name}
+                        </span>
+                    `).join('');
 
-            renderList(
-                'dp-tacs',
-                data.tacs,
-                'content'
-            );
+                const konsep =
+                    btn.dataset.konsepItems
+                        ? JSON.parse(btn.dataset.konsepItems)
+                        : [];
 
-            renderTemas(data.temas);
-        };
+                document.getElementById('dp-konsep').innerHTML =
+                    konsep.map(item => `
+                        <span class="theme-chip">
+                            ${item.content}
+                        </span>
+                    `).join('');
 
-        btnClose?.addEventListener('click', hideModal);
+                const descriptions =
+                    btn.dataset.descriptionItems
+                        ? JSON.parse(btn.dataset.descriptionItems)
+                        : [];
 
-        backdrop.addEventListener('click', e => {
-            if (e.target === backdrop) {
-                hideModal();
-            }
+                document.getElementById('dp-descriptions').innerHTML =
+                    descriptions.map(item => `
+                        <li>${item.content}</li>
+                    `).join('');
+
+                const tacs =
+                    btn.dataset.tacItems
+                        ? JSON.parse(btn.dataset.tacItems)
+                        : [];
+
+                document.getElementById('dp-tacs').innerHTML =
+                    tacs.map(item => `
+                        <li>${item.content}</li>
+                    `).join('');
+
+                const temas =
+                    btn.dataset.attireItems
+                        ? JSON.parse(btn.dataset.attireItems)
+                        : [];
+
+                document.getElementById('dp-temas').innerHTML =
+                    temas.map(item => `
+                        <div class="package-attire-item">
+
+                            <img
+                                src="${item.main_image}"
+                                alt="${item.nama}"
+                            >
+
+                            <div class="package-attire-name">
+                                ${item.nama}
+                            </div>
+
+                        </div>
+                    `).join('');
+
+                showModal();
+            };
         });
-
-        document
-            .querySelectorAll('.btn-detail-package')
-            .forEach(btn => {
-
-                btn.addEventListener('click', () => {
-
-                    const data =
-                        JSON.parse(btn.dataset.package);
-
-                    fillPackageDetail(data);
-
-                    showModal();
-                });
-
-            });
     };
 
     /* ============ MODAL TEMA BAJU (EDIT) ============ */
@@ -2457,6 +2427,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initCatalogueTemaModals();
         initCataloguePackageModals();
         initCataloguePackageEditModals();
+        initCataloguePackageDetailModal();
         initCatalogueTemaEditModals();
         initBookingModals();
         initBookingDetailModal();
@@ -2473,7 +2444,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initDescPackageModals();
         initPackageLabelModals();
         initLibraryCatalogueTabs();
-        initCataloguePackageDetailModal();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

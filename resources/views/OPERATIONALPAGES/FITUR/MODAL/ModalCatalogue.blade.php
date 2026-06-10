@@ -50,87 +50,87 @@
                     </div>
                 </div>
 
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-list-alt"></i> Label Paket</label>
-                        <div class="option-grid">
-                            @foreach ($packageLabels as $label)
-                                <label class="option-card">
-                                    <input type="checkbox" name="label_id[]" value="{{ $label->id }}"
-                                        @if (in_array($label->id, old('label_id', []))) checked @endif>
-                                    <span class="option-text">{{ $label->name ?? $label->nama }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih label paket yang berlaku.</small>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-list-alt"></i> Label Paket</label>
+                    <div class="option-grid">
+                        @foreach ($packageLabels as $label)
+                            <label class="option-card">
+                                <input type="checkbox" name="label_id[]" value="{{ $label->id }}"
+                                    @if (in_array($label->id, old('label_id', []))) checked @endif>
+                                <span class="option-text">{{ $label->name ?? $label->nama }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
-                        <div class="option-grid">
-                            @foreach ($konsepAttires as $konsep)
-                                <label class="option-card">
-                                    <input type="checkbox" name="konsep[]" value="{{ $konsep->id }}"
-                                        @if (in_array($konsep->id, old('konsep', []))) checked @endif>
-                                    <span class="option-text">{{ $konsep->content ?? $konsep->nama }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih satu atau beberapa konsep untuk paket ini.</small>
+                    <small class="muted">Pilih label paket yang berlaku.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
+                    <div class="option-grid">
+                        @foreach ($konsepAttires as $konsep)
+                            <label class="option-card">
+                                <input type="checkbox" name="konsep[]" value="{{ $konsep->id }}"
+                                    @if (in_array($konsep->id, old('konsep', []))) checked @endif>
+                                <span class="option-text">{{ $konsep->content ?? $konsep->nama }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
-                        <div class="option-grid">
-                            @foreach ($descPackages as $desc)
-                                <label class="option-card">
-                                    <input type="checkbox" name="deskripsi[]" value="{{ $desc->id }}"
-                                        @if (in_array($desc->id, old('deskripsi', []))) checked @endif>
-                                    <span
-                                        class="option-text">{{ $desc->content ?? ($desc->title ?? ($desc->nama ?? 'Deskripsi #' . $desc->id)) }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih deskripsi paket yang sesuai.</small>
+                    <small class="muted">Pilih satu atau beberapa konsep untuk paket ini.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
+                    <div class="option-grid">
+                        @foreach ($descPackages as $desc)
+                            <label class="option-card">
+                                <input type="checkbox" name="deskripsi[]" value="{{ $desc->id }}"
+                                    @if (in_array($desc->id, old('deskripsi', []))) checked @endif>
+                                <span
+                                    class="option-text">{{ $desc->content ?? ($desc->title ?? ($desc->nama ?? 'Deskripsi #' . $desc->id)) }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
-                        <div class="option-grid">
-                            @foreach ($tacPackages as $tac)
-                                <label class="option-card">
-                                    <input type="checkbox" name="tac_ids[]" value="{{ $tac->id }}"
-                                        @if (in_array($tac->id, old('tac_ids', []))) checked @endif>
-                                    <span
-                                        class="option-text">{{ $tac->content ?? ($tac->title ?? ($tac->name ?? ($tac->nama ?? 'TAC #' . $tac->id))) }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih satu atau beberapa TAC package.</small>
+                    <small class="muted">Pilih deskripsi paket yang sesuai.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
+                    <div class="option-grid">
+                        @foreach ($tacPackages as $tac)
+                            <label class="option-card">
+                                <input type="checkbox" name="tac_ids[]" value="{{ $tac->id }}"
+                                    @if (in_array($tac->id, old('tac_ids', []))) checked @endif>
+                                <span
+                                    class="option-text">{{ $tac->content ?? ($tac->title ?? ($tac->name ?? ($tac->nama ?? 'TAC #' . $tac->id))) }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-tshirt"></i> Tema Baju</label>
-                        <div class="option-grid">
-                            @foreach ($temas as $tema)
-                                <label class="option-card">
-                                    <input type="checkbox" name="attire_ids[]" value="{{ $tema->id }}"
-                                        @if (in_array($tema->id, old('attire_ids', []))) checked @endif>
-                                    <span
-                                        class="option-text">{{ $tema->nama }}{{ $tema->kode ? ' (' . $tema->kode . ')' : '' }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih satu atau lebih tema baju yang tersedia untuk paket ini.</small>
+                    <small class="muted">Pilih satu atau beberapa TAC package.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-tshirt"></i> Tema Baju</label>
+                    <div class="option-grid">
+                        @foreach ($temas as $tema)
+                            <label class="option-card">
+                                <input type="checkbox" name="attire_ids[]" value="{{ $tema->id }}"
+                                    @if (in_array($tema->id, old('attire_ids', []))) checked @endif>
+                                <span
+                                    class="option-text">{{ $tema->nama }}{{ $tema->kode ? ' (' . $tema->kode . ')' : '' }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-image"></i> Gambar Package</label>
-                        <div class="image-upload-container" id="uploadDropPackage">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Klik atau seret gambar ke sini</p>
-                            <small>Format: JPG, PNG, WEBP | Maks: 2MB</small>
-                            <input type="file" name="images" id="inputPackageImage" accept="image/*"
-                                class="file-overlay">
-                        </div>
-                        <div id="previewPackageImage" class="img-preview-box">
-                            <img src="" alt="Preview">
-                        </div>
+                    <small class="muted">Pilih satu atau lebih tema baju yang tersedia untuk paket ini.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-image"></i> Gambar Package</label>
+                    <div class="image-upload-container" id="uploadDropPackage">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Klik atau seret gambar ke sini</p>
+                        <small>Format: JPG, PNG, WEBP | Maks: 2MB</small>
+                        <input type="file" name="images" id="inputPackageImage" accept="image/*"
+                            class="file-overlay">
                     </div>
+                    <div id="previewPackageImage" class="img-preview-box">
+                        <img src="" alt="Preview">
+                    </div>
+                </div>
 
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" id="btnCloseCreatePackage2">Batal</button>
@@ -186,86 +186,86 @@
                     </div>
                 </div>
 
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-list-alt"></i> Label Paket</label>
-                        <div class="option-grid" id="ep-label_id">
-                            @foreach ($packageLabels as $label)
-                                <label class="option-card" for="ep-label-{{ $label->id }}">
-                                    <input id="ep-label-{{ $label->id }}" type="checkbox" name="label_id[]"
-                                        value="{{ $label->id }}">
-                                    <span class="option-text">{{ $label->name ?? $label->nama }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih label paket yang berlaku.</small>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-list-alt"></i> Label Paket</label>
+                    <div class="option-grid" id="ep-label_id">
+                        @foreach ($packageLabels as $label)
+                            <label class="option-card" for="ep-label-{{ $label->id }}">
+                                <input id="ep-label-{{ $label->id }}" type="checkbox" name="label_id[]"
+                                    value="{{ $label->id }}">
+                                <span class="option-text">{{ $label->name ?? $label->nama }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
-                        <div class="option-grid" id="ep-konsep">
-                            @foreach ($konsepAttires as $konsep)
-                                <label class="option-card" for="ep-konsep-{{ $konsep->id }}">
-                                    <input id="ep-konsep-{{ $konsep->id }}" type="checkbox" name="konsep[]"
-                                        value="{{ $konsep->id }}">
-                                    <span class="option-text">{{ $konsep->content ?? $konsep->nama }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih satu atau beberapa konsep untuk paket ini.</small>
+                    <small class="muted">Pilih label paket yang berlaku.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-palette"></i> Konsep</label>
+                    <div class="option-grid" id="ep-konsep">
+                        @foreach ($konsepAttires as $konsep)
+                            <label class="option-card" for="ep-konsep-{{ $konsep->id }}">
+                                <input id="ep-konsep-{{ $konsep->id }}" type="checkbox" name="konsep[]"
+                                    value="{{ $konsep->id }}">
+                                <span class="option-text">{{ $konsep->content ?? $konsep->nama }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
-                        <div class="option-grid" id="ep-deskripsi">
-                            @foreach ($descPackages as $desc)
-                                <label class="option-card" for="ep-deskripsi-{{ $desc->id }}">
-                                    <input id="ep-deskripsi-{{ $desc->id }}" type="checkbox" name="deskripsi[]"
-                                        value="{{ $desc->id }}">
-                                    <span
-                                        class="option-text">{{ $desc->content ?? ($desc->title ?? ($desc->nama ?? 'Deskripsi #' . $desc->id)) }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih deskripsi paket yang sesuai.</small>
+                    <small class="muted">Pilih satu atau beberapa konsep untuk paket ini.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-align-left"></i> Deskripsi</label>
+                    <div class="option-grid" id="ep-deskripsi">
+                        @foreach ($descPackages as $desc)
+                            <label class="option-card" for="ep-deskripsi-{{ $desc->id }}">
+                                <input id="ep-deskripsi-{{ $desc->id }}" type="checkbox" name="deskripsi[]"
+                                    value="{{ $desc->id }}">
+                                <span
+                                    class="option-text">{{ $desc->content ?? ($desc->title ?? ($desc->nama ?? 'Deskripsi #' . $desc->id)) }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
-                        <div class="option-grid" id="ep-tac_ids">
-                            @foreach ($tacPackages as $tac)
-                                <label class="option-card" for="ep-tac-{{ $tac->id }}">
-                                    <input id="ep-tac-{{ $tac->id }}" type="checkbox" name="tac_ids[]"
-                                        value="{{ $tac->id }}">
-                                    <span
-                                        class="option-text">{{ $tac->content ?? ($tac->title ?? ($tac->name ?? ($tac->nama ?? 'TAC #' . $tac->id))) }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih satu atau beberapa TAC package.</small>
+                    <small class="muted">Pilih deskripsi paket yang sesuai.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-list-alt"></i> TAC Package</label>
+                    <div class="option-grid" id="ep-tac_ids">
+                        @foreach ($tacPackages as $tac)
+                            <label class="option-card" for="ep-tac-{{ $tac->id }}">
+                                <input id="ep-tac-{{ $tac->id }}" type="checkbox" name="tac_ids[]"
+                                    value="{{ $tac->id }}">
+                                <span
+                                    class="option-text">{{ $tac->content ?? ($tac->title ?? ($tac->name ?? ($tac->nama ?? 'TAC #' . $tac->id))) }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-tshirt"></i> Tema Baju</label>
-                        <div class="option-grid" id="ep-attire_ids">
-                            @foreach ($temas as $tema)
-                                <label class="option-card" for="ep-attire-{{ $tema->id }}">
-                                    <input id="ep-attire-{{ $tema->id }}" type="checkbox" name="attire_ids[]"
-                                        value="{{ $tema->id }}">
-                                    <span
-                                        class="option-text">{{ $tema->nama }}{{ $tema->kode ? ' (' . $tema->kode . ')' : '' }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <small class="muted">Pilih satu atau lebih tema baju yang tersedia untuk paket ini.</small>
+                    <small class="muted">Pilih satu atau beberapa TAC package.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-tshirt"></i> Tema Baju</label>
+                    <div class="option-grid" id="ep-attire_ids">
+                        @foreach ($temas as $tema)
+                            <label class="option-card" for="ep-attire-{{ $tema->id }}">
+                                <input id="ep-attire-{{ $tema->id }}" type="checkbox" name="attire_ids[]"
+                                    value="{{ $tema->id }}">
+                                <span
+                                    class="option-text">{{ $tema->nama }}{{ $tema->kode ? ' (' . $tema->kode . ')' : '' }}</span>
+                            </label>
+                        @endforeach
                     </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-image"></i> Ganti Gambar (opsional)</label>
-                        <div class="image-upload-container" id="uploadDropPackageEdit">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Klik atau seret gambar ke sini</p>
-                            <small>Format: JPG, PNG, WEBP | Maks: 2MB</small>
-                            <input type="file" name="images" id="ep-image" accept="image/*" class="file-overlay">
-                        </div>
-                        <div id="previewPackageImageEdit" class="img-preview-box">
-                            <img src="" alt="Preview">
-                        </div>
+                    <small class="muted">Pilih satu atau lebih tema baju yang tersedia untuk paket ini.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-image"></i> Ganti Gambar (opsional)</label>
+                    <div class="image-upload-container" id="uploadDropPackageEdit">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Klik atau seret gambar ke sini</p>
+                        <small>Format: JPG, PNG, WEBP | Maks: 2MB</small>
+                        <input type="file" name="images" id="ep-image" accept="image/*" class="file-overlay">
                     </div>
+                    <div id="previewPackageImageEdit" class="img-preview-box">
+                        <img src="" alt="Preview">
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" id="btnCloseEditPackage2">Batal</button>
                     <button class="btn btn-primary" type="submit"><i class="fa-solid fa-save"></i> Simpan</button>
@@ -278,16 +278,12 @@
 <div class="custom-modal-backdrop" id="backdropDetailPackage"></div>
 <div class="custom-modal" id="modalDetailPackage">
 
-    <div class="modal-content modal-xxl">
+    <div class="modal-content modal-xl">
 
         <div class="modal-header">
             <h5>Detail Package</h5>
 
-            <button
-                class="btn btn-secondary"
-                type="button"
-                id="btnCloseDetailPackage"
-            >
+            <button type="button" class="btn btn-secondary" id="btnCloseDetailPackage">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -297,7 +293,7 @@
             <div class="package-detail-top">
 
                 <div class="package-detail-image">
-                    <img id="dp-image">
+                    <img id="dp-image" src="">
                 </div>
 
                 <div class="package-detail-info">
@@ -307,17 +303,26 @@
                     <div id="dp-price"></div>
 
                     <div class="detail-meta">
+
                         <span id="dp-status"></span>
+
                         <span id="dp-durasi"></span>
+
                     </div>
 
                     <div class="detail-group">
-                        <h6>Label Package</h6>
+                        <div class="info-label">
+                            Label Package
+                        </div>
+
                         <div id="dp-labels"></div>
                     </div>
 
                     <div class="detail-group">
-                        <h6>Konsep</h6>
+                        <div class="info-label">
+                            Konsep
+                        </div>
+
                         <div id="dp-konsep"></div>
                     </div>
 
@@ -326,33 +331,44 @@
             </div>
 
             <div class="detail-section">
-                <h5>Deskripsi Package</h5>
+                <div class="info-label">
+                    Deskripsi
+                </div>
+
                 <ul id="dp-descriptions"></ul>
             </div>
 
             <div class="detail-section">
-                <h5>Notes</h5>
+                <div class="info-label">
+                    Notes
+                </div>
+
                 <p id="dp-notes"></p>
             </div>
 
             <div class="detail-section">
-                <h5>Rules</h5>
+                <div class="info-label">
+                    Rules
+                </div>
+
                 <p id="dp-rules"></p>
             </div>
 
             <div class="detail-section">
-                <h5>TAC Package</h5>
+                <div class="info-label">
+                    TAC Package
+                </div>
+
                 <ul id="dp-tacs"></ul>
             </div>
 
             <div class="detail-section">
 
-                <h5>Tema Baju Dalam Package</h5>
+                <div class="info-label">
+                    Tema Baju Dalam Package
+                </div>
 
-                <div
-                    class="attire-detail-grid"
-                    id="dp-temas"
-                ></div>
+                <div class="package-attire-grid" id="dp-temas"></div>
 
             </div>
 
