@@ -169,8 +169,8 @@
 
 .grid-cards {
     display: grid;
-    gap: 24px;
     grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
     width: 100%;
     align-items: stretch;
 }
