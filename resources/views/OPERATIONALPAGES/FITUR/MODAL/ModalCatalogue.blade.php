@@ -275,6 +275,93 @@
     </div>
 </div>
 
+<div class="custom-modal-backdrop" id="backdropDetailPackage"></div>
+<div class="custom-modal" id="modalDetailPackage">
+
+    <div class="modal-content modal-xxl">
+
+        <div class="modal-header">
+            <h5>Detail Package</h5>
+
+            <button
+                class="btn btn-secondary"
+                type="button"
+                id="btnCloseDetailPackage"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="package-detail-top">
+
+                <div class="package-detail-image">
+                    <img id="dp-image">
+                </div>
+
+                <div class="package-detail-info">
+
+                    <h2 id="dp-nama"></h2>
+
+                    <div id="dp-price"></div>
+
+                    <div class="detail-meta">
+                        <span id="dp-status"></span>
+                        <span id="dp-durasi"></span>
+                    </div>
+
+                    <div class="detail-group">
+                        <h6>Label Package</h6>
+                        <div id="dp-labels"></div>
+                    </div>
+
+                    <div class="detail-group">
+                        <h6>Konsep</h6>
+                        <div id="dp-konsep"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="detail-section">
+                <h5>Deskripsi Package</h5>
+                <ul id="dp-descriptions"></ul>
+            </div>
+
+            <div class="detail-section">
+                <h5>Notes</h5>
+                <p id="dp-notes"></p>
+            </div>
+
+            <div class="detail-section">
+                <h5>Rules</h5>
+                <p id="dp-rules"></p>
+            </div>
+
+            <div class="detail-section">
+                <h5>TAC Package</h5>
+                <ul id="dp-tacs"></ul>
+            </div>
+
+            <div class="detail-section">
+
+                <h5>Tema Baju Dalam Package</h5>
+
+                <div
+                    class="attire-detail-grid"
+                    id="dp-temas"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {{-- ===================  MODAL: CREATE TEMA BAJU  =================== --}}
 <div class="custom-modal-backdrop" id="backdropCreateTema"></div>
 <div class="custom-modal" id="modalCreateTema" aria-hidden="true">

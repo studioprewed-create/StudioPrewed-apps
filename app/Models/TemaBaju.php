@@ -29,6 +29,9 @@ class TemaBaju extends Model
         'order'  => 'integer',
         'active' => 'boolean',
     ];
+
+    protected $appends = [ 'main_image' ];
+    
     public function getImagesArrayAttribute()
     {
         if (!$this->images) {

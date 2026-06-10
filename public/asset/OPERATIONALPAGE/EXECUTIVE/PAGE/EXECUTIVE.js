@@ -534,6 +534,183 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const initCataloguePackageDetailModal = () => {
+
+    const backdrop = document.getElementById('backdropDetailPackage');
+    const modal    = document.getElementById('modalDetailPackage');
+    const btnClose = document.getElementById('btnCloseDetailPackage');
+
+        if (!backdrop || !modal) return;
+
+        const showModal = () => {
+            backdrop.classList.add('show');
+            modal.classList.add('show');
+        };
+
+        const hideModal = () => {
+            backdrop.classList.remove('show');
+            modal.classList.remove('show');
+        };
+
+        const renderChips = (target, items, field) => {
+
+            const el = document.getElementById(target);
+
+            if (!el) return;
+
+            el.innerHTML = (items || [])
+                .map(item => `
+                    <span class="theme-chip">
+                        ${item[field]}
+                    </span>
+                `)
+                .join('');
+        };
+
+        const renderList = (target, items, field) => {
+
+            const el = document.getElementById(target);
+
+            if (!el) return;
+
+            el.innerHTML = (items || [])
+                .map(item => `
+                    <li>${item[field]}</li>
+                `)
+                .join('');
+        };
+
+        const renderTemas = (items) => {
+
+            const el = document.getElementById('dp-temas');
+
+            if (!el) return;
+
+            el.innerHTML = (items || [])
+                .map(item => `
+                    <div class="attire-detail-card">
+
+                        <img
+                            src="${item.main_image}"
+                            alt="${item.nama}"
+                        >
+
+                        <div class="attire-detail-content">
+
+                            <h4>${item.nama}</h4>
+
+                            <div class="attire-meta">
+                                Kode : ${item.kode || '-'}
+                            </div>
+
+                            <div class="attire-meta">
+                                Designer : ${item.designer || '-'}
+                            </div>
+
+                            <div class="attire-meta">
+                                Tipe : ${item.tipe || '-'}
+                            </div>
+
+                            <div class="attire-meta">
+                                Ukuran : ${item.ukuran || '-'}
+                            </div>
+
+                            <p>
+                                ${item.detail || '-'}
+                            </p>
+
+                        </div>
+
+                    </div>
+                `)
+                .join('');
+        };
+
+        const fillPackageDetail = (data) => {
+
+            document.getElementById('dp-image').src =
+                data.image || '';
+
+            document.getElementById('dp-nama').textContent =
+                data.nama || '';
+
+            document.getElementById('dp-status').innerHTML =
+                data.active
+                    ? '<span class="role-badge badge-active">ACTIVE</span>'
+                    : '<span class="role-badge badge-inactive">INACTIVE</span>';
+
+            document.getElementById('dp-durasi').textContent =
+                `${data.durasi || 0} Menit`;
+
+            document.getElementById('dp-notes').textContent =
+                data.notes || '-';
+
+            document.getElementById('dp-rules').textContent =
+                data.rules || '-';
+
+            document.getElementById('dp-price').innerHTML =
+                data.discount > 0
+                    ? `
+                        <div class="price-strike">
+                            Rp ${Number(data.harga).toLocaleString('id-ID')}
+                        </div>
+
+                        <div class="price">
+                            Rp ${Number(data.final_price).toLocaleString('id-ID')}
+                            <span class="disc-pill">
+                                -${data.discount}%
+                            </span>
+                        </div>
+                    `
+                    : `
+                        <div class="price">
+                            Rp ${Number(data.harga).toLocaleString('id-ID')}
+                        </div>
+                    `;
+
+            renderChips('dp-labels', data.labels, 'name');
+            renderChips('dp-konsep', data.konsep, 'content');
+
+            renderList(
+                'dp-descriptions',
+                data.descriptions,
+                'content'
+            );
+
+            renderList(
+                'dp-tacs',
+                data.tacs,
+                'content'
+            );
+
+            renderTemas(data.temas);
+        };
+
+        btnClose?.addEventListener('click', hideModal);
+
+        backdrop.addEventListener('click', e => {
+            if (e.target === backdrop) {
+                hideModal();
+            }
+        });
+
+        document
+            .querySelectorAll('.btn-detail-package')
+            .forEach(btn => {
+
+                btn.addEventListener('click', () => {
+
+                    const data =
+                        JSON.parse(btn.dataset.package);
+
+                    fillPackageDetail(data);
+
+                    showModal();
+                });
+
+            });
+    };
+
     /* ============ MODAL TEMA BAJU (EDIT) ============ */
     const initCatalogueTemaEditModals = () => {
         const backdrop  = document.getElementById('backdropEditTema');
@@ -2296,6 +2473,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initDescPackageModals();
         initPackageLabelModals();
         initLibraryCatalogueTabs();
+        initCataloguePackageDetailModal();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

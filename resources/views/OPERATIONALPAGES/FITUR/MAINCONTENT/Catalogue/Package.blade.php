@@ -129,6 +129,31 @@
                             @endif
 
                             <div class="card-actions">
+                                <button
+                                    type="button"
+                                    class="btn btn-info btn-detail-package"
+
+                                    data-package='@json([
+                                        "nama" => $p->nama_paket,
+                                        "image" => $p->image_url,
+                                        "harga" => $p->harga,
+                                        "final_price" => $p->final_price,
+                                        "discount" => $p->discount,
+                                        "durasi" => $p->durasi,
+                                        "notes" => $p->notes,
+                                        "rules" => $p->rules,
+                                        "active" => $p->active,
+
+                                        "labels" => $p->label_items,
+                                        "konsep" => $p->konsep_items,
+                                        "descriptions" => $p->description_items,
+                                        "tacs" => $p->tac_items,
+                                        "temas" => $p->attire_items,
+                                    ])'
+                                >
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+
                                 {{-- Edit Package --}}
                                 <button type="button" class="btn btn-outline btn-edit-package" title="Edit package"
                                     data-id="{{ $p->id }}" data-nama="{{ $p->nama_paket }}"
