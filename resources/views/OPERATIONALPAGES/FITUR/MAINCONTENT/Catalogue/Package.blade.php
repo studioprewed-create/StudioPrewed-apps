@@ -89,12 +89,6 @@
                                     tema</span>
                             </div>
 
-                            @if ($p->description_items->isNotEmpty())
-                                <p class="muted package-description">
-                                    {{ \Illuminate\Support\Str::limit($p->description_items->pluck('content')->implode(' • '), 160) }}
-                                </p>
-                            @endif
-
                             <div class="package-info-grid">
                                 @if ($p->label_items->isNotEmpty())
                                     <div>
@@ -118,15 +112,6 @@
                                     </div>
                                 @endif
                             </div>
-
-                            @if ($p->tac_items->isNotEmpty())
-                                <div class="package-themes tac-tags">
-                                    @foreach ($p->tac_items as $tac)
-                                        <span
-                                            class="theme-chip">{{ $tac->content ?? ($tac->name ?? 'TAC #' . $tac->id) }}</span>
-                                    @endforeach
-                                </div>
-                            @endif
 
                             <div class="card-actions">
                                 <button type="button" class="btn btn-info btn-detail-package" title="Detail Package"
