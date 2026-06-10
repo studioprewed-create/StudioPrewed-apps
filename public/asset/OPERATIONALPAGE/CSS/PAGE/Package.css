@@ -167,7 +167,7 @@
     letter-spacing: -0.01em;
 }
 
-.grid-cards {
+.grid-cards-package {
     display: grid;
     gap: 24px;
     grid-template-columns: repeat(2, 1fr);
@@ -175,7 +175,7 @@
     align-items: stretch;
 }
 
-.card-elev {
+.card-elev-package {
     background: linear-gradient(135deg, rgba(25,25,35,0.98), rgba(15,15,25,0.96));
     border-radius: 24px;
     overflow: hidden;
@@ -185,13 +185,13 @@
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease;
 }
 
-.card-elev:hover {
+.card-elev-package:hover {
     transform: translateY(-8px);
     border-color: rgba(96, 165, 250, 0.25);
     box-shadow: 0 35px 85px rgba(96,165,250,0.15), inset 0 1px 1px rgba(255,255,255,0.08);
 }
 
-.card-grid {
+.card-grid-package {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
@@ -224,7 +224,7 @@
     transition: transform 0.4s ease;
 }
 
-.card-elev:hover .ratio-3x4 img {
+.card-elev-package:hover .ratio-3x4 img {
     transform: scale(1.08);
 }
 
@@ -535,7 +535,7 @@
         gap: 10px;
     }
 
-    .grid-cards {
+    .grid-cards-package {
         gap: 20px;
     }
 
@@ -695,7 +695,7 @@
     }
 
     /* TABLES */
-    .tables {
+    .tables-package {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -707,16 +707,16 @@
         gap: 8px;
     }
 
-    .grid-cards {
+    .grid-cards-package {
         gap: 16px;
     }
 
     /* CARD STYLING */
-    .card-elev {
+    .card-elev-package {
         border-radius: 20px;
     }
 
-    .card-grid {
+    .card-grid-package {
         grid-template-columns: 1fr;
     }
 
@@ -935,22 +935,22 @@
         gap: 6px;
     }
 
-    .grid-cards {
+    .grid-cards-package {
         gap: 12px;
     }
 
     /* CARDS */
-    .card-elev {
+    .card-elev-package {
         border-radius: 16px;
         border: 1px solid rgba(96,165,250,0.08);
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
-    .card-elev:hover {
+    .card-elev-package:hover {
         transform: translateY(-4px);
     }
 
-    .card-grid {
+    .card-grid-package {
         grid-template-columns: 1fr;
     }
 
