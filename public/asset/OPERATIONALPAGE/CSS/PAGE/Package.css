@@ -194,7 +194,6 @@
 .card-grid {
     display: grid;
     width: 100%;
-    grid-template-columns: minmax(260px, 320px) 1fr;
     gap: 0;
     align-items: stretch;
 }
