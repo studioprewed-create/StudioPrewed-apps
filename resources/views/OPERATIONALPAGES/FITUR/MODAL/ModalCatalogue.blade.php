@@ -290,85 +290,131 @@
 
         <div class="modal-body">
 
-            <div class="package-detail-top">
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-image"></i>
+                    Gambar Package
+                </label>
 
-                <div class="package-detail-image">
+                <div class="package-detail-cover">
                     <img id="dp-image" src="">
                 </div>
+            </div>
 
-                <div class="package-detail-info">
+            <div class="form-grid-2">
 
-                    <h2 id="dp-nama"></h2>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-heading"></i>
+                        Nama Package
+                    </label>
 
-                    <div id="dp-price"></div>
+                    <div class="detail-box" id="dp-nama"></div>
+                </div>
 
-                    <div class="detail-meta">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-tag"></i>
+                        Harga
+                    </label>
 
-                        <span id="dp-status"></span>
+                    <div class="detail-box" id="dp-price"></div>
+                </div>
 
-                        <span id="dp-durasi"></span>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-clock"></i>
+                        Durasi
+                    </label>
 
-                    </div>
+                    <div class="detail-box" id="dp-durasi"></div>
+                </div>
 
-                    <div class="detail-group">
-                        <div class="info-label">
-                            Label Package
-                        </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-toggle-on"></i>
+                        Status
+                    </label>
 
-                        <div id="dp-labels"></div>
-                    </div>
-
-                    <div class="detail-group">
-                        <div class="info-label">
-                            Konsep
-                        </div>
-
-                        <div id="dp-konsep"></div>
-                    </div>
-
+                    <div class="detail-box" id="dp-status"></div>
                 </div>
 
             </div>
 
-            <div class="detail-section">
-                <div class="info-label">
+            <div class="form-group">
+
+                <label class="form-label">
+                    <i class="fas fa-bookmark"></i>
+                    Label Package
+                </label>
+
+                <div class="package-themes" id="dp-labels"></div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    <i class="fas fa-palette"></i>
+                    Konsep
+                </label>
+
+                <div class="package-themes" id="dp-konsep"></div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    <i class="fas fa-align-left"></i>
                     Deskripsi
-                </div>
+                </label>
 
-                <ul id="dp-descriptions"></ul>
+                <div class="detail-list" id="dp-descriptions"></div>
+
             </div>
 
-            <div class="detail-section">
-                <div class="info-label">
+            <div class="form-group">
+
+                <label class="form-label">
+                    <i class="fas fa-sticky-note"></i>
                     Notes
-                </div>
+                </label>
 
-                <p id="dp-notes"></p>
+                <div class="detail-box" id="dp-notes"></div>
+
             </div>
 
-            <div class="detail-section">
-                <div class="info-label">
+            <div class="form-group">
+
+                <label class="form-label">
+                    <i class="fas fa-list-check"></i>
                     Rules
-                </div>
+                </label>
 
-                <p id="dp-rules"></p>
+                <div class="detail-box" id="dp-rules"></div>
+
             </div>
 
-            <div class="detail-section">
-                <div class="info-label">
+            <div class="form-group">
+
+                <label class="form-label">
+                    <i class="fas fa-file-contract"></i>
                     TAC Package
-                </div>
+                </label>
 
-                <ul id="dp-tacs"></ul>
+                <div class="detail-list" id="dp-tacs"></div>
+
             </div>
 
-            <div class="detail-section">
+            <div class="form-group">
 
-                <div class="info-label">
-                    Tema Baju Dalam Package
-                </div>
+                <label class="form-label">
+                    <i class="fas fa-tshirt"></i>
+                    Tema Baju
+                </label>
 
-                <div class="package-attire-grid" id="dp-temas"></div>
+                <div class="package-theme-preview-grid" id="dp-temas"></div>
 
             </div>
 
