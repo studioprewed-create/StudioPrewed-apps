@@ -497,12 +497,30 @@
 }
 
 .detail-box{
+    min-height:54px;
+    display:flex;
+    align-items:center;
+
     padding:14px 16px;
-    border-radius:14px;
-    background:rgba(255,255,255,.03);
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.02)
+        );
+
     border:1px solid rgba(255,255,255,.08);
-    color:var(--text);
-    line-height:1.7;
+
+    color:#f8fafc;
+
+    font-size:14px;
+    line-height:1.6;
+
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,.05);
 }
 
 .detail-list{
@@ -511,11 +529,22 @@
     gap:10px;
 }
 
-.detail-list > div{
-    padding:12px 14px;
-    border-radius:12px;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.06);
+.detail-list li{
+    list-style:none;
+
+    padding:14px 16px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    color:#f8fafc;
+
+    line-height:1.6;
 }
 
 .package-theme-preview-grid{
@@ -526,6 +555,10 @@
 }
 
 .package-theme-card{
+    overflow:hidden;
+
+    border-radius:18px;
+
     background:
         linear-gradient(
             135deg,
@@ -533,9 +566,21 @@
             rgba(15,15,25,.96)
         );
 
-    border:1px solid rgba(96,165,250,.1);
-    border-radius:18px;
-    overflow:hidden;
+    border:
+        1px solid rgba(96,165,250,.12);
+
+    transition:
+        .25s ease;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.25);
+}
+
+.package-theme-card:hover{
+    transform:translateY(-3px);
+
+    border-color:
+        rgba(96,165,250,.28);
 }
 
 .package-theme-card img{
@@ -545,16 +590,18 @@
 }
 
 .package-theme-body{
-    padding:12px;
+    padding:14px;
 }
 
 .package-theme-name{
+    color:#ffffff;
+    font-size:14px;
     font-weight:700;
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 
 .package-theme-code{
-    color:var(--text-muted);
+    color:rgba(255,255,255,.55);
     font-size:12px;
 }
 
@@ -908,6 +955,20 @@
     .option-card .option-subtitle {
         font-size: 11px;
     }
+
+     .package-theme-preview-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .package-detail-cover img{
+        height:220px;
+    }
+
+    .detail-box{
+        min-height:48px;
+        font-size:13px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1172,4 +1233,17 @@
     .option-card .option-subtitle {
         font-size: 10px;
     }
+
+    .package-theme-preview-grid{
+        grid-template-columns:1fr;
+    }
+
+    .package-detail-cover img{
+        height:180px;
+    }
+
+    .package-theme-card img{
+        height:140px;
+    }
+
 }

@@ -289,18 +289,6 @@
         </div>
 
         <div class="modal-body">
-
-            <div class="form-group">
-                <label class="form-label">
-                    <i class="fas fa-image"></i>
-                    Gambar Package
-                </label>
-
-                <div class="package-detail-cover">
-                    <img id="dp-image" src="">
-                </div>
-            </div>
-
             <div class="form-grid-2">
 
                 <div class="form-group">
