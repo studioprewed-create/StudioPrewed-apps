@@ -1,0 +1,115 @@
+.role-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.badge-active   { background: rgba(72,187,120,.15); color: #48bb78; }
+.badge-inactive { background: rgba(245,101,101,.15); color: #f56565; }
+
+.role-admin {
+  background: rgba(66,153,225,.15);
+  color: #63b3ed;
+  border-color: rgba(66,153,225,.35);
+}
+
+.role-direktur {
+  background: rgba(255,214,0,.15);
+  color: #ffd600;
+  border-color: rgba(255,214,0,.35);
+}
+
+.role-admin_editor {
+  background: rgba(0,199,190,.15);
+  color: #00c7be;
+  border-color: rgba(0,199,190,.35);
+}
+
+.role-editor {
+  background: rgba(114,9,183,.15);
+  color: #c084fc;
+  border-color: rgba(114,9,183,.35);
+}
+
+.role-photografer {
+  background: rgba(48,209,88,.15);
+  color: #30d158;
+  border-color: rgba(48,209,88,.35);
+}
+
+.role-videografer {
+  background: rgba(255,159,10,.15);
+  color: #ff9f0a;
+  border-color: rgba(255,159,10,.35);
+}
+
+.role-make_up {
+  background: rgba(255,55,95,.15);
+  color: #ff375f;
+  border-color: rgba(255,55,95,.35);
+}
+
+.role-content_creator {
+  background: rgba(191,90,242,.15);
+  color: #bf5af2;
+  border-color: rgba(191,90,242,.35);
+}
+
+.role-client {
+  background: rgba(160,174,192,.15);
+  color: #a0aec0;
+  border-color: rgba(160,174,192,.35);
+}
+
+.role-creative-director {
+  background: rgba(0,199,190,.15);
+  color: #00c7be;
+  border-color: rgba(0,199,190,.35);
+}
+
+.role-manager {
+  background: rgba(59,130,246,.15);
+  color: #3b82f6;
+  border-color: rgba(59,130,246,.35);
+}
+
+.role-marketing {
+  background: rgba(245,158,11,.15);
+  color: #f59e0b;
+  border-color: rgba(245,158,11,.35);
+}
+
+.role-admin_attire {
+  background: rgba(168,85,247,.15);
+  color: #a855f7;
+  border-color: rgba(168,85,247,.35);
+}
+
+.role-stylish {
+  background: rgba(236,72,153,.15);
+  color: #ec4899;
+  border-color: rgba(236,72,153,.35);
+}
+
+.role-fitter {
+  background: rgba(34,197,94,.15);
+  color: #22c55e;
+  border-color: rgba(34,197,94,.35);
+}
+
+.role-brand_partnership {
+  background: rgba(14,165,233,.15);
+  color: #0ea5e9;
+  border-color: rgba(14,165,233,.35);
+}
+
+.role-studio {
+  background: rgba(249,115,22,.15);
+  color: #f97316;
+  border-color: rgba(249,115,22,.35);
+}

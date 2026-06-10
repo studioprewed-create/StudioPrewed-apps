@@ -1,30 +1,125 @@
-.tables {
-  display: grid;
-  gap: 20px;
+.tables{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--dark-card);
-  border-radius: 12px;
-  overflow: hidden;
+.tables > div{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,25,35,.98),
+            rgba(15,15,25,.96)
+        );
+
+    border:1px solid rgba(96,165,250,.12);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35),
+        inset 0 1px 1px rgba(255,255,255,.05);
 }
 
-.table th,
-.table td {
-  padding: 12px;
-  border-bottom: 1px solid var(--dark-border);
-  font-size: 13px;
+.tables h3{
+    margin:0;
+
+    padding:20px 24px;
+
+    color:#fff;
+
+    font-size:18px;
+    font-weight:800;
+
+    letter-spacing:.02em;
+
+    border-bottom:
+        1px solid rgba(96,165,250,.08);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(96,165,250,.08),
+            transparent
+        );
 }
 
-.table th {
-  background: #0d1320;
-  color: var(--text-secondary);
-  text-align: left;
+.table{
+    width:100%;
+    min-width:950px;
+
+    border-collapse:collapse;
+
+    background:transparent;
 }
 
-.table tr:hover {
-  background: rgba(255,255,255,0.03);
+.table thead th{
+    padding:18px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:
+        rgba(255,255,255,.65);
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+    font-weight:700;
 }
+
+.table tbody td{
+    padding:18px;
+
+    color:#f8fafc;
+
+    font-size:14px;
+
+    border-top:
+        1px solid rgba(255,255,255,.04);
+}
+
+.table tbody tr{
+    transition:.2s ease;
+}
+
+.table tbody tr:hover{
+    background:
+        rgba(96,165,250,.05);
+}
+
+.table td:nth-child(3){
+    color:#94a3b8;
+}
+
+.table td:last-child{
+    white-space:nowrap;
+}
+
+.table td:last-child .btn{
+    margin-right:8px;
+}
+
+.role-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    font-size:10px;
+    font-weight:800;
+
+    letter-spacing:.05em;
+
+    text-transform:uppercase;
+}
+
 
