@@ -104,31 +104,32 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    background: linear-gradient(135deg, rgba(212, 172, 90, 0.25), rgba(212, 172, 90, 0.1));
-    color: var(--text, #000000);
+    background: linear-gradient(135deg, #ff4d4f, #c62828);
+    color: #ffffff;
     padding: 8px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 1px solid rgb(255, 0, 0);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(255, 77, 79, 0.35);
 }
 
-.Label-badge {
+.label-badge {
     position: absolute;
     top: 12px;
     left: 12px;
-    color: #000000;
+    background: linear-gradient(135deg, #d4ac5a, #b8860b);
+    color: #ffffff;
     padding: 8px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 1px solid rgb(255, 78, 2);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(212, 172, 90, 0.35);
 }
 
 /* BODY CONTENT */
