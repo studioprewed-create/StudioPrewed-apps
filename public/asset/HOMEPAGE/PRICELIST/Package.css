@@ -120,16 +120,16 @@
     position: absolute;
     top: 12px;
     left: 12px;
-    background: linear-gradient(135deg, #d4ac5a, #b8860b);
-    color: #ffffff;
+    color: #fff;
     padding: 8px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 12px rgba(212, 172, 90, 0.35);
+    backdrop-filter: blur(8px);
 }
 
 /* BODY CONTENT */
