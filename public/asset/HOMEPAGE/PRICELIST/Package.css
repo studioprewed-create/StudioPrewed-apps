@@ -105,14 +105,14 @@
     top: 12px;
     right: 12px;
     background: linear-gradient(135deg, rgba(212, 172, 90, 0.25), rgba(212, 172, 90, 0.1));
-    color: var(--accent-danger, #000000);
+    color: var(--text, #000000);
     padding: 8px 12px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 1px solid rgba(212, 172, 90, 0.35);
+    border: 1px solid rgba(255, 0, 0, 0.35);
     backdrop-filter: blur(8px);
 }
 
