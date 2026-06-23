@@ -187,10 +187,11 @@
   gap: 8px;
 }
 
-#feedbackContent {
+.feedback-content {
   padding: 18px;
   border-radius: 14px;
-  color: #f8fafc;
+  color: var(--text);
+  font-size: 14px;
   line-height: 1.8;
   white-space: pre-wrap;
   word-break: break-word;

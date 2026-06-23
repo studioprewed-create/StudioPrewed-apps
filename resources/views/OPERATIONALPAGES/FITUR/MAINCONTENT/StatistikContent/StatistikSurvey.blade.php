@@ -897,7 +897,7 @@
         </div>
 
         <div class="modal-body">
-            <div id="feedbackContent"></div>
+            <div class="feedback-content" id="feedbackContent"></div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="btnCloseFeedback2">
