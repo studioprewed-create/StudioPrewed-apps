@@ -2430,31 +2430,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initFeedbackModal = () => {
-    const modal = document.getElementById('modalFeedback');
-    const backdrop = document.getElementById('backdropFeedback');
-    const content = document.getElementById('feedbackContent');
+        const modal = document.getElementById('modalFeedback');
+        const backdrop = document.getElementById('backdropFeedback');
+        const content = document.getElementById('feedbackContent');
 
-        if (!modal || !backdrop) return;
+        if (!modal || !backdrop || !content) return;
 
         const openModal = (feedback) => {
             content.textContent = feedback;
 
             modal.classList.add('show');
             backdrop.classList.add('show');
-            document.body.classList.add('modal-open');
         };
 
         const closeModal = () => {
             modal.classList.remove('show');
             backdrop.classList.remove('show');
-            document.body.classList.remove('modal-open');
         };
 
         document.querySelectorAll('.btn-feedback-detail').forEach(btn => {
             btn.addEventListener('click', () => {
-                openModal(
-                    btn.dataset.feedback || '-'
-                );
+                openModal(btn.dataset.feedback || '-');
             });
         });
 
@@ -2468,7 +2464,11 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal
         );
 
-        backdrop.addEventListener('click', closeModal);
+        backdrop.onclick = (e) => {
+            if (e.target === backdrop) {
+                closeModal();
+            }
+        };
     };
     
     /* ============ INIT PER PAGE ============ */
