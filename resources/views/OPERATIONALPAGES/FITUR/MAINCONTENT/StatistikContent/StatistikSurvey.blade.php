@@ -763,7 +763,7 @@
 
                                 <td>
 
-                                    {{ Str::limit($item->feedback, 40) ?? '-' }}
+                                    {{ Str::limit($item->feedback, 255) ?? '-' }}
 
                                 </td>
 
