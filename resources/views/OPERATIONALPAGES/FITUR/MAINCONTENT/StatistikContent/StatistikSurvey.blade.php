@@ -424,17 +424,16 @@
                                 </td>
 
                                 <td>
-
                                     {{ Str::limit($item->feedback, 40) }}
 
-                                    @if(strlen($item->feedback) > 40)
-                                        <a href="#"
-                                            class="feedback-readmore"
-                                            data-feedback="{{ $item->feedback }}">
+                                    @if(Str::length($item->feedback) > 40)
+                                        <button
+                                            type="button"
+                                            class="btn-feedback-detail"
+                                            data-feedback="{{ e($item->feedback) }}">
                                             Read More
-                                        </a>
+                                        </button>
                                     @endif
-
                                 </td>
 
                                 <td>
@@ -770,17 +769,16 @@
                                 </td>
 
                                 <td>
-
-                                   {{ Str::limit($item->feedback, 40) }}
+                                    {{ Str::limit($item->feedback, 40) }}
 
                                     @if(Str::length($item->feedback) > 40)
-                                        <a href="#"
-                                            class="feedback-readmore"
+                                        <button
+                                            type="button"
+                                            class="btn-feedback-detail"
                                             data-feedback="{{ e($item->feedback) }}">
                                             Read More
-                                        </a>
+                                        </button>
                                     @endif
-
                                 </td>
 
                                 <td>

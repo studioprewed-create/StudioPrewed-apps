@@ -2450,10 +2450,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('modal-open');
         };
 
-        document.querySelectorAll('.feedback-readmore').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-
+        document.querySelectorAll('.btn-feedback-detail').forEach(btn => {
+            btn.addEventListener('click', () => {
                 openModal(
                     btn.dataset.feedback || '-'
                 );
