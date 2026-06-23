@@ -2428,6 +2428,50 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     };
+
+    const initFeedbackModal = () => {
+    const modal = document.getElementById('modalFeedback');
+    const backdrop = document.getElementById('backdropFeedback');
+    const content = document.getElementById('feedbackContent');
+
+        if (!modal || !backdrop) return;
+
+        const openModal = (feedback) => {
+            content.textContent = feedback;
+
+            modal.classList.add('show');
+            backdrop.classList.add('show');
+            document.body.classList.add('modal-open');
+        };
+
+        const closeModal = () => {
+            modal.classList.remove('show');
+            backdrop.classList.remove('show');
+            document.body.classList.remove('modal-open');
+        };
+
+        document.querySelectorAll('.feedback-readmore').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                openModal(
+                    btn.dataset.feedback || '-'
+                );
+            });
+        });
+
+        document.getElementById('btnCloseFeedback')?.addEventListener(
+            'click',
+            closeModal
+        );
+
+        document.getElementById('btnCloseFeedback2')?.addEventListener(
+            'click',
+            closeModal
+        );
+
+        backdrop.addEventListener('click', closeModal);
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -2452,6 +2496,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initDescPackageModals();
         initPackageLabelModals();
         initLibraryCatalogueTabs();
+        initFeedbackModal();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

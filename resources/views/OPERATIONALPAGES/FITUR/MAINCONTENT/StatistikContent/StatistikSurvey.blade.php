@@ -425,7 +425,15 @@
 
                                 <td>
 
-                                    {{ Str::limit($item->feedback, 40) ?? '-' }}
+                                    {{ Str::limit($item->feedback, 40) }}
+
+                                    @if(strlen($item->feedback) > 40)
+                                        <a href="#"
+                                            class="feedback-readmore"
+                                            data-feedback="{{ $item->feedback }}">
+                                            Read More
+                                        </a>
+                                    @endif
 
                                 </td>
 
@@ -763,7 +771,15 @@
 
                                 <td>
 
-                                    {{ Str::limit($item->feedback, 255) ?? '-' }}
+                                   {{ Str::limit($item->feedback, 40) }}
+
+                                    @if(Str::length($item->feedback) > 40)
+                                        <a href="#"
+                                            class="feedback-readmore"
+                                            data-feedback="{{ e($item->feedback) }}">
+                                            Read More
+                                        </a>
+                                    @endif
 
                                 </td>
 
@@ -867,5 +883,29 @@
 
         @endif
 
+    </div>
+</div>
+
+<div class="custom-modal-backdrop" id="backdropFeedback"></div>
+
+<div class="custom-modal" id="modalFeedback">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Customer Feedback</h5>
+
+            <button type="button" class="btn btn-secondary" id="btnCloseFeedback">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div id="feedbackContent"></div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnCloseFeedback2">
+                    Tutup
+                </button>
+            </div>
+        </div>
     </div>
 </div>
