@@ -71,7 +71,7 @@ class CRUDBACKController extends Controller
                 'package'   => 'Catalogue/Package',
                 'temabaju'  => 'Catalogue',
                 'bookingexecutive' => 'JadwalPesanan',
-                'googlereview' => 'StatistikContent.StatistikReview',
+                'googlereview' => 'StatistikContent/StatistikReview',
                 'brand-category' => 'Brand.KategoriPartnership',
                 'tacpackage' => 'Catalogue/LibraryCatalogue', 
                 'konsepattire' => 'Catalogue/LibraryCatalogue',
