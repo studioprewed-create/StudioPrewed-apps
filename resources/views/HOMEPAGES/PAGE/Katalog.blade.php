@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Studio Prewed | Fotrait Timeless | Katalog</title>
+    <title>Studio Prewed | Potrait Timeless | Katalog</title>
 
     {{-- <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/PAGE/Pricelist.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('public/asset/HOMEPAGE/LAYOUT/Base.css') }}">
