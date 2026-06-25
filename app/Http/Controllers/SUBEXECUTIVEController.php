@@ -692,16 +692,6 @@ class SUBEXECUTIVEController extends Controller
                 );
             }
             if ($subpage === 'StatistikContent.StatistikReview') {
-                $googleReviews = GoogleReview::latest(
-                    'review_date'
-                )->get();
-
-                return view(
-                    "OPERATIONALPAGES.FITUR.MAINCONTENT.$subpage",
-                    compact('googleReviews')
-                );
-            }
-            if ($subpage === 'StatistikContent.StatistikReview') {
                 $sort = $request->sort;
 
                 $googleReviews = GoogleReview::query();
