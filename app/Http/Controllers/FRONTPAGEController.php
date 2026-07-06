@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Traits\Frontpage\DashboardTrait;
-use App\Http\Controllers\Traits\Frontpage\PortfolioTrait;
-use App\Http\Controllers\Traits\Frontpage\PricelistTrait;
-use App\Http\Controllers\Traits\Frontpage\CatalogTrait;
-use App\Http\Controllers\Traits\Frontpage\SurveyTrait;
-use App\Http\Controllers\Traits\Frontpage\AccountTrait;
+use App\Http\Controllers\Traits\FrontPage\DashboardTrait;
+use App\Http\Controllers\Traits\FrontPage\PortfolioTrait;
+use App\Http\Controllers\Traits\FrontPage\PricelistTrait;
+use App\Http\Controllers\Traits\FrontPage\CatalogTrait;
+use App\Http\Controllers\Traits\FrontPage\SurveyTrait;
+use App\Http\Controllers\Traits\FrontPage\AccountTrait;
 
 // use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Hash;
