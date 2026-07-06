@@ -41,7 +41,7 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Registrasi berhasil!');
     }
 
- public function verify(UserAuthVerifyRequest $request): RedirectResponse
+    public function verify(UserAuthVerifyRequest $request): RedirectResponse
     {
         $credentials = $request->validated();
 
