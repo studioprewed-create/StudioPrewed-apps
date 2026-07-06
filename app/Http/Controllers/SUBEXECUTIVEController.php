@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Traits\SubBackpage\SubloadPageTrait;
-use App\Http\Controllers\Traits\SubBackpage\SubloadcontentTrait;
-use App\Http\Controllers\Traits\SubBackpage\SubloaddirectTrait;
+use App\Http\Controllers\Traits\SubBackPage\SubloadPageTrait;
+use App\Http\Controllers\Traits\SubBackPage\SubloadcontentTrait;
+use App\Http\Controllers\Traits\SubBackPage\SubloaddirectTrait;
 
 // use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Hash;
