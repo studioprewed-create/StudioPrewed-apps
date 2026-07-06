@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Traits\SubBackPage\SubloadPageTrait;
+use App\Http\Controllers\Traits\SubBackPage\SubloadpageTrait;
 use App\Http\Controllers\Traits\SubBackPage\SubloadcontentTrait;
 use App\Http\Controllers\Traits\SubBackPage\SubloaddirectTrait;
 
