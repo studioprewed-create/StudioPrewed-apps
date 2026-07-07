@@ -9,11 +9,11 @@ use App\Http\Controllers\Traits\CrudBack\DestroyTrait;
 
 class CRUDBACKController extends Controller
 {
-    use OrderOrderTrait;
+    use OrderTrait;
     use StoreTrait;
     use UpdateTrait;
     use DestroyTrait;
-    
+
     public function inlineUpdate(Request $request, $section, $id = null)
         {
             // Pastikan balasan JSON
