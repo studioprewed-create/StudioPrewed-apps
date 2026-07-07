@@ -34,6 +34,6 @@ use App\Models\GoogleReview;
 trait SurveyTrait {
     public function Survey()
         {
-            return view('HOMEPAGES.PAGE.Survey');
+            return view('HOMEPAGES.FITUR.Survey');
         }
 }
