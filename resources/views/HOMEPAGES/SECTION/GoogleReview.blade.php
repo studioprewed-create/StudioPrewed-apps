@@ -212,7 +212,7 @@
                      IMAGES
                 ========================================================= --}}
 
-                    @if (count($images))
+                    {{-- @if (count($images))
                         <div class="google-review-images">
 
                             @foreach ($images as $img)
@@ -221,7 +221,7 @@
                             @endforeach
 
                         </div>
-                    @endif
+                    @endif --}}
 
                 </div>
             @endforeach
