@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use app\Http\Controllers\Traits\BackPage\LoadPageTrait;
-use app\Http\Controllers\Traits\BackPage\LoadContentTrait;
-use app\Http\Controllers\Traits\BackPage\LoadDirectTrait;
+use App\Http\Controllers\Traits\BackPage\LoadPageTrait;
+use App\Http\Controllers\Traits\BackPage\LoadContentTrait;
+use App\Http\Controllers\Traits\BackPage\LoadDirectTrait;
 
 
 
