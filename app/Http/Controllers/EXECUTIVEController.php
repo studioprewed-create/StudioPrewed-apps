@@ -619,9 +619,8 @@ class EXECUTIVEController extends Controller
         }
     
     
-
     
-   use LoadPageTrait;
-   use LoadContentTrait;
-   use LoadDirectTrait;
+    use LoadPageTrait;
+    use LoadContentTrait;
+    use LoadDirectTrait;
 }
