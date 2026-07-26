@@ -429,72 +429,265 @@
 <div class="custom-modal" id="modalCreateTema" aria-hidden="true">
     <div class="modal-content modal-xl">
         <div class="modal-header">
-            <h5>Tambah Tema Baju</h5>
-            <button class="btn btn-secondary" type="button" id="btnCloseCreateTema">
+            <h5>Tambah Attire</h5>
+
+            <button type="button"
+                class="btn btn-secondary"
+                id="btnCloseCreateTema">
+
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
+
         <div class="modal-body">
-            <form action="{{ route('executive.tema_baju.store') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('executive.tema_baju.store') }}"
+                method="POST"
+                enctype="multipart/form-data"
                 id="formCreateTema">
+
                 @csrf
 
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-heading"></i> Nama</label>
-                        <input type="text" class="form-control" name="nama" required
-                            placeholder="Classic Wedding Gold" value="{{ old('nama') }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-barcode"></i> Kode</label>
-                        <input type="text" class="form-control" name="kode" required placeholder="CWG-01"
-                            value="{{ old('kode') }}">
+                        <label>Nama Attire</label>
+
+                        <input type="text"
+                            name="nama"
+                            class="form-control"
+                            required>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-tag"></i> Harga (Rp)</label>
-                        <input type="number" step="0.01" class="form-control" name="harga" required
-                            placeholder="0" value="{{ old('harga') }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-ruler"></i> Ukuran</label>
-                        <input type="text" class="form-control" name="ukuran" required
-                            placeholder="S, M, L, All Size" value="{{ old('ukuran') }}">
+                        <label>Kode Attire</label>
+
+                        <select name="attire_code_id"
+                            id="create-attire-code"
+                            class="form-control"
+                            required>
+
+                            <option value="">
+                                Pilih kode
+                            </option>
+
+                            @foreach($attireCodes->where('active', true) as $code)
+                                <option value="{{ $code->id }}"
+                                    data-preview="{{ $code->next_code_preview }}">
+
+                                    {{ $code->name }}
+                                    — {{ $code->next_code_preview }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-layer-group"></i> Tipe</label>
-                        <input type="text" class="form-control" name="tipe" required
-                            placeholder="Formal, Casual, Traditional" value="{{ old('tipe') }}">
+                        <label>Preview Kode</label>
+
+                        <input type="text"
+                            id="create-attire-code-preview"
+                            class="form-control"
+                            readonly>
                     </div>
+
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-user-tie"></i> Designer</label>
-                        <input type="text" class="form-control" name="designer" required
-                            placeholder="Nama desainer / vendor" value="{{ old('designer') }}">
+                        <label>Designer</label>
+
+                        <select name="data_brand_id"
+                            class="form-control"
+                            required>
+
+                            <option value="">
+                                Pilih designer
+                            </option>
+
+                            @foreach($attireBrands as $brand)
+                                <option value="{{ $brand->id }}">
+                                    {{ $brand->nama_brand }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipe/Konsep</label>
+
+                        <select name="konsep_attire_id"
+                            class="form-control"
+                            required>
+
+                            <option value="">
+                                Pilih konsep
+                            </option>
+
+                            @foreach($konsepAttires->where('active', true) as $konsep)
+                                <option value="{{ $konsep->id }}">
+                                    {{ $konsep->content }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Harga</label>
+
+                        <input type="number"
+                            name="harga"
+                            class="form-control"
+                            min="0"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Warna</label>
+
+                        <input type="text"
+                            name="warna"
+                            class="form-control"
+                            placeholder="Maroon, Gold, Hitam">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+
+                        <select name="status"
+                            class="form-control"
+                            required>
+
+                            <option value="ready">
+                                Good / Ready
+                            </option>
+
+                            <option value="maintenance">
+                                Cleaning / Repair
+                            </option>
+
+                            <option value="booked">
+                                Booked
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ukuran Perempuan</label>
+
+                        <textarea name="ukuran_wanita"
+                            class="form-control"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ukuran Laki-laki</label>
+
+                        <textarea name="ukuran_pria"
+                            class="form-control"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order</label>
+
+                        <input type="number"
+                            name="order"
+                            class="form-control"
+                            min="1">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label"><i class="fas fa-sticky-note"></i> Detail</label>
-                    <textarea name="detail" class="form-control" rows="3" required
-                        placeholder="Detail bahan, warna, model, dan nuansa tema">{{ old('detail') }}</textarea>
+                    <label>Catalogue Label</label>
+
+                    <div id="create-attire-labels">
+                        @foreach($packageLabels->where('active', true) as $label)
+                            <label>
+                                <input type="checkbox"
+                                    name="label_ids[]"
+                                    value="{{ $label->id }}">
+
+                                {{ $label->name }}
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label"><i class="fas fa-image"></i> Gambar (bisa pilih banyak)</label>
-                    <div class="image-upload-container" id="uploadDrop">
+                    <label>Detail Attire</label>
+
+                    <div id="create-attire-details"></div>
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btn-add-create-detail-wanita">
+
+                        + Poin Perempuan
+                    </button>
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btn-add-create-detail-pria">
+
+                        + Poin Laki-laki
+                    </button>
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btn-add-create-detail-umum">
+
+                        + Poin Umum
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label>Gambar Attire</label>
+
+                    <div class="image-upload-container"
+                        id="uploadDrop">
+
                         <i class="fas fa-cloud-upload-alt"></i>
+
                         <p>Klik atau seret gambar ke sini</p>
-                        <small>Format: JPG, PNG, WEBP | Maks: 2MB per gambar</small>
-                        <input type="file" name="images[]" id="inputImages" accept="image/*" multiple
-                            class="file-overlay">
+
+                        <small>
+                            JPG, PNG, WEBP | Maksimal 2MB
+                        </small>
+
+                        <input type="file"
+                            name="images[]"
+                            id="inputImages"
+                            accept="image/jpeg,image/png,image/webp"
+                            multiple
+                            class="file-overlay"
+                            required>
                     </div>
-                    <div id="previewImages" class="thumbs-wrap"></div>
+
+                    <div id="previewImages"
+                        class="thumbs-wrap"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox"
+                            name="active"
+                            value="1"
+                            checked>
+
+                        Active
+                    </label>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="btnCloseCreateTema2">Batal</button>
-                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-save"></i> Simpan</button>
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseCreateTema2">
+
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-save"></i>
+                        Simpan
+                    </button>
                 </div>
             </form>
         </div>
@@ -505,65 +698,240 @@
 <div class="custom-modal" id="modalEditTema" aria-hidden="true">
     <div class="modal-content modal-xl">
         <div class="modal-header">
-            <h5>Edit Tema Baju</h5>
-            <button class="btn btn-secondary" type="button" id="btnCloseEditTema">
+            <h5>Edit Attire</h5>
+
+            <button type="button"
+                class="btn btn-secondary"
+                id="btnCloseEditTema">
+
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
+
         <div class="modal-body">
-            <form method="POST" enctype="multipart/form-data" id="editTemaForm"
+            <form method="POST"
+                enctype="multipart/form-data"
+                id="editTemaForm"
                 data-base-url="{{ url('/executive/tema-baju') }}">
+
                 @csrf
                 @method('PUT')
 
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-heading"></i> Nama</label>
-                        <input type="text" class="form-control" name="nama" id="et-nama" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-barcode"></i> Kode</label>
-                        <input type="text" class="form-control" name="kode" id="et-kode" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"><i class="fas fa-tag"></i> Harga (Rp)</label>
-                        <input type="number" step="0.01" class="form-control" name="harga" id="et-harga"
+                        <label>Nama Attire</label>
+
+                        <input type="text"
+                            name="nama"
+                            id="et-nama"
+                            class="form-control"
                             required>
                     </div>
+
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-ruler"></i> Ukuran</label>
-                        <input type="text" class="form-control" name="ukuran" id="et-ukuran" required>
+                        <label>Kode Attire</label>
+
+                        <input type="text"
+                            id="et-kode"
+                            class="form-control"
+                            readonly>
                     </div>
+
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-layer-group"></i> Tipe</label>
-                        <input type="text" class="form-control" name="tipe" id="et-tipe" required>
+                        <label>Designer</label>
+
+                        <select name="data_brand_id"
+                            id="et-data-brand-id"
+                            class="form-control"
+                            required>
+
+                            @foreach($attireBrands as $brand)
+                                <option value="{{ $brand->id }}">
+                                    {{ $brand->nama_brand }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
+
                     <div class="form-group">
-                        <label class="form-label"><i class="fas fa-user-tie"></i> Designer</label>
-                        <input type="text" class="form-control" name="designer" id="et-designer" required>
+                        <label>Tipe/Konsep</label>
+
+                        <select name="konsep_attire_id"
+                            id="et-konsep-attire-id"
+                            class="form-control"
+                            required>
+
+                            @foreach($konsepAttires->where('active', true) as $konsep)
+                                <option value="{{ $konsep->id }}">
+                                    {{ $konsep->content }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Harga</label>
+
+                        <input type="number"
+                            name="harga"
+                            id="et-harga"
+                            class="form-control"
+                            min="0"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Warna</label>
+
+                        <input type="text"
+                            name="warna"
+                            id="et-warna"
+                            class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+
+                        <select name="status"
+                            id="et-status"
+                            class="form-control"
+                            required>
+
+                            <option value="ready">
+                                Good / Ready
+                            </option>
+
+                            <option value="maintenance">
+                                Cleaning / Repair
+                            </option>
+
+                            <option value="booked">
+                                Booked
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order</label>
+
+                        <input type="number"
+                            name="order"
+                            id="et-order"
+                            class="form-control"
+                            min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ukuran Perempuan</label>
+
+                        <textarea name="ukuran_wanita"
+                            id="et-ukuran-wanita"
+                            class="form-control"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ukuran Laki-laki</label>
+
+                        <textarea name="ukuran_pria"
+                            id="et-ukuran-pria"
+                            class="form-control"
+                            rows="3"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label"><i class="fas fa-sticky-note"></i> Detail</label>
-                    <textarea name="detail" class="form-control" rows="3" id="et-detail" required></textarea>
+                    <label>Catalogue Label</label>
+
+                    <div id="edit-attire-labels">
+                        @foreach($packageLabels->where('active', true) as $label)
+                            <label>
+                                <input type="checkbox"
+                                    name="label_ids[]"
+                                    value="{{ $label->id }}">
+
+                                {{ $label->name }}
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label"><i class="fas fa-image"></i> Ganti Gambar (opsional)</label>
-                    <div class="image-upload-container" id="uploadDropTemaEdit">
+                    <label>Detail Attire</label>
+
+                    <div id="edit-attire-details"></div>
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btn-add-edit-detail-wanita">
+
+                        + Poin Perempuan
+                    </button>
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btn-add-edit-detail-pria">
+
+                        + Poin Laki-laki
+                    </button>
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btn-add-edit-detail-umum">
+
+                        + Poin Umum
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label>Ganti Gambar</label>
+
+                    <div class="image-upload-container"
+                        id="uploadDropTemaEdit">
+
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Pilih ulang gambar (opsional)</p>
-                        <small>Format: JPG, PNG, WEBP | Maks: 2MB per gambar</small>
-                        <input type="file" name="images[]" id="et-images" accept="image/*" multiple
+
+                        <p>
+                            Pilih gambar baru untuk mengganti semua gambar lama
+                        </p>
+
+                        <input type="file"
+                            name="images[]"
+                            id="et-images"
+                            accept="image/jpeg,image/png,image/webp"
+                            multiple
                             class="file-overlay">
                     </div>
-                    <div id="previewImagesEdit" class="thumbs-wrap"></div>
+
+                    <div id="previewImagesEdit"
+                        class="thumbs-wrap"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox"
+                            name="active"
+                            value="1"
+                            id="et-active">
+
+                        Active
+                    </label>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="btnCloseEditTema2">Batal</button>
-                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-save"></i> Simpan</button>
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseEditTema2">
+
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-save"></i>
+                        Update
+                    </button>
                 </div>
             </form>
         </div>
@@ -980,6 +1348,240 @@
                     </button>
 
                     <button class="btn btn-primary">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal-backdrop"id="backdropCreateAttireCode"></div>
+<div class="custom-modal" id="modalCreateAttireCode" aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Tambah Kode Attire</h5>
+
+            <button type="button"
+                class="btn btn-secondary"
+                id="btnCloseCreateAttireCode">
+
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <form method="POST"
+                action="{{ route('executive.homepages.store', 'attirecode') }}">
+
+                @csrf
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Nama Kode
+                    </label>
+
+                    <input type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Sunda Jawa"
+                        value="{{ old('name') }}"
+                        required>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">
+                            Prefix
+                        </label>
+
+                        <input type="text"
+                            name="prefix"
+                            id="create-attirecode-prefix"
+                            class="form-control"
+                            placeholder="SJW"
+                            maxlength="20"
+                            value="{{ old('prefix') }}"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Pemisah
+                        </label>
+
+                        <input type="text"
+                            name="separator"
+                            class="form-control"
+                            maxlength="3"
+                            value="{{ old('separator', '-') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Jumlah Digit
+                        </label>
+
+                        <input type="number"
+                            name="digit_length"
+                            class="form-control"
+                            min="1"
+                            max="6"
+                            value="{{ old('digit_length', 2) }}"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Order
+                        </label>
+
+                        <input type="number"
+                            name="order"
+                            class="form-control"
+                            min="1"
+                            value="{{ old('order') }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox"
+                            name="active"
+                            value="1"
+                            checked>
+
+                        Active
+                    </label>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseCreateAttireCode2">
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                        class="btn btn-primary">
+                        <i class="fa-solid fa-save"></i>
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal-backdrop"id="backdropEditAttireCode"></div>
+<div class="custom-modal" id="modalEditAttireCode" aria-hidden="true">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Edit Kode Attire</h5>
+
+            <button type="button"
+                class="btn btn-secondary"
+                id="btnCloseEditAttireCode">
+
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <form method="POST"
+                id="editAttireCodeForm"
+                data-base-url="{{ url('executive/homepages/update/attirecode') }}">
+
+                @csrf
+                @method('PUT')
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Nama Kode
+                    </label>
+
+                    <input type="text"
+                        name="name"
+                        id="edit-attirecode-name"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">
+                            Prefix
+                        </label>
+
+                        <input type="text"
+                            name="prefix"
+                            id="edit-attirecode-prefix"
+                            class="form-control"
+                            maxlength="20"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Pemisah
+                        </label>
+
+                        <input type="text"
+                            name="separator"
+                            id="edit-attirecode-separator"
+                            class="form-control"
+                            maxlength="3">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Jumlah Digit
+                        </label>
+
+                        <input type="number"
+                            name="digit_length"
+                            id="edit-attirecode-digit"
+                            class="form-control"
+                            min="1"
+                            max="6"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Order
+                        </label>
+
+                        <input type="number"
+                            name="order"
+                            id="edit-attirecode-order"
+                            class="form-control"
+                            min="1">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox"
+                            name="active"
+                            value="1"
+                            id="edit-attirecode-active">
+
+                        Active
+                    </label>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                        class="btn btn-secondary"
+                        id="btnCloseEditAttireCode2">
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                        class="btn btn-primary">
+                        <i class="fa-solid fa-save"></i>
                         Update
                     </button>
                 </div>

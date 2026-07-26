@@ -12,6 +12,18 @@
             'confirm' => 'Yakin hapus TAC ini?',
             'icon' => 'fa-file-contract',
         ],
+        'attirecode' => [
+            'title' => 'Kode Attire',
+            'subtitle' => 'Master generator kode Attire',
+            'items' => $attireCodes,
+            'field' => 'name',
+            'buttonId' => 'btn-open-attirecode-create',
+            'buttonText' => 'ADD KODE ATTIRE',
+            'editClass' => 'btn-edit-attirecode',
+            'empty' => 'Belum ada data Kode Attire.',
+            'confirm' => 'Yakin hapus Kode Attire ini?',
+            'icon' => 'fa-barcode',
+        ],
         'konsepattire' => [
             'title' => 'Konsep Attire',
             'subtitle' => 'Master konsep attire',
@@ -116,6 +128,10 @@
                         @forelse($section['items'] as $index => $item)
                             @php
                                 $value = $item->{$section['field']};
+
+                                $displayValue = $key === 'attirecode'
+                                ? $item->name . ' (' . $item->next_code_preview . ')'
+                                : $value;
                             @endphp
 
                             <tr>
@@ -128,15 +144,44 @@
                                 </td>
 
                                 <td>
+                                    <div class="library-data-text">
+                                        {{ $displayValue }}
+                                    </div>
+
+                                    @if($key === 'attirecode')
+                                        <small class="muted">
+                                            Prefix: {{ $item->prefix }}
+                                            |
+                                            Format:
+                                            {{ $item->prefix }}
+                                            {{ $item->separator }}
+                                            {{ str_repeat('0', $item->digit_length) }}
+                                            |
+                                            Nomor terakhir: {{ $item->last_number }}
+                                        </small>
+                                    @endif
+                                </td>
+
+                                <td>
                                     <span class="library-status {{ $item->active ? 'is-active' : 'is-inactive' }}">
                                         {{ $item->active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
 
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-secondary {{ $section['editClass'] }}"
-                                        data-id="{{ $item->id }}" data-content="{{ $value }}"
-                                        data-name="{{ $value }}">
+                                    <button type="button"
+                                        class="btn btn-secondary {{ $section['editClass'] }}"
+
+                                        data-id="{{ $item->id }}"
+                                        data-content="{{ $value }}"
+                                        data-name="{{ $value }}"
+
+                                        data-prefix="{{ $item->prefix ?? '' }}"
+                                        data-separator="{{ $item->separator ?? '-' }}"
+                                        data-digit-length="{{ $item->digit_length ?? 2 }}"
+                                        data-order="{{ $item->order ?? '' }}"
+                                        data-active="{{ $item->active ? 1 : 0 }}">
+
                                         <i class="fa fa-pen"></i>
                                         Edit
                                     </button>

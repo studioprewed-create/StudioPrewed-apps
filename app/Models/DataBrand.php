@@ -62,6 +62,9 @@ class DataBrand extends Model
     // =========================
     public function attires()
     {
-        return $this->hasMany(Attire::class, 'data_brand_id');
+        return $this->hasMany(
+            TemaBaju::class,
+            'data_brand_id'
+        );
     }
 }

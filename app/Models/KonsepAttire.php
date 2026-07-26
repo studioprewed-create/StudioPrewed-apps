@@ -12,4 +12,12 @@ class KonsepAttire extends Model
         'content',
         'active',
     ];
+
+    public function attires()
+    {
+        return $this->hasMany(
+            TemaBaju::class,
+            'konsep_attire_id'
+        );
+    }
 }

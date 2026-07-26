@@ -36,6 +36,13 @@ use App\Models\TACPackage;
 use App\Models\KonsepAttire;
 use App\Models\DESCPackage;
 use App\Models\PackageLabel;
+use App\Models\AttireCode;
+use App\Models\AttireDetail;
+use App\Models\DataBrand;
+use App\Helpers\AttireCodeHelper;
+use App\Helpers\OrderHelper;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 trait DestroyTrait {
     public function destroy(Request $request, $section, $id){
@@ -59,6 +66,7 @@ trait DestroyTrait {
                 'konsepattire' => 'Catalogue/LibraryCatalogue',
                 'descpackage' => 'Catalogue/LibraryCatalogue',
                 'packagelabel' => 'Catalogue/LibraryCatalogue',
+                'attirecode' => 'Catalogue/LibraryCatalogue',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -83,6 +91,7 @@ trait DestroyTrait {
                 'konsepattire' => KonsepAttire::findOrFail($id),
                 'descpackage' => DESCPackage::findOrFail($id),
                 'packagelabel' => PackageLabel::findOrFail($id),
+                'attirecode' => AttireCode::findOrFail($id),
                 default => null,
             };
 
@@ -121,6 +130,32 @@ trait DestroyTrait {
             elseif ($section === 'user') {
                 $item->delete();
             }
+
+            if ($section === 'attirecode') {
+                $item = AttireCode::findOrFail($id);
+
+                if ($item->attires()->exists()) {
+                    return back()->with(
+                        'error',
+                        'Kode Attire tidak dapat dihapus karena sudah digunakan. Nonaktifkan kode jika tidak ingin digunakan lagi.'
+                    );
+                }
+
+                $removedOrder = (int) $item->order;
+
+                DB::transaction(function () use (
+                    $item,
+                    $removedOrder
+                ) {
+                    $item->delete();
+
+                    OrderHelper::remove(
+                        AttireCode::class,
+                        $removedOrder
+                    );
+                });
+            }
+
             $item->delete();
 
             return redirect()->route('executive.page', ['page' => $redirectPage])

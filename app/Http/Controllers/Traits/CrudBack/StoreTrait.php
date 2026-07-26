@@ -36,6 +36,13 @@ use App\Models\TACPackage;
 use App\Models\KonsepAttire;
 use App\Models\DESCPackage;
 use App\Models\PackageLabel;
+use App\Models\AttireCode;
+use App\Models\AttireDetail;
+use App\Models\DataBrand;
+use App\Helpers\AttireCodeHelper;
+use App\Helpers\OrderHelper;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 trait StoreTrait {
     public function create(Request $request, $section)
@@ -64,6 +71,7 @@ trait StoreTrait {
                 'konsepattire' => 'Catalogue/LibraryCatalogue',
                 'descpackage' => 'Catalogue/LibraryCatalogue',
                 'packagelabel' => 'Catalogue/LibraryCatalogue',
+                'attirecode' => 'Catalogue/LibraryCatalogue',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -633,6 +641,32 @@ trait StoreTrait {
                     'name' => $validated['name'],
                     'active' => $request->boolean('active', true),
                 ]);
+            }
+            elseif ($section === 'attirecode') {
+                $validated = $request->validate([
+                    'name'         => 'required|string|max:255',
+                    'prefix'       => 'required|string|max:20|unique:attire_codes,prefix',
+                    'separator'    => 'nullable|string|max:3',
+                    'digit_length' => 'required|integer|min:1|max:6',
+                    'order'        => 'nullable|integer|min:1',
+                ]);
+
+                DB::transaction(function () use ($request, $validated) {
+                    $order = OrderHelper::insert(
+                        AttireCode::class,
+                        $request->input('order')
+                    );
+
+                    AttireCode::create([
+                        'name'         => trim($validated['name']),
+                        'prefix'       => strtoupper(trim($validated['prefix'])),
+                        'separator'    => $validated['separator'] ?? '-',
+                        'digit_length' => $validated['digit_length'],
+                        'last_number'  => 0,
+                        'order'        => $order,
+                        'active'       => $request->boolean('active', true),
+                    ]);
+                });
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                 ->with('success', ucfirst($section).' berhasil ditambahkan!');

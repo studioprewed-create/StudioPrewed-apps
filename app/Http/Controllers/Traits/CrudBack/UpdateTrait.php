@@ -36,6 +36,13 @@ use App\Models\TACPackage;
 use App\Models\KonsepAttire;
 use App\Models\DESCPackage;
 use App\Models\PackageLabel;
+use App\Models\AttireCode;
+use App\Models\AttireDetail;
+use App\Models\DataBrand;
+use App\Helpers\AttireCodeHelper;
+use App\Helpers\OrderHelper;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 trait UpdateTrait {
     public function edit(Request $request, $section, $id)
@@ -61,6 +68,7 @@ trait UpdateTrait {
                 'konsepattire' => KonsepAttire::findOrFail($id),
                 'descpackage' => DESCPackage::findOrFail($id),
                 'packagelabel' => PackageLabel::findOrFail($id),
+                'attirecode' => AttireCode::findOrFail($id),
                 default => null,
             };
 
@@ -89,6 +97,7 @@ trait UpdateTrait {
                 'konsepattire' => 'Catalogue/LibraryCatalogue',
                 'descpackage' => 'Catalogue/LibraryCatalogue',
                 'packagelabel' => 'Catalogue/LibraryCatalogue',
+                'attirecode' => 'Catalogue/LibraryCatalogue',
             ];
 
             $redirectPage = $redirectMap[$section] ?? 'MenuPanel.HomePages.Dashboard';
@@ -732,6 +741,72 @@ trait UpdateTrait {
                     'name' => $validated['name'],
                     'active' => $request->boolean('active', $item->active),
                 ]);
+            }
+            elseif ($section === 'attirecode') {
+                $item = AttireCode::findOrFail($id);
+
+                $validated = $request->validate([
+                    'name' => 'required|string|max:255',
+
+                    'prefix' => [
+                        'required',
+                        'string',
+                        'max:20',
+                        Rule::unique('attire_codes', 'prefix')
+                            ->ignore($item->id),
+                    ],
+
+                    'separator'    => 'nullable|string|max:3',
+                    'digit_length' => 'required|integer|min:1|max:6',
+                    'order'        => 'nullable|integer|min:1',
+                ]);
+
+                $newPrefix = strtoupper(
+                    trim($validated['prefix'])
+                );
+
+                $newSeparator = $validated['separator'] ?? '-';
+                $newDigitLength = (int) $validated['digit_length'];
+
+                if (
+                    $item->attires()->exists()
+                    && (
+                        $newPrefix !== $item->prefix
+                        || $newSeparator !== $item->separator
+                        || $newDigitLength !== (int) $item->digit_length
+                    )
+                ) {
+                    throw ValidationException::withMessages([
+                        'prefix' => 'Format kode tidak dapat diubah karena sudah digunakan oleh Attire.',
+                    ]);
+                }
+
+                DB::transaction(function () use (
+                    $request,
+                    $validated,
+                    $item,
+                    $newPrefix,
+                    $newSeparator,
+                    $newDigitLength
+                ) {
+                    $item = AttireCode::query()
+                        ->lockForUpdate()
+                        ->findOrFail($item->id);
+
+                    $order = OrderHelper::move(
+                        $item,
+                        $request->input('order')
+                    );
+
+                    $item->update([
+                        'name'         => trim($validated['name']),
+                        'prefix'       => $newPrefix,
+                        'separator'    => $newSeparator,
+                        'digit_length' => $newDigitLength,
+                        'order'        => $order,
+                        'active'       => $request->boolean('active'),
+                    ]);
+                });
             }
             return redirect()->route('executive.page', ['page' => $redirectPage])
                         ->with('success', ucfirst($section).' berhasil diperbarui!');

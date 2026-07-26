@@ -20,6 +20,130 @@ document.addEventListener('DOMContentLoaded', () => {
         return '/' + path.replace(/^\/+/, '');
     };
 
+    const renumberAttireDetails = (container) => {
+        if (!container) return;
+
+        container
+            .querySelectorAll(
+                '.attire-detail-row'
+            )
+            .forEach((row, index) => {
+                const group =
+                    row.querySelector(
+                        '[data-detail-group]'
+                    );
+
+                const content =
+                    row.querySelector(
+                        '[data-detail-content]'
+                    );
+
+                const order =
+                    row.querySelector(
+                        '[data-detail-order]'
+                    );
+
+                if (group) {
+                    group.name =
+                        `details[${index}][group]`;
+                }
+
+                if (content) {
+                    content.name =
+                        `details[${index}][content]`;
+                }
+
+                if (order) {
+                    order.name =
+                        `details[${index}][order]`;
+
+                    order.value = index + 1;
+                }
+            });
+    };
+
+    const addAttireDetailRow = (
+        container,
+        detail = {}
+    ) => {
+        if (!container) return;
+
+        const row =
+            document.createElement('div');
+
+        row.className =
+            'attire-detail-row';
+
+        row.innerHTML = `
+            <select class="form-control"
+                data-detail-group>
+
+                <option value="perempuan">
+                    Perempuan
+                </option>
+
+                <option value="laki_laki">
+                    Laki-laki
+                </option>
+
+                <option value="umum">
+                    Umum
+                </option>
+            </select>
+
+            <input type="text"
+                class="form-control"
+                data-detail-content
+                placeholder="Contoh: Kebaya"
+                required>
+
+            <input type="hidden"
+                data-detail-order>
+
+            <button type="button"
+                class="btn btn-danger"
+                data-remove-detail>
+
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        `;
+
+        const groupInput =
+            row.querySelector(
+                '[data-detail-group]'
+            );
+
+        const contentInput =
+            row.querySelector(
+                '[data-detail-content]'
+            );
+
+        const removeButton =
+            row.querySelector(
+                '[data-remove-detail]'
+            );
+
+        groupInput.value =
+            detail.group || 'perempuan';
+
+        contentInput.value =
+            detail.content || '';
+
+        removeButton.onclick = () => {
+            row.remove();
+
+            renumberAttireDetails(
+                container
+            );
+        };
+
+        container.appendChild(row);
+
+        renumberAttireDetails(
+            container
+        );
+    };
+
     /* ============ MODAL DATA AKUN ============ */
     const initUserModals = () => {
         const backdrop      = document.getElementById('modal-backdrop');
@@ -181,115 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         backdrop.onclick = hideModals;
-    };
-
-    /* ============ MODAL TEMA BAJU (CREATE) ============ */
-    const initCatalogueTemaModals = () => {
-        const backdrop   = document.getElementById('backdropCreateTema');
-        const modal      = document.getElementById('modalCreateTema');
-        const btnOpen    = document.getElementById('btnOpenCreateTema');
-        const btnClose   = document.getElementById('btnCloseCreateTema');
-        const btnClose2  = document.getElementById('btnCloseCreateTema2');
-
-        if (!backdrop || !modal) return;
-
-        const showModal = () => {
-            backdrop.classList.add('show');
-            modal.classList.add('show');
-        };
-
-        const hideModal = () => {
-            backdrop.classList.remove('show');
-            modal.classList.remove('show');
-        };
-
-        if (btnOpen)   btnOpen.onclick   = showModal;
-        if (btnClose)  btnClose.onclick  = hideModal;
-        if (btnClose2) btnClose2.onclick = hideModal;
-
-        backdrop.onclick = (e) => {
-            if (e.target === backdrop) hideModal();
-        };
-
-        const inputImages = document.getElementById('inputImages');
-        const dropZone    = document.getElementById('uploadDrop');
-        const previewWrap = document.getElementById('previewImages');
-
-        if (!inputImages || !dropZone || !previewWrap) return;
-
-        const createThumb = (src) => {
-            const wrap = document.createElement('div');
-            wrap.classList.add('thumb');
-            const img = document.createElement('img');
-            img.src = src;
-            wrap.appendChild(img);
-            return wrap;
-        };
-
-        const handleFiles = (files) => {
-            previewWrap.innerHTML = '';
-
-            if (!files || files.length === 0) {
-                dropZone.style.display = 'block';
-                return;
-            }
-
-            Array.from(files).forEach(file => {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert(`Ukuran file "${file.name}" terlalu besar. Maksimal 2MB.`);
-                    return;
-                }
-
-                const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
-                if (!validTypes.includes(file.type)) {
-                    alert(`Format file "${file.name}" tidak didukung. Gunakan JPG, PNG, atau WEBP.`);
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const thumb = createThumb(e.target.result);
-                    previewWrap.appendChild(thumb);
-                };
-                reader.readAsDataURL(file);
-            });
-
-            dropZone.style.display = 'none';
-        };
-
-        inputImages.addEventListener('change', (e) => {
-            handleFiles(e.target.files);
-        });
-
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('drag-over');
-        });
-
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
-
-            const files = e.dataTransfer.files;
-            if (!files || files.length === 0) return;
-
-            const validFiles = Array.from(files).filter(f => f.type.match('image.*'));
-            if (validFiles.length === 0) {
-                alert('File yang di-drop bukan gambar.');
-                return;
-            }
-
-            const dt = new DataTransfer();
-            validFiles.forEach(f => dt.items.add(f));
-            inputImages.files = dt.files;
-
-            handleFiles(validFiles);
-        });
     };
 
     /* ============ MODAL PACKAGE (CREATE) ============ */
@@ -689,148 +704,947 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    /* ============ MODAL TEMA BAJU (EDIT) ============ */
-    const initCatalogueTemaEditModals = () => {
-        const backdrop  = document.getElementById('backdropEditTema');
-        const modal     = document.getElementById('modalEditTema');
-        const btnClose  = document.getElementById('btnCloseEditTema');
-        const btnClose2 = document.getElementById('btnCloseEditTema2');
-        const form      = document.getElementById('editTemaForm');
+    /* ============ MODAL ATTIRE (CREATE) ============ */
+    const initCatalogueTemaModals = () => {
+        const backdrop =
+            document.getElementById(
+                'backdropCreateTema'
+            );
 
-        if (!backdrop || !modal || !form) return;
+        const modal =
+            document.getElementById(
+                'modalCreateTema'
+            );
+
+        const btnOpen =
+            document.getElementById(
+                'btnOpenCreateTema'
+            );
+
+        const btnClose =
+            document.getElementById(
+                'btnCloseCreateTema'
+            );
+
+        const btnClose2 =
+            document.getElementById(
+                'btnCloseCreateTema2'
+            );
+
+        if (!backdrop || !modal) return;
+
+        const setFloatingHidden = (hidden) => {
+            document
+                .querySelectorAll(
+                    '.wa-float, .section-float'
+                )
+                .forEach((element) => {
+                    element.classList.toggle(
+                        'hide',
+                        hidden
+                    );
+                });
+        };
 
         const showModal = () => {
             backdrop.classList.add('show');
             modal.classList.add('show');
+
+            modal.setAttribute(
+                'aria-hidden',
+                'false'
+            );
+
+            document.body.style.overflow =
+                'hidden';
+
+            setFloatingHidden(true);
+
+            const modalBody =
+                modal.querySelector(
+                    '.modal-body'
+                );
+
+            if (modalBody) {
+                modalBody.scrollTop = 0;
+            }
         };
 
         const hideModal = () => {
             backdrop.classList.remove('show');
             modal.classList.remove('show');
+
+            modal.setAttribute(
+                'aria-hidden',
+                'true'
+            );
+
+            document.body.style.overflow = '';
+
+            setFloatingHidden(false);
         };
 
-        if (btnClose)  btnClose.onclick  = hideModal;
-        if (btnClose2) btnClose2.onclick = hideModal;
-        backdrop.onclick = (e) => {
-            if (e.target === backdrop) hideModal();
+        if (btnOpen) {
+            btnOpen.onclick = showModal;
+        }
+
+        if (btnClose) {
+            btnClose.onclick = hideModal;
+        }
+
+        if (btnClose2) {
+            btnClose2.onclick = hideModal;
+        }
+
+        backdrop.onclick = (event) => {
+            if (event.target === backdrop) {
+                hideModal();
+            }
         };
 
-        const previewWrap = document.getElementById('previewImagesEdit');
-        const fileInput   = document.getElementById('et-images');
-        const dropZone    = document.getElementById('uploadDropTemaEdit');
+        /*
+        |--------------------------------------------------------------------------
+        | Preview Kode Attire
+        |--------------------------------------------------------------------------
+        */
+
+        const codeSelect =
+            document.getElementById(
+                'create-attire-code'
+            );
+
+        const codePreview =
+            document.getElementById(
+                'create-attire-code-preview'
+            );
+
+        const updateCodePreview = () => {
+            const selectedOption =
+                codeSelect?.selectedOptions?.[0];
+
+            if (!codePreview) return;
+
+            codePreview.value =
+                selectedOption?.dataset?.preview
+                || '';
+        };
+
+        if (codeSelect) {
+            codeSelect.onchange =
+                updateCodePreview;
+
+            updateCodePreview();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Dynamic Detail Attire
+        |--------------------------------------------------------------------------
+        */
+
+        const detailContainer =
+            document.getElementById(
+                'create-attire-details'
+            );
+
+        const btnAddWanita =
+            document.getElementById(
+                'btn-add-create-detail-wanita'
+            );
+
+        const btnAddPria =
+            document.getElementById(
+                'btn-add-create-detail-pria'
+            );
+
+        const btnAddUmum =
+            document.getElementById(
+                'btn-add-create-detail-umum'
+            );
+
+        if (btnAddWanita) {
+            btnAddWanita.onclick = () => {
+                addAttireDetailRow(
+                    detailContainer,
+                    {
+                        group: 'perempuan',
+                    }
+                );
+            };
+        }
+
+        if (btnAddPria) {
+            btnAddPria.onclick = () => {
+                addAttireDetailRow(
+                    detailContainer,
+                    {
+                        group: 'laki_laki',
+                    }
+                );
+            };
+        }
+
+        if (btnAddUmum) {
+            btnAddUmum.onclick = () => {
+                addAttireDetailRow(
+                    detailContainer,
+                    {
+                        group: 'umum',
+                    }
+                );
+            };
+        }
+
+        /*
+        | Tambahkan satu row perempuan dan
+        | satu row laki-laki secara default.
+        */
+
+        if (
+            detailContainer
+            && detailContainer.children.length === 0
+        ) {
+            addAttireDetailRow(
+                detailContainer,
+                {
+                    group: 'perempuan',
+                }
+            );
+
+            addAttireDetailRow(
+                detailContainer,
+                {
+                    group: 'laki_laki',
+                }
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Upload Gambar Attire
+        |--------------------------------------------------------------------------
+        */
+
+        const inputImages =
+            document.getElementById(
+                'inputImages'
+            );
+
+        const dropZone =
+            document.getElementById(
+                'uploadDrop'
+            );
+
+        const previewWrap =
+            document.getElementById(
+                'previewImages'
+            );
+
+        if (
+            !inputImages
+            || !dropZone
+            || !previewWrap
+        ) {
+            return;
+        }
+
+        const createThumb = (src) => {
+            const wrap =
+                document.createElement('div');
+
+            wrap.classList.add('thumb');
+
+            const image =
+                document.createElement('img');
+
+            image.src = src;
+
+            wrap.appendChild(image);
+
+            return wrap;
+        };
+
+        const handleFiles = (files) => {
+            previewWrap.innerHTML = '';
+
+            if (!files || files.length === 0) {
+                dropZone.style.display = 'block';
+                return;
+            }
+
+            Array.from(files).forEach((file) => {
+                if (
+                    file.size
+                    > 2 * 1024 * 1024
+                ) {
+                    alert(
+                        `Ukuran file "${file.name}" terlalu besar. Maksimal 2MB.`
+                    );
+
+                    return;
+                }
+
+                const validTypes = [
+                    'image/jpeg',
+                    'image/png',
+                    'image/webp',
+                    'image/jpg',
+                ];
+
+                if (!validTypes.includes(file.type)) {
+                    alert(
+                        `Format file "${file.name}" tidak didukung. Gunakan JPG, PNG, atau WEBP.`
+                    );
+
+                    return;
+                }
+
+                const reader =
+                    new FileReader();
+
+                reader.onload = (event) => {
+                    const thumb =
+                        createThumb(
+                            event.target.result
+                        );
+
+                    previewWrap.appendChild(
+                        thumb
+                    );
+                };
+
+                reader.readAsDataURL(file);
+            });
+
+            dropZone.style.display = 'none';
+        };
+
+        inputImages.onchange = (event) => {
+            handleFiles(
+                event.target.files
+            );
+        };
+
+        dropZone.ondragover = (event) => {
+            event.preventDefault();
+
+            dropZone.classList.add(
+                'drag-over'
+            );
+        };
+
+        dropZone.ondragleave = (event) => {
+            event.preventDefault();
+
+            dropZone.classList.remove(
+                'drag-over'
+            );
+        };
+
+        dropZone.ondrop = (event) => {
+            event.preventDefault();
+
+            dropZone.classList.remove(
+                'drag-over'
+            );
+
+            const files =
+                event.dataTransfer.files;
+
+            if (
+                !files
+                || files.length === 0
+            ) {
+                return;
+            }
+
+            const validFiles =
+                Array.from(files).filter(
+                    (file) =>
+                        file.type.match('image.*')
+                );
+
+            if (validFiles.length === 0) {
+                alert(
+                    'File yang di-drop bukan gambar.'
+                );
+
+                return;
+            }
+
+            const dataTransfer =
+                new DataTransfer();
+
+            validFiles.forEach((file) => {
+                dataTransfer.items.add(file);
+            });
+
+            inputImages.files =
+                dataTransfer.files;
+
+            handleFiles(validFiles);
+        };
+    };
+
+    /* ============ MODAL ATTIRE (EDIT) ============ */
+    const initCatalogueTemaEditModals = () => {
+        const backdrop =
+            document.getElementById(
+                'backdropEditTema'
+            );
+
+        const modal =
+            document.getElementById(
+                'modalEditTema'
+            );
+
+        const btnClose =
+            document.getElementById(
+                'btnCloseEditTema'
+            );
+
+        const btnClose2 =
+            document.getElementById(
+                'btnCloseEditTema2'
+            );
+
+        const form =
+            document.getElementById(
+                'editTemaForm'
+            );
+
+        if (
+            !backdrop
+            || !modal
+            || !form
+        ) {
+            return;
+        }
+
+        const setFloatingHidden = (hidden) => {
+            document
+                .querySelectorAll(
+                    '.wa-float, .section-float'
+                )
+                .forEach((element) => {
+                    element.classList.toggle(
+                        'hide',
+                        hidden
+                    );
+                });
+        };
+
+        const showModal = () => {
+            backdrop.classList.add('show');
+            modal.classList.add('show');
+
+            modal.setAttribute(
+                'aria-hidden',
+                'false'
+            );
+
+            document.body.style.overflow =
+                'hidden';
+
+            setFloatingHidden(true);
+
+            const modalBody =
+                modal.querySelector(
+                    '.modal-body'
+                );
+
+            if (modalBody) {
+                modalBody.scrollTop = 0;
+            }
+        };
+
+        const hideModal = () => {
+            backdrop.classList.remove('show');
+            modal.classList.remove('show');
+
+            modal.setAttribute(
+                'aria-hidden',
+                'true'
+            );
+
+            document.body.style.overflow = '';
+
+            setFloatingHidden(false);
+        };
+
+        if (btnClose) {
+            btnClose.onclick = hideModal;
+        }
+
+        if (btnClose2) {
+            btnClose2.onclick = hideModal;
+        }
+
+        backdrop.onclick = (event) => {
+            if (event.target === backdrop) {
+                hideModal();
+            }
+        };
+
+        /*
+        |--------------------------------------------------------------------------
+        | Preview Gambar Lama
+        |--------------------------------------------------------------------------
+        */
+
+        const previewWrap =
+            document.getElementById(
+                'previewImagesEdit'
+            );
+
+        const fileInput =
+            document.getElementById(
+                'et-images'
+            );
+
+        const dropZone =
+            document.getElementById(
+                'uploadDropTemaEdit'
+            );
 
         const renderThumbs = (urls = []) => {
             if (!previewWrap) return;
+
             previewWrap.innerHTML = '';
-            urls.forEach(u => {
-                const wrap = document.createElement('div');
+
+            urls.forEach((url) => {
+                const wrap =
+                    document.createElement('div');
+
                 wrap.classList.add('thumb');
-                const img = document.createElement('img');
-                img.src = u;
-                wrap.appendChild(img);
-                previewWrap.appendChild(wrap);
+
+                const image =
+                    document.createElement('img');
+
+                image.src =
+                    buildImageUrl(url);
+
+                wrap.appendChild(image);
+
+                previewWrap.appendChild(
+                    wrap
+                );
             });
         };
 
-        document.querySelectorAll('.btn-edit-tema').forEach(btn => {
-            btn.onclick = () => {
-                const id       = btn.dataset.id;
-                const baseUrl  = form.dataset.baseUrl;
+        /*
+        |--------------------------------------------------------------------------
+        | Tombol Tambah Detail Edit
+        |--------------------------------------------------------------------------
+        */
 
-                form.action = `${baseUrl}/${id}`;
+        const editDetailContainer =
+            document.getElementById(
+                'edit-attire-details'
+            );
 
-                document.getElementById('et-nama').value      = btn.dataset.nama      || '';
-                document.getElementById('et-kode').value      = btn.dataset.kode      || '';
-                document.getElementById('et-harga').value     = btn.dataset.harga     || '';
-                document.getElementById('et-ukuran').value    = btn.dataset.ukuran    || '';
-                document.getElementById('et-tipe').value      = btn.dataset.tipe      || '';
-                document.getElementById('et-designer').value  = btn.dataset.designer  || '';
-                document.getElementById('et-detail').value    = btn.dataset.detail    || '';
+        const btnAddWanita =
+            document.getElementById(
+                'btn-add-edit-detail-wanita'
+            );
 
-                if (fileInput) fileInput.value = '';
+        const btnAddPria =
+            document.getElementById(
+                'btn-add-edit-detail-pria'
+            );
 
-                if (previewWrap) {
+        const btnAddUmum =
+            document.getElementById(
+                'btn-add-edit-detail-umum'
+            );
+
+        if (btnAddWanita) {
+            btnAddWanita.onclick = () => {
+                addAttireDetailRow(
+                    editDetailContainer,
+                    {
+                        group: 'perempuan',
+                    }
+                );
+            };
+        }
+
+        if (btnAddPria) {
+            btnAddPria.onclick = () => {
+                addAttireDetailRow(
+                    editDetailContainer,
+                    {
+                        group: 'laki_laki',
+                    }
+                );
+            };
+        }
+
+        if (btnAddUmum) {
+            btnAddUmum.onclick = () => {
+                addAttireDetailRow(
+                    editDetailContainer,
+                    {
+                        group: 'umum',
+                    }
+                );
+            };
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Buka Modal Edit
+        |--------------------------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                '.btn-edit-tema'
+            )
+            .forEach((button) => {
+                button.onclick = () => {
+                    const id =
+                        button.dataset.id;
+
+                    const baseUrl =
+                        form.dataset.baseUrl;
+
+                    form.action =
+                        `${baseUrl}/${id}`;
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Data Utama
+                    |--------------------------------------------------------------------------
+                    */
+
+                    document.getElementById(
+                        'et-nama'
+                    ).value =
+                        button.dataset.nama || '';
+
+                    document.getElementById(
+                        'et-kode'
+                    ).value =
+                        button.dataset.kode || '';
+
+                    document.getElementById(
+                        'et-harga'
+                    ).value =
+                        button.dataset.harga || '';
+
+                    document.getElementById(
+                        'et-data-brand-id'
+                    ).value =
+                        button.dataset.brandId || '';
+
+                    document.getElementById(
+                        'et-konsep-attire-id'
+                    ).value =
+                        button.dataset.konsepAttireId
+                        || '';
+
+                    document.getElementById(
+                        'et-warna'
+                    ).value =
+                        button.dataset.warna || '';
+
+                    document.getElementById(
+                        'et-ukuran-pria'
+                    ).value =
+                        button.dataset.ukuranPria
+                        || '';
+
+                    document.getElementById(
+                        'et-ukuran-wanita'
+                    ).value =
+                        button.dataset.ukuranWanita
+                        || '';
+
+                    document.getElementById(
+                        'et-status'
+                    ).value =
+                        button.dataset.status
+                        || 'ready';
+
+                    document.getElementById(
+                        'et-order'
+                    ).value =
+                        button.dataset.order || '';
+
+                    document.getElementById(
+                        'et-active'
+                    ).checked =
+                        button.dataset.active === '1';
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Catalogue Label
+                    |--------------------------------------------------------------------------
+                    */
+
+                    let labelIds = [];
+
                     try {
-                        const raw = btn.dataset.images || '[]';
-                        const paths = JSON.parse(raw);
-                        const urls = paths.map(p => buildImageUrl(p));
-                        renderThumbs(urls);
-                    } catch (e) {
-                        console.error('Gagal parse data-images tema:', e);
+                        labelIds = JSON.parse(
+                            button.dataset.labelIds
+                            || '[]'
+                        ).map(String);
+                    } catch (error) {
+                        console.error(
+                            'Gagal membaca Label Attire:',
+                            error
+                        );
+
+                        labelIds = [];
+                    }
+
+                    form.querySelectorAll(
+                        'input[name="label_ids[]"]'
+                    ).forEach((checkbox) => {
+                        checkbox.checked =
+                            labelIds.includes(
+                                String(
+                                    checkbox.value
+                                )
+                            );
+                    });
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Detail Attire
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (editDetailContainer) {
+                        editDetailContainer.innerHTML =
+                            '';
+                    }
+
+                    let details = [];
+
+                    try {
+                        details = JSON.parse(
+                            button.dataset.details
+                            || '[]'
+                        );
+                    } catch (error) {
+                        console.error(
+                            'Gagal membaca Detail Attire:',
+                            error
+                        );
+
+                        details = [];
+                    }
+
+                    details.forEach((detail) => {
+                        addAttireDetailRow(
+                            editDetailContainer,
+                            detail
+                        );
+                    });
+
+                    if (
+                        details.length === 0
+                        && editDetailContainer
+                    ) {
+                        addAttireDetailRow(
+                            editDetailContainer,
+                            {
+                                group: 'perempuan',
+                            }
+                        );
+                    }
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Gambar
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (fileInput) {
+                        fileInput.value = '';
+                    }
+
+                    try {
+                        const images = JSON.parse(
+                            button.dataset.images
+                            || '[]'
+                        );
+
+                        renderThumbs(images);
+                    } catch (error) {
+                        console.error(
+                            'Gagal membaca gambar Attire:',
+                            error
+                        );
+
                         renderThumbs([]);
                     }
-                }
 
-                showModal();
-            };
-        });
+                    showModal();
+                };
+            });
 
-        if (fileInput && dropZone && previewWrap) {
+        /*
+        |--------------------------------------------------------------------------
+        | Upload Gambar Baru
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            fileInput
+            && dropZone
+            && previewWrap
+        ) {
             const handleFiles = (files) => {
-                if (!files || files.length === 0) {
+                if (
+                    !files
+                    || files.length === 0
+                ) {
                     return;
                 }
 
                 previewWrap.innerHTML = '';
 
-                Array.from(files).forEach(file => {
-                    if (file.size > 2 * 1024 * 1024) {
-                        alert(`Ukuran file "${file.name}" terlalu besar. Maksimal 2MB.`);
-                        return;
-                    }
+                Array.from(files).forEach(
+                    (file) => {
+                        if (
+                            file.size
+                            > 2 * 1024 * 1024
+                        ) {
+                            alert(
+                                `Ukuran file "${file.name}" terlalu besar. Maksimal 2MB.`
+                            );
 
-                    const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
-                    if (!validTypes.includes(file.type)) {
-                        alert(`Format file "${file.name}" tidak didukung. Gunakan JPG, PNG, atau WEBP.`);
-                        return;
-                    }
+                            return;
+                        }
 
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const wrap = document.createElement('div');
-                        wrap.classList.add('thumb');
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        wrap.appendChild(img);
-                        previewWrap.appendChild(wrap);
-                    };
-                    reader.readAsDataURL(file);
-                });
+                        const validTypes = [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                            'image/jpg',
+                        ];
+
+                        if (
+                            !validTypes.includes(
+                                file.type
+                            )
+                        ) {
+                            alert(
+                                `Format file "${file.name}" tidak didukung. Gunakan JPG, PNG, atau WEBP.`
+                            );
+
+                            return;
+                        }
+
+                        const reader =
+                            new FileReader();
+
+                        reader.onload = (event) => {
+                            const wrap =
+                                document.createElement(
+                                    'div'
+                                );
+
+                            wrap.classList.add(
+                                'thumb'
+                            );
+
+                            const image =
+                                document.createElement(
+                                    'img'
+                                );
+
+                            image.src =
+                                event.target.result;
+
+                            wrap.appendChild(image);
+
+                            previewWrap.appendChild(
+                                wrap
+                            );
+                        };
+
+                        reader.readAsDataURL(
+                            file
+                        );
+                    }
+                );
             };
 
-            fileInput.addEventListener('change', (e) => {
-                handleFiles(e.target.files);
-            });
+            fileInput.onchange = (event) => {
+                handleFiles(
+                    event.target.files
+                );
+            };
 
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('drag-over');
-            });
+            dropZone.ondragover = (event) => {
+                event.preventDefault();
 
-            dropZone.addEventListener('dragleave', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('drag-over');
-            });
+                dropZone.classList.add(
+                    'drag-over'
+                );
+            };
 
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('drag-over');
+            dropZone.ondragleave = (event) => {
+                event.preventDefault();
 
-                const files = e.dataTransfer.files;
-                if (!files || files.length === 0) return;
+                dropZone.classList.remove(
+                    'drag-over'
+                );
+            };
 
-                const validFiles = Array.from(files).filter(f => f.type.match('image.*'));
-                if (validFiles.length === 0) {
-                    alert('File yang di-drop bukan gambar.');
+            dropZone.ondrop = (event) => {
+                event.preventDefault();
+
+                dropZone.classList.remove(
+                    'drag-over'
+                );
+
+                const files =
+                    event.dataTransfer.files;
+
+                if (
+                    !files
+                    || files.length === 0
+                ) {
                     return;
                 }
 
-                const dt = new DataTransfer();
-                validFiles.forEach(f => dt.items.add(f));
-                fileInput.files = dt.files;
+                const validFiles =
+                    Array.from(files).filter(
+                        (file) =>
+                            file.type.match(
+                                'image.*'
+                            )
+                    );
+
+                if (
+                    validFiles.length === 0
+                ) {
+                    alert(
+                        'File yang di-drop bukan gambar.'
+                    );
+
+                    return;
+                }
+
+                const dataTransfer =
+                    new DataTransfer();
+
+                validFiles.forEach((file) => {
+                    dataTransfer.items.add(
+                        file
+                    );
+                });
+
+                fileInput.files =
+                    dataTransfer.files;
 
                 handleFiles(validFiles);
-            });
+            };
         }
     };
 
@@ -2470,6 +3284,210 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
     };
+
+    const initAttireCodeModals = () => {
+    const createBackdrop =
+        document.getElementById(
+            'backdropCreateAttireCode'
+        );
+
+    const createModal =
+        document.getElementById(
+            'modalCreateAttireCode'
+        );
+
+    const editBackdrop =
+        document.getElementById(
+            'backdropEditAttireCode'
+        );
+
+    const editModal =
+        document.getElementById(
+            'modalEditAttireCode'
+        );
+
+    const editForm =
+        document.getElementById(
+            'editAttireCodeForm'
+        );
+
+        if (
+            !createBackdrop
+            || !createModal
+            || !editBackdrop
+            || !editModal
+            || !editForm
+        ) {
+            return;
+        }
+
+        const setFloatingHidden = (hidden) => {
+            document
+                .querySelectorAll(
+                    '.wa-float, .section-float'
+                )
+                .forEach((element) => {
+                    element.classList.toggle(
+                        'hide',
+                        hidden
+                    );
+                });
+        };
+
+        const openModal = (backdrop, modal) => {
+            backdrop.classList.add('show');
+            modal.classList.add('show');
+
+            modal.setAttribute(
+                'aria-hidden',
+                'false'
+            );
+
+            document.body.style.overflow = 'hidden';
+
+            setFloatingHidden(true);
+        };
+
+        const closeModal = (backdrop, modal) => {
+            backdrop.classList.remove('show');
+            modal.classList.remove('show');
+
+            modal.setAttribute(
+                'aria-hidden',
+                'true'
+            );
+
+            document.body.style.overflow = '';
+
+            setFloatingHidden(false);
+        };
+
+        const openCreateButton =
+            document.getElementById(
+                'btn-open-attirecode-create'
+            );
+
+        if (openCreateButton) {
+            openCreateButton.onclick = () => {
+                openModal(
+                    createBackdrop,
+                    createModal
+                );
+            };
+        }
+
+        document.getElementById(
+            'btnCloseCreateAttireCode'
+        ).onclick = () => {
+            closeModal(
+                createBackdrop,
+                createModal
+            );
+        };
+
+        document.getElementById(
+            'btnCloseCreateAttireCode2'
+        ).onclick = () => {
+            closeModal(
+                createBackdrop,
+                createModal
+            );
+        };
+
+        document.getElementById(
+            'btnCloseEditAttireCode'
+        ).onclick = () => {
+            closeModal(
+                editBackdrop,
+                editModal
+            );
+        };
+
+        document.getElementById(
+            'btnCloseEditAttireCode2'
+        ).onclick = () => {
+            closeModal(
+                editBackdrop,
+                editModal
+            );
+        };
+
+        createBackdrop.onclick = (event) => {
+            if (event.target === createBackdrop) {
+                closeModal(
+                    createBackdrop,
+                    createModal
+                );
+            }
+        };
+
+        editBackdrop.onclick = (event) => {
+            if (event.target === editBackdrop) {
+                closeModal(
+                    editBackdrop,
+                    editModal
+                );
+            }
+        };
+
+        document
+            .querySelectorAll(
+                '.btn-edit-attirecode'
+            )
+            .forEach((button) => {
+                button.onclick = () => {
+                    editForm.action =
+                        `${editForm.dataset.baseUrl}/${button.dataset.id}`;
+
+                    document.getElementById(
+                        'edit-attirecode-name'
+                    ).value =
+                        button.dataset.name || '';
+
+                    document.getElementById(
+                        'edit-attirecode-prefix'
+                    ).value =
+                        button.dataset.prefix || '';
+
+                    document.getElementById(
+                        'edit-attirecode-separator'
+                    ).value =
+                        button.dataset.separator || '-';
+
+                    document.getElementById(
+                        'edit-attirecode-digit'
+                    ).value =
+                        button.dataset.digitLength || 2;
+
+                    document.getElementById(
+                        'edit-attirecode-order'
+                    ).value =
+                        button.dataset.order || '';
+
+                    document.getElementById(
+                        'edit-attirecode-active'
+                    ).checked =
+                        button.dataset.active === '1';
+
+                    openModal(
+                        editBackdrop,
+                        editModal
+                    );
+                };
+            });
+
+        document
+            .querySelectorAll(
+                '#create-attirecode-prefix, #edit-attirecode-prefix'
+            )
+            .forEach((input) => {
+                input.oninput = () => {
+                    input.value = input.value
+                        .toUpperCase()
+                        .replace(/\s+/g, '');
+                };
+            });
+    };
     
     /* ============ INIT PER PAGE ============ */
     const initPageScripts = () => {
@@ -2495,6 +3513,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initPackageLabelModals();
         initLibraryCatalogueTabs();
         initFeedbackModal();
+        initAttireCodeModals();
     };
 
     /* ============ AJAX LOAD + HISTORY ============ */

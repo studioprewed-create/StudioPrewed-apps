@@ -33,69 +33,131 @@
 @endif
 
 <div class="tables">
-        {{-- =====================  TEMA BAJU  ===================== --}}
     <div>
-        <div class="h3">Tema Baju</div>
+        <div class="h3">Attire</div>
 
         @if(($temas ?? collect())->isEmpty())
             <div class="alert alert-info">
                 <i class="fa-solid fa-circle-info"></i>
-                Belum ada tema baju. Klik <b>Tambah Tema Baju</b> untuk menambahkan.
+                Belum ada Attire.
             </div>
         @else
             <div class="grid-cards sm">
                 @foreach($temas as $t)
                     <div class="card-elev">
                         <div class="ratio-3x4">
-                            <img src="{{ $t->main_image }}" alt="{{ $t->nama }}">
+                            <img src="{{ $t->main_image }}"
+                                alt="{{ $t->nama }}">
                         </div>
 
                         <div class="card-body">
                             <div class="card-head">
                                 <div>
-                                    <div class="title">{{ $t->nama }}</div>
-                                    <div class="small muted">{{ $t->kode }}</div>
+                                    <div class="title">
+                                        {{ $t->nama }}
+                                    </div>
+
+                                    <div class="small muted">
+                                        {{ $t->kode }}
+                                    </div>
                                 </div>
+
                                 <span class="role-badge {{ $t->active ? 'badge-active' : 'badge-inactive' }}">
                                     {{ $t->active ? 'ACTIVE' : 'INACTIVE' }}
                                 </span>
                             </div>
 
-                            <div class="price">Rp {{ number_format($t->harga,0,',','.') }}</div>
-
-                            <div class="chips">
-                                <span><i class="fa-solid fa-ruler"></i> {{ $t->ukuran }}</span>
-                                <span><i class="fa-solid fa-layer-group"></i> {{ $t->tipe }}</span>
-                                <span><i class="fa-solid fa-user-tie"></i> {{ $t->designer }}</span>
+                            <div class="price">
+                                Rp {{ number_format($t->harga, 0, ',', '.') }}
                             </div>
 
-                            @if($t->detail)
-                                <p class="muted">{{ \Illuminate\Support\Str::limit($t->detail, 120) }}</p>
+                            <div class="chips">
+                                <span>
+                                    <i class="fa-solid fa-user-tie"></i>
+
+                                    {{ $t->designerBrand?->nama_brand
+                                        ?? $t->designer
+                                        ?? '-' }}
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-layer-group"></i>
+
+                                    {{ $t->tipeAttire?->content
+                                        ?? $t->tipe
+                                        ?? '-' }}
+                                </span>
+
+                                @if($t->warna)
+                                    <span>
+                                        <i class="fa-solid fa-palette"></i>
+                                        {{ $t->warna }}
+                                    </span>
+                                @endif
+
+                                <span>
+                                    {{ strtoupper($t->status ?? 'ready') }}
+                                </span>
+                            </div>
+
+                            @if($t->label_items->isNotEmpty())
+                                <div class="chips">
+                                    @foreach($t->label_items as $label)
+                                        <span>
+                                            {{ $label->name }}
+                                        </span>
+                                    @endforeach
+                                </div>
                             @endif
 
                             <div class="card-actions">
-                                {{-- Edit Tema --}}
                                 <button type="button"
                                     class="btn btn-outline btn-edit-tema"
-                                    title="Edit tema baju"
+
                                     data-id="{{ $t->id }}"
                                     data-nama="{{ $t->nama }}"
                                     data-kode="{{ $t->kode }}"
                                     data-harga="{{ $t->harga }}"
-                                    data-ukuran="{{ $t->ukuran }}"
-                                    data-tipe="{{ $t->tipe }}"
-                                    data-designer="{{ $t->designer }}"
-                                    data-detail="{{ $t->detail }}"
-                                    data-images='@json($t->all_image_urls)'>
+
+                                    data-brand-id="{{ $t->data_brand_id }}"
+                                    data-konsep-attire-id="{{ $t->konsep_attire_id }}"
+
+                                    data-warna="{{ $t->warna }}"
+                                    data-ukuran-pria="{{ $t->ukuran_pria }}"
+                                    data-ukuran-wanita="{{ $t->ukuran_wanita }}"
+
+                                    data-status="{{ $t->status }}"
+                                    data-order="{{ $t->order }}"
+                                    data-active="{{ $t->active ? 1 : 0 }}"
+
+                                    data-label-ids='{{ e(json_encode($t->label_ids ?? [])) }}'
+
+                                    data-details='{{ e(
+                                        $t->details
+                                            ->map(fn($detail) => [
+                                                "group" => $detail->group,
+                                                "content" => $detail->content,
+                                                "order" => $detail->order,
+                                            ])
+                                            ->values()
+                                            ->toJson()
+                                    ) }}'
+
+                                    data-images='{{ e(json_encode($t->all_image_urls)) }}'>
+
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
 
-                                {{-- Hapus --}}
-                                <form action="{{ route('executive.tema_baju.destroy', $t->id) }}" method="POST"
-                                      onsubmit="return confirm('Yakin hapus tema {{ $t->nama }}?')">
+                                <form action="{{ route('executive.tema_baju.destroy', $t->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin hapus Attire {{ $t->nama }}?')">
+
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger" type="submit" title="Hapus">
+
+                                    <button class="btn btn-danger"
+                                        type="submit">
+
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
