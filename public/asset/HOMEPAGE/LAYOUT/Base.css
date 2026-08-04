@@ -260,14 +260,6 @@ h1, h2, h3, h4 {
     transform: translateY(20px);
 }
 
-.wa-float--first {
-    bottom: 24px;
-}
-
-.wa-float--second {
-    bottom: 92px;
-}
-
 .global-success-alert{
     position: fixed;
 
@@ -673,14 +665,6 @@ body.light-mode{
         font-size: 12px;
         padding: 8px 10px;
         max-width: 140px;
-    }
-
-    .wa-float--first {
-        bottom: 18px;
-    }
-
-    .wa-float--second {
-        bottom: 80px;
     }
 
 }

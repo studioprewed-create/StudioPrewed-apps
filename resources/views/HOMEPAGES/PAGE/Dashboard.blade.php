@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,15 +19,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-    </style>
+  <style>
+  </style>
 </head>
-
 <body>
-    @if (session('success'))
+    @if(session('success'))
         <div class="global-success-alert" id="successAlert">
             {{ session('success') }}
         </div>
@@ -44,11 +41,16 @@
         @include('HOMEPAGES.SECTION.FAQ')
         @include('HOMEPAGES.SECTION.Footer')
     </main>
-    <script type="module" src="{{ asset('public/asset/HOMEPAGE/JSHOME/app.js') }}"></script>
-    <script src="{{ asset('public/asset/HOMEPAGE/JSHOME/Theme.js') }}"></script>
+ <script type="module" src="{{ asset('public/asset/HOMEPAGE/JSHOME/app.js') }}"></script>
+ <script src="{{ asset('public/asset/HOMEPAGE/JSHOME/Theme.js') }}"></script>
 
-    <a href="#aboutSection" class="section-float" data-down-target="#aboutSection" data-down-text="Explore Home"
-        data-up-target="#home" data-up-text="Back To Top" aria-label="Scroll Navigation">
+    <a href="#aboutSection"
+        class="section-float"
+        data-down-target="#aboutSection"
+        data-down-text="Explore Home"
+        data-up-target="#home"
+        data-up-text="Back To Top"
+        aria-label="Scroll Navigation">
 
         <span class="section-text">
             Explore Home
@@ -66,20 +68,14 @@
 
     </button> --}}
 
-    <a href="https://wa.me/6285295251525" class="wa-float wa-float--first" target="_blank" rel="noopener noreferrer"
-        aria-label="Hubungi Admin Studio">
-
-        <span class="wa-text">Admin Studio</span>
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <a href="https://wa.me/628195042022" class="wa-float wa-float--second" target="_blank" rel="noopener noreferrer"
-        aria-label="Hubungi Admin Booking">
-
-        <span class="wa-text">Admin Booking</span>
+    <a href="https://wa.me/628195042022"
+        class="wa-float"
+        target="_blank"
+        aria-label="Chat WhatsApp">
+            
+        <span class="wa-text">Hubungi Kami</span>
         <i class="fab fa-whatsapp"></i>
     </a>
 
 </body>
-
 </html>

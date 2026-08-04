@@ -52,17 +52,12 @@
 
     </button> --}}
 
-    <a href="https://wa.me/6285295251525" class="wa-float wa-float--first" target="_blank" rel="noopener noreferrer"
-        aria-label="Hubungi Admin Studio">
-
-        <span class="wa-text">Admin Studio</span>
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <a href="https://wa.me/628195042022" class="wa-float wa-float--second" target="_blank" rel="noopener noreferrer"
-        aria-label="Hubungi Admin Booking">
-
-        <span class="wa-text">Admin Booking</span>
+    <a href="https://wa.me/628195042022"
+        class="wa-float"
+        target="_blank"
+        aria-label="Chat WhatsApp">
+            
+        <span class="wa-text">Hubungi Kami</span>
         <i class="fab fa-whatsapp"></i>
     </a>
 </body>
