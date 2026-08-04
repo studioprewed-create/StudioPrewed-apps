@@ -2,58 +2,158 @@ export function initBase() {
     const header = document.getElementById('siteHeader');
     const navLinks = document.querySelectorAll("nav a");
     const mapEl = document.getElementById('map');
+    const waWrapper = document.querySelector(".wa-wrapper");
     const wa = document.querySelector(".wa-float");
+    const waMenu = document.querySelector(".wa-menu");
+    const waText = document.querySelector(".wa-text");
     const sectionFloat = document.querySelector(".section-float");
     const initialHash = window.location.hash;
 
     if (header) {
         const onScrollHeader = () => {
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         };
         onScrollHeader();
         window.addEventListener('scroll', onScrollHeader);
     }
 
-    if (mapEl && window.L) {
-        const map = L.map(mapEl).setView([-6.8845402, 107.6135556], 17);
+    if (
+        mapEl &&
+        window.L &&
+        !mapEl._leaflet_id
+    ) {
+        const map = window.L
+            .map(mapEl)
+            .setView(
+                [-6.8845402, 107.6135556],
+                17
+            );
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        window.L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }
+        ).addTo(map);
 
-        L.marker([-6.8845402, 107.6135556]).addTo(map)
-        .bindPopup("<b>Studio Prewed</b><br>Jl. Ir. H. Juanda No.185, Simpang, Dago, Kecamatan Coblong, Kota Bandung, Jawa Barat 40135")
-        .openPopup();
+        window.L
+            .marker([-6.8845402, 107.6135556])
+            .addTo(map)
+            .bindPopup(
+                "<b>Studio Prewed</b><br>" +
+                "Jl. Ir. H. Juanda No.185, Simpang, Dago, " +
+                "Kecamatan Coblong, Kota Bandung, Jawa Barat 40135"
+            )
+            .openPopup();
     }
 
     if (navLinks.length) {
         navLinks.forEach(link => {
-        link.addEventListener("click", function () {
-            navLinks.forEach(l => l.classList.remove("active"));
-            this.classList.add("active");
-        });
+            link.addEventListener("click", function () {
+                navLinks.forEach(l => l.classList.remove("active"));
+                this.classList.add("active");
+            });
         });
     }
 
-    if (wa) {
-        function showText() {
+    if (
+        waWrapper &&
+        wa &&
+        waMenu &&
+        wa.dataset.initialized !== "true"
+    ) {
+        wa.dataset.initialized = "true";
 
-        // 🔥 kalau lagi di-hide (misal modal buka), skip
-        if (wa.classList.contains('hide')) return;
+        function closeWaMenu() {
+            waWrapper.classList.remove("is-open");
+            wa.setAttribute("aria-expanded", "false");
 
-        wa.classList.add("show");
+            if (waText) {
+                waText.textContent = "Hubungi Kami";
+            }
 
-        setTimeout(() => {
             wa.classList.remove("show");
-        }, 4000);
         }
 
+        function openWaMenu() {
+            waWrapper.classList.add("is-open");
+            wa.setAttribute("aria-expanded", "true");
+
+            if (waText) {
+                waText.textContent = "Pilih Admin";
+            }
+
+            wa.classList.add("show");
+        }
+
+        function showText() {
+            if (!wa.isConnected) return;
+            if (wa.classList.contains("hide")) return;
+            if (waWrapper.classList.contains("is-open")) return;
+
+            wa.classList.add("show");
+
+            setTimeout(() => {
+                if (
+                    wa.isConnected &&
+                    !waWrapper.classList.contains("is-open")
+                ) {
+                    wa.classList.remove("show");
+                }
+            }, 4000);
+        }
+
+        wa.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            const isOpen =
+                waWrapper.classList.contains("is-open");
+
+            if (isOpen) {
+                closeWaMenu();
+            } else {
+                openWaMenu();
+            }
+        });
+
+        waMenu.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            const option =
+                event.target.closest(".wa-option");
+
+            if (option) {
+                closeWaMenu();
+            }
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!waWrapper.contains(event.target)) {
+                closeWaMenu();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeWaMenu();
+            }
+        });
+
         setTimeout(showText, 2000);
-        setInterval(showText, 10000);
+
+        const waTextInterval = setInterval(() => {
+            if (!wa.isConnected) {
+                clearInterval(waTextInterval);
+                return;
+            }
+
+            showText();
+        }, 10000);
     }
 
     if (sectionFloat) {
@@ -179,54 +279,54 @@ export function initScrollLink() {
 
     if (!links.length) return;
 
-        links.forEach(link => {
-            link.addEventListener('click', function (e) {
+    links.forEach(link => {
+        link.addEventListener('click', function (e) {
 
-                const targetId = this.dataset.target;
-                const target   = document.getElementById(targetId);
+            const targetId = this.dataset.target;
+            const target = document.getElementById(targetId);
 
-                if (!target) return;
+            if (!target) return;
 
-                e.preventDefault();
-                const header = document.getElementById('siteHeader');
-                const offset = header ? header.offsetHeight : 0;
+            e.preventDefault();
+            const header = document.getElementById('siteHeader');
+            const offset = header ? header.offsetHeight : 0;
 
-                const top = target.offsetTop - offset;
+            const top = target.offsetTop - offset;
 
-                window.scrollTo({
-                    top: top,
-                    behavior: 'smooth'
-                });
-
+            window.scrollTo({
+                top: top,
+                behavior: 'smooth'
             });
+
         });
+    });
 }
 
 export function initSmoothScroll() {
     const headerEl = document.querySelector('header');
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', e => {
             const href = anchor.getAttribute('href');
             if (!href || href === '#') return;
 
             const slideTarget = document.querySelector('#tSlider .slides ' + href);
             if (slideTarget) {
-            e.preventDefault();
+                e.preventDefault();
 
-            if (location.hash !== href) {
-                location.hash = href;
-            } else {
-                window.dispatchEvent(new Event('hashchange'));
-            }
+                if (location.hash !== href) {
+                    location.hash = href;
+                } else {
+                    window.dispatchEvent(new Event('hashchange'));
+                }
 
-            const testiSec = document.getElementById('testi');
-            if (testiSec) {
-                const headerH = headerEl ? headerEl.offsetHeight : 0;
-                const y = testiSec.getBoundingClientRect().top + window.scrollY - headerH;
-                window.scrollTo({ top: y, behavior: 'smooth' });
-            }
-            return;
+                const testiSec = document.getElementById('testi');
+                if (testiSec) {
+                    const headerH = headerEl ? headerEl.offsetHeight : 0;
+                    const y = testiSec.getBoundingClientRect().top + window.scrollY - headerH;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+                return;
             }
 
             const targetElement = document.querySelector(href);
@@ -248,13 +348,13 @@ export function initSuccessAlert() {
 
     setTimeout(() => {
 
-      alertBox.style.transition = 'all .4s ease';
-      alertBox.style.opacity = '0';
-      alertBox.style.transform = 'translateY(-10px)';
+        alertBox.style.transition = 'all .4s ease';
+        alertBox.style.opacity = '0';
+        alertBox.style.transform = 'translateY(-10px)';
 
-      setTimeout(() => {
-        alertBox.remove();
-      }, 400);
+        setTimeout(() => {
+            alertBox.remove();
+        }, 400);
 
     }, 4000);
 
@@ -264,22 +364,22 @@ export function initScrollAnimations() {
     const animatedEls = document.querySelectorAll(
         '.service-card, .gallery-item, .stat-item, .review-card, .social-card'
     );
-        if (!animatedEls.length) return;
+    if (!animatedEls.length) return;
 
-        animatedEls.forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        });
+    animatedEls.forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
 
     function animateOnScroll() {
         animatedEls.forEach(el => {
-        const elementPosition = el.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-        if (elementPosition < screenPosition) {
-            el.style.opacity = 1;
-            el.style.transform = 'translateY(0)';
-        }
+            const elementPosition = el.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            if (elementPosition < screenPosition) {
+                el.style.opacity = 1;
+                el.style.transform = 'translateY(0)';
+            }
         });
     }
 
@@ -317,12 +417,12 @@ export function initLandingEffects() {
 
     if (!prefersReduced && 'IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-            e.target.classList.add('reveal-visible');
-            obs.unobserve(e.target);
-            }
-        });
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('reveal-visible');
+                    obs.unobserve(e.target);
+                }
+            });
         }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
         revealEls.forEach(el => io.observe(el));
@@ -333,53 +433,53 @@ export function initLandingEffects() {
     if (!prefersReduced && pointerFine) {
         const tiltEls = $$('#about .mosaic-item, #portrait-services .f-card, #whatWeDo .process-item');
         tiltEls.forEach(card => {
-        const glare = document.createElement('span');
-        glare.className = 'tilt-glare';
-        card.appendChild(glare);
+            const glare = document.createElement('span');
+            glare.className = 'tilt-glare';
+            card.appendChild(glare);
 
-        let rx = 0, ry = 0, tx = 0, ty = 0, raf = null, hover = false;
-        const MAX = 6, EASE = 0.12;
+            let rx = 0, ry = 0, tx = 0, ty = 0, raf = null, hover = false;
+            const MAX = 6, EASE = 0.12;
 
-        const loop = () => {
-            tx += (rx - tx) * EASE;
-            ty += (ry - ty) * EASE;
-            card.style.transform =
-            `perspective(900px) rotateX(${tx.toFixed(2)}deg) rotateY(${ty.toFixed(2)}deg)`;
-            if (hover || Math.abs(tx - rx) > 0.01 || Math.abs(ty - ry) > 0.01) {
-            raf = requestAnimationFrame(loop);
-            } else {
-            cancelAnimationFrame(raf);
-            raf = null;
-            }
-        };
+            const loop = () => {
+                tx += (rx - tx) * EASE;
+                ty += (ry - ty) * EASE;
+                card.style.transform =
+                    `perspective(900px) rotateX(${tx.toFixed(2)}deg) rotateY(${ty.toFixed(2)}deg)`;
+                if (hover || Math.abs(tx - rx) > 0.01 || Math.abs(ty - ry) > 0.01) {
+                    raf = requestAnimationFrame(loop);
+                } else {
+                    cancelAnimationFrame(raf);
+                    raf = null;
+                }
+            };
 
-        const onMove = e => {
-            const r = card.getBoundingClientRect();
-            const cx = r.left + r.width / 2;
-            const cy = r.top + r.height / 2;
-            const dx = (e.clientX - cx) / (r.width / 2);
-            const dy = (e.clientY - cy) / (r.height / 2);
-            rx = Math.max(-MAX, Math.min(MAX, -dy * MAX));
-            ry = Math.max(-MAX, Math.min(MAX, dx * MAX));
+            const onMove = e => {
+                const r = card.getBoundingClientRect();
+                const cx = r.left + r.width / 2;
+                const cy = r.top + r.height / 2;
+                const dx = (e.clientX - cx) / (r.width / 2);
+                const dy = (e.clientY - cy) / (r.height / 2);
+                rx = Math.max(-MAX, Math.min(MAX, -dy * MAX));
+                ry = Math.max(-MAX, Math.min(MAX, dx * MAX));
 
-            const px = ((e.clientX - r.left) / r.width) * 100;
-            const py = ((e.clientY - r.top) / r.height) * 100;
-            glare.style.background =
-            `radial-gradient(circle at ${px}% ${py}%, rgba(255,195,55,.35), rgba(255,255,255,0) 45%)`;
-            if (!raf) loop();
-        };
+                const px = ((e.clientX - r.left) / r.width) * 100;
+                const py = ((e.clientY - r.top) / r.height) * 100;
+                glare.style.background =
+                    `radial-gradient(circle at ${px}% ${py}%, rgba(255,195,55,.35), rgba(255,255,255,0) 45%)`;
+                if (!raf) loop();
+            };
 
-        const onEnter = () => { hover = true; card.classList.add('has-tilt-hover'); };
-        const onLeave = () => {
-            hover = false;
-            card.classList.remove('has-tilt-hover');
-            rx = 0; ry = 0;
-            if (!raf) loop();
-        };
+            const onEnter = () => { hover = true; card.classList.add('has-tilt-hover'); };
+            const onLeave = () => {
+                hover = false;
+                card.classList.remove('has-tilt-hover');
+                rx = 0; ry = 0;
+                if (!raf) loop();
+            };
 
-        card.addEventListener('pointerenter', onEnter, { passive: true });
-        card.addEventListener('pointermove', onMove, { passive: true });
-        card.addEventListener('pointerleave', onLeave, { passive: true });
+            card.addEventListener('pointerenter', onEnter, { passive: true });
+            card.addEventListener('pointermove', onMove, { passive: true });
+            card.addEventListener('pointerleave', onLeave, { passive: true });
         });
     }
 
@@ -396,13 +496,13 @@ export function initLandingEffects() {
             const value = Math.floor(progress * target).toLocaleString() + suffix;
             el.textContent = value;
             if (progress < 1) requestAnimationFrame(update);
-            };
+        };
 
         const obs = new IntersectionObserver(entries => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
-                requestAnimationFrame(update);
-                obs.unobserve(el);
+                    requestAnimationFrame(update);
+                    obs.unobserve(el);
                 }
             });
         }, { threshold: 0.6 });
@@ -411,9 +511,9 @@ export function initLandingEffects() {
     });
 }
 
-export function enableModalBackClose(modal,closeCallback) {
+export function enableModalBackClose(modal, closeCallback) {
 
-        if (!modal) return;
+    if (!modal) return;
 
     if (!history.state?.modalOpen) {
 
