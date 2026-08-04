@@ -52,32 +52,18 @@
 
     </button> --}}
 
-    <div class="wa-wrapper">
-        <div class="wa-contact-list" id="waContactList">
-            <a href="https://wa.me/6285295251525" class="wa-contact-item" target="_blank" rel="noopener noreferrer">
-                <span>
-                    <strong>Admin Studio</strong>
-                    <small>0852-9525-1525</small>
-                </span>
+    <a href="https://wa.me/6285295251525" class="wa-float wa-float--first" target="_blank" rel="noopener noreferrer"
+        aria-label="Hubungi Admin Studio">
 
-                <i class="fab fa-whatsapp"></i>
-            </a>
+        <span class="wa-text">Admin Studio</span>
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-            <a href="https://wa.me/628195042022" class="wa-contact-item" target="_blank" rel="noopener noreferrer">
-                <span>
-                    <strong>Admin Booking</strong>
-                    <small>0819-5042-022</small>
-                </span>
+    <a href="https://wa.me/628195042022" class="wa-float wa-float--second" target="_blank" rel="noopener noreferrer"
+        aria-label="Hubungi Admin Booking">
 
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </div>
-
-        <button type="button" class="wa-float" id="waFloatButton" aria-label="Pilih kontak WhatsApp"
-            aria-expanded="false">
-            <span class="wa-text">Hubungi Kami</span>
-            <i class="fab fa-whatsapp wa-main-icon"></i>
-        </button>
-    </div>
+        <span class="wa-text">Admin Booking</span>
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 </html>
