@@ -100,7 +100,7 @@
             <a href="https://wa.me/6285295251525" class="wa-option" target="_blank" rel="noopener noreferrer">
 
                 <span class="wa-option-content">
-                    <strong>Admin Studio Utama</strong>
+                    <strong>Admin Studio 1st</strong>
                     <small>Informasi dan konsultasi</small>
                 </span>
 
@@ -110,7 +110,7 @@
             <a href="https://wa.me/628195042022" class="wa-option" target="_blank" rel="noopener noreferrer">
 
                 <span class="wa-option-content">
-                    <strong>Admin Studio</strong>
+                    <strong>Admin Studio 2nd</strong>
                     <small>Informasi dan konsultasi</small>
                 </span>
 
