@@ -440,7 +440,7 @@
         </div>
 
         <div class="modal-body">
-            <form action="{{ route('executive.tema_baju.store') }}"
+            <form action="{{ route('executive.homepages.store', ['section' => 'temabaju']) }}"
                 method="POST"
                 enctype="multipart/form-data"
                 id="formCreateTema">

@@ -87,13 +87,32 @@
 
     </button> --}}
 
-    <a href="https://wa.me/628195042022"
-        class="wa-float"
-        target="_blank"
-        aria-label="Chat WhatsApp">
-            
-        <span class="wa-text">Hubungi Kami</span>
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div class="wa-wrapper">
+        <div class="wa-contact-list" id="waContactList">
+            <a href="https://wa.me/6285295251525" class="wa-contact-item" target="_blank" rel="noopener noreferrer">
+                <span>
+                    <strong>Admin Studio</strong>
+                    <small>0852-9525-1525</small>
+                </span>
+
+                <i class="fab fa-whatsapp"></i>
+            </a>
+
+            <a href="https://wa.me/628195042022" class="wa-contact-item" target="_blank" rel="noopener noreferrer">
+                <span>
+                    <strong>Admin Booking</strong>
+                    <small>0819-5042-022</small>
+                </span>
+
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <button type="button" class="wa-float" id="waFloatButton" aria-label="Pilih kontak WhatsApp"
+            aria-expanded="false">
+            <span class="wa-text">Hubungi Kami</span>
+            <i class="fab fa-whatsapp wa-main-icon"></i>
+        </button>
+    </div>
 </body>
 </html>

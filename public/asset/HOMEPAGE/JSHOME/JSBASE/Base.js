@@ -2,7 +2,9 @@ export function initBase() {
     const header = document.getElementById('siteHeader');
     const navLinks = document.querySelectorAll("nav a");
     const mapEl = document.getElementById('map');
-    const wa = document.querySelector(".wa-float");
+    const waWrapper = document.querySelector(".wa-wrapper");
+    const wa = document.querySelector("#waFloatButton");
+    const waContactList = document.querySelector("#waContactList");
     const sectionFloat = document.querySelector(".section-float");
     const initialHash = window.location.hash;
 
@@ -39,18 +41,54 @@ export function initBase() {
         });
     }
 
-    if (wa) {
-        function showText() {
-
-        // 🔥 kalau lagi di-hide (misal modal buka), skip
-        if (wa.classList.contains('hide')) return;
-
-        wa.classList.add("show");
-
-        setTimeout(() => {
-            wa.classList.remove("show");
-        }, 4000);
+    if (waWrapper && wa && waContactList) {
+        function closeWaContact() {
+            waWrapper.classList.remove("is-open");
+            wa.setAttribute("aria-expanded", "false");
         }
+
+        function showText() {
+            // Kalau sedang disembunyikan atau pilihan nomor terbuka, hentikan animasi
+            if (
+                wa.classList.contains("hide") ||
+                waWrapper.classList.contains("is-open")
+            ) {
+                return;
+            }
+
+            wa.classList.add("show");
+
+            setTimeout(() => {
+                wa.classList.remove("show");
+            }, 4000);
+        }
+
+        wa.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            const isOpen = waWrapper.classList.toggle("is-open");
+
+            wa.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+
+            if (isOpen) {
+                wa.classList.remove("show");
+            }
+        });
+
+        waContactList.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+
+        document.addEventListener("click", closeWaContact);
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeWaContact();
+            }
+        });
 
         setTimeout(showText, 2000);
         setInterval(showText, 10000);

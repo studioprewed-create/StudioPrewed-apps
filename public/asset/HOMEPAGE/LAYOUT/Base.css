@@ -260,6 +260,111 @@ h1, h2, h3, h4 {
     transform: translateY(20px);
 }
 
+.wa-wrapper {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+}
+
+.wa-wrapper .wa-float {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    border: none;
+    cursor: pointer;
+}
+
+.wa-contact-list {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 14px);
+    width: 260px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(.97);
+    transform-origin: bottom right;
+    pointer-events: none;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease,
+        transform .25s ease;
+}
+
+.wa-wrapper.is-open .wa-contact-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.wa-contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 13px 15px;
+    color: #f3f3f3;
+    text-decoration: none;
+
+    background: rgba(22, 22, 22, .96);
+    border: 1px solid rgba(183, 131, 95, .35);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        transform .2s ease;
+}
+
+.wa-contact-item:hover {
+    color: #ffffff;
+    background: rgba(111, 71, 39, .96);
+    border-color: rgba(243, 238, 233, .65);
+    transform: translateX(-4px);
+}
+
+.wa-contact-item span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.wa-contact-item strong {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.wa-contact-item small {
+    color: #a4a4a4;
+    font-size: 11px;
+}
+
+.wa-contact-item:hover small {
+    color: #f3eee9;
+}
+
+.wa-contact-item i {
+    color: #25d366;
+    font-size: 24px;
+}
+
+.wa-wrapper.is-open .wa-main-icon {
+    transform: rotate(15deg);
+}
+
+.wa-main-icon {
+    transition: transform .25s ease;
+}
+
 .global-success-alert{
     position: fixed;
 
@@ -665,6 +770,15 @@ body.light-mode{
         font-size: 12px;
         padding: 8px 10px;
         max-width: 140px;
+    }
+
+    .wa-wrapper {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .wa-contact-list {
+        width: min(260px, calc(100vw - 32px));
     }
 
 }
