@@ -73,13 +73,6 @@
 
     </a>
 
-    {{-- <button id="themeToggle"
-        class="theme-toggle"
-        aria-label="Toggle Theme">
-
-        <i class="fas fa-moon"></i>
-
-    </button> --}}
 
     <div class="wa-wrapper">
         <button type="button" class="wa-float" id="waFloatButton" aria-label="Pilih kontak WhatsApp"

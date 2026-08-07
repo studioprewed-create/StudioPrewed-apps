@@ -12,11 +12,7 @@
         $prevId = $temasArr[$prevIdx]->id;
         $nextId = $temasArr[$nextIdx]->id;
 
-        $imgs = $t->images ? json_decode($t->images, true) : [];
-        $imgUrls = collect($imgs)->map(fn($p) => asset('public/storage/' . $p))->all();
-        if (empty($imgUrls)) {
-            $imgUrls = [asset('asset/IMGhome/bg1.jpg')];
-        }
+        $imgUrls = $t->all_image_urls;
     @endphp
 
     <div class="pkg-modal" id="temaModal-{{ $t->id }}" role="dialog" aria-hidden="true">

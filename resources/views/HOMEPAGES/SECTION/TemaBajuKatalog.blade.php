@@ -35,15 +35,9 @@
                 @endfor
             @else
                 @foreach ($temas as $t)
-                    @php
-                        $images = $t->images ? json_decode($t->images, true) : [];
-                        $first = count($images)
-                            ? asset('public/storage/' . $images[0])
-                            : asset('asset/IMGhome/bg1.jpg');
-                    @endphp
 
                     <div class="gallery-card" data-category="{{ $t->slug }}">
-                        <img src="{{ $first }}" alt="{{ $t->nama }}">
+                        <img src="{{ $t->main_image }}" alt="{{ $t->nama }}">
 
                         <div class="gallery-overlay">
                             <h3>{{ $t->nama }}</h3>
